@@ -19,6 +19,7 @@
 #define X_SHORT_MAX     SHRT_MAX
 #define X_SHORT_MIN     SHRT_MIN
 
+#include "mesh_values.hpp"
 namespace xios
 {
       extern CLogType logProfile ;
@@ -750,7 +751,7 @@ namespace xios
               SuperClassWriter::addAttribute("cf_role", StdString("face_edge_connectivity"), &face_edges);
               SuperClassWriter::addAttribute("long_name", StdString("Maps every face to its edges."), &face_edges);
               SuperClassWriter::addAttribute("start_index", 0, &face_edges);
-              SuperClassWriter::addAttribute("_FillValue", 999999, &face_edges);
+              SuperClassWriter::addAttribute("_FillValue", fill_value_face_edges(), &face_edges);
               dim0.clear();
               dim0.push_back(dimEdge);
               dim0.push_back(dimTwo);
@@ -758,7 +759,7 @@ namespace xios
               SuperClassWriter::addAttribute("cf_role", StdString("edge_face_connectivity"), &edge_faces);
               SuperClassWriter::addAttribute("long_name", StdString("neighbor faces for edges"), &edge_faces);
               SuperClassWriter::addAttribute("start_index", 0, &edge_faces);
-              SuperClassWriter::addAttribute("_FillValue", -999, &edge_faces);
+              SuperClassWriter::addAttribute("_FillValue", fill_value_edge_faces(), &edge_faces);
               SuperClassWriter::addAttribute("comment", StdString("missing neighbor faces are indicated using _FillValue"), &edge_faces);
               dim0.clear();
               dim0.push_back(dimFace);
@@ -767,7 +768,7 @@ namespace xios
               SuperClassWriter::addAttribute("cf_role", StdString("face_face_connectivity"), &face_faces);
               SuperClassWriter::addAttribute("long_name", StdString("Indicates which other faces neighbor each face"), &face_faces);
               SuperClassWriter::addAttribute("start_index", 0, &face_faces);
-              SuperClassWriter::addAttribute("_FillValue", 999999, &face_faces);
+              SuperClassWriter::addAttribute("_FillValue", fill_value_face_faces(), &face_faces);
               SuperClassWriter::addAttribute("flag_values", -1, &face_faces);
               SuperClassWriter::addAttribute("flag_meanings", StdString("out_of_mesh"), &face_faces);
             } // domain->nvertex > 2
