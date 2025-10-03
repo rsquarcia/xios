@@ -416,13 +416,29 @@ namespace xios
    template <typename T>
    bool CObjectTemplate<T>::has(CContext* context, const string & id)
    {
-     return CObjectFactory::HasObject<T>(context->getId(),id);
+     if (context!=nullptr)
+     {
+       return CObjectFactory::HasObject<T>(context->getId(),id);
+     }
+     else 
+     {
+       error(0) << "WARNING: you are trying to access an invalid context for " << id << endl;
+       return false;
+     }
    }
 
    template <typename T>
    bool CObjectTemplate<T>::has(const string& contextId, const string & id)
    {
-     return CObjectFactory::HasObject<T>(contextId,id);
+     if (contextId!="")
+     {
+       return CObjectFactory::HasObject<T>(contextId,id);
+     }
+     else 
+     {
+       error(0) << "WARNING: you are trying to access an invalid context for " << id << endl;
+       return false;
+     }
    }
 
    template <typename T>

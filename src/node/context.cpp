@@ -2339,7 +2339,14 @@ void CContext::removeAllContexts(void)
    CContext* CContext::getCurrent(void)
    TRY
    {
-     return CObjectFactory::GetObject<CContext>(CObjectFactory::GetCurrentContextId(), CObjectFactory::GetCurrentContextId()).get();
+     if (CObjectFactory::GetCurrentContextId()!="")
+     {
+       return CObjectFactory::GetObject<CContext>(CObjectFactory::GetCurrentContextId(), CObjectFactory::GetCurrentContextId()).get();
+     }
+     else
+     {
+       return nullptr;
+     }
    }
    CATCH
 
