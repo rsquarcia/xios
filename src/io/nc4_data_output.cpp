@@ -29,10 +29,12 @@ namespace xios
             , SuperClassWriter(filename, exist)
             , filename(filename)
             , file(file),hasTimeInstant(false),hasTimeCentered(false), timeCounterType(none), relAxis_(), relDomains_()
-            , context_(file->getContext())
       {
         SuperClass::type = MULTI_FILE;
-        compressionLevel= file->compression_level.isEmpty() ? 0 :file->compression_level ;
+        if (file!=NULL) {
+            context_ = file->getContext();
+            compressionLevel= file->compression_level.isEmpty() ? 0 :file->compression_level ;
+        }
       }
 
       CNc4DataOutput::CNc4DataOutput
@@ -44,11 +46,12 @@ namespace xios
             , filename(filename)
             , isCollective(isCollective)
             , file(file),hasTimeInstant(false),hasTimeCentered(false), timeCounterType(none), relAxis_(), relDomains_()
-            , context_(file->getContext())
       {
         SuperClass::type = (multifile) ? MULTI_FILE : ONE_FILE;
         if (file==NULL) compressionLevel = 0 ;
         else compressionLevel= file->compression_level.isEmpty() ? 0 :file->compression_level ;
+        if (file!=NULL) context_ = file->getContext();
+
       }
 
       CNc4DataOutput::~CNc4DataOutput(void)
