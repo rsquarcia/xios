@@ -2,6 +2,7 @@
 #define __XIOS_CObjectFactory_impl__
 
 #include "object_factory.hpp"
+#include "context.hpp"
 
 namespace xios
 {

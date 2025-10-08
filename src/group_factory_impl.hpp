@@ -2,6 +2,7 @@
 #define __XIOS_CGroupFactory_impl__
 
 #include "group_factory.hpp"
+#include "context.hpp"
 
 namespace xios
 {
