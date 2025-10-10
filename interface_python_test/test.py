@@ -20,6 +20,9 @@ nj_glo             = xios.Int()
 
 #Initialization phase
 xios.initialize('client', return_comm = comm)
+model_rank = comm.rank
+model_size = comm.size
+print("My rank in the model comm :", model_rank, "/", model_size)
 
 
 # CONTEXT 1 #
@@ -29,7 +32,7 @@ xios.context_initialize('context', comm)
 xios.get_current_context(current_context_id)
 xios.get_calendar_type(calendar_type)
 
-if not rank: print(f"The type of the calendar's context \'{current_context_id}\' is {calendar_type}")
+if not model_rank: print(f"The type of the calendar's context \'{current_context_id}\' is {calendar_type}")
 
 
 
@@ -38,18 +41,18 @@ xios.set_time_origin(xios.Date(year = 2000, month = 8))
 xios.set_timestep(xios.Duration(second = 36000))
 xios.get_start_date(start_date)
 
-if not rank: print(f"The start date is {start_date}")
+if not model_rank: print(f"The start date is {start_date}")
 
 xios.get_domain_attr('domain', ni_glo = ni_glo, nj_glo = nj_glo)
 
-if not rank: print(f"The domain size is {ni_glo}*{nj_glo}")
+if not model_rank: print(f"The domain size is {ni_glo}*{nj_glo}")
 
 
 #Domain distribution only along the i coordinate
-ni_local = ni_glo // size
-ibegin = xios.Int(rank * ni_local)
+ni_local = ni_glo // model_size
+ibegin = xios.Int(model_rank * ni_local)
 
-if rank == size - 1:
+if model_rank == model_size - 1:
     ni_local = ni_glo - ibegin
 
 lonvalue = 360 * (np.arange(ibegin, ibegin + ni_local) / ni_glo) - 180
@@ -80,18 +83,18 @@ xios.define_calendar(type = 'd360')
 xios.get_current_context(current_context_id)
 xios.get_calendar_type(calendar_type)
 
-if not rank: print(f"The type of the calendar's context \'{current_context_id}\' is {calendar_type}")
+if not model_rank: print(f"The type of the calendar's context \'{current_context_id}\' is {calendar_type}")
 
 xios.set_start_date(xios.Date(year = 2000, month = 8))
 xios.set_time_origin(xios.Date(year = 2000, month = 8))
 xios.set_timestep(xios.Duration(second = 36000))
 xios.get_start_date(start_date)
 
-if not rank: print(f"The start date is {start_date}")
+if not model_rank: print(f"The start date is {start_date}")
 
 xios.get_domain_attr('domain2', ni_glo = ni_glo, nj_glo = nj_glo)
 
-if not rank: print(f"The domain size is {ni_glo}*{nj_glo}")
+if not model_rank: print(f"The domain size is {ni_glo}*{nj_glo}")
 
 xios.set_domain_attr('domain2', ni = ni_local, nj = nj_glo, ibegin = ibegin, jbegin = xios.Int(0),
                      lonvalue_1d = latvalue, latvalue_1d = latvalue)
@@ -101,7 +104,7 @@ xios.close_context_definition()
 #Building the data to be send
 ni, nj = ni_local, nj_glo.value
 x, y, z = np.indices((ni, nj, n.value))
-data = rank + 0.1 * x + 0.01 * y + 0.001 * z   #to vizualize the domain distribution
+data = model_rank + 0.1 * x + 0.01 * y + 0.001 * z   #to vizualize the domain distribution
 
 #test getVar
 # d = xios.Int()
