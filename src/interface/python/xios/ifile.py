@@ -1,5 +1,5 @@
 from ctypes import c_void_p, c_char_p, c_int, c_bool, POINTER, c_double, string_at, byref, Structure, pointer
-from xios.config import lib, String, typecheck
+from xios.config import lib, String, Bool, typecheck
 from xios.ofile_attr import File
 from xios.ofilegroup_attr import FileGroup
 from typing import Union

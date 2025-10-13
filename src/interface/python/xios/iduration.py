@@ -73,6 +73,10 @@ class Duration(Structure):
     def __eq__(self, duration): return duration_eq(self, duration)
     def __ne__(self, duration): return duration_neq(self, duration)
 
+    @property
+    def value(self):
+        return self.timestep
+
 
 #_____________________________________________________________________________________________#
 #                                    #C functions definitions                                 #
