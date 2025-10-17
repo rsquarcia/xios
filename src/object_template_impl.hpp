@@ -444,37 +444,85 @@ namespace xios
    template <typename T>
    T* CObjectTemplate<T>::get(CContext* context, const string & id)
    {
-     return CObjectFactory::GetObject<T>(context->getId(), id).get();
+     if (context!=nullptr)
+     {
+       return CObjectFactory::GetObject<T>(context->getId(), id).get();
+     }
+     else
+     {
+       error(0) << "WARNING: you are trying to access an invalid context for " << id << endl;
+       return nullptr;
+     }
    }
 
    template <typename T>
    T* CObjectTemplate<T>::get(CContext* context, const T* ptr)
    {
-     return CObjectFactory::GetObject<T>(context->getId(), ptr).get();
+     if (context!=nullptr)
+     {
+       return CObjectFactory::GetObject<T>(context->getId(), ptr).get();
+     }
+     else
+     {
+       error(0) << "WARNING: you are trying to access an invalid context" << endl;
+       return nullptr;
+     }
    }
 
    template <typename T>
    T* CObjectTemplate<T>::get(const string& contextId, const string & id)
    {
-     return CObjectFactory::GetObject<T>(contextId,id).get();
+     if (contextId!="")
+     {
+       return CObjectFactory::GetObject<T>(contextId,id).get();
+     }
+     else
+     {
+       error(0) << "WARNING: you are trying to access an invalid context for " << id << endl;
+       return nullptr;
+     }
    }
 
    template <typename T>
    T* CObjectTemplate<T>::get(void)
    {
-     return CObjectFactory::GetObject<T>(this->getContext()->getId(),(T*)this).get();
+     if (this->getContext()->getId()!="")
+     {
+       return CObjectFactory::GetObject<T>(this->getContext()->getId(),(T*)this).get();
+     }
+     else
+     {
+       error(0) << "WARNING: you are trying to access an invalid context" << endl;
+       return nullptr;
+     }
    }
 
    template <typename T>
    std::shared_ptr<T> CObjectTemplate<T>::getShared(CContext* context, const T* ptr)
    {
-     return CObjectFactory::GetObject<T>(context->getId(), ptr);
+     if (context!=nullptr)
+     {
+       return CObjectFactory::GetObject<T>(context->getId(), ptr);
+     }
+     else
+     {
+       error(0) << "WARNING: you are trying to access an invalid context" << endl;
+       return nullptr;
+     }
    }
 
    template <typename T>
    std::shared_ptr<T> CObjectTemplate<T>::getShared(void)
    {
-     return CObjectFactory::GetObject<T>(this->getContext()->getId(), (T*)this);
+     if (this->getContext()->getId()!="")
+     {
+       return CObjectFactory::GetObject<T>(this->getContext()->getId(), (T*)this);
+     }
+     else
+     {
+       error(0) << "WARNING: you are trying to access an invalid context" << endl;
+       return nullptr;
+     }
    }
 
    template <typename T>

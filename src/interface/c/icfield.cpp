@@ -88,7 +88,14 @@ extern "C"
   TRY
   {
     CTimer::get("XIOS").resume() ;
-    *ret = field_hdl->isActive(at_current_timestep);
+    if (field_hdl!=nullptr)
+    {
+      *ret = field_hdl->isActive(at_current_timestep);
+    }
+    else
+    {
+      *ret = false;
+    }
     CTimer::get("XIOS").suspend() ;
   }
   CATCH_DUMP_STACK
