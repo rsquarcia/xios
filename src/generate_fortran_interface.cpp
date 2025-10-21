@@ -12,50 +12,50 @@ int main (int argc, char ** argv, char ** UNUSED (env))
   string path="./interface/";
 
   CContext* context=CContext::create("interface");
-  CCalendarWrapper calendarWrapper;
-  CScalar scalar;
-  CScalarGroup scalargroup;
-  CAxis axis;
-  CAxisGroup axisgroup;
-  CField field;
-  CFieldGroup fieldgroup;
-  CVariable variable;
-  CVariableGroup variablegroup;
-  CDomain domain;
-  CDomainGroup domaingroup;
-  CGrid grid;
-  CGridGroup gridgroup;
+  CCalendarWrapper calendarWrapper(context);
+  CScalar scalar(context);
+  CScalarGroup scalargroup(context);
+  CAxis axis(context);
+  CAxisGroup axisgroup(context);
+  CField field(context);
+  CFieldGroup fieldgroup(context);
+  CVariable variable(context);
+  CVariableGroup variablegroup(context);
+  CDomain domain(context);
+  CDomainGroup domaingroup(context);
+  CGrid grid(context);
+  CGridGroup gridgroup(context);
 
-  CFile afile;
-  CFileGroup filegroup;
+  CFile afile(context);
+  CFileGroup filegroup(context);
 
-  CInterpolateDomain interpolateDomain;
-  CZoomDomain zoomDomain;
-  CGenerateRectilinearDomain genDomain;
-  CComputeConnectivityDomain compConDomain;
-  CExpandDomain expandDomain;
-  CReorderDomain reorderDomain;
-  CExtractDomain extractDomain;
+  CInterpolateDomain interpolateDomain(context);
+  CZoomDomain zoomDomain(context);
+  CGenerateRectilinearDomain genDomain(context);
+  CComputeConnectivityDomain compConDomain(context);
+  CExpandDomain expandDomain(context);
+  CReorderDomain reorderDomain(context);
+  CExtractDomain extractDomain(context);
 
-  CInterpolateAxis interpolateAxis;
-  CZoomAxis zoomAxis;
-  CInverseAxis inverseAxis;
-  CExtractAxis extractAxis;
+  CInterpolateAxis interpolateAxis(context);
+  CZoomAxis zoomAxis(context);
+  CInverseAxis inverseAxis(context);
+  CExtractAxis extractAxis(context);
 
-  CReduceDomainToAxis reduceDomainToAxis;
-  CReduceAxisToAxis reduceAxisToAxis;
-  CExtractDomainToAxis extractDomainToAxis;
-  CTemporalSplitting temporalSplitting;
+  CReduceDomainToAxis reduceDomainToAxis(context);
+  CReduceAxisToAxis reduceAxisToAxis(context);
+  CExtractDomainToAxis extractDomainToAxis(context);
+  CTemporalSplitting temporalSplitting(context);
 
-  CReduceAxisToScalar reduceAxisToScalar;
-  CExtractAxisToScalar extractAxisToScalar;
-  CReduceDomainToScalar reduceDomainToScalar;
-  CDuplicateScalarToAxis duplicateScalarToAxis;
-  CReduceScalarToScalar reduceScalarToScalar;
+  CReduceAxisToScalar reduceAxisToScalar(context);
+  CExtractAxisToScalar extractAxisToScalar(context);
+  CReduceDomainToScalar reduceDomainToScalar(context);
+  CDuplicateScalarToAxis duplicateScalarToAxis(context);
+  CReduceScalarToScalar reduceScalarToScalar(context);
 
-  CRedistributeDomain redistributeDomain ;
-  CRedistributeAxis   redistributeAxis ;
-  CRedistributeScalar redistributeScalar ;
+  CRedistributeDomain redistributeDomain(context) ;
+  CRedistributeAxis   redistributeAxis(context) ;
+  CRedistributeScalar redistributeScalar(context) ;
   
   ostringstream oss;
   ofstream file;
