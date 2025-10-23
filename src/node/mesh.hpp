@@ -69,7 +69,7 @@ namespace xios {
 
       void getLocalNghbFaces(const int, const CArray<int, 1>&,
                              const CArray<double, 2>&, const CArray<double, 2>&,
-                             CArray<int, 2>&, CArray<int, 1>&);
+                             CArray<int, 2>&, CArray<int, 1>&, double precision);
             
       static CMesh* getMesh(StdString, int);
 
@@ -88,8 +88,8 @@ namespace xios {
       CClientClientDHTSizet* pEdgeGlobalIndex;                    // pointer to a map <edgeHash, edgeIdxGlo>
       void getGloNghbFacesNodeType(const MPI_Comm&, const CArray<int, 1>&, const CArray<double, 2>&, const CArray<double, 2>&, CArray<int, 2>&);
       void getGloNghbFacesEdgeType(const MPI_Comm&, const CArray<int, 1>&, const CArray<double, 2>&, const CArray<double, 2>&, CArray<int, 2>&);
-      void getLocNghbFacesNodeType(const CArray<int, 1>&, const CArray<double, 2>&, const CArray<double, 2>&, CArray<int, 2>&, CArray<int, 1>&);
-      void getLocNghbFacesEdgeType(const CArray<int, 1>&, const CArray<double, 2>&, const CArray<double, 2>&, CArray<int, 2>&, CArray<int, 1>&);
+      void getLocNghbFacesNodeType(const CArray<int, 1>&, const CArray<double, 2>&, const CArray<double, 2>&, CArray<int, 2>&, CArray<int, 1>&, double);
+      void getLocNghbFacesEdgeType(const CArray<int, 1>&, const CArray<double, 2>&, const CArray<double, 2>&, CArray<int, 2>&, CArray<int, 1>&, double);
 
       vector<size_t> createHashes (const double, const double);
 

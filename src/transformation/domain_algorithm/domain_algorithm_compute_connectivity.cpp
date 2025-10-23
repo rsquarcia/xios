@@ -50,10 +50,24 @@ CDomainAlgorithmComputeConnectivity::CDomainAlgorithmComputeConnectivity(bool is
 : CAlgorithmTransformationNoDataModification(compute_connectivityDomain->getContext(), isSource)
 TRY
 {
+   // First of all, "copy" all attributes of domain source to domain destination
+  StdString domainDstRef = (!domainDestination->domain_ref.isEmpty()) ? domainDestination->domain_ref.getValue()
+                                                                      : "";
+  if (domainDstRef != domainSource->getId())
+  {
+    domainDestination->domain_ref.setValue(domainSource->getId());
+    domainDestination->solveRefInheritance(true);
+  }
+
+  if (domainDstRef.empty()) domainDestination->domain_ref.reset();
+  else domainDestination->domain_ref.setValue(domainDstRef);
+
   compute_connectivityDomain->checkValid(domainDestination);
+  
   int& nbNeighborMax = compute_connectivityDomain->n_neighbor_max;
   CArray<int,1>& nbNeighbor = compute_connectivityDomain->n_neighbor;
   CArray<int,2>& localNeighbors = compute_connectivityDomain->local_neighbor;
+  double precision = compute_connectivityDomain->precision ;
   int type = 1; // Edge type
   switch (compute_connectivityDomain->type)
   {
@@ -67,7 +81,8 @@ TRY
       break;
   }
 
-  computeLocalConnectivity(type, domainDestination, nbNeighborMax, nbNeighbor, localNeighbors);
+  computeLocalConnectivity(type, domainDestination, nbNeighborMax, nbNeighbor, localNeighbors, precision);
+  domainDestination->checkAttributes() ;
 }
 CATCH
 
@@ -83,7 +98,8 @@ void CDomainAlgorithmComputeConnectivity::computeLocalConnectivity(int type,
                                                                   CDomain* domain,
                                                                   int& nbConnectivityMax,
                                                                   CArray<int,1>& nbConnectivity,
-                                                                  CArray<int,2>& localConnectivity)
+                                                                  CArray<int,2>& localConnectivity,
+                                                                  double precision)
 TRY
 {
 
@@ -95,7 +111,7 @@ TRY
   CArray<int,1> localIndex(ncell);
   for (int idx = 0; idx <ncell; ++idx) localIndex(idx) = idx;
 
-  mesh.getLocalNghbFaces(type, localIndex, bounds_lon, bounds_lat, localConnectivity, nbConnectivity);
+  mesh.getLocalNghbFaces(type, localIndex, bounds_lon, bounds_lat, localConnectivity, nbConnectivity, precision);
   nbConnectivityMax = 0;
   for (int idx =0; idx < nbConnectivity.numElements(); ++idx)
     if (nbConnectivityMax < nbConnectivity(idx)) nbConnectivityMax = nbConnectivity(idx);

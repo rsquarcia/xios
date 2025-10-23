@@ -2006,12 +2006,12 @@ namespace xios {
 
   void CMesh::getLocalNghbFaces(const int nghbType, const CArray<int, 1>& face_idx,
                                 const CArray<double, 2>& bounds_lon, const CArray<double, 2>& bounds_lat,
-                                CArray<int, 2>& nghbFaces, CArray<int, 1>& nbNghbFaces)
+                                CArray<int, 2>& nghbFaces, CArray<int, 1>& nbNghbFaces, double precision)
   {
     if (nghbType == 0)
-      getLocNghbFacesNodeType(face_idx, bounds_lon, bounds_lat, nghbFaces, nbNghbFaces);
+      getLocNghbFacesNodeType(face_idx, bounds_lon, bounds_lat, nghbFaces, nbNghbFaces, precision);
     else
-      getLocNghbFacesEdgeType(face_idx, bounds_lon, bounds_lat, nghbFaces, nbNghbFaces);
+      getLocNghbFacesEdgeType(face_idx, bounds_lon, bounds_lat, nghbFaces, nbNghbFaces, precision);
   } // getLocalNghbFaces
 
   ///----------------------------------------------------------------
@@ -2027,7 +2027,7 @@ namespace xios {
 
   void CMesh::getLocNghbFacesNodeType (const CArray<int, 1>& face_idx,
                                        const CArray<double, 2>& bounds_lon, const CArray<double, 2>& bounds_lat,
-                                       CArray<int, 2>& faceToFaces, CArray<int, 1>& nbNghbFaces)
+                                       CArray<int, 2>& faceToFaces, CArray<int, 1>& nbNghbFaces, double precision)
   {
     int nvertex = bounds_lon.rows();
     int nbFaces = bounds_lon.shape()[1];
@@ -2037,10 +2037,14 @@ namespace xios {
 
     // nodeToFaces connectivity
     CClientClientDHTSizet::Index2VectorInfoTypeMap nodeToFaces;
+    double eps = 1./precision*1.234567890123456789 ;
+
     for (int nf = 0; nf < nbFaces; ++nf)
       for (int nv = 0; nv < nvertex; ++nv)
       {
-        size_t nodeHash = (CMesh::createHashes(bounds_lon(nv, nf), bounds_lat(nv ,nf)))[0];
+        double lon= (bounds_lon(nv, nf) + eps)-eps ;
+        double lat= (bounds_lat(nv, nf) + eps)-eps ;
+        size_t nodeHash = (CMesh::createHashes(lon, lat))[0];
         nodeToFaces[nodeHash].push_back(face_idx(nf));
       }
 
@@ -2090,7 +2094,7 @@ namespace xios {
 
   void CMesh::getLocNghbFacesEdgeType (const CArray<int, 1>& face_idx,
                                        const CArray<double, 2>& bounds_lon, const CArray<double, 2>& bounds_lat,
-                                       CArray<int, 2>& faceToFaces, CArray<int, 1>& nbNghbFaces)
+                                       CArray<int, 2>& faceToFaces, CArray<int, 1>& nbNghbFaces, double precision)
   {
     int nvertex = bounds_lon.rows();
     int nbFaces = bounds_lon.shape()[1];
@@ -2103,18 +2107,20 @@ namespace xios {
     CArray<double, 2> faceToNodes (nvertex, nbFaces);
 
     std::unordered_map <pairDouble, int, pair_xios_hash> mapNodes;
+    double eps = 1./precision*1.234567890123456789 ;
 
     for (int nf = 0; nf < nbFaces; ++nf)
       for (int nv = 0; nv < nvertex; ++nv)
       {
-        if (mapNodes.find(make_pair (bounds_lon(nv, nf), bounds_lat(nv ,nf))) == mapNodes.end())
+        double lon= (bounds_lon(nv, nf) + eps)-eps ;
+        double lat= (bounds_lat(nv, nf) + eps)-eps ;
+        if (mapNodes.find(make_pair (lon, lat)) == mapNodes.end())
         {
-          mapNodes[make_pair (bounds_lon(nv, nf), bounds_lat(nv, nf))] = nbNodes;
+          mapNodes[make_pair (lon, lat)] = nbNodes;
           faceToNodes(nv,nf) = nbNodes ;
           ++nbNodes ;
         }
-        else
-          faceToNodes(nv,nf) = mapNodes[make_pair (bounds_lon(nv, nf), bounds_lat(nv ,nf))];
+        else faceToNodes(nv,nf) = mapNodes[make_pair (lon, lat)];
       }
 
     // faceToFaces connectivity

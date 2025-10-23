@@ -33,7 +33,8 @@ protected:
                                 CDomain* domain,
                                 int& nbConnectivityMax,
                                 CArray<int,1>& nbConnectivity,
-                                CArray<int,2>& localConnectivity);
+                                CArray<int,2>& localConnectivity,
+                                double precision);
 
 public:
   static shared_ptr<CGenericAlgorithmTransformation> create(bool isSource, CGrid* gridDst, CGrid* gridSrc,
