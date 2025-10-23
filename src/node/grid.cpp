@@ -32,7 +32,6 @@
 #include "redistribute_axis.hpp"
 #include "redistribute_scalar.hpp"
 
-
 #include <regex>
 
 namespace xios
@@ -2045,6 +2044,7 @@ namespace xios
     {
       info(100)<<"Create new grid : "<<newId<<endl ;
       newGrid = CGrid::create(context_, newId) ;
+      if (gridSrc!=nullptr) newGrid->addAppliedTransformationList(gridSrc->getAppliedTransformationList()) ;
       isNewGrid = true ;
     }
 
@@ -2144,6 +2144,7 @@ namespace xios
                 dstDomain->setTemplateId(dstElement.domain) ;
               }
               CTransformation<CDomain>* transformation = CTransformation<CDomain>::createTransformation(transType, context_, "") ;
+              newGrid->addAppliedTransformation(transformation) ;
               auto srcTransform = CTransformation<CDomain>::getTransformation(transType, context_, transId) ;
               transformation->inheritFrom(srcTransform) ;
               CGrid* tmpGridDst=CGrid::create(context_); // destination Grid
@@ -2208,6 +2209,7 @@ namespace xios
                 dstAxis->setTemplateId(dstElement.axis) ;
               }
               CTransformation<CAxis>* transformation = CTransformation<CAxis>::createTransformation(transType, context_, "") ;
+              newGrid->addAppliedTransformation(transformation) ;
               auto srcTransform = CTransformation<CAxis>::getTransformation(transType, context_, transId) ;
               transformation->inheritFrom(srcTransform) ;
               tmpGridDst->addAxis(dstAxis->getId()) ;
@@ -2271,6 +2273,7 @@ namespace xios
                 dstScalar->setTemplateId(dstElement.scalar) ;
               }
               CTransformation<CScalar>* transformation = CTransformation<CScalar>::createTransformation(transType, context_, "") ;
+              newGrid->addAppliedTransformation(transformation) ;
               auto srcTransform = CTransformation<CScalar>::getTransformation(transType, context_, transId) ;
               transformation->inheritFrom(srcTransform) ;
               tmpGridDst->addScalar(dstScalar->getId()) ;
@@ -2578,5 +2581,26 @@ namespace xios
     redistributeToWriterConnector_ = make_shared<CGridTransformConnector>(srcViews, dstViews, context->getIntraComm()) ;
     redistributeToWriterConnector_ -> computeConnector(true) ;
   }
-  
+
+
+  CTransformationBase* CGrid::getAppliedTransformation(const ETranformationType& type)
+  {
+    for( auto& transform : appliedTransforms_) if (transform->getTransformationType()==type) return transform ;
+    return nullptr ;
+  } 
+
+  const std::list<CTransformationBase*>& CGrid::getAppliedTransformationList(void)
+  {
+    return appliedTransforms_ ;
+  } 
+
+  void CGrid::addAppliedTransformation(CTransformationBase* transform)
+  {
+    appliedTransforms_.push_front(transform) ;
+  }  
+
+  void CGrid::addAppliedTransformationList(const std::list<CTransformationBase*>& transforms)
+  {
+    appliedTransforms_.insert(appliedTransforms_.end(),transforms.begin(),transforms.end()) ;
+  }  
 } // namespace xios

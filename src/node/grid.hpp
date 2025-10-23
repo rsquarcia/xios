@@ -39,6 +39,7 @@ namespace xios {
    class CServerDistributionDescription;
    class CClientServerMapping;
    class CContext ;
+   class CTransformationBase ;
   
    ///--------------------------------------------------------------
 
@@ -405,6 +406,15 @@ namespace xios {
          shared_ptr<CGridTransformConnector> getRedistributeToWriterConnector(CGrid* gridSrc) { if (redistributeToWriterConnector_==nullptr) computeRedistributeToWriterConnector(gridSrc) ; return redistributeToWriterConnector_;}
          void computeRedistributeToWriterConnector(CGrid* gridSrc) ;
 
+      private:
+        // keep track of transformation used on grid to retreived assoiated attributes
+        std::list<CTransformationBase*> appliedTransforms_ ;
+     
+      public:
+        CTransformationBase* getAppliedTransformation(const ETranformationType& type) ;
+        const std::list<CTransformationBase*>& getAppliedTransformationList(void) ;
+        void  addAppliedTransformation(CTransformationBase* transform) ;
+        void  addAppliedTransformationList(const std::list<CTransformationBase*>& transforms) ;
 
    }; // class CGrid
 
