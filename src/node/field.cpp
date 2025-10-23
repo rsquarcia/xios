@@ -1465,6 +1465,13 @@ namespace xios
   }
   CATCH_DUMP_ATTR
 
+  CTransformationBase* CField::getAppliedTransformation(const ETranformationType& type)
+  {
+    if (grid_!=nullptr) return grid_->getAppliedTransformation(type) ;
+    else return nullptr ;
+  }
+
+
   CVariable* CField::addVariable(const string& id)
   TRY
   {

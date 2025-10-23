@@ -59,6 +59,7 @@ namespace xios
    class CSourceFilter;
    class CServerToClientFilter;
    class CGridRedistributeFilter;
+   class CTransformationBase ;
    ///--------------------------------------------------------------
 
    // Declare/Define CFieldAttribute
@@ -276,7 +277,8 @@ namespace xios
          CGrid* sentGrid_=nullptr ;
       public:
          CGrid* getSentGrid(void) { return sentGrid_; }    
-
+      public:
+          CTransformationBase* getAppliedTransformation(const ETranformationType& type) ;
       public:
 //         CFile*  file;
          
