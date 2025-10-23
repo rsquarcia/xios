@@ -1,4 +1,5 @@
 #include "object_template_impl.hpp"
+#include "object_transform_template_impl.hpp"
 #include "xios_spl.hpp"
 #include "node_type.hpp"
 
@@ -15,31 +16,54 @@ namespace xios
   template class CObjectTemplate<CAxis>;
   template class CObjectTemplate<CVariable>;
   template class CObjectTemplate<CInverseAxis>;
+  template class CObjectTransformTemplate<CInverseAxis>;
   template class CObjectTemplate<CZoomAxis>;
+  template class CObjectTransformTemplate<CZoomAxis>;
   template class CObjectTemplate<CInterpolateAxis>;
+  template class CObjectTransformTemplate<CInterpolateAxis>;
   template class CObjectTemplate<CExtractAxis>;
+  template class CObjectTransformTemplate<CExtractAxis>;
   template class CObjectTemplate<CZoomDomain>;
+  template class CObjectTransformTemplate<CZoomDomain>;
   template class CObjectTemplate<CInterpolateDomain>;
+  template class CObjectTransformTemplate<CInterpolateDomain>;
   template class CObjectTemplate<CGenerateRectilinearDomain>;
+  template class CObjectTransformTemplate<CGenerateRectilinearDomain>;
   template class CObjectTemplate<CScalar>;
   template class CObjectTemplate<CReduceAxisToScalar>;
+  template class CObjectTransformTemplate<CReduceAxisToScalar>;
   template class CObjectTemplate<CReduceDomainToAxis>;
+  template class CObjectTransformTemplate<CReduceDomainToAxis>;
   template class CObjectTemplate<CReduceAxisToAxis>;
+  template class CObjectTransformTemplate<CReduceAxisToAxis>;
   template class CObjectTemplate<CExtractDomainToAxis>;
+  template class CObjectTransformTemplate<CExtractDomainToAxis>;
   template class CObjectTemplate<CComputeConnectivityDomain>;
+  template class CObjectTransformTemplate<CComputeConnectivityDomain>;
   template class CObjectTemplate<CExpandDomain>;
+  template class CObjectTransformTemplate<CExpandDomain>;
   template class CObjectTemplate<CExtractAxisToScalar>;
+  template class CObjectTransformTemplate<CExtractAxisToScalar>;
   template class CObjectTemplate<CReduceDomainToScalar>;
+  template class CObjectTransformTemplate<CReduceDomainToScalar>;
   template class CObjectTemplate<CTemporalSplitting>;
+  template class CObjectTransformTemplate<CTemporalSplitting>;
   template class CObjectTemplate<CDuplicateScalarToAxis>;
+  template class CObjectTransformTemplate<CDuplicateScalarToAxis>;
   template class CObjectTemplate<CReduceScalarToScalar>;
+  template class CObjectTransformTemplate<CReduceScalarToScalar>;
   template class CObjectTemplate<CReorderDomain>;
+  template class CObjectTransformTemplate<CReorderDomain>;
   template class CObjectTemplate<CExtractDomain>;
+  template class CObjectTransformTemplate<CExtractDomain>;
   template class CObjectTemplate<CPoolNode>;
   template class CObjectTemplate<CServiceNode>;
   template class CObjectTemplate<CRedistributeDomain>;
+  template class CObjectTransformTemplate<CRedistributeDomain>;
   template class CObjectTemplate<CRedistributeAxis>;
+  template class CObjectTransformTemplate<CRedistributeAxis>;
   template class CObjectTemplate<CRedistributeScalar>;
+  template class CObjectTransformTemplate<CRedistributeScalar>;
 
   
   template class CObjectTemplate<CContextGroup>;
