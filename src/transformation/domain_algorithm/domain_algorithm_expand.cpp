@@ -557,8 +557,8 @@ TRY
     bounds_lat_dst.resizeAndPreserve(nVertex, newNbLocalDst);
   }
   CArray<int,1> data_i_index_dst_full(newNbLocalDst);
-  data_i_index_dst_full(Range(0,oldNbLocal-1)) = data_i_index_src_full;
-  data_i_index_dst_full(Range(oldNbLocal,newNbLocalDst-1)) = -1;
+  if (oldNbLocal-1>=0) data_i_index_dst_full(Range(0,oldNbLocal-1)) = data_i_index_src_full;
+  if (newNbLocalDst-1 - oldNbLocal>=0) data_i_index_dst_full(Range(oldNbLocal,newNbLocalDst-1)) = -1;
 
   // 1. Fill in array relating to global index (i_index, j_index, transmap, etc, ...)
   // Global index mapping between destination and source
@@ -684,8 +684,9 @@ TRY
 
   // Update ni
   domainDestination->ni.setValue(newNbLocalDst);
-  domainDestination->mask_1d.resize(domainDestination->domainMask.numElements()) ;
-  domainDestination->mask_1d=domainDestination->domainMask ;
+  //domainDestination->mask_1d.resize(domainDestination->domainMask.numElements()) ;
+  //domainDestination->mask_1d=domainDestination->domainMask ;
+  domainDestination->mask_1d.reset() ;
   domainDestination->computeLocalMask() ;
 }
 CATCH
