@@ -9,11 +9,11 @@ namespace xios {
   /// ////////////////////// Définitions ////////////////////// ///
 
   CExtractDomainToAxis::CExtractDomainToAxis(CContext* context)
-    : CObjectTemplate<CExtractDomainToAxis>(context), CExtractDomainToAxisAttributes(), CTransformation<CAxis>()
+    : CObjectTransformTemplate<CExtractDomainToAxis>(context), CExtractDomainToAxisAttributes(), CTransformation<CAxis>()
   { /* Ne rien faire de plus */ }
 
   CExtractDomainToAxis::CExtractDomainToAxis(CContext* context, const StdString & id)
-    : CObjectTemplate<CExtractDomainToAxis>(context, id), CExtractDomainToAxisAttributes(), CTransformation<CAxis>()
+    : CObjectTransformTemplate<CExtractDomainToAxis>(context, id), CExtractDomainToAxisAttributes(), CTransformation<CAxis>()
   { /* Ne rien faire de plus */ }
 
   CExtractDomainToAxis::~CExtractDomainToAxis(void)

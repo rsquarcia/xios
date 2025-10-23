@@ -8,11 +8,11 @@ namespace xios {
   /// ////////////////////// Définitions ////////////////////// ///
 
   CExtractAxis::CExtractAxis(CContext* context)
-    : CObjectTemplate<CExtractAxis>(context), CExtractAxisAttributes(), CTransformation<CAxis>()
+    : CObjectTransformTemplate<CExtractAxis>(context), CExtractAxisAttributes(), CTransformation<CAxis>()
   { /* Ne rien faire de plus */ }
 
   CExtractAxis::CExtractAxis(CContext* context, const StdString & id)
-    : CObjectTemplate<CExtractAxis>(context, id), CExtractAxisAttributes(), CTransformation<CAxis>()
+    : CObjectTransformTemplate<CExtractAxis>(context, id), CExtractAxisAttributes(), CTransformation<CAxis>()
   { /* Ne rien faire de plus */ }
 
   CExtractAxis::~CExtractAxis(void)

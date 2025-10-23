@@ -9,11 +9,11 @@ namespace xios
   /// ////////////////////// Définitions ////////////////////// ///
 
   CRedistributeScalar::CRedistributeScalar(CContext* context)
-    : CObjectTemplate<CRedistributeScalar>(context), CRedistributeScalarAttributes(), CTransformation<CScalar>()
+    : CObjectTransformTemplate<CRedistributeScalar>(context), CRedistributeScalarAttributes(), CTransformation<CScalar>()
   { /* Ne rien faire de plus */ }
 
   CRedistributeScalar::CRedistributeScalar(CContext* context, const StdString & id)
-    : CObjectTemplate<CRedistributeScalar>(context, id), CRedistributeScalarAttributes(), CTransformation<CScalar>()
+    : CObjectTransformTemplate<CRedistributeScalar>(context, id), CRedistributeScalarAttributes(), CTransformation<CScalar>()
   { /* Ne rien faire de plus */ }
 
   CRedistributeScalar::~CRedistributeScalar(void)

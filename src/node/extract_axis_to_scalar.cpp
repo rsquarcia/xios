@@ -10,11 +10,11 @@ namespace xios {
   /// ////////////////////// Définitions ////////////////////// ///
 
   CExtractAxisToScalar::CExtractAxisToScalar(CContext* context)
-    : CObjectTemplate<CExtractAxisToScalar>(context), CExtractAxisToScalarAttributes(), CTransformation<CScalar>()
+    : CObjectTransformTemplate<CExtractAxisToScalar>(context), CExtractAxisToScalarAttributes(), CTransformation<CScalar>()
   { /* Ne rien faire de plus */ }
 
   CExtractAxisToScalar::CExtractAxisToScalar(CContext* context, const StdString & id)
-    : CObjectTemplate<CExtractAxisToScalar>(context, id), CExtractAxisToScalarAttributes(), CTransformation<CScalar>()
+    : CObjectTransformTemplate<CExtractAxisToScalar>(context, id), CExtractAxisToScalarAttributes(), CTransformation<CScalar>()
   { /* Ne rien faire de plus */ }
 
   CExtractAxisToScalar::~CExtractAxisToScalar(void)

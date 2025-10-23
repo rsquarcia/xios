@@ -9,11 +9,11 @@ namespace xios {
   /// ////////////////////// Définitions ////////////////////// ///
 
   CInterpolateAxis::CInterpolateAxis(CContext* context)
-    : CObjectTemplate<CInterpolateAxis>(context), CInterpolateAxisAttributes(), CTransformation<CAxis>()
+    : CObjectTransformTemplate<CInterpolateAxis>(context), CInterpolateAxisAttributes(), CTransformation<CAxis>()
   { /* Ne rien faire de plus */ }
 
   CInterpolateAxis::CInterpolateAxis(CContext* context, const StdString & id)
-    : CObjectTemplate<CInterpolateAxis>(context, id), CInterpolateAxisAttributes(), CTransformation<CAxis>()
+    : CObjectTransformTemplate<CInterpolateAxis>(context, id), CInterpolateAxisAttributes(), CTransformation<CAxis>()
   { /* Ne rien faire de plus */ }
 
   CInterpolateAxis::~CInterpolateAxis(void)

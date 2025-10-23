@@ -7,11 +7,11 @@ namespace xios {
   /// ////////////////////// Définitions ////////////////////// ///
 
   CInverseAxis::CInverseAxis(CContext* context)
-    : CObjectTemplate<CInverseAxis>(context), CInverseAxisAttributes(), CTransformation<CAxis>()
+    : CObjectTransformTemplate<CInverseAxis>(context), CInverseAxisAttributes(), CTransformation<CAxis>()
   { /* Ne rien faire de plus */ }
 
   CInverseAxis::CInverseAxis(CContext* context, const StdString & id)
-    : CObjectTemplate<CInverseAxis>(context, id), CInverseAxisAttributes(), CTransformation<CAxis>()
+    : CObjectTransformTemplate<CInverseAxis>(context, id), CInverseAxisAttributes(), CTransformation<CAxis>()
   { /* Ne rien faire de plus */ }
 
   CInverseAxis::~CInverseAxis(void)

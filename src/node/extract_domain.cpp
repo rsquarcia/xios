@@ -7,11 +7,11 @@ namespace xios {
   /// ////////////////////// Définitions ////////////////////// ///
 
   CExtractDomain::CExtractDomain(CContext* context)
-    : CObjectTemplate<CExtractDomain>(context), CExtractDomainAttributes(), CTransformation<CDomain>()
+    : CObjectTransformTemplate<CExtractDomain>(context), CExtractDomainAttributes(), CTransformation<CDomain>()
   { /* Ne rien faire de plus */ }
 
   CExtractDomain::CExtractDomain(CContext* context, const StdString & id)
-    : CObjectTemplate<CExtractDomain>(context, id), CExtractDomainAttributes(), CTransformation<CDomain>()
+    : CObjectTransformTemplate<CExtractDomain>(context, id), CExtractDomainAttributes(), CTransformation<CDomain>()
   { /* Ne rien faire de plus */ }
 
   CExtractDomain::~CExtractDomain(void)

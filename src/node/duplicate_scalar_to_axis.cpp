@@ -9,11 +9,11 @@ namespace xios {
   /// ////////////////////// Définitions ////////////////////// ///
 
   CDuplicateScalarToAxis::CDuplicateScalarToAxis(CContext* context)
-    : CObjectTemplate<CDuplicateScalarToAxis>(context), CDuplicateScalarToAxisAttributes(), CTransformation<CAxis>()
+    : CObjectTransformTemplate<CDuplicateScalarToAxis>(context), CDuplicateScalarToAxisAttributes(), CTransformation<CAxis>()
   { /* Ne rien faire de plus */ }
 
   CDuplicateScalarToAxis::CDuplicateScalarToAxis(CContext* context,const StdString & id)
-    : CObjectTemplate<CDuplicateScalarToAxis>(context, id), CDuplicateScalarToAxisAttributes(), CTransformation<CAxis>()
+    : CObjectTransformTemplate<CDuplicateScalarToAxis>(context, id), CDuplicateScalarToAxisAttributes(), CTransformation<CAxis>()
   { /* Ne rien faire de plus */ }
 
   CDuplicateScalarToAxis::~CDuplicateScalarToAxis(void)

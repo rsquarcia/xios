@@ -9,11 +9,11 @@ namespace xios
   /// ////////////////////// Définitions ////////////////////// ///
 
   CRedistributeAxis::CRedistributeAxis(CContext* context)
-    : CObjectTemplate<CRedistributeAxis>(context), CRedistributeAxisAttributes(), CTransformation<CAxis>()
+    : CObjectTransformTemplate<CRedistributeAxis>(context), CRedistributeAxisAttributes(), CTransformation<CAxis>()
   { /* Ne rien faire de plus */ }
 
   CRedistributeAxis::CRedistributeAxis(CContext* context, const StdString & id)
-    : CObjectTemplate<CRedistributeAxis>(context, id), CRedistributeAxisAttributes(), CTransformation<CAxis>()
+    : CObjectTransformTemplate<CRedistributeAxis>(context, id), CRedistributeAxisAttributes(), CTransformation<CAxis>()
   { /* Ne rien faire de plus */ }
 
   CRedistributeAxis::~CRedistributeAxis(void)

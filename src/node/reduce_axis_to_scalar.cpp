@@ -7,11 +7,11 @@ namespace xios {
   /// ////////////////////// Définitions ////////////////////// ///
 
   CReduceAxisToScalar::CReduceAxisToScalar(CContext* context)
-    : CObjectTemplate<CReduceAxisToScalar>(context), CReduceAxisToScalarAttributes(), CTransformation<CScalar>()
+    : CObjectTransformTemplate<CReduceAxisToScalar>(context), CReduceAxisToScalarAttributes(), CTransformation<CScalar>()
   { /* Ne rien faire de plus */ }
 
   CReduceAxisToScalar::CReduceAxisToScalar(CContext* context, const StdString & id)
-    : CObjectTemplate<CReduceAxisToScalar>(context, id), CReduceAxisToScalarAttributes(), CTransformation<CScalar>()
+    : CObjectTransformTemplate<CReduceAxisToScalar>(context, id), CReduceAxisToScalarAttributes(), CTransformation<CScalar>()
   { /* Ne rien faire de plus */ }
 
   CReduceAxisToScalar::~CReduceAxisToScalar(void)

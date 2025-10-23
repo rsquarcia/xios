@@ -7,11 +7,11 @@ namespace xios {
   /// ////////////////////// Définitions ////////////////////// ///
 
   CZoomDomain::CZoomDomain(CContext* context)
-    : CObjectTemplate<CZoomDomain>(context), CZoomDomainAttributes(), CTransformation<CDomain>()
+    : CObjectTransformTemplate<CZoomDomain>(context), CZoomDomainAttributes(), CTransformation<CDomain>()
   { /* Ne rien faire de plus */ }
 
   CZoomDomain::CZoomDomain(CContext* context, const StdString & id)
-    : CObjectTemplate<CZoomDomain>(context, id), CZoomDomainAttributes(), CTransformation<CDomain>()
+    : CObjectTransformTemplate<CZoomDomain>(context, id), CZoomDomainAttributes(), CTransformation<CDomain>()
   { /* Ne rien faire de plus */ }
 
   CZoomDomain::~CZoomDomain(void)

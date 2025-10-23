@@ -10,11 +10,11 @@ namespace xios {
   /// ////////////////////// Définitions ////////////////////// ///
 
   CTemporalSplitting::CTemporalSplitting(CContext* context)
-    : CObjectTemplate<CTemporalSplitting>(context), CTemporalSplittingAttributes(), CTransformation<CAxis>()
+    : CObjectTransformTemplate<CTemporalSplitting>(context), CTemporalSplittingAttributes(), CTransformation<CAxis>()
   { /* Ne rien faire de plus */ }
 
   CTemporalSplitting::CTemporalSplitting(CContext* context, const StdString & id)
-    : CObjectTemplate<CTemporalSplitting>(context, id), CTemporalSplittingAttributes(), CTransformation<CAxis>()
+    : CObjectTransformTemplate<CTemporalSplitting>(context, id), CTemporalSplittingAttributes(), CTransformation<CAxis>()
   { /* Ne rien faire de plus */ }
 
   CTemporalSplitting::~CTemporalSplitting(void)

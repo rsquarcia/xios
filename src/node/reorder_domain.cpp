@@ -7,11 +7,11 @@ namespace xios {
   /// ////////////////////// Définitions ////////////////////// ///
 
   CReorderDomain::CReorderDomain(CContext* context)
-    : CObjectTemplate<CReorderDomain>(context), CReorderDomainAttributes(), CTransformation<CDomain>()
+    : CObjectTransformTemplate<CReorderDomain>(context), CReorderDomainAttributes(), CTransformation<CDomain>()
   { /* Ne rien faire de plus */ }
 
   CReorderDomain::CReorderDomain(CContext* context, const StdString & id)
-    : CObjectTemplate<CReorderDomain>(context, id), CReorderDomainAttributes(), CTransformation<CDomain>()
+    : CObjectTransformTemplate<CReorderDomain>(context, id), CReorderDomainAttributes(), CTransformation<CDomain>()
   { /* Ne rien faire de plus */ }
 
   CReorderDomain::~CReorderDomain(void)

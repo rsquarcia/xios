@@ -7,7 +7,7 @@
 #include "attribute_enum_impl.hpp"
 #include "attribute_array.hpp"
 #include "declare_attribute.hpp"
-#include "object_template.hpp"
+#include "object_transform_template.hpp"
 #include "group_factory.hpp"
 #include "declare_group.hpp"
 #include "transformation.hpp"
@@ -34,12 +34,12 @@ namespace xios {
     This class describes inverse_axis in xml file.
   */
   class CInverseAxis
-    : public CObjectTemplate<CInverseAxis>
+    : public CObjectTransformTemplate<CInverseAxis>
     , public CInverseAxisAttributes
     , public CTransformation<CAxis>
   {
     public :
-      typedef CObjectTemplate<CInverseAxis> SuperClass;
+      typedef CObjectTransformTemplate<CInverseAxis> SuperClass;
       typedef CInverseAxisAttributes SuperClassAttribute;
       typedef CInverseAxis MyClass ;
       typedef CTransformation<CAxis> SuperTransform ;
@@ -59,7 +59,8 @@ namespace xios {
       static StdString GetDefName(void);
       static ENodeType GetType(void);
       const string& getId(void) { return this->SuperClass::getId();}
-      ETranformationType getTransformationType(void) { return TRANS_INVERSE_AXIS ;}
+      static ETranformationType getTransType(void) { return TRANS_INVERSE_AXIS ;}
+      ETranformationType getTransformationType(void) { return getTransType() ;}
       static CTransformation<CAxis>* getTransformation(CContext* context, const StdString& id) { return SuperClass::get(context, id);}
       virtual void inheritFrom(SuperTransform* srcTransform) { solveDescInheritance(true, this->SuperClass::get(context_, (MyClass*)srcTransform)) ;}
       virtual shared_ptr<CGenericAlgorithmTransformation> createAlgorithm(bool isSource,

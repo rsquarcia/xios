@@ -8,11 +8,11 @@ namespace xios {
   /// ////////////////////// Définitions ////////////////////// ///
 
   CReduceAxisToAxis::CReduceAxisToAxis(CContext* context)
-    : CObjectTemplate<CReduceAxisToAxis>(context), CReduceAxisToAxisAttributes(), CTransformation<CAxis>()
+    : CObjectTransformTemplate<CReduceAxisToAxis>(context), CReduceAxisToAxisAttributes(), CTransformation<CAxis>()
   { /* Ne rien faire de plus */ }
 
   CReduceAxisToAxis::CReduceAxisToAxis(CContext* context, const StdString & id)
-    : CObjectTemplate<CReduceAxisToAxis>(context, id), CReduceAxisToAxisAttributes(), CTransformation<CAxis>()
+    : CObjectTransformTemplate<CReduceAxisToAxis>(context, id), CReduceAxisToAxisAttributes(), CTransformation<CAxis>()
   { /* Ne rien faire de plus */ }
 
   CReduceAxisToAxis::~CReduceAxisToAxis(void)

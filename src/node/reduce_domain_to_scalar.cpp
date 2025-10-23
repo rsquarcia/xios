@@ -7,11 +7,11 @@ namespace xios {
   /// ////////////////////// Définitions ////////////////////// ///
 
   CReduceDomainToScalar::CReduceDomainToScalar(CContext* context)
-    : CObjectTemplate<CReduceDomainToScalar>(context), CReduceDomainToScalarAttributes(), CTransformation<CScalar>()
+    : CObjectTransformTemplate<CReduceDomainToScalar>(context), CReduceDomainToScalarAttributes(), CTransformation<CScalar>()
   { /* Ne rien faire de plus */ }
 
   CReduceDomainToScalar::CReduceDomainToScalar(CContext* context, const StdString & id)
-    : CObjectTemplate<CReduceDomainToScalar>(context, id), CReduceDomainToScalarAttributes(), CTransformation<CScalar>()
+    : CObjectTransformTemplate<CReduceDomainToScalar>(context, id), CReduceDomainToScalarAttributes(), CTransformation<CScalar>()
   { /* Ne rien faire de plus */ }
 
   CReduceDomainToScalar::~CReduceDomainToScalar(void)

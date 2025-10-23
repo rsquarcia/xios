@@ -9,11 +9,11 @@ namespace xios
   /// ////////////////////// Définitions ////////////////////// ///
 
   CRedistributeDomain::CRedistributeDomain(CContext* context)
-    : CObjectTemplate<CRedistributeDomain>(context), CRedistributeDomainAttributes(), CTransformation<CDomain>()
+    : CObjectTransformTemplate<CRedistributeDomain>(context), CRedistributeDomainAttributes(), CTransformation<CDomain>()
   { /* Ne rien faire de plus */ }
 
   CRedistributeDomain::CRedistributeDomain(CContext* context, const StdString & id)
-    : CObjectTemplate<CRedistributeDomain>(context, id), CRedistributeDomainAttributes(), CTransformation<CDomain>()
+    : CObjectTransformTemplate<CRedistributeDomain>(context, id), CRedistributeDomainAttributes(), CTransformation<CDomain>()
   { /* Ne rien faire de plus */ }
 
   CRedistributeDomain::~CRedistributeDomain(void)

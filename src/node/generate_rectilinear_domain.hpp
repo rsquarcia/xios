@@ -7,7 +7,7 @@
 #include "attribute_enum_impl.hpp"
 #include "attribute_array.hpp"
 #include "declare_attribute.hpp"
-#include "object_template.hpp"
+#include "object_transform_template.hpp"
 #include "group_factory.hpp"
 #include "declare_group.hpp"
 #include "transformation.hpp"
@@ -35,12 +35,12 @@ namespace xios {
     This class describes zoom_domain in xml file.
   */
   class CGenerateRectilinearDomain
-    : public CObjectTemplate<CGenerateRectilinearDomain>
+    : public CObjectTransformTemplate<CGenerateRectilinearDomain>
     , public CGenerateRectilinearDomainAttributes
     , public CTransformation<CDomain>
   {
     public :
-      typedef CObjectTemplate<CGenerateRectilinearDomain> SuperClass;
+      typedef CObjectTransformTemplate<CGenerateRectilinearDomain> SuperClass;
       typedef CGenerateRectilinearDomainAttributes SuperClassAttribute;
       typedef CGenerateRectilinearDomain MyClass ;
       typedef CTransformation<CDomain> SuperTransform ;
@@ -60,7 +60,8 @@ namespace xios {
       static StdString GetDefName(void);
       static ENodeType GetType(void);
       const string& getId(void) { return this->SuperClass::getId();}
-      ETranformationType getTransformationType(void) { return TRANS_GENERATE_RECTILINEAR_DOMAIN ;}
+      static ETranformationType getTransType(void) { return TRANS_GENERATE_RECTILINEAR_DOMAIN ;}
+      ETranformationType getTransformationType(void) { return getTransType() ;}
       static CTransformation<CDomain>* getTransformation(CContext* context, const StdString& id) { return SuperClass::get(context, id);}
       virtual void inheritFrom(SuperTransform* srcTransform) { solveDescInheritance(true, this->SuperClass::get(context_, (MyClass*)srcTransform)) ;}
       virtual shared_ptr<CGenericAlgorithmTransformation> createAlgorithm(bool isSource,

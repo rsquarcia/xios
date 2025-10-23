@@ -7,11 +7,11 @@ namespace xios {
   /// ////////////////////// Définitions ////////////////////// ///
 
   CExpandDomain::CExpandDomain(CContext* context)
-    : CObjectTemplate<CExpandDomain>(context), CExpandDomainAttributes(), CTransformation<CDomain>()
+    : CObjectTransformTemplate<CExpandDomain>(context), CExpandDomainAttributes(), CTransformation<CDomain>()
   { /* Ne rien faire de plus */ }
 
   CExpandDomain::CExpandDomain(CContext* context, const StdString & id)
-    : CObjectTemplate<CExpandDomain>(context, id), CExpandDomainAttributes(), CTransformation<CDomain>()
+    : CObjectTransformTemplate<CExpandDomain>(context, id), CExpandDomainAttributes(), CTransformation<CDomain>()
   { /* Ne rien faire de plus */ }
 
   CExpandDomain::~CExpandDomain(void)

@@ -7,11 +7,11 @@ namespace xios {
   /// ////////////////////// Définitions ////////////////////// ///
 
   CGenerateRectilinearDomain::CGenerateRectilinearDomain(CContext* context)
-    : CObjectTemplate<CGenerateRectilinearDomain>(context), CGenerateRectilinearDomainAttributes(), CTransformation<CDomain>()
+    : CObjectTransformTemplate<CGenerateRectilinearDomain>(context), CGenerateRectilinearDomainAttributes(), CTransformation<CDomain>()
   { /* Ne rien faire de plus */ }
 
   CGenerateRectilinearDomain::CGenerateRectilinearDomain(CContext* context, const StdString & id)
-    : CObjectTemplate<CGenerateRectilinearDomain>(context, id), CGenerateRectilinearDomainAttributes(), CTransformation<CDomain>()
+    : CObjectTransformTemplate<CGenerateRectilinearDomain>(context, id), CGenerateRectilinearDomainAttributes(), CTransformation<CDomain>()
   { /* Ne rien faire de plus */ }
 
   CGenerateRectilinearDomain::~CGenerateRectilinearDomain(void)

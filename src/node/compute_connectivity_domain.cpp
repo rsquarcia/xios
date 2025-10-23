@@ -7,11 +7,11 @@ namespace xios {
   /// ////////////////////// Définitions ////////////////////// ///
 
   CComputeConnectivityDomain::CComputeConnectivityDomain(CContext* context)
-    : CObjectTemplate<CComputeConnectivityDomain>(context), CComputeConnectivityDomainAttributes(), CTransformation<CDomain>()
+    : CObjectTransformTemplate<CComputeConnectivityDomain>(context), CComputeConnectivityDomainAttributes(), CTransformation<CDomain>()
   { /* Ne rien faire de plus */ }
 
   CComputeConnectivityDomain::CComputeConnectivityDomain(CContext* context, const StdString & id)
-    : CObjectTemplate<CComputeConnectivityDomain>(context, id), CComputeConnectivityDomainAttributes(), CTransformation<CDomain>()
+    : CObjectTransformTemplate<CComputeConnectivityDomain>(context, id), CComputeConnectivityDomainAttributes(), CTransformation<CDomain>()
   { /* Ne rien faire de plus */ }
 
   CComputeConnectivityDomain::~CComputeConnectivityDomain(void)

@@ -7,11 +7,11 @@ namespace xios {
   /// ////////////////////// Définitions ////////////////////// ///
 
   CInterpolateDomain::CInterpolateDomain(CContext* context)
-    : CObjectTemplate<CInterpolateDomain>(context), CInterpolateDomainAttributes(), CTransformation<CDomain>()
+    : CObjectTransformTemplate<CInterpolateDomain>(context), CInterpolateDomainAttributes(), CTransformation<CDomain>()
   { /* Ne rien faire de plus */ }
 
   CInterpolateDomain::CInterpolateDomain(CContext* context, const StdString & id)
-    : CObjectTemplate<CInterpolateDomain>(context, id), CInterpolateDomainAttributes(), CTransformation<CDomain>()
+    : CObjectTransformTemplate<CInterpolateDomain>(context, id), CInterpolateDomainAttributes(), CTransformation<CDomain>()
   { /* Ne rien faire de plus */ }
 
   CInterpolateDomain::~CInterpolateDomain(void)

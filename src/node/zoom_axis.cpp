@@ -8,11 +8,11 @@ namespace xios {
   /// ////////////////////// Définitions ////////////////////// ///
 
   CZoomAxis::CZoomAxis(CContext* context)
-    : CObjectTemplate<CZoomAxis>(context), CZoomAxisAttributes(), CTransformation<CAxis>()
+    : CObjectTransformTemplate<CZoomAxis>(context), CZoomAxisAttributes(), CTransformation<CAxis>()
   { /* Ne rien faire de plus */ }
 
   CZoomAxis::CZoomAxis(CContext* context, const StdString & id)
-    : CObjectTemplate<CZoomAxis>(context, id), CZoomAxisAttributes(), CTransformation<CAxis>()
+    : CObjectTransformTemplate<CZoomAxis>(context, id), CZoomAxisAttributes(), CTransformation<CAxis>()
   { /* Ne rien faire de plus */ }
 
   CZoomAxis::~CZoomAxis(void)
