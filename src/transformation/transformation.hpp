@@ -4,6 +4,7 @@
 #include "xios_spl.hpp"
 #include "xml_node.hpp"
 #include "transformation_enum.hpp"
+#include "transformation_base.hpp"
 #include "exception.hpp"
 
 namespace xios {
@@ -18,7 +19,7 @@ namespace xios {
    class CContext;
 
   template<typename T>
-  class CTransformation
+  class CTransformation : public CTransformationBase
   {
   public:
     typedef typename std::list<std::pair<ETranformationType, CTransformation<T>* > > TransformationMapTypes;
