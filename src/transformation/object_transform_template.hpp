@@ -21,7 +21,7 @@ namespace xios
 
       static T* get(CContext* context, const string& id, bool noError=false);
       static bool has(CContext* context, const string& id) ;
-      static T* get(CContext* context, const T* ptr) { CObjectTemplate<T>::get(context,ptr); } 
+      static T* get(CContext* context, const T* ptr) { return CObjectTemplate<T>::get(context,ptr); } 
     };
 }
 
