@@ -24,6 +24,26 @@ namespace xios
       { 
          return (this->getId()); 
       }
+      
+      StdString CAttribute::getPyName(void) const
+      {
+          string s = this->getId();
+          stringstream ss(s);
+          string token;
+          string result;
+
+          while (getline(ss, token, '_')) {
+              if (token.empty()) continue;
+              result += toupper(token[0]);
+              for (size_t i = 1; i < token.size(); ++i) {
+                  result += tolower(token[i]);
+              }
+          }
+
+          return result;
+      }
+
+
    
       void CAttribute::generateCInterfaceIsDefined(ostream& oss, const string& className)
       {
@@ -49,6 +69,11 @@ namespace xios
       void CAttribute::generateFortranInterfaceIsDefinedBody_(ostream& oss,const string& className)
       {
         CInterface::AttributeFortranInterfaceIsDefinedBody(oss, className, this->getName()) ;
+      }
+      
+      void CAttribute::generatePythonInterfaceIsDefinedBody_(ostream& oss,const string& className)
+      {
+        CInterface::AttributePythonInterfaceIsDefinedBody(oss, className, this->getName()) ;
       }
 
       ///--------------------------------------------------------------

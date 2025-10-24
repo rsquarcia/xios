@@ -199,6 +199,24 @@ namespace xios
       {
         CInterface::AttributeFortranInterfaceDeclaration<CArray<T_numtype, N_rank> >(oss, className, this->getName());
       }
+      
+      template <typename T_numtype, int N_rank>
+      void CAttributeArray<T_numtype, N_rank>::generatePythonInterfaceCArgs(ostream& oss,const string& className, const string& funcName, const string& pyName)
+      {
+        CInterface::AttributePythonInterfaceCArgs<CArray<T_numtype, N_rank> >(oss, className, this->getName(), funcName, pyName);
+      }
+      
+      template <typename T_numtype, int N_rank>
+      void CAttributeArray<T_numtype, N_rank>::generatePythonInterfaceCRes(ostream& oss,const string& className, const string& funcName)
+      {
+        CInterface::AttributePythonInterfaceCRes<CArray<T_numtype, N_rank> >(oss, className, this->getName(), funcName);
+      }
+      
+      template <typename T_numtype, int N_rank>
+      void CAttributeArray<T_numtype, N_rank>::generateObjPythonInterfaceBody(ostream& oss,const string& className)
+      {
+        CInterface::AttributeObjPythonInterfaceBody<CArray<T_numtype, N_rank> >(oss, className, this->getName());
+      }
 
       template <typename T_numtype, int N_rank>
       void CAttributeArray<T_numtype, N_rank>::generateFortranInterfaceGetDeclaration_(ostream& oss,const string& className)
@@ -216,6 +234,30 @@ namespace xios
       void CAttributeArray<T_numtype, N_rank>::generateFortranInterfaceGetDeclaration(ostream& oss,const string& className)
       {
         CInterface::AttributeFortranInterfaceGetDeclaration<CArray<T_numtype, N_rank> >(oss, className, this->getName());
+      }
+
+      template <typename T_numtype, int N_rank>
+      void CAttributeArray<T_numtype, N_rank>::generatePythonInterfaceDeclaration(ostream& oss,const string& className, bool isSet)
+      {
+        CInterface::AttributePythonInterfaceDeclaration<CArray<T_numtype, N_rank> >(oss, className, this->getName(), isSet);
+      }
+      
+      template <typename T_numtype, int N_rank>
+      void CAttributeArray<T_numtype, N_rank>::generatePythonInterfaceIsDefinedDeclaration(ostream& oss,const string& className)
+      {
+        CInterface::AttributePythonInterfaceIsDefinedDeclaration<CArray<T_numtype, N_rank> >(oss, className, this->getName());
+      }
+
+      template <typename T_numtype, int N_rank>
+      void CAttributeArray<T_numtype, N_rank>::generatePythonInterfaceBody_(ostream& oss,const string& className)
+      {
+        CInterface::AttributePythonInterfaceBody<CArray<T_numtype, N_rank> >(oss, className, this->getName(), this->getPyName());
+      }
+
+      template <typename T_numtype, int N_rank>
+      void CAttributeArray<T_numtype, N_rank>::generatePythonInterfaceGetBody_(ostream& oss,const string& className)
+      {
+        CInterface::AttributePythonInterfaceGetBody<CArray<T_numtype, N_rank> >(oss, className, this->getName());
       }
 } // namespace xios
 

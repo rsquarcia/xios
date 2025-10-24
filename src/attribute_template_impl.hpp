@@ -301,6 +301,48 @@ namespace xios
         CInterface::AttributeFortranInterfaceGetDeclaration<T>(oss, className, this->getName());
       }
 
+      template <typename T>
+      void CAttributeTemplate<T>::generatePythonInterfaceDeclaration(ostream& oss,const string& className, bool isSet)
+      {
+        CInterface::AttributePythonInterfaceDeclaration<T>(oss, className, this->getName(), isSet);
+      }
+      
+      template <typename T>
+      void CAttributeTemplate<T>::generatePythonInterfaceIsDefinedDeclaration(ostream& oss,const string& className)
+      {
+        CInterface::AttributePythonInterfaceIsDefinedDeclaration<T>(oss, className, this->getName());
+      }
+
+
+      template <typename T>
+      void CAttributeTemplate<T>::generatePythonInterfaceBody_(ostream& oss,const string& className)
+      {
+        CInterface::AttributePythonInterfaceBody<T>(oss, className, this->getName(), this->getPyName());
+      }
+      
+      template <typename T>
+      void CAttributeTemplate<T>::generatePythonInterfaceGetBody_(ostream& oss,const string& className)
+      {
+        CInterface::AttributePythonInterfaceGetBody<T>(oss, className, this->getName());
+      }
+
+      template <typename T>
+      void CAttributeTemplate<T>::generatePythonInterfaceCArgs(ostream& oss,const string& className, const string& funcName, const string& pyName)
+      {
+        CInterface::AttributePythonInterfaceCArgs<T>(oss, className, this->getName(), funcName, pyName);
+      }
+      
+      template <typename T>
+      void CAttributeTemplate<T>::generateObjPythonInterfaceBody(ostream& oss,const string& className)
+      {
+        CInterface::AttributeObjPythonInterfaceBody<T>(oss, className, this->getName());
+      }
+      
+      template <typename T>
+      void CAttributeTemplate<T>::generatePythonInterfaceCRes(ostream& oss,const string& className, const string& funcName)
+      {
+        CInterface::AttributePythonInterfaceCRes<T>(oss, className, this->getName(), funcName);
+      }
 
 /*
       //---------------------------------------------------------------

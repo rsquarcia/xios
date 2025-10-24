@@ -9,7 +9,7 @@
 
 namespace xios
 {
-  /// ////////////////////// Définitions ////////////////////// ///
+  /// ////////////////////// Dï¿½finitions ////////////////////// ///
   template <class T>
   CAttributeEnum<T>::CAttributeEnum(const StdString & id)
      : CAttribute(id)
@@ -199,6 +199,24 @@ namespace xios
   {
     CInterface::AttributeFortranInterfaceDeclaration<string>(oss, className, this->getName());
   }
+  
+  template <typename T>
+  void CAttributeEnum<T>::generatePythonInterfaceCArgs(ostream& oss,const string& className, const string& funcName, const string& pyName)
+  {
+    CInterface::AttributePythonInterfaceCArgs<string>(oss, className, this->getName(), funcName, pyName);
+  }
+
+  template <typename T>
+  void CAttributeEnum<T>::generateObjPythonInterfaceBody(ostream& oss,const string& className)
+  {
+    CInterface::AttributeObjPythonInterfaceBody<string>(oss, className, this->getName());
+  }
+
+  template <typename T>
+  void CAttributeEnum<T>::generatePythonInterfaceCRes(ostream& oss,const string& className, const string& funcName)
+  {
+    CInterface::AttributePythonInterfaceCRes<string>(oss, className, this->getName(), funcName);
+  }
 
   template <typename T>
   void CAttributeEnum<T>::generateFortranInterfaceGetDeclaration_(ostream& oss,const string& className)
@@ -226,6 +244,32 @@ namespace xios
         oss << this->getName() << "=" << CEnum<T>::toString() << "</br>";
      return (oss.str());
   }
+
+  template <typename T>
+  void CAttributeEnum<T>::generatePythonInterfaceDeclaration(ostream& oss,const string& className, bool isSet)
+  {
+    CInterface::AttributePythonInterfaceDeclaration<string>(oss, className, this->getName(), isSet);
+  }
+
+  template <typename T>
+  void CAttributeEnum<T>::generatePythonInterfaceIsDefinedDeclaration(ostream& oss,const string& className)
+  {
+    CInterface::AttributePythonInterfaceIsDefinedDeclaration<string>(oss, className, this->getName());
+  }
+
+  template <typename T>
+  void CAttributeEnum<T>::generatePythonInterfaceBody_(ostream& oss,const string& className)
+  {
+    CInterface::AttributePythonInterfaceBody<string>(oss, className, this->getName(), this->getPyName());
+  }
+  
+  template <typename T>
+  void CAttributeEnum<T>::generatePythonInterfaceGetBody_(ostream& oss,const string& className)
+  {
+    CInterface::AttributePythonInterfaceGetBody<string>(oss, className, this->getName());
+  }
+
+
 } // namespace xios
 
 #endif // __XIOS_ATTRIBUTE_ENUM_IMPL_HPP__

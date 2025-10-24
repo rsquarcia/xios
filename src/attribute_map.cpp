@@ -388,6 +388,21 @@ namespace xios
            }
          }
       }
+      
+      // void CAttributeMap::generatePythonInterface(ostream& oss, const string& className)
+      // {
+      //    SuperClassMap::const_iterator it = SuperClassMap::begin(), end = SuperClassMap::end();
+      //    for (; it != end; it++)
+      //    {
+      //      if (it->second->isPublic())
+      //      {
+      //        oss << std::endl << iendl;
+      //        it->second->generatePythonInterface(oss, className);
+      //        oss << iendl;
+      //        it->second->generatePythonInterfaceIsDefined(oss, className);
+      //      }
+      //    }
+      // }
 
       ///--------------------------------------------------------------
 
@@ -921,4 +936,540 @@ namespace xios
          oss << std::endl << (iendl -= 2);
          oss << "END SUBROUTINE xios(is_defined_" << className << "_attr)" << std::endl;
       }
+
+
+
+      void CAttributeMap::generatePythonInterface_id(ostream& oss, const string& className, const string& pyName)
+      {
+         oss << "@typecheck" << iendl;
+         oss << "def set_" << className << "_attr";
+
+         SuperClassMap::const_iterator it;
+         SuperClassMap::const_iterator begin = SuperClassMap::begin(), end = SuperClassMap::end();
+
+         long startPos = oss.tellp();
+
+         oss << "(" << className << "_id : Union[String, str]";
+         for (it = begin; it != end; it++)
+         {
+           if (it->second->isPublic())
+           {
+            oss << ", " ;
+            if ((long)oss.tellp() - startPos > 90)
+             {
+               oss << "  " << iendl;
+               startPos = oss.tellp();
+             }
+
+             oss << it->second->getName();
+             it->second->generatePythonInterfaceDeclaration(oss, className, true);
+
+             
+           }
+         }
+         oss << "):";
+         oss << std::endl<< (iendl += 1);
+         oss << iendl;
+
+         oss << className << "_hdl = " << pyName << "()" << iendl;
+         oss << std::endl << iendl;
+
+         oss << "get_" << className << "_handle" << "(" << className << "_id, " << className << "_hdl)" << iendl;
+         oss << "set_" << className << "_attr_hdl_(";
+
+         startPos = oss.tellp();
+
+         oss << className << "_hdl";
+         for (it = begin; it != end; it++)
+         {
+           if (it->second->isPublic())
+           {
+             oss <<",";
+             if ((long)oss.tellp() - startPos > 90)
+             {
+               oss << "  " << iendl;
+               startPos = oss.tellp();
+             }
+             oss << " " << it->second->getName();
+           }
+         }
+         oss << ")";
+         oss << (iendl);
+         oss << "return " << endl;
+
+         oss << std::endl << (iendl -= 2);
+      }
+
+      void CAttributeMap::generatePythonInterface_hdl(ostream& oss, const string& className, const string& pyName)
+      {
+        oss << "@typecheck" << endl;
+        oss << "def set_" << className << "_attr_hdl";
+        SuperClassMap::const_iterator it;
+        SuperClassMap::const_iterator begin = SuperClassMap::begin(), end = SuperClassMap::end();
+
+        long startPos = oss.tellp();
+
+        oss << "(" << className << "_hdl : " << pyName;
+        for (it = begin; it != end; it++)
+         {
+           if (it->second->isPublic())
+           {
+            oss << ", " ;
+            if ((long)oss.tellp() - startPos > 90)
+             {
+               oss << "  " << iendl;
+               startPos = oss.tellp();
+             }
+
+             oss << it->second->getName();
+             it->second->generatePythonInterfaceDeclaration(oss, className, true);
+
+             
+           }
+         }
+        oss << "):";
+        oss << std::endl << (iendl += 1);
+        oss << iendl;
+
+
+        oss << "set_" << className << "_attr_hdl_(";
+
+        startPos = oss.tellp();
+
+        oss << className << "_hdl";
+        for (it = begin; it != end; it++)
+        {
+          if (it->second->isPublic())
+          {
+            oss <<",";
+            if ((long)oss.tellp() - startPos > 90)
+            {
+              oss << "  " << iendl;
+              startPos = oss.tellp();
+            }
+            oss << " " << it->second->getName();
+          }
+        }
+        oss << ")";
+        oss << (iendl);
+        oss << "return " << endl;
+        oss << std::endl << (iendl -= 2);
+    }
+
+    void CAttributeMap::generatePythonInterface_hdl_(ostream& oss, const string& className, const string& pyName)
+      {
+         oss << "@typecheck" << endl;
+         oss << "def set_" << className << "_attr_hdl_";
+         SuperClassMap::const_iterator it;
+         SuperClassMap::const_iterator begin = SuperClassMap::begin(), end = SuperClassMap::end();
+
+         long startPos = oss.tellp();
+
+         oss << "(" << className << "_hdl : " << pyName;
+         for (it = begin; it != end; it++)
+         {
+           if (it->second->isPublic())
+           {
+            oss << ", " ;
+            if ((long)oss.tellp() - startPos > 90)
+             {
+               oss << "  " << iendl;
+               startPos = oss.tellp();
+             }
+
+             oss << it->second->getName() << "_";
+             it->second->generatePythonInterfaceDeclaration(oss, className, true);
+
+             
+           }
+         }
+        oss << "):";
+        oss << std::endl << (iendl += 1);
+        oss << iendl;
+
+        
+
+         for (it = begin; it != end; it++)
+         {
+           if (it->second->isPublic())
+           {
+             oss << std::endl << iendl;
+             it->second->generatePythonInterfaceBody_(oss, className);
+           }
+         }
+         oss << (iendl);
+         oss << "return " << endl;
+         oss << std::endl << (iendl -= 2);
+      }
+
+
+      void CAttributeMap::generatePythonInterfaceGet_id(ostream& oss, const string& className, const string& pyName)
+      {
+        oss << "@typecheck" << endl;
+        oss << "def get_" << className << "_attr";
+        SuperClassMap::const_iterator it;
+        SuperClassMap::const_iterator begin = SuperClassMap::begin(), end = SuperClassMap::end();
+
+        long startPos = oss.tellp();
+
+        oss << "(" << className << "_id : Union[String, str]";
+        for (it = begin; it != end; it++)
+        {
+          if (it->second->isPublic())
+          {
+           oss << ", " ;
+           if ((long)oss.tellp() - startPos > 90)
+            {
+              oss << "  " << iendl;
+              startPos = oss.tellp();
+            }
+
+            oss << it->second->getName();
+            it->second->generatePythonInterfaceDeclaration(oss, className, false);
+
+            
+          }
+        }
+        oss << "):";
+        oss << std::endl<< (iendl += 1);
+        oss << iendl;
+
+        oss << className << "_hdl = " << pyName << "()" << iendl;
+        oss << std::endl << iendl;
+
+        oss << "get_" << className << "_handle" << "(" << className << "_id, " << className << "_hdl)" << iendl;
+        oss << "get_" << className << "_attr_hdl_(";
+
+        startPos = oss.tellp();
+
+        oss << className << "_hdl";
+        for (it = begin; it != end; it++)
+        {
+          if (it->second->isPublic())
+          {
+            oss <<",";
+            if ((long)oss.tellp() - startPos > 90)
+            {
+              oss << "  " << iendl;
+              startPos = oss.tellp();
+            }
+            oss << " " << it->second->getName();
+          }
+        }
+        oss << ")";
+        oss << (iendl);
+        oss << "return " << endl;
+        oss << std::endl << (iendl -= 2);
+     
+      }
+
+      void CAttributeMap::generatePythonInterfaceGet_hdl(ostream& oss, const string& className, const string& pyName)
+      {
+        oss << "@typecheck" << endl;
+        oss << "def get_" << className << "_attr_hdl";
+        SuperClassMap::const_iterator it;
+        SuperClassMap::const_iterator begin = SuperClassMap::begin(), end = SuperClassMap::end();
+
+        long startPos = oss.tellp();
+
+        oss << "(" << className << "_hdl : " << pyName;
+        for (it = begin; it != end; it++)
+         {
+           if (it->second->isPublic())
+           {
+            oss << ", " ;
+            if ((long)oss.tellp() - startPos > 90)
+             {
+               oss << "  " << iendl;
+               startPos = oss.tellp();
+             }
+
+             oss << it->second->getName();
+             it->second->generatePythonInterfaceDeclaration(oss, className, false);
+
+             
+           }
+         }
+        oss << "):";
+        oss << std::endl << (iendl += 1);
+        oss << iendl;
+
+
+        oss << "get_" << className << "_attr_hdl_(";
+
+        startPos = oss.tellp();
+
+        oss << className << "_hdl";
+        for (it = begin; it != end; it++)
+        {
+          if (it->second->isPublic())
+          {
+            oss <<",";
+            if ((long)oss.tellp() - startPos > 90)
+            {
+              oss << "  " << iendl;
+              startPos = oss.tellp();
+            }
+            oss << " " << it->second->getName();
+          }
+        }
+        oss << ")";
+        oss << (iendl);
+        oss << "return " << endl;
+        oss << std::endl << (iendl -= 2);
+    }
+
+    void CAttributeMap::generatePythonInterfaceGet_hdl_(ostream& oss, const string& className, const string& pyName)
+      {
+         oss << "@typecheck" << endl;
+         oss << "def get_" << className << "_attr_hdl_";
+         SuperClassMap::const_iterator it;
+         SuperClassMap::const_iterator begin = SuperClassMap::begin(), end = SuperClassMap::end();
+
+         long startPos = oss.tellp();
+
+         oss << "(" << className << "_hdl : " << pyName;
+         for (it = begin; it != end; it++)
+         {
+           if (it->second->isPublic())
+           {
+            oss << ", " ;
+            if ((long)oss.tellp() - startPos > 90)
+             {
+               oss << "  " << iendl;
+               startPos = oss.tellp();
+             }
+
+             oss << it->second->getName() << "_";
+             it->second->generatePythonInterfaceDeclaration(oss, className, false);
+
+             
+           }
+         }
+        oss << "):";
+        oss << std::endl << (iendl += 1);
+        oss << iendl;
+
+        
+
+         for (it = begin; it != end; it++)
+         {
+           if (it->second->isPublic())
+           {
+             oss << std::endl << iendl;
+             it->second->generatePythonInterfaceGetBody_(oss, className);
+           }
+         }
+         oss << (iendl);
+         oss << "return " << endl;
+         oss << std::endl << (iendl -= 2);
+      }
+
+
+      void CAttributeMap::generatePythonInterfaceIsDefined_id(ostream& oss, const string& className, const string& pyName)
+      {
+        oss << "@typecheck" << endl;
+        oss << "def is_defined_" << className << "_attr";
+        SuperClassMap::const_iterator it;
+        SuperClassMap::const_iterator begin = SuperClassMap::begin(), end = SuperClassMap::end();
+
+        long startPos = oss.tellp();
+
+        oss << "(" << className << "_id : String";
+        for (it = begin; it != end; it++)
+        {
+          if (it->second->isPublic())
+          {
+           oss << ", " ;
+           if ((long)oss.tellp() - startPos > 90)
+            {
+              oss << "  " << iendl;
+              startPos = oss.tellp();
+            }
+
+            oss << it->second->getName();
+            it->second->generatePythonInterfaceIsDefinedDeclaration(oss, className);
+
+            
+          }
+        }
+        oss << "):";
+        oss << std::endl<< (iendl += 1);
+        oss << iendl;
+
+        oss << className << "_hdl = " << pyName << "()" << iendl;
+        oss << std::endl << iendl;
+
+        oss << "get_" << className << "_handle" << "(" << className << "_id, " << className << "_hdl)" << iendl;
+        oss << "is_defined_" << className << "_attr_hdl_(";
+
+        startPos = oss.tellp();
+
+        oss << className << "_hdl";
+        for (it = begin; it != end; it++)
+        {
+          if (it->second->isPublic())
+          {
+            oss <<",";
+            if ((long)oss.tellp() - startPos > 90)
+            {
+              oss << "  " << iendl;
+              startPos = oss.tellp();
+            }
+            oss << " " << it->second->getName();
+          }
+        }
+        oss << ")";
+        oss << (iendl);
+        oss << "return " << endl;
+        oss << std::endl << (iendl -= 2);
+     
+      }
+
+      void CAttributeMap::generatePythonInterfaceIsDefined_hdl(ostream& oss, const string& className, const string& pyName)
+      {
+        oss << "@typecheck" << endl;
+        oss << "def is_defined_" << className << "_attr_hdl";
+        SuperClassMap::const_iterator it;
+        SuperClassMap::const_iterator begin = SuperClassMap::begin(), end = SuperClassMap::end();
+
+        long startPos = oss.tellp();
+
+        oss << "(" << className << "_hdl : " << pyName;
+        for (it = begin; it != end; it++)
+         {
+           if (it->second->isPublic())
+           {
+            oss << ", " ;
+            if ((long)oss.tellp() - startPos > 90)
+             {
+               oss << "  " << iendl;
+               startPos = oss.tellp();
+             }
+
+             oss << it->second->getName();
+             it->second->generatePythonInterfaceIsDefinedDeclaration(oss, className);
+
+             
+           }
+         }
+        oss << "):";
+        oss << std::endl << (iendl += 1);
+        oss << iendl;
+
+
+        oss << "is_defined_" << className << "_attr_hdl_(";
+
+        startPos = oss.tellp();
+
+        oss << className << "_hdl";
+        for (it = begin; it != end; it++)
+        {
+          if (it->second->isPublic())
+          {
+            oss <<",";
+            if ((long)oss.tellp() - startPos > 90)
+            {
+              oss << "  " << iendl;
+              startPos = oss.tellp();
+            }
+            oss << " " << it->second->getName();
+          }
+        }
+        oss << ")";
+        oss << (iendl);
+        oss << "return " << endl;
+        oss << std::endl << (iendl -= 2);
+    }
+
+    void CAttributeMap::generatePythonInterfaceIsDefined_hdl_(ostream& oss, const string& className, const string& pyName)
+      {
+         oss << "@typecheck" << endl;
+         oss << "def is_defined_" << className << "_attr_hdl_";
+         SuperClassMap::const_iterator it;
+         SuperClassMap::const_iterator begin = SuperClassMap::begin(), end = SuperClassMap::end();
+
+         long startPos = oss.tellp();
+
+         oss << "(" << className << "_hdl : " << pyName;
+         for (it = begin; it != end; it++)
+         {
+           if (it->second->isPublic())
+           {
+            oss << ", " ;
+            if ((long)oss.tellp() - startPos > 90)
+             {
+               oss << "  " << iendl;
+               startPos = oss.tellp();
+             }
+
+             oss << it->second->getName() << "_";
+             it->second->generatePythonInterfaceIsDefinedDeclaration(oss, className);
+
+             
+           }
+         }
+        oss << "):";
+        oss << std::endl << (iendl += 1);
+        oss << iendl;
+
+        
+
+         for (it = begin; it != end; it++)
+         {
+           if (it->second->isPublic())
+           {
+             oss << std::endl << iendl;
+             it->second->generatePythonInterfaceIsDefinedBody_(oss, className);
+           }
+         }
+         oss << (iendl);
+         oss << "return " << endl;
+         oss << std::endl << (iendl -= 2);
+      }
+      
+      void CAttributeMap::generatePythonInterface_c_functions(ostream& oss, const string& className, const string& pyName)
+      {
+         SuperClassMap::const_iterator it;
+         SuperClassMap::const_iterator begin = SuperClassMap::begin(), end = SuperClassMap::end();
+
+         long startPos = oss.tellp();
+
+         for (it = begin; it != end; it++)
+         {
+           if (it->second->isPublic())
+           {
+            
+            for (const std::string& funcName : {"get", "set", "is_defined"}) {
+              it->second->generatePythonInterfaceCArgs(oss, className, funcName, pyName);
+              it->second->generatePythonInterfaceCRes(oss, className, funcName);
+              oss << iendl;
+          }
+          
+
+           }
+         }
+        }
+        
+      
+      void CAttributeMap::generateObjPythonInterface_attributes(ostream& oss, const string& className, const string& pyName)
+      {
+         SuperClassMap::const_iterator it;
+         SuperClassMap::const_iterator begin = SuperClassMap::begin(), end = SuperClassMap::end();
+
+         long startPos = oss.tellp();
+
+         for (it = begin; it != end; it++)
+         {
+           if (it->second->isPublic())
+           {
+                      
+            it->second->generateObjPythonInterfaceBody(oss, className);
+           }
+         }
+         
+        }
+
+
+
 } // namespace xios

@@ -72,10 +72,17 @@ namespace xios
             virtual void generateFortran2003Interface(ostream& oss,const string& className) ;
             virtual void generateFortranInterfaceDeclaration_(ostream& oss,const string& className) ;
             virtual void generateFortranInterfaceBody_(ostream& oss,const string& className) ;
+            virtual void generatePythonInterfaceBody_(ostream& oss,const string& className) ;
             virtual void generateFortranInterfaceDeclaration(ostream& oss,const string& className) ;
             virtual void generateFortranInterfaceGetDeclaration_(ostream& oss,const string& className) ;
             virtual void generateFortranInterfaceGetBody_(ostream& oss,const string& className) ;
-            virtual void generateFortranInterfaceGetDeclaration(ostream& oss,const string& className) ;      
+            virtual void generatePythonInterfaceGetBody_(ostream& oss,const string& className) ;
+            virtual void generateFortranInterfaceGetDeclaration(ostream& oss,const string& className) ;
+            virtual void generatePythonInterfaceDeclaration(ostream& oss,const string& className, bool isSet) ;      
+            virtual void generatePythonInterfaceIsDefinedDeclaration(ostream& oss,const string& className) ;      
+            virtual void generatePythonInterfaceCArgs(ostream& oss,const string& className, const string& funcName, const string& pyName) ;      
+            virtual void generatePythonInterfaceCRes(ostream& oss,const string& className, const string& funcName) ;      
+            virtual void generateObjPythonInterfaceBody(ostream& oss,const string& className) ;      
 
          private :
           bool isEqual_(const CAttributeEnum& attr );

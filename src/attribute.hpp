@@ -30,6 +30,7 @@ namespace xios
 
             /// Accesseurs ///
             const StdString & getName(void) const;
+            StdString   getPyName(void) const;
 
             virtual void set(const CAttribute& ) =0 ;
             virtual void reset(void ) =0 ;
@@ -60,12 +61,23 @@ namespace xios
             virtual void generateFortranInterfaceDeclaration_(ostream& oss,const string& className) = 0 ;
             virtual void generateFortranInterfaceDeclaration(ostream& oss,const string& className) = 0 ;
             virtual void generateFortranInterfaceBody_(ostream& oss,const string& className) = 0 ;
+            virtual void generatePythonInterfaceBody_(ostream& oss,const string& className) = 0 ;
             virtual void generateFortranInterfaceGetDeclaration_(ostream& oss,const string& className) = 0 ;
             virtual void generateFortranInterfaceGetDeclaration(ostream& oss,const string& className) = 0 ;
             virtual void generateFortranInterfaceGetBody_(ostream& oss,const string& className) = 0 ;
+            virtual void generatePythonInterfaceGetBody_(ostream& oss,const string& className) = 0 ;
             virtual void generateFortranInterfaceIsDefinedDeclaration_(ostream& oss,const string& className) ;
             virtual void generateFortranInterfaceIsDefinedDeclaration(ostream& oss,const string& className)  ;
             virtual void generateFortranInterfaceIsDefinedBody_(ostream& oss,const string& className) ;
+            virtual void generatePythonInterfaceIsDefinedBody_(ostream& oss,const string& className) ;
+            virtual void generatePythonInterfaceDeclaration(ostream& oss,const string& className, bool isSet) = 0 ;
+            virtual void generatePythonInterfaceIsDefinedDeclaration(ostream& oss,const string& className) = 0 ;
+            virtual void generatePythonInterfaceCArgs(ostream& oss,const string& className, const string& funcName, const string& pyName) = 0 ;
+            virtual void generatePythonInterfaceCRes(ostream& oss,const string& className, const string& funcName) = 0 ;
+            virtual void generateObjPythonInterfaceBody(ostream& oss,const string& className) = 0 ;
+
+            // python interface
+            // virtual void generatePythonInterfaceIsDefined(ostream& oss, const string& className) ;
 
             virtual void setInheritedValue(const CAttribute& ) = 0 ;
             virtual bool hasInheritedValue(void) const = 0;

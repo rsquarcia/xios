@@ -43,6 +43,7 @@ namespace xios
 //         virtual void toBinary  (StdOStream & os) const;
 //         virtual void fromBinary(StdIStream & is);
          virtual string getName(void) const ;
+         virtual string getPyName(void) const ;
          virtual void parse(xml::CXMLNode & node);
 
          /// Accesseurs ///
@@ -95,6 +96,8 @@ namespace xios
          void generateCInterface(ostream& oss) ;
          void generateFortran2003Interface(ostream& oss) ;
          void generateFortranInterface(ostream& oss) ;
+         void generatePythonInterface(ostream& oss) ;
+         void generateObjPythonInterface(ostream& oss) ;
       
       // manage inherited id which is herited by reference
         void setInheritedId(T* obj) ;

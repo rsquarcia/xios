@@ -75,7 +75,7 @@ class Duration(Structure):
 
     @property
     def value(self):
-        return self.timestep
+        return self
 
 
 #_____________________________________________________________________________________________#

@@ -154,6 +154,28 @@ namespace xios
    {
       return (T::GetName());
    }
+   
+   template <class T>
+   string CObjectTemplate<T>::getPyName(void) const
+   {
+      string s = (T::GetName());
+      stringstream ss(s);
+      string token;
+      string result;
+
+      while (getline(ss, token, '_')) {
+          if (token.empty()) continue;
+
+          // Capitalize first letter, lowercase the rest
+          result += toupper(token[0]);
+          for (size_t i = 1; i < token.size(); ++i) {
+              result += tolower(token[i]);
+          }
+      }
+
+      return result;
+  }
+   
 
    //---------------------------------------------------------------
 
@@ -661,6 +683,160 @@ namespace xios
      oss << iendl--;
      oss << "END MODULE i" << className << "_attr" << iendl;
    }
-} // namespace xios
+
+   template <typename T>
+   void CObjectTemplate<T>::generatePythonInterface(ostream& oss)
+   {
+     string className=getName();
+     bool iscirc = false;
+     bool is_ = false;
+     int found=className.rfind("_group");
+     if (found!=string::npos) className.erase(found,1);
+     string superClassName=getName();
+     string pyName = getPyName();
+     found=superClassName.find("_group");
+     if (found!=string::npos) superClassName.erase(found,6);
+     string s = className;
+     if (s.size() >= 5 && s.compare(s.size() - 5, 5, "group") == 0){
+        s.resize(s.size() - 5);
+     }
+     if (pyName == "Context" || pyName == "Field" || pyName == "Variable") is_ = true;
+     if (pyName == "Context" || pyName == "CalendarWrapper") iscirc = true;
+     oss << "# * ************************************************************************** *" << iendl;
+     oss << "# *               Interface auto generated - do not modify                     *" << iendl;
+     oss << "# * ************************************************************************** *" << iendl;
+     oss << endl;
+     oss << "import ctypes" << iendl;
+     oss << "import numpy as np" << iendl;
+     oss << "from typing import Union, Optional" << iendl;
+     oss << "from xios.config import lib, typecheck, String, Bool, Int, NpArrayInt, NpArrayBool, NpArray, Double" << iendl; 
+     oss << "from xios.iduration import Duration" << iendl;
+     oss << "from xios.idate import Date" << iendl;
+     oss << "from xios.i" << s << " import " << " get_" << className << "_handle" << iendl;
+     if (is_){
+      oss << "from xios.o" << className << " import " << pyName << iendl;
+     }else{
+      if (iscirc){
+        oss << "from xios.config import CObject as " << pyName << iendl;
+
+      }else{
+        oss << "from xios.o" << className << "_attr import " << pyName << iendl;
+      }
+    }
+
+     oss << endl;
+
+     oss << "#_____________________________________________________________________________________________#" << iendl;
+     oss << "#                                    #C function definitions                                  #"<< iendl;       
+     oss << "#_____________________________________________________________________________________________#"<< iendl;
+     oss << endl;
+     oss << endl;
+
+
+     oss << (iendl-=1);
+     SuperClassMap::generatePythonInterface_c_functions(oss, className, pyName);
+
+     oss << "#_____________________________________________________________________________________________#"<< iendl;
+     oss << "#                                   #C interface functions                                    #" << iendl;       
+     oss << "#_____________________________________________________________________________________________#" << iendl;
+
+     oss << iendl;
+     SuperClassMap::generatePythonInterface_id(oss,className, pyName);
+     oss << iendl;
+     SuperClassMap::generatePythonInterface_hdl(oss,className, pyName);
+     oss << iendl;
+     SuperClassMap::generatePythonInterface_hdl_(oss,className, pyName);
+     oss << iendl;
+     SuperClassMap::generatePythonInterfaceGet_id(oss,className, pyName);
+     oss << iendl;
+     SuperClassMap::generatePythonInterfaceGet_hdl(oss,className, pyName);
+     oss << iendl;
+     SuperClassMap::generatePythonInterfaceGet_hdl_(oss,className, pyName);
+     oss << iendl;
+     SuperClassMap::generatePythonInterfaceIsDefined_id(oss,className, pyName);
+     oss << iendl;
+     SuperClassMap::generatePythonInterfaceIsDefined_hdl(oss,className, pyName);
+     oss << iendl;
+     SuperClassMap::generatePythonInterfaceIsDefined_hdl_(oss,className, pyName);
+     oss << iendl--;
+   }
+
+
+  template <typename T>
+   void CObjectTemplate<T>::generateObjPythonInterface(ostream& oss)
+   {
+     string className=getName();
+     int found=className.rfind("_group");
+     if (found!=string::npos) className.erase(found,1);
+     string superClassName=getName();
+     string pyName = getPyName();
+     found=superClassName.find("_group");
+     if (found!=string::npos) superClassName.erase(found,6);
+     string s = className;
+     if (s.size() >= 5 && s.compare(s.size() - 5, 5, "group") == 0){
+        s.resize(s.size() - 5);
+     }
+    if (pyName == "Context" || pyName == "Field" || pyName == "Variable") pyName = pyName + "_";
+
+     oss << "# * ************************************************************************** *" << iendl;
+     oss << "# *               Interface auto generated - do not modify                     *" << iendl;
+     oss << "# * ************************************************************************** *" << iendl;
+     oss << endl;
+     oss << "from xios.config import lib, typecheck, String, Bool, Int, NpArrayInt, NpArrayBool, NpArray, Double" << iendl; 
+     oss << "from xios.obj import Object, swipswap_ctx" << iendl; 
+     oss << "from xios.icontext import get_current_context_id, set_current_context" << iendl; 
+     oss << "from xios.idate import Date" << iendl; 
+     oss << "from xios.iduration import Duration" << iendl; 
+     oss << endl;
+     oss << endl;
+     oss << "class " << pyName << "(Object): " << (iendl+=1);
+     oss << "_object_type = '" << className << "'" << iendl;
+     oss << "FIELD_META = {" << iendl;
+     oss << "'" << className << "_id': {'type': String}," << iendl;
+
+     SuperClassMap::generateObjPythonInterface_attributes(oss, className, pyName);
+
+     oss << "}" << iendl << iendl ;
+
+      oss << "def __init__(self, arg1 = None, arg2 : str = None, **kwargs):" << (iendl+=1) ;
+      if (pyName != "Context_"){
+        oss << "self._context_id = String()" << iendl;
+        oss << "get_current_context_id(self._context_id)" << iendl;
+      }
+      oss << "super().__init__(arg1, arg2)" << iendl;
+      oss << "for key, value in kwargs.items():" << (iendl+=1);
+      oss << "if key in self.FIELD_META:" << (iendl+=1);
+      oss << "setattr(self, key, value)" << (iendl-=1);
+      oss << "else: " << (iendl+=1);
+      oss << "raise AttributeError(f\"Unknown attribute '{key}' for class '{self.__class__.__name__}'\")" << (iendl-=3);
+      oss << iendl;
+
+
+     oss << "@property" << iendl;
+     oss << "def context_id(self):" << (iendl+=1);
+     oss << "return self._context_id" << (iendl -=1);
+     //oss << (iendl-=1);   
+     oss << iendl;
+
+    oss << "def set_attr(self, **kwargs):" << (iendl+=1);
+    oss << "current_context_id = swipswap_ctx(self._context_id)" << iendl;
+    oss << "for key, value in kwargs.items():" << (iendl+=1);
+    oss << "if key in self.FIELD_META:" << (iendl+=1);
+    oss << "setattr(self, key, value)" << (iendl-=1);
+    oss << "else:" << (iendl+=1); 
+    oss << "raise AttributeError(f'Unknown attribute {key} for class {self.__class__.__name__}')" << (iendl-=2);
+    oss << "swipswap_ctx(current_context_id)" << (iendl-=1);
+    oss << iendl << (iendl-=1);
+
+    oss << pyName << "._generate_child_methods()" << iendl;
+    oss << iendl;
+
+   }
+  
+  }
+
+
+
+// namespace xios
 
 #endif // __XIOS_CObjectTemplate_impl__

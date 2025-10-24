@@ -63,11 +63,24 @@ namespace xios
             virtual void generateFortranInterface_hdl(ostream& oss, const string& className) ;
             virtual void generateFortranInterface_id(ostream& oss, const string& className) ;
             virtual void generateFortranInterfaceGet_hdl_(ostream& oss, const string& className) ;
-            virtual void generateFortranInterfaceGet_hdl(ostream& oss, const string& className) ;
             virtual void generateFortranInterfaceGet_id(ostream& oss, const string& className) ;
+            virtual void generatePythonInterfaceGet_id(ostream& oss, const string& className,  const string& pyName) ;
+            virtual void generateFortranInterfaceGet_hdl(ostream& oss, const string& className) ;
+            virtual void generatePythonInterfaceGet_hdl_(ostream& oss, const string& className, const string& pyName) ;
+            virtual void generatePythonInterfaceGet_hdl(ostream& oss, const string& className, const string& pyName) ;
             virtual void generateFortranInterfaceIsDefined_hdl_(ostream& oss, const string& className) ;
             virtual void generateFortranInterfaceIsDefined_hdl(ostream& oss, const string& className) ;
             virtual void generateFortranInterfaceIsDefined_id(ostream& oss, const string& className) ;
+            virtual void generatePythonInterfaceIsDefined_hdl_(ostream& oss, const string& className, const string& pyName) ;
+            virtual void generatePythonInterfaceIsDefined_hdl(ostream& oss, const string& className, const string& pyName) ;
+            virtual void generatePythonInterfaceIsDefined_id(ostream& oss, const string& className, const string& pyName) ;
+            virtual void generatePythonInterface_id(ostream& oss, const string& className, const string& pyName) ;            
+            virtual void generatePythonInterface_hdl(ostream& oss, const string& className, const string& pyName) ;
+            virtual void generatePythonInterface_hdl_(ostream& oss, const string& className, const string& pyName) ;
+            virtual void generatePythonInterface_c_functions(ostream& oss, const string& className, const string& pyName) ;
+            virtual void generateObjPythonInterface_attributes(ostream& oss, const string& className, const string& pyName) ;
+
+
 
          protected :
 

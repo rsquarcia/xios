@@ -44,6 +44,45 @@ namespace xios
    
    template <class T>
    static bool matchingTypeCFortran(void) ;
+
+  // For the python interface //
+
+  template <class T>
+  static void AttributePythonInterfaceDeclaration(ostream& oss,const string& className,const string& name, bool isSet) ;
+
+  template <class T>
+  static void AttributePythonInterfaceIsDefinedDeclaration(ostream& oss,const string& className,const string& name) ;
+
+
+  template <class T>
+  static void AttributePythonIsDefinedInterface(ostream& oss,const string& className,const string& name);
+
+  template <class T>
+  static void AttributePythonInterfaceBody(ostream& oss,const string& className,const string& name, const string& pyName) ;
+
+  template <class T>
+  static void AttributePythonInterfaceGetBody(ostream& oss,const string& className,const string& name) ;
+
+  static void AttributePythonInterfaceIsDefinedBody(ostream& oss,const string& className,const string& name) ;
+
+  template <class T>
+  static void AttributePythonInterfaceCArgs(ostream& oss,const string& className,const string& name, const string&, const string&) ;
+
+  template <class T>
+  static void AttributePythonInterfaceCRes(ostream& oss,const string& className,const string& name, const string&) ;
+
+  template <class T>
+  static void AttributeObjPythonInterfaceBody(ostream& oss,const string& className,const string& name) ;
+
+  template <class T>
+  static string getStrPythonType(void) ;
+  
+  template <class T>
+  static string getStrPythonCType(void) ;
+  
+  template <class T>
+  static string getStrPythonNativeType(void) ;
+   // For the python interface //
    
 
   };
