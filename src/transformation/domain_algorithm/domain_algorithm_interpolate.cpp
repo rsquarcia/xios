@@ -504,6 +504,7 @@ TRY
       for (itRecvTemp = itbRecvTemp; itRecvTemp != iteRecvTemp; ++itRecvTemp)
           itPole->second.push_back(make_pair(itRecvTemp->first, itRecvTemp->second));
     }
+    xios::MPI_Comm_free(&poleComme);
   }
 
 }
