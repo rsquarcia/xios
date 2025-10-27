@@ -7,23 +7,24 @@ from xios.obj import Object, swipswap_ctx
 from xios.icontext import get_current_context_id, set_current_context
 from xios.idate import Date
 from xios.iduration import Duration
+import numpy as np
 
 
 class CalendarWrapper(Object): 
   _object_type = 'calendar_wrapper'
   FIELD_META = {
-  'calendar_wrapper_id': {'type': String},
-  'comment': {'type': String},
-  'day_length': {'type': Int},
-  'leap_year_drift': {'type': Double},
-  'leap_year_drift_offset': {'type': Double},
-  'leap_year_month': {'type': Int},
-  'month_lengths': {'type': NpArrayInt, 'ndim': 1},
-  'start_date': {'type': String},
-  'time_origin': {'type': String},
+  'calendar_wrapper_id': {'type': str},
+  'comment': {'type': str},
+  'day_length': {'type': int},
+  'leap_year_drift': {'type': float},
+  'leap_year_drift_offset': {'type': float},
+  'leap_year_month': {'type': int},
+  'month_lengths': {'type': np.ndarray, 'array_type': int, 'ndim': 1},
+  'start_date': {'type': str},
+  'time_origin': {'type': str},
   'timestep': {'type': Duration},
-  'type': {'type': String},
-  'year_length': {'type': Int},
+  'type': {'type': str},
+  'year_length': {'type': int},
   }
   
   def __init__(self, arg1 = None, arg2 : str = None, **kwargs):

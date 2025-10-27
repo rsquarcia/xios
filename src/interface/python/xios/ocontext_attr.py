@@ -7,22 +7,23 @@ from xios.obj import Object, swipswap_ctx
 from xios.icontext import get_current_context_id, set_current_context
 from xios.idate import Date
 from xios.iduration import Duration
+import numpy as np
 
 
 class Context_(Object): 
   _object_type = 'context'
   FIELD_META = {
-  'context_id': {'type': String},
-  'attached_mode': {'type': Bool},
-  'default_gatherer': {'type': String},
-  'default_pool': {'type': String},
-  'default_pool_gatherer': {'type': String},
-  'default_pool_reader': {'type': String},
-  'default_pool_writer': {'type': String},
-  'default_reader': {'type': String},
-  'default_using_server2': {'type': Bool},
-  'default_writer': {'type': String},
-  'output_dir': {'type': String},
+  'context_id': {'type': str},
+  'attached_mode': {'type': bool},
+  'default_gatherer': {'type': str},
+  'default_pool': {'type': str},
+  'default_pool_gatherer': {'type': str},
+  'default_pool_reader': {'type': str},
+  'default_pool_writer': {'type': str},
+  'default_reader': {'type': str},
+  'default_using_server2': {'type': bool},
+  'default_writer': {'type': str},
+  'output_dir': {'type': str},
   }
   
   def __init__(self, arg1 = None, arg2 : str = None, **kwargs):

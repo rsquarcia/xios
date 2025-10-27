@@ -40,6 +40,7 @@ if rank == size - 1:
 
 lonvalue = 360 * (np.arange(ibegin, ibegin + ni_local) / domain.ni_glo) - 180
 latvalue = 180 * (np.arange(domain.nj_glo) / domain.nj_glo) - 90
+print(lonvalue.dtype)
 
 domain.ni          = ni_local
 domain.nj          = domain.nj_glo
@@ -47,6 +48,8 @@ domain.ibegin      = ibegin
 domain.jbegin      = 0
 domain.lonvalue_1d = lonvalue
 domain.latvalue_1d = latvalue
+
+
 
 name = domain.__class__.__name__
 print("TYYYPE", name)

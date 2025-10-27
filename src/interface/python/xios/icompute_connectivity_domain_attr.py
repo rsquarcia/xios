@@ -44,6 +44,15 @@ lib.cxios_set_compute_connectivity_domain_n_neighbor_max.restypes = None
 lib.cxios_is_defined_compute_connectivity_domain_n_neighbor_max.argtypes = [ComputeConnectivityDomain]
 lib.cxios_is_defined_compute_connectivity_domain_n_neighbor_max.restypes = ctypes.c_bool
 
+lib.cxios_get_compute_connectivity_domain_precision.argtypes = [ComputeConnectivityDomain, ctypes.POINTER(ctypes.c_double)]
+lib.cxios_get_compute_connectivity_domain_precision.restypes = None
+
+lib.cxios_set_compute_connectivity_domain_precision.argtypes = [ComputeConnectivityDomain, ctypes.c_double]
+lib.cxios_set_compute_connectivity_domain_precision.restypes = None
+
+lib.cxios_is_defined_compute_connectivity_domain_precision.argtypes = [ComputeConnectivityDomain]
+lib.cxios_is_defined_compute_connectivity_domain_precision.restypes = ctypes.c_bool
+
 lib.cxios_get_compute_connectivity_domain_type.argtypes = [ComputeConnectivityDomain, ctypes.c_char_p, ctypes.c_int]
 lib.cxios_get_compute_connectivity_domain_type.restypes = None
 
@@ -60,14 +69,14 @@ lib.cxios_is_defined_compute_connectivity_domain_type.restypes = ctypes.c_bool
 @typecheck
 def set_compute_connectivity_domain_attr(compute_connectivity_domain_id : Union[String, str], local_neighbor : Optional[Union[np.ndarray, NpArrayInt]] = None,   
 n_neighbor : Optional[Union[np.ndarray, NpArrayInt]] = None, n_neighbor_max : Optional[Union[Int, int]] = None,   
-type : Optional[Union[str, String]] = None):
+precision : Optional[Union[Double, float]] = None, type : Optional[Union[str, String]] = None):
 
   
   compute_connectivity_domain_hdl = ComputeConnectivityDomain()
   
 
   get_compute_connectivity_domain_handle(compute_connectivity_domain_id, compute_connectivity_domain_hdl)
-  set_compute_connectivity_domain_attr_hdl_(compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, type)
+  set_compute_connectivity_domain_attr_hdl_(compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, precision, type)
   return 
 
 
@@ -75,10 +84,10 @@ type : Optional[Union[str, String]] = None):
 @typecheck
 def set_compute_connectivity_domain_attr_hdl(compute_connectivity_domain_hdl : ComputeConnectivityDomain, local_neighbor : Optional[Union[np.ndarray, NpArrayInt]] = None,   
 n_neighbor : Optional[Union[np.ndarray, NpArrayInt]] = None, n_neighbor_max : Optional[Union[Int, int]] = None,   
-type : Optional[Union[str, String]] = None):
+precision : Optional[Union[Double, float]] = None, type : Optional[Union[str, String]] = None):
 
   
-  set_compute_connectivity_domain_attr_hdl_(compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, type)
+  set_compute_connectivity_domain_attr_hdl_(compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, precision, type)
   return 
 
 
@@ -86,7 +95,7 @@ type : Optional[Union[str, String]] = None):
 @typecheck
 def set_compute_connectivity_domain_attr_hdl_(compute_connectivity_domain_hdl : ComputeConnectivityDomain, local_neighbor_ : Optional[Union[np.ndarray, NpArrayInt]] = None,   
 n_neighbor_ : Optional[Union[np.ndarray, NpArrayInt]] = None, n_neighbor_max_ : Optional[Union[Int, int]] = None,   
-type_ : Optional[Union[str, String]] = None):
+precision_ : Optional[Union[Double, float]] = None, type_ : Optional[Union[str, String]] = None):
 
   
   
@@ -121,6 +130,14 @@ type_ : Optional[Union[str, String]] = None):
     
   
 
+  if precision_ is not None: 
+  
+    precision_ = Double(precision_)
+    precision_c = precision_._c_value
+    lib.cxios_set_compute_connectivity_domain_precision(compute_connectivity_domain_hdl, precision_c)
+    
+  
+
   if type_ is not None:
   
     type_= String(type_)
@@ -135,31 +152,34 @@ type_ : Optional[Union[str, String]] = None):
 
 @typecheck
 def get_compute_connectivity_domain_attr(compute_connectivity_domain_id : Union[String, str], local_neighbor : Optional[NpArrayInt] = None,   
-n_neighbor : Optional[NpArrayInt] = None, n_neighbor_max : Optional[Int] = None, type : Optional[String] = None):
+n_neighbor : Optional[NpArrayInt] = None, n_neighbor_max : Optional[Int] = None, precision : Optional[Double] = None,   
+type : Optional[String] = None):
 
   
   compute_connectivity_domain_hdl = ComputeConnectivityDomain()
   
 
   get_compute_connectivity_domain_handle(compute_connectivity_domain_id, compute_connectivity_domain_hdl)
-  get_compute_connectivity_domain_attr_hdl_(compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, type)
+  get_compute_connectivity_domain_attr_hdl_(compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, precision, type)
   return 
 
 
 
 @typecheck
 def get_compute_connectivity_domain_attr_hdl(compute_connectivity_domain_hdl : ComputeConnectivityDomain, local_neighbor : Optional[NpArrayInt] = None,   
-n_neighbor : Optional[NpArrayInt] = None, n_neighbor_max : Optional[Int] = None, type : Optional[String] = None):
+n_neighbor : Optional[NpArrayInt] = None, n_neighbor_max : Optional[Int] = None, precision : Optional[Double] = None,   
+type : Optional[String] = None):
 
   
-  get_compute_connectivity_domain_attr_hdl_(compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, type)
+  get_compute_connectivity_domain_attr_hdl_(compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, precision, type)
   return 
 
 
 
 @typecheck
 def get_compute_connectivity_domain_attr_hdl_(compute_connectivity_domain_hdl : ComputeConnectivityDomain, local_neighbor_ : Optional[NpArrayInt] = None,   
-n_neighbor_ : Optional[NpArrayInt] = None, n_neighbor_max_ : Optional[Int] = None, type_ : Optional[String] = None):
+n_neighbor_ : Optional[NpArrayInt] = None, n_neighbor_max_ : Optional[Int] = None, precision_ : Optional[Double] = None,   
+type_ : Optional[String] = None):
 
   
   
@@ -201,6 +221,13 @@ n_neighbor_ : Optional[NpArrayInt] = None, n_neighbor_max_ : Optional[Int] = Non
     
   
 
+  if precision_ is not None: 
+  
+    precision_c = precision_._c_value
+    lib.cxios_get_compute_connectivity_domain_precision(compute_connectivity_domain_hdl, precision_c)
+    
+  
+
   if type_ is not None:
   
     type_c = type_._c_value
@@ -214,31 +241,33 @@ n_neighbor_ : Optional[NpArrayInt] = None, n_neighbor_max_ : Optional[Int] = Non
 
 @typecheck
 def is_defined_compute_connectivity_domain_attr(compute_connectivity_domain_id : String, local_neighbor : Optional[Bool] = None, n_neighbor : Optional[Bool] = None,   
-n_neighbor_max : Optional[Bool] = None, type : Optional[Bool] = None):
+n_neighbor_max : Optional[Bool] = None, precision : Optional[Bool] = None, type : Optional[Bool] = None):
 
   
   compute_connectivity_domain_hdl = ComputeConnectivityDomain()
   
 
   get_compute_connectivity_domain_handle(compute_connectivity_domain_id, compute_connectivity_domain_hdl)
-  is_defined_compute_connectivity_domain_attr_hdl_(compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, type)
+  is_defined_compute_connectivity_domain_attr_hdl_(compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, precision, type)
   return 
 
 
 
 @typecheck
 def is_defined_compute_connectivity_domain_attr_hdl(compute_connectivity_domain_hdl : ComputeConnectivityDomain, local_neighbor : Optional[Bool] = None,   
-n_neighbor : Optional[Bool] = None, n_neighbor_max : Optional[Bool] = None, type : Optional[Bool] = None):
+n_neighbor : Optional[Bool] = None, n_neighbor_max : Optional[Bool] = None, precision : Optional[Bool] = None,   
+type : Optional[Bool] = None):
 
   
-  is_defined_compute_connectivity_domain_attr_hdl_(compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, type)
+  is_defined_compute_connectivity_domain_attr_hdl_(compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, precision, type)
   return 
 
 
 
 @typecheck
 def is_defined_compute_connectivity_domain_attr_hdl_(compute_connectivity_domain_hdl : ComputeConnectivityDomain, local_neighbor_ : Optional[Bool] = None,   
-n_neighbor_ : Optional[Bool] = None, n_neighbor_max_ : Optional[Bool] = None, type_ : Optional[Bool] = None):
+n_neighbor_ : Optional[Bool] = None, n_neighbor_max_ : Optional[Bool] = None, precision_ : Optional[Bool] = None,   
+type_ : Optional[Bool] = None):
 
   
   
@@ -258,6 +287,12 @@ n_neighbor_ : Optional[Bool] = None, n_neighbor_max_ : Optional[Bool] = None, ty
   if n_neighbor_max_  is not None:
     n_neighbor_max_c = lib.cxios_is_defined_compute_connectivity_domain_n_neighbor_max(compute_connectivity_domain_hdl)
     n_neighbor_max_._c_value = ctypes.c_bool(n_neighbor_max_c)
+    
+  
+
+  if precision_  is not None:
+    precision_c = lib.cxios_is_defined_compute_connectivity_domain_precision(compute_connectivity_domain_hdl)
+    precision_._c_value = ctypes.c_bool(precision_c)
     
   
 

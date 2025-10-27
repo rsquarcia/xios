@@ -375,7 +375,7 @@ namespace xios
   template <class T>
   void CInterface::AttributeObjPythonInterfaceBody(ostream& oss, const string& className, const string& name)
   {
-    oss << "'" << name  << "': {'type': " << getStrPythonType<T>() << "}," << iendl;     
+    oss << "'" << name  << "': {'type': " << getStrPythonNativeType<T>() << "}," << iendl;     
     
   }
 
@@ -438,7 +438,7 @@ namespace xios
   template <>
   void CInterface::AttributeObjPythonInterfaceBody<string>(ostream& oss, const string& className, const string& name)
   {
-    oss << "'" << name  << "': {'type': String}," << iendl;     
+    oss << "'" << name  << "': {'type': str}," << iendl;     
     
   }
 
@@ -1307,66 +1307,38 @@ macro(string)
 template <> \
 void CInterface::AttributeObjPythonInterfaceBody<CArray<T,1> >(ostream& oss, const string& className, const string& name) \
 { \
-   if (getStrPythonType<T>().compare("Double") == 0){ \
-      oss << "'" << name  << "': {'type': NpArray, 'ndim': 1}," << iendl;     \
-    }else{ \
-      oss << "'" << name  << "': {'type': NpArray" << getStrPythonType<T>() << ", 'ndim': 1}," << iendl;     \
-    } \
+  oss << "'" << name  << "': {'type': np.ndarray, 'array_type': " << getStrPythonNativeType<T>() << ", 'ndim': 1}," << iendl; \
 } \
 template <> \
 void CInterface::AttributeObjPythonInterfaceBody<CArray<T,2> >(ostream& oss, const string& className, const string& name) \
 { \
-   if (getStrPythonType<T>().compare("Double") == 0){ \
-      oss << "'" << name  << "': {'type': NpArray, 'ndim': 2}," << iendl;     \
-    }else{ \
-      oss << "'" << name  << "': {'type': NpArray" << getStrPythonType<T>() << ", 'ndim': 2}," << iendl;     \
-    } \
+  oss << "'" << name  << "': {'type': np.ndarray, 'array_type': " << getStrPythonNativeType<T>() << ", 'ndim': 2}," << iendl; \
 } \
 template <> \
 void CInterface::AttributeObjPythonInterfaceBody<CArray<T,3> >(ostream& oss, const string& className, const string& name) \
 { \
-   if (getStrPythonType<T>().compare("Double") == 0){ \
-      oss << "'" << name  << "': {'type': NpArray, 'ndim': 3}," << iendl;     \
-    }else{ \
-      oss << "'" << name  << "': {'type': NpArray" << getStrPythonType<T>() << ", 'ndim': 3}," << iendl;     \
-    } \
+  oss << "'" << name  << "': {'type': np.ndarray, 'array_type': " << getStrPythonNativeType<T>() << ", 'ndim': 3}," << iendl; \
 } \
 template <> \
 void CInterface::AttributeObjPythonInterfaceBody<CArray<T,4> >(ostream& oss, const string& className, const string& name) \
 { \
-   if (getStrPythonType<T>().compare("Double") == 0){ \
-      oss << "'" << name  << "': {'type': NpArray, 'ndim': 4}," << iendl;     \
-    }else{ \
-      oss << "'" << name  << "': {'type': NpArray" << getStrPythonType<T>() << ", 'ndim': 4}," << iendl;     \
-    } \
+  oss << "'" << name  << "': {'type': np.ndarray, 'array_type': " << getStrPythonNativeType<T>() << ", 'ndim': 4}," << iendl; \
 } \
 template <> \
 void CInterface::AttributeObjPythonInterfaceBody<CArray<T,5> >(ostream& oss, const string& className, const string& name) \
 { \
-   if (getStrPythonType<T>().compare("Double") == 0){ \
-      oss << "'" << name  << "': {'type': NpArray, 'ndim': 5}," << iendl;     \
-    }else{ \
-      oss << "'" << name  << "': {'type': NpArray" << getStrPythonType<T>() << ", 'ndim': 5}," << iendl;     \
-    } \
+  oss << "'" << name  << "': {'type': np.ndarray, 'array_type': " << getStrPythonNativeType<T>() << ", 'ndim': 5}," << iendl; \
 } \
 template <> \
 void CInterface::AttributeObjPythonInterfaceBody<CArray<T,6> >(ostream& oss, const string& className, const string& name) \
 { \
-   if (getStrPythonType<T>().compare("Double") == 0){ \
-      oss << "'" << name  << "': {'type': NpArray, 'ndim': 6}," << iendl;     \
-    }else{ \
-      oss << "'" << name  << "': {'type': NpArray" << getStrPythonType<T>() << ", 'ndim': 6}," << iendl;     \
-    } \
+  oss << "'" << name  << "': {'type': np.ndarray, 'array_type': " << getStrPythonNativeType<T>() << ", 'ndim': 6}," << iendl; \
 } \
 template <> \
 void CInterface::AttributeObjPythonInterfaceBody<CArray<T,7> >(ostream& oss, const string& className, const string& name) \
 { \
-   if (getStrPythonType<T>().compare("Double") == 0){ \
-      oss << "'" << name  << "': {'type': NpArray, 'ndim': 7}," << iendl;     \
-    }else{ \
-      oss << "'" << name  << "': {'type': NpArray" << getStrPythonType<T>() << ", 'ndim': 7}," << iendl;     \
-    } \
-} 
+  oss << "'" << name  << "': {'type': np.ndarray, 'array_type': " << getStrPythonNativeType<T>() << ", 'ndim': 7}," << iendl; \
+}
 
 macro(bool)
 macro(double)
@@ -1377,13 +1349,13 @@ macro(int)
 template <>
 void CInterface::AttributeObjPythonInterfaceBody<CArray<std::string, 2>>(std::ostream& oss, const std::string& className, const std::string& name)
 {
-    oss << "'" << name << "': {'type': String}," << iendl;
+    oss << "'" << name << "': {'type': str}," << iendl;
 }
 
 template <>
 void CInterface::AttributeObjPythonInterfaceBody<CArray<std::string, 1>>(std::ostream& oss, const std::string& className, const std::string& name)
 {
-    oss << "'" << name << "': {'type': String}," << iendl;
+    oss << "'" << name << "': {'type': str}," << iendl;
 }
 
 #define macro(T,EXTENT)\

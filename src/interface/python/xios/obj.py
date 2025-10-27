@@ -1,6 +1,6 @@
 from ctypes import Structure, c_void_p, string_at, pointer
 import functools
-from xios.config import lib, typecheck, String, CObject, Bool
+from xios.config import lib, typecheck, String, CObject, Bool, convert_type
 from typing import Union
 import importlib
 from xios.icontext import get_current_context_id, set_current_context_id, set_current_context
@@ -149,7 +149,7 @@ class Object(CObject):
             raise AttributeError(f"Attribute '{name}' is not defined for the {self._object_type} '{self._object_id}'")
 
         meta = self.FIELD_META[name]
-        WrappedType = meta["type"]
+        WrappedType = convert_type(meta)
         wrapper = WrappedType() if "ndim" in meta else WrappedType()
 
         getter_func = self._resolve_func(f"get_{self._object_type}_attr_hdl", self._module_name_attr)
@@ -174,7 +174,7 @@ class Object(CObject):
             raise AttributeError(f"No such attribute: {name}")
 
         meta = self.FIELD_META[name]
-        WrappedType = meta["type"]
+        WrappedType = convert_type(meta)
 
         if isinstance(value, np.ndarray) and "ndim" in meta:
             if value.ndim != meta["ndim"]:
@@ -212,10 +212,28 @@ class Object(CObject):
                     s += f"  {k} = {value}\n"
         return s
 
-
-
-
     @property
     def id(self):
         return self._id
+        
+    @classmethod
+    def help(cls):
+        print(f"\nHelp for {cls.__name__}")
+        print("-" * 60)
+        for attr, meta in cls.FIELD_META.items():
+            attr_type = meta.get('type', 'Unknown')
+            if attr_type is np.ndarray:  # <-- compare to actual type, not string
+                array_type = meta.get('array_type', 'Unknown')
+                ndim = meta.get('ndim', None)
+                array_type_name = (
+                    array_type.__name__ if hasattr(array_type, '__name__') else str(array_type)
+                )
+                ndim_str = f", {ndim}" if ndim is not None else ""
+                type_str = f"numpy.ndarray[{array_type_name}{ndim_str}]"
+            else:
+                type_str = (
+                    attr_type.__name__ if hasattr(attr_type, '__name__') else str(attr_type)
+                )
+            print(f"{attr:<25} : {type_str}")
+        print("-" * 60)
 

@@ -787,12 +787,13 @@ namespace xios
      oss << "from xios.icontext import get_current_context_id, set_current_context" << iendl; 
      oss << "from xios.idate import Date" << iendl; 
      oss << "from xios.iduration import Duration" << iendl; 
+     oss << "import numpy as np" << iendl; 
      oss << endl;
      oss << endl;
      oss << "class " << pyName << "(Object): " << (iendl+=1);
      oss << "_object_type = '" << className << "'" << iendl;
      oss << "FIELD_META = {" << iendl;
-     oss << "'" << className << "_id': {'type': String}," << iendl;
+     oss << "'" << className << "_id': {'type': str}," << iendl;
 
      SuperClassMap::generateObjPythonInterface_attributes(oss, className, pyName);
 
@@ -815,7 +816,6 @@ namespace xios
      oss << "@property" << iendl;
      oss << "def context_id(self):" << (iendl+=1);
      oss << "return self._context_id" << (iendl -=1);
-     //oss << (iendl-=1);   
      oss << iendl;
 
     oss << "def set_attr(self, **kwargs):" << (iendl+=1);
@@ -827,7 +827,6 @@ namespace xios
     oss << "raise AttributeError(f'Unknown attribute {key} for class {self.__class__.__name__}')" << (iendl-=2);
     oss << "swipswap_ctx(current_context_id)" << (iendl-=1);
     oss << iendl << (iendl-=1);
-
     oss << pyName << "._generate_child_methods()" << iendl;
     oss << iendl;
 

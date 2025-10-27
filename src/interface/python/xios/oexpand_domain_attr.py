@@ -7,16 +7,17 @@ from xios.obj import Object, swipswap_ctx
 from xios.icontext import get_current_context_id, set_current_context
 from xios.idate import Date
 from xios.iduration import Duration
+import numpy as np
 
 
 class ExpandDomain(Object): 
   _object_type = 'expand_domain'
   FIELD_META = {
-  'expand_domain_id': {'type': String},
-  'i_periodic': {'type': Bool},
-  'j_periodic': {'type': Bool},
-  'order': {'type': Int},
-  'type': {'type': String},
+  'expand_domain_id': {'type': str},
+  'i_periodic': {'type': bool},
+  'j_periodic': {'type': bool},
+  'order': {'type': int},
+  'type': {'type': str},
   }
   
   def __init__(self, arg1 = None, arg2 : str = None, **kwargs):

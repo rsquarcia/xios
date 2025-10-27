@@ -12,7 +12,8 @@ MODULE icompute_connectivity_domain_attr
 CONTAINS
 
   SUBROUTINE xios(set_compute_connectivity_domain_attr)  &
-    ( compute_connectivity_domain_id, local_neighbor, n_neighbor, n_neighbor_max, type )
+    ( compute_connectivity_domain_id, local_neighbor, n_neighbor, n_neighbor_max, precision, type  &
+     )
 
     IMPLICIT NONE
       TYPE(txios(compute_connectivity_domain))  :: compute_connectivity_domain_hdl
@@ -20,38 +21,45 @@ CONTAINS
       INTEGER  , OPTIONAL, INTENT(IN) :: local_neighbor(:,:)
       INTEGER  , OPTIONAL, INTENT(IN) :: n_neighbor(:)
       INTEGER  , OPTIONAL, INTENT(IN) :: n_neighbor_max
+      REAL (KIND=8) , OPTIONAL, INTENT(IN) :: precision
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: type
 
       CALL xios(get_compute_connectivity_domain_handle) &
       (compute_connectivity_domain_id,compute_connectivity_domain_hdl)
       CALL xios(set_compute_connectivity_domain_attr_hdl_)   &
-      ( compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, type )
+      ( compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, precision, type  &
+       )
 
   END SUBROUTINE xios(set_compute_connectivity_domain_attr)
 
   SUBROUTINE xios(set_compute_connectivity_domain_attr_hdl)  &
-    ( compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, type )
+    ( compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, precision, type  &
+     )
 
     IMPLICIT NONE
       TYPE(txios(compute_connectivity_domain)) , INTENT(IN) :: compute_connectivity_domain_hdl
       INTEGER  , OPTIONAL, INTENT(IN) :: local_neighbor(:,:)
       INTEGER  , OPTIONAL, INTENT(IN) :: n_neighbor(:)
       INTEGER  , OPTIONAL, INTENT(IN) :: n_neighbor_max
+      REAL (KIND=8) , OPTIONAL, INTENT(IN) :: precision
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: type
 
       CALL xios(set_compute_connectivity_domain_attr_hdl_)  &
-      ( compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, type )
+      ( compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, precision, type  &
+       )
 
   END SUBROUTINE xios(set_compute_connectivity_domain_attr_hdl)
 
   SUBROUTINE xios(set_compute_connectivity_domain_attr_hdl_)   &
-    ( compute_connectivity_domain_hdl, local_neighbor_, n_neighbor_, n_neighbor_max_, type_ )
+    ( compute_connectivity_domain_hdl, local_neighbor_, n_neighbor_, n_neighbor_max_, precision_  &
+    , type_ )
 
     IMPLICIT NONE
       TYPE(txios(compute_connectivity_domain)) , INTENT(IN) :: compute_connectivity_domain_hdl
       INTEGER  , OPTIONAL, INTENT(IN) :: local_neighbor_(:,:)
       INTEGER  , OPTIONAL, INTENT(IN) :: n_neighbor_(:)
       INTEGER  , OPTIONAL, INTENT(IN) :: n_neighbor_max_
+      REAL (KIND=8) , OPTIONAL, INTENT(IN) :: precision_
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: type_
 
       IF (PRESENT(local_neighbor_)) THEN
@@ -69,6 +77,11 @@ CONTAINS
       (compute_connectivity_domain_hdl%daddr, n_neighbor_max_)
       ENDIF
 
+      IF (PRESENT(precision_)) THEN
+        CALL cxios_set_compute_connectivity_domain_precision &
+      (compute_connectivity_domain_hdl%daddr, precision_)
+      ENDIF
+
       IF (PRESENT(type_)) THEN
         CALL cxios_set_compute_connectivity_domain_type &
       (compute_connectivity_domain_hdl%daddr, type_, len(type_))
@@ -77,7 +90,8 @@ CONTAINS
   END SUBROUTINE xios(set_compute_connectivity_domain_attr_hdl_)
 
   SUBROUTINE xios(get_compute_connectivity_domain_attr)  &
-    ( compute_connectivity_domain_id, local_neighbor, n_neighbor, n_neighbor_max, type )
+    ( compute_connectivity_domain_id, local_neighbor, n_neighbor, n_neighbor_max, precision, type  &
+     )
 
     IMPLICIT NONE
       TYPE(txios(compute_connectivity_domain))  :: compute_connectivity_domain_hdl
@@ -85,38 +99,45 @@ CONTAINS
       INTEGER  , OPTIONAL, INTENT(OUT) :: local_neighbor(:,:)
       INTEGER  , OPTIONAL, INTENT(OUT) :: n_neighbor(:)
       INTEGER  , OPTIONAL, INTENT(OUT) :: n_neighbor_max
+      REAL (KIND=8) , OPTIONAL, INTENT(OUT) :: precision
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: type
 
       CALL xios(get_compute_connectivity_domain_handle) &
       (compute_connectivity_domain_id,compute_connectivity_domain_hdl)
       CALL xios(get_compute_connectivity_domain_attr_hdl_)   &
-      ( compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, type )
+      ( compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, precision, type  &
+       )
 
   END SUBROUTINE xios(get_compute_connectivity_domain_attr)
 
   SUBROUTINE xios(get_compute_connectivity_domain_attr_hdl)  &
-    ( compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, type )
+    ( compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, precision, type  &
+     )
 
     IMPLICIT NONE
       TYPE(txios(compute_connectivity_domain)) , INTENT(IN) :: compute_connectivity_domain_hdl
       INTEGER  , OPTIONAL, INTENT(OUT) :: local_neighbor(:,:)
       INTEGER  , OPTIONAL, INTENT(OUT) :: n_neighbor(:)
       INTEGER  , OPTIONAL, INTENT(OUT) :: n_neighbor_max
+      REAL (KIND=8) , OPTIONAL, INTENT(OUT) :: precision
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: type
 
       CALL xios(get_compute_connectivity_domain_attr_hdl_)  &
-      ( compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, type )
+      ( compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, precision, type  &
+       )
 
   END SUBROUTINE xios(get_compute_connectivity_domain_attr_hdl)
 
   SUBROUTINE xios(get_compute_connectivity_domain_attr_hdl_)   &
-    ( compute_connectivity_domain_hdl, local_neighbor_, n_neighbor_, n_neighbor_max_, type_ )
+    ( compute_connectivity_domain_hdl, local_neighbor_, n_neighbor_, n_neighbor_max_, precision_  &
+    , type_ )
 
     IMPLICIT NONE
       TYPE(txios(compute_connectivity_domain)) , INTENT(IN) :: compute_connectivity_domain_hdl
       INTEGER  , OPTIONAL, INTENT(OUT) :: local_neighbor_(:,:)
       INTEGER  , OPTIONAL, INTENT(OUT) :: n_neighbor_(:)
       INTEGER  , OPTIONAL, INTENT(OUT) :: n_neighbor_max_
+      REAL (KIND=8) , OPTIONAL, INTENT(OUT) :: precision_
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: type_
 
       IF (PRESENT(local_neighbor_)) THEN
@@ -134,6 +155,11 @@ CONTAINS
       (compute_connectivity_domain_hdl%daddr, n_neighbor_max_)
       ENDIF
 
+      IF (PRESENT(precision_)) THEN
+        CALL cxios_get_compute_connectivity_domain_precision &
+      (compute_connectivity_domain_hdl%daddr, precision_)
+      ENDIF
+
       IF (PRESENT(type_)) THEN
         CALL cxios_get_compute_connectivity_domain_type &
       (compute_connectivity_domain_hdl%daddr, type_, len(type_))
@@ -142,7 +168,8 @@ CONTAINS
   END SUBROUTINE xios(get_compute_connectivity_domain_attr_hdl_)
 
   SUBROUTINE xios(is_defined_compute_connectivity_domain_attr)  &
-    ( compute_connectivity_domain_id, local_neighbor, n_neighbor, n_neighbor_max, type )
+    ( compute_connectivity_domain_id, local_neighbor, n_neighbor, n_neighbor_max, precision, type  &
+     )
 
     IMPLICIT NONE
       TYPE(txios(compute_connectivity_domain))  :: compute_connectivity_domain_hdl
@@ -153,18 +180,22 @@ CONTAINS
       LOGICAL(KIND=C_BOOL) :: n_neighbor_tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: n_neighbor_max
       LOGICAL(KIND=C_BOOL) :: n_neighbor_max_tmp
+      LOGICAL, OPTIONAL, INTENT(OUT) :: precision
+      LOGICAL(KIND=C_BOOL) :: precision_tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: type
       LOGICAL(KIND=C_BOOL) :: type_tmp
 
       CALL xios(get_compute_connectivity_domain_handle) &
       (compute_connectivity_domain_id,compute_connectivity_domain_hdl)
       CALL xios(is_defined_compute_connectivity_domain_attr_hdl_)   &
-      ( compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, type )
+      ( compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, precision, type  &
+       )
 
   END SUBROUTINE xios(is_defined_compute_connectivity_domain_attr)
 
   SUBROUTINE xios(is_defined_compute_connectivity_domain_attr_hdl)  &
-    ( compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, type )
+    ( compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, precision, type  &
+     )
 
     IMPLICIT NONE
       TYPE(txios(compute_connectivity_domain)) , INTENT(IN) :: compute_connectivity_domain_hdl
@@ -174,16 +205,20 @@ CONTAINS
       LOGICAL(KIND=C_BOOL) :: n_neighbor_tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: n_neighbor_max
       LOGICAL(KIND=C_BOOL) :: n_neighbor_max_tmp
+      LOGICAL, OPTIONAL, INTENT(OUT) :: precision
+      LOGICAL(KIND=C_BOOL) :: precision_tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: type
       LOGICAL(KIND=C_BOOL) :: type_tmp
 
       CALL xios(is_defined_compute_connectivity_domain_attr_hdl_)  &
-      ( compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, type )
+      ( compute_connectivity_domain_hdl, local_neighbor, n_neighbor, n_neighbor_max, precision, type  &
+       )
 
   END SUBROUTINE xios(is_defined_compute_connectivity_domain_attr_hdl)
 
   SUBROUTINE xios(is_defined_compute_connectivity_domain_attr_hdl_)   &
-    ( compute_connectivity_domain_hdl, local_neighbor_, n_neighbor_, n_neighbor_max_, type_ )
+    ( compute_connectivity_domain_hdl, local_neighbor_, n_neighbor_, n_neighbor_max_, precision_  &
+    , type_ )
 
     IMPLICIT NONE
       TYPE(txios(compute_connectivity_domain)) , INTENT(IN) :: compute_connectivity_domain_hdl
@@ -193,6 +228,8 @@ CONTAINS
       LOGICAL(KIND=C_BOOL) :: n_neighbor__tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: n_neighbor_max_
       LOGICAL(KIND=C_BOOL) :: n_neighbor_max__tmp
+      LOGICAL, OPTIONAL, INTENT(OUT) :: precision_
+      LOGICAL(KIND=C_BOOL) :: precision__tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: type_
       LOGICAL(KIND=C_BOOL) :: type__tmp
 
@@ -212,6 +249,12 @@ CONTAINS
         n_neighbor_max__tmp = cxios_is_defined_compute_connectivity_domain_n_neighbor_max &
       (compute_connectivity_domain_hdl%daddr)
         n_neighbor_max_ = n_neighbor_max__tmp
+      ENDIF
+
+      IF (PRESENT(precision_)) THEN
+        precision__tmp = cxios_is_defined_compute_connectivity_domain_precision &
+      (compute_connectivity_domain_hdl%daddr)
+        precision_ = precision__tmp
       ENDIF
 
       IF (PRESENT(type_)) THEN

@@ -7,28 +7,29 @@ from xios.obj import Object, swipswap_ctx
 from xios.icontext import get_current_context_id, set_current_context
 from xios.idate import Date
 from xios.iduration import Duration
+import numpy as np
 
 
 class ScalarGroup(Object): 
   _object_type = 'scalargroup'
   FIELD_META = {
-  'scalargroup_id': {'type': String},
-  'axis_type': {'type': String},
-  'bounds': {'type': NpArray, 'ndim': 1},
-  'bounds_name': {'type': String},
-  'comment': {'type': String},
-  'group_ref': {'type': String},
-  'label': {'type': String},
-  'long_name': {'type': String},
-  'mask': {'type': Bool},
-  'n': {'type': Int},
-  'name': {'type': String},
-  'positive': {'type': String},
-  'prec': {'type': Int},
-  'scalar_ref': {'type': String},
-  'standard_name': {'type': String},
-  'unit': {'type': String},
-  'value': {'type': Double},
+  'scalargroup_id': {'type': str},
+  'axis_type': {'type': str},
+  'bounds': {'type': np.ndarray, 'array_type': float, 'ndim': 1},
+  'bounds_name': {'type': str},
+  'comment': {'type': str},
+  'group_ref': {'type': str},
+  'label': {'type': str},
+  'long_name': {'type': str},
+  'mask': {'type': bool},
+  'n': {'type': int},
+  'name': {'type': str},
+  'positive': {'type': str},
+  'prec': {'type': int},
+  'scalar_ref': {'type': str},
+  'standard_name': {'type': str},
+  'unit': {'type': str},
+  'value': {'type': float},
   }
   
   def __init__(self, arg1 = None, arg2 : str = None, **kwargs):

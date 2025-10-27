@@ -103,6 +103,29 @@ extern "C"
   }
 
 
+  void cxios_set_compute_connectivity_domain_precision(compute_connectivity_domain_Ptr compute_connectivity_domain_hdl, double precision)
+  {
+    CTimer::get("XIOS").resume();
+    compute_connectivity_domain_hdl->precision.setValue(precision);
+    CTimer::get("XIOS").suspend();
+  }
+
+  void cxios_get_compute_connectivity_domain_precision(compute_connectivity_domain_Ptr compute_connectivity_domain_hdl, double* precision)
+  {
+    CTimer::get("XIOS").resume();
+    *precision = compute_connectivity_domain_hdl->precision.getInheritedValue();
+    CTimer::get("XIOS").suspend();
+  }
+
+  bool cxios_is_defined_compute_connectivity_domain_precision(compute_connectivity_domain_Ptr compute_connectivity_domain_hdl)
+  {
+     CTimer::get("XIOS").resume();
+     bool isDefined = compute_connectivity_domain_hdl->precision.hasInheritedValue();
+     CTimer::get("XIOS").suspend();
+     return isDefined;
+  }
+
+
   void cxios_set_compute_connectivity_domain_type(compute_connectivity_domain_Ptr compute_connectivity_domain_hdl, const char * type, int type_size)
   {
     std::string type_str;

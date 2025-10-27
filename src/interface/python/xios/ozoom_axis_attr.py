@@ -7,15 +7,16 @@ from xios.obj import Object, swipswap_ctx
 from xios.icontext import get_current_context_id, set_current_context
 from xios.idate import Date
 from xios.iduration import Duration
+import numpy as np
 
 
 class ZoomAxis(Object): 
   _object_type = 'zoom_axis'
   FIELD_META = {
-  'zoom_axis_id': {'type': String},
-  'begin': {'type': Int},
-  'index': {'type': NpArrayInt, 'ndim': 1},
-  'n': {'type': Int},
+  'zoom_axis_id': {'type': str},
+  'begin': {'type': int},
+  'index': {'type': np.ndarray, 'array_type': int, 'ndim': 1},
+  'n': {'type': int},
   }
   
   def __init__(self, arg1 = None, arg2 : str = None, **kwargs):

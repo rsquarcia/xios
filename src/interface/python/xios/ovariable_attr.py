@@ -7,15 +7,16 @@ from xios.obj import Object, swipswap_ctx
 from xios.icontext import get_current_context_id, set_current_context
 from xios.idate import Date
 from xios.iduration import Duration
+import numpy as np
 
 
 class Variable_(Object): 
   _object_type = 'variable'
   FIELD_META = {
-  'variable_id': {'type': String},
-  'name': {'type': String},
-  'ts_target': {'type': String},
-  'type': {'type': String},
+  'variable_id': {'type': str},
+  'name': {'type': str},
+  'ts_target': {'type': str},
+  'type': {'type': str},
   }
   
   def __init__(self, arg1 = None, arg2 : str = None, **kwargs):

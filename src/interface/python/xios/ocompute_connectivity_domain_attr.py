@@ -7,16 +7,18 @@ from xios.obj import Object, swipswap_ctx
 from xios.icontext import get_current_context_id, set_current_context
 from xios.idate import Date
 from xios.iduration import Duration
+import numpy as np
 
 
 class ComputeConnectivityDomain(Object): 
   _object_type = 'compute_connectivity_domain'
   FIELD_META = {
-  'compute_connectivity_domain_id': {'type': String},
-  'local_neighbor': {'type': NpArrayInt, 'ndim': 2},
-  'n_neighbor': {'type': NpArrayInt, 'ndim': 1},
-  'n_neighbor_max': {'type': Int},
-  'type': {'type': String},
+  'compute_connectivity_domain_id': {'type': str},
+  'local_neighbor': {'type': np.ndarray, 'array_type': int, 'ndim': 2},
+  'n_neighbor': {'type': np.ndarray, 'array_type': int, 'ndim': 1},
+  'n_neighbor_max': {'type': int},
+  'precision': {'type': float},
+  'type': {'type': str},
   }
   
   def __init__(self, arg1 = None, arg2 : str = None, **kwargs):

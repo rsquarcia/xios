@@ -7,16 +7,17 @@ from xios.obj import Object, swipswap_ctx
 from xios.icontext import get_current_context_id, set_current_context
 from xios.idate import Date
 from xios.iduration import Duration
+import numpy as np
 
 
 class VariableGroup(Object): 
   _object_type = 'variablegroup'
   FIELD_META = {
-  'variablegroup_id': {'type': String},
-  'group_ref': {'type': String},
-  'name': {'type': String},
-  'ts_target': {'type': String},
-  'type': {'type': String},
+  'variablegroup_id': {'type': str},
+  'group_ref': {'type': str},
+  'name': {'type': str},
+  'ts_target': {'type': str},
+  'type': {'type': str},
   }
   
   def __init__(self, arg1 = None, arg2 : str = None, **kwargs):

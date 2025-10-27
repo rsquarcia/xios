@@ -7,15 +7,16 @@ from xios.obj import Object, swipswap_ctx
 from xios.icontext import get_current_context_id, set_current_context
 from xios.idate import Date
 from xios.iduration import Duration
+import numpy as np
 
 
 class ReduceDomainToAxis(Object): 
   _object_type = 'reduce_domain_to_axis'
   FIELD_META = {
-  'reduce_domain_to_axis_id': {'type': String},
-  'direction': {'type': String},
-  'local': {'type': Bool},
-  'operation': {'type': String},
+  'reduce_domain_to_axis_id': {'type': str},
+  'direction': {'type': str},
+  'local': {'type': bool},
+  'operation': {'type': str},
   }
   
   def __init__(self, arg1 = None, arg2 : str = None, **kwargs):

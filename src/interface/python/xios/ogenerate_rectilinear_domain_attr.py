@@ -7,20 +7,21 @@ from xios.obj import Object, swipswap_ctx
 from xios.icontext import get_current_context_id, set_current_context
 from xios.idate import Date
 from xios.iduration import Duration
+import numpy as np
 
 
 class GenerateRectilinearDomain(Object): 
   _object_type = 'generate_rectilinear_domain'
   FIELD_META = {
-  'generate_rectilinear_domain_id': {'type': String},
-  'bounds_lat_end': {'type': Double},
-  'bounds_lat_start': {'type': Double},
-  'bounds_lon_end': {'type': Double},
-  'bounds_lon_start': {'type': Double},
-  'lat_end': {'type': Double},
-  'lat_start': {'type': Double},
-  'lon_end': {'type': Double},
-  'lon_start': {'type': Double},
+  'generate_rectilinear_domain_id': {'type': str},
+  'bounds_lat_end': {'type': float},
+  'bounds_lat_start': {'type': float},
+  'bounds_lon_end': {'type': float},
+  'bounds_lon_start': {'type': float},
+  'lat_end': {'type': float},
+  'lat_start': {'type': float},
+  'lon_end': {'type': float},
+  'lon_start': {'type': float},
   }
   
   def __init__(self, arg1 = None, arg2 : str = None, **kwargs):

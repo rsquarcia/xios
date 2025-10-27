@@ -7,15 +7,16 @@ from xios.obj import Object, swipswap_ctx
 from xios.icontext import get_current_context_id, set_current_context
 from xios.idate import Date
 from xios.iduration import Duration
+import numpy as np
 
 
 class RedistributeDomain(Object): 
   _object_type = 'redistribute_domain'
   FIELD_META = {
-  'redistribute_domain_id': {'type': String},
-  'index': {'type': NpArrayInt, 'ndim': 1},
-  'mask': {'type': NpArrayBool, 'ndim': 1},
-  'type': {'type': String},
+  'redistribute_domain_id': {'type': str},
+  'index': {'type': np.ndarray, 'array_type': int, 'ndim': 1},
+  'mask': {'type': np.ndarray, 'array_type': bool, 'ndim': 1},
+  'type': {'type': str},
   }
   
   def __init__(self, arg1 = None, arg2 : str = None, **kwargs):
