@@ -684,6 +684,8 @@ TRY
 
   // Update ni
   domainDestination->ni.setValue(newNbLocalDst);
+  domainDestination->data_ni.setValue(count) ;
+  domainDestination->data_nj.setValue(count) ;
   //domainDestination->mask_1d.resize(domainDestination->domainMask.numElements()) ;
   //domainDestination->mask_1d=domainDestination->domainMask ;
   domainDestination->mask_1d.reset() ;
