@@ -516,7 +516,8 @@ TRY
     int dataIdx = data_i_index_src(idx);
     if ((0 <= dataIdx) && (dataIdx < oldNbLocal))
     {
-      data_i_index_src_full(nbUnMaskedPointOnLocalDomain) = dataIdx;
+// error ?        data_i_index_src_full(nbUnMaskedPointOnLocalDomain) = dataIdx;
+      data_i_index_src_full(dataIdx) = dataIdx;
       ++nbUnMaskedPointOnLocalDomain;
     }
   }
@@ -587,7 +588,7 @@ TRY
   // lon(1) + lat(1) + bounds_lon(nVertex) + bounds_lat(nVertex) + mask(1) + data_i_index(1)
   int dataPackageSize =  1 + 1 + // lon + lat
                          nVertex + nVertex + //bounds_lon + bounds_lat
-                         1 + // mask_1d_dst;
+//                         1 + // mask_1d_dst;
                          1; // data_i_index
   // Initialize database
   for (int idx = 0; idx < oldNbLocal; ++idx)
@@ -608,7 +609,7 @@ TRY
     {
       data[dataIdx] = bounds_lat_src(i,idx); ++dataIdx;
     }
-    data[dataIdx] = mask_1d_src(idx) ? 1.0 : -1.0; ++dataIdx;
+//    data[dataIdx] = mask_1d_src(idx) ? 1.0 : -1.0; ++dataIdx;
     data[dataIdx] = data_i_index_src_full(idx);
   }
 
@@ -644,7 +645,7 @@ TRY
       {
         bounds_lat_dst(i,index) = data[dataIdx]; ++dataIdx;
       }
-      mask_1d_dst(index) = (1.0 == data[dataIdx]) ? true : false; ++dataIdx;
+//      mask_1d_dst(index) = (1.0 == data[dataIdx]) ? true : false; ++dataIdx;
       data_i_index_dst_full(index) = (int)(data[dataIdx]);
       if (0 <= data_i_index_dst_full(index))
       {
@@ -692,6 +693,5 @@ TRY
   domainDestination->computeLocalMask() ;
 }
 CATCH
-
 
 }
