@@ -2037,13 +2037,17 @@ namespace xios {
 
     // nodeToFaces connectivity
     CClientClientDHTSizet::Index2VectorInfoTypeMap nodeToFaces;
-    double eps = 1./precision*1.234567890123456789 ;
+    double eps = precision*1.01234567890123456789*1e16 ;
 
     for (int nf = 0; nf < nbFaces; ++nf)
       for (int nv = 0; nv < nvertex; ++nv)
       {
-        double lon= (bounds_lon(nv, nf) + eps)-eps ;
-        double lat= (bounds_lat(nv, nf) + eps)-eps ;
+        double lon= (bounds_lon(nv, nf) + bounds_lon(nv, nf)*eps) ;
+        double lat= (bounds_lat(nv, nf) + bounds_lat(nv, nf)*eps) ;
+
+        lon = lon - bounds_lon(nv, nf)*eps ;
+        lat = lat - bounds_lat(nv, nf)*eps ;
+
         size_t nodeHash = (CMesh::createHashes(lon, lat))[0];
         nodeToFaces[nodeHash].push_back(face_idx(nf));
       }
@@ -2107,13 +2111,16 @@ namespace xios {
     CArray<double, 2> faceToNodes (nvertex, nbFaces);
 
     std::unordered_map <pairDouble, int, pair_xios_hash> mapNodes;
-    double eps = 1./precision*1.234567890123456789 ;
+    double eps = precision*1.01234567890123456789*1e16 ;
 
     for (int nf = 0; nf < nbFaces; ++nf)
       for (int nv = 0; nv < nvertex; ++nv)
       {
-        double lon= (bounds_lon(nv, nf) + eps)-eps ;
-        double lat= (bounds_lat(nv, nf) + eps)-eps ;
+        double lon= (bounds_lon(nv, nf) + bounds_lon(nv, nf)*eps) ;
+        double lat= (bounds_lat(nv, nf) + bounds_lat(nv, nf)*eps) ;
+
+        lon = lon - bounds_lon(nv, nf)*eps ;
+        lat = lat - bounds_lat(nv, nf)*eps ;
         if (mapNodes.find(make_pair (lon, lat)) == mapNodes.end())
         {
           mapNodes[make_pair (lon, lat)] = nbNodes;
