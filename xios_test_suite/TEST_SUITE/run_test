@@ -52,7 +52,7 @@ if [[ ${xios_machine_name} == "irene" ]]; then
   echo "#MSUB -X" >> compile.sh
   echo "#MSUB -x" >> compile.sh
   echo "#MSUB -T 1800" >> compile.sh
-  echo "#MSUB -q skylake" >> compile.sh
+  echo "#MSUB -q rome" >> compile.sh
   echo "#MSUB -A "$user_account >> compile.sh
   echo "#MSUB -Q test" >> compile.sh
   echo "#MSUB -r XIOS_rev"$svnR >> compile.sh

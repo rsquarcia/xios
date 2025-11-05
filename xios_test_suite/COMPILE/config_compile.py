@@ -30,7 +30,7 @@ def generate_compile_job_irene(revision):
         f.write("#MSUB -X\n")
         f.write("#MSUB -x\n")
         f.write("#MSUB -T 1800\n")
-        f.write("#MSUB -q skylake\n")
+        f.write("#MSUB -q rome\n")
         f.write("#MSUB -A "+user_acct+"\n")
         f.write("#MSUB -Q test\n")
         f.write("#MSUB -m work,scratch\n")
