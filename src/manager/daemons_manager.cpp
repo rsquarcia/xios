@@ -95,14 +95,14 @@ namespace xios
       if (isServer_) CServer::getServersRessource()->finalizeSignal() ;
       else CXios::getPoolRessource()->finalizeSignal() ;
       while(!eventLoop()) ;
-      MPI_Barrier( CXios::getXiosComm()) ;
-      CXios::finalizeContextsManager() ;
-      CXios::finalizeCouplerManager() ;
+      CXios::finalizeContextsManager() ;  // delete CWindowManager
+      CXios::finalizeCouplerManager() ;   // ...
       CXios::finalizeServicesManager() ;
       CXios::finalizeRessourcesManager() ;
-      CXios::finalizeRegistryManager() ;
       CXios::finalizeThreadManager() ;
       CXios::finalizeNotificationsManager() ;
+      MPI_Barrier( CXios::getXiosComm()) ; // Sync before Registry (MPI coll)
+      CXios::finalizeRegistryManager() ;
       isFinalized_=true ;
     }
     return isFinalized_;
