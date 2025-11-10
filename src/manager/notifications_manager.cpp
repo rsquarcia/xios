@@ -204,13 +204,6 @@ namespace xios
   {
     if (isMaster_)
     {
-      while ( (!recvP2PRequests_.empty()) ||
-              (!pendingBcastRequests_.empty()) ||
-              (!globalLock_.empty()) )
-      {
-        eventLoop();
-      }
-            
       for(int i=0;i<numPrefetchedRequest_;i++)
       {
         sentBcastRequests_.emplace_back() ;

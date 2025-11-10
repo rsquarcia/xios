@@ -100,7 +100,18 @@ namespace xios
       CXios::finalizeServicesManager() ;
       CXios::finalizeRessourcesManager() ;
       CXios::finalizeThreadManager() ;
+
+      // Wait for the end of notificationsManager usage to finalize it
+      MPI_Request req;
+      MPI_Status stat;
+      int flag(false);
+      MPI_Ibarrier( CXios::getXiosComm(), &req );
+      while (!flag) {
+        CXios::getNotificationsManager()->eventLoop();
+        MPI_Test( &req, &flag, &stat );
+      }
       CXios::finalizeNotificationsManager() ;
+
       MPI_Barrier( CXios::getXiosComm()) ; // Sync before Registry (MPI coll)
       CXios::finalizeRegistryManager() ;
       isFinalized_=true ;
