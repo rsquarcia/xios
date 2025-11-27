@@ -169,8 +169,8 @@ namespace xios
          
          
          std::shared_ptr<COutputPin> getSelfReference(CGarbageCollector& gc);
-         std::shared_ptr<COutputPin> getTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq);
-         std::shared_ptr<COutputPin> getSelfTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq);
+         std::shared_ptr<COutputPin> getTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq, const bool writeInitialCondition);
+         std::shared_ptr<COutputPin> getSelfTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq, const bool writeInitialCondition);
 
 //         virtual void fromBinary(StdIStream& is);
 

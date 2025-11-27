@@ -33,7 +33,7 @@ namespace xios
 
   void CFileWriterStoreFilter::onInputReady(std::vector<CDataPacketPtr> data)
   {
-    const CDate currentWrite = lastWrite_ + freqWrite_;
+    const CDate currentWrite = data[0]->date;
     if (needToWrite_)
     {
       file_->checkWriteFile();

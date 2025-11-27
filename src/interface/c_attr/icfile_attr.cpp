@@ -1088,6 +1088,29 @@ extern "C"
   }
 
 
+  void cxios_set_file_write_initial_condition(file_Ptr file_hdl, bool write_initial_condition)
+  {
+    CTimer::get("XIOS").resume();
+    file_hdl->write_initial_condition.setValue(write_initial_condition);
+    CTimer::get("XIOS").suspend();
+  }
+
+  void cxios_get_file_write_initial_condition(file_Ptr file_hdl, bool* write_initial_condition)
+  {
+    CTimer::get("XIOS").resume();
+    *write_initial_condition = file_hdl->write_initial_condition.getInheritedValue();
+    CTimer::get("XIOS").suspend();
+  }
+
+  bool cxios_is_defined_file_write_initial_condition(file_Ptr file_hdl)
+  {
+     CTimer::get("XIOS").resume();
+     bool isDefined = file_hdl->write_initial_condition.hasInheritedValue();
+     CTimer::get("XIOS").suspend();
+     return isDefined;
+  }
+
+
   void cxios_set_file_writer(file_Ptr file_hdl, const char * writer, int writer_size)
   {
     std::string writer_str;

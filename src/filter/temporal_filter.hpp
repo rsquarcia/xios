@@ -19,6 +19,7 @@ namespace xios
        * \param gc the associated garbage collector
        * \param opId the string identifying the temporal operation
        * \param initDate the origin of time
+       * \param writeInitialCondition true if and only if input data should be sampled and output at timestep 0
        * \param samplingFreq the sampling frequency, i.e. the frequency at which the input data will be used
        * \param samplingOffset the sampling offset, i.e. the offset after which the input data will be used
        * \param opFreq the operation frequency, i.e. the frequency at which the output data will be computed
@@ -26,7 +27,8 @@ namespace xios
                                    when doing the operation
        */
       CTemporalFilter(CGarbageCollector& gc, const std::string& opId,
-                      const CDate& initDate, const CDuration samplingFreq, const CDuration samplingOffset, const CDuration opFreq,
+                      const CDate& initDate, const bool writeInitialCondition, const CDuration samplingFreq,
+                      const CDuration samplingOffset, const CDuration opFreq,
                       bool ignoreMissingValue = false);
 
       /*!
@@ -61,6 +63,7 @@ namespace xios
       const std::unique_ptr<func::CFunctor> functor; //!< The functor corresponding to the temporal operation
       const bool isOnceOperation; //!< True if the operation should be computed just once
       const bool isInstantOperation; //!< True if the operation is instant
+      const bool writeInitialCondition; //!< True if the input data should be sampled and output at timestep 0
       const CDuration samplingFreq; //!< The sampling frequency, i.e. the frequency at which the input data will be used
       const CDuration samplingOffset; //!< The sampling offset, i.e. the offset after which the input data will be used
       const CDuration opFreq; //!< The operation frequency, i.e. the frequency at which the output data will be computed

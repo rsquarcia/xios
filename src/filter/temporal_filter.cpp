@@ -11,12 +11,14 @@ namespace xios
   static func::CFunctor* createFunctor(const std::string& opId, bool ignoreMissingValue, CArray<double, 1>& tmpData);
 
   CTemporalFilter::CTemporalFilter(CGarbageCollector& gc, const std::string& opId,
-                                   const CDate& initDate, const CDuration samplingFreq, const CDuration samplingOffset, const CDuration opFreq,
+                                   const CDate& initDate, const bool writeInitialCondition, const CDuration samplingFreq,
+                                   const CDuration samplingOffset, const CDuration opFreq,
                                    bool ignoreMissingValue /*= false*/)
     : CFilter(gc, 1, this)
     , functor(createFunctor(opId, ignoreMissingValue, tmpData))
     , isOnceOperation(functor->timeType() == func::CFunctor::once)
     , isInstantOperation(functor->timeType() == func::CFunctor::instant)
+    , writeInitialCondition(writeInitialCondition)
     , samplingFreq(samplingFreq)
     , samplingOffset(samplingOffset)
     , opFreq(opFreq)
@@ -78,8 +80,16 @@ namespace xios
     if (data[0]->status != CDataPacket::END_OF_STREAM)
     {
       if (info.isActive(logProfile)) CTimer::get("Temporal filters").resume() ;
+
+      const bool isInitialCondition = writeInitialCondition && data[0]->date == initDate;
       bool usePacket, outputResult, copyLess;
-      if (isOnceOperation)
+
+      if (isInitialCondition)
+      {
+        usePacket = false;
+        outputResult = copyLess = true;
+      }
+      else if (isOnceOperation)
         usePacket = outputResult = copyLess = isFirstOperation;
       else
       {
@@ -104,7 +114,8 @@ namespace xios
 
       if (outputResult)
       {
-        nbOperationDates ++;
+        if (!isInitialCondition)
+          nbOperationDates ++;
         if (!copyLess)
         {
           functor->final();
@@ -120,9 +131,9 @@ namespace xios
         else
           packet = data[0];
 
-	CMemChecker::logMem( "CTemporalFilter::apply" );
+	      CMemChecker::logMem( "CTemporalFilter::apply" );
 
-        isFirstOperation = false;
+        isFirstOperation = !isInitialCondition;
         graphCycleCompleted = true;
      }
      if (info.isActive(logProfile)) CTimer::get("Temporal filters").suspend() ;
