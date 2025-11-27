@@ -17,7 +17,7 @@ CONTAINS
     , par_access, pool_gatherer, pool_reader, pool_writer, read_metadata_par, reader, record_offset  &
     , split_end_offset, split_freq, split_freq_format, split_last_date, split_start_offset, sync_freq  &
     , time_counter, time_counter_name, time_stamp_format, time_stamp_name, time_units, timeseries  &
-    , ts_prefix, type, using_server2, uuid_format, uuid_name, writer )
+    , ts_prefix, type, using_server2, uuid_format, uuid_name, write_initial_condition, writer )
 
     IMPLICIT NONE
       TYPE(txios(filegroup))  :: filegroup_hdl
@@ -68,6 +68,8 @@ CONTAINS
       LOGICAL (KIND=C_BOOL) :: using_server2_tmp
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: uuid_format
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: uuid_name
+      LOGICAL  , OPTIONAL, INTENT(IN) :: write_initial_condition
+      LOGICAL (KIND=C_BOOL) :: write_initial_condition_tmp
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: writer
 
       CALL xios(get_filegroup_handle) &
@@ -78,7 +80,7 @@ CONTAINS
       , par_access, pool_gatherer, pool_reader, pool_writer, read_metadata_par, reader, record_offset  &
       , split_end_offset, split_freq, split_freq_format, split_last_date, split_start_offset, sync_freq  &
       , time_counter, time_counter_name, time_stamp_format, time_stamp_name, time_units, timeseries  &
-      , ts_prefix, type, using_server2, uuid_format, uuid_name, writer )
+      , ts_prefix, type, using_server2, uuid_format, uuid_name, write_initial_condition, writer )
 
   END SUBROUTINE xios(set_filegroup_attr)
 
@@ -88,7 +90,7 @@ CONTAINS
     , par_access, pool_gatherer, pool_reader, pool_writer, read_metadata_par, reader, record_offset  &
     , split_end_offset, split_freq, split_freq_format, split_last_date, split_start_offset, sync_freq  &
     , time_counter, time_counter_name, time_stamp_format, time_stamp_name, time_units, timeseries  &
-    , ts_prefix, type, using_server2, uuid_format, uuid_name, writer )
+    , ts_prefix, type, using_server2, uuid_format, uuid_name, write_initial_condition, writer )
 
     IMPLICIT NONE
       TYPE(txios(filegroup)) , INTENT(IN) :: filegroup_hdl
@@ -138,6 +140,8 @@ CONTAINS
       LOGICAL (KIND=C_BOOL) :: using_server2_tmp
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: uuid_format
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: uuid_name
+      LOGICAL  , OPTIONAL, INTENT(IN) :: write_initial_condition
+      LOGICAL (KIND=C_BOOL) :: write_initial_condition_tmp
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: writer
 
       CALL xios(set_filegroup_attr_hdl_)  &
@@ -146,7 +150,7 @@ CONTAINS
       , par_access, pool_gatherer, pool_reader, pool_writer, read_metadata_par, reader, record_offset  &
       , split_end_offset, split_freq, split_freq_format, split_last_date, split_start_offset, sync_freq  &
       , time_counter, time_counter_name, time_stamp_format, time_stamp_name, time_units, timeseries  &
-      , ts_prefix, type, using_server2, uuid_format, uuid_name, writer )
+      , ts_prefix, type, using_server2, uuid_format, uuid_name, write_initial_condition, writer )
 
   END SUBROUTINE xios(set_filegroup_attr_hdl)
 
@@ -156,8 +160,8 @@ CONTAINS
     , output_freq_, output_level_, par_access_, pool_gatherer_, pool_reader_, pool_writer_, read_metadata_par_  &
     , reader_, record_offset_, split_end_offset_, split_freq_, split_freq_format_, split_last_date_  &
     , split_start_offset_, sync_freq_, time_counter_, time_counter_name_, time_stamp_format_, time_stamp_name_  &
-    , time_units_, timeseries_, ts_prefix_, type_, using_server2_, uuid_format_, uuid_name_, writer_  &
-     )
+    , time_units_, timeseries_, ts_prefix_, type_, using_server2_, uuid_format_, uuid_name_, write_initial_condition_  &
+    , writer_ )
 
     IMPLICIT NONE
       TYPE(txios(filegroup)) , INTENT(IN) :: filegroup_hdl
@@ -207,6 +211,8 @@ CONTAINS
       LOGICAL (KIND=C_BOOL) :: using_server2__tmp
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: uuid_format_
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: uuid_name_
+      LOGICAL  , OPTIONAL, INTENT(IN) :: write_initial_condition_
+      LOGICAL (KIND=C_BOOL) :: write_initial_condition__tmp
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: writer_
 
       IF (PRESENT(append_)) THEN
@@ -419,6 +425,13 @@ CONTAINS
       (filegroup_hdl%daddr, uuid_name_, len(uuid_name_))
       ENDIF
 
+      IF (PRESENT(write_initial_condition_)) THEN
+        write_initial_condition__tmp = write_initial_condition_
+        CALL xios_logical_to_bool_0d(write_initial_condition__tmp)
+        CALL cxios_set_filegroup_write_initial_condition &
+      (filegroup_hdl%daddr, write_initial_condition__tmp)
+      ENDIF
+
       IF (PRESENT(writer_)) THEN
         CALL cxios_set_filegroup_writer &
       (filegroup_hdl%daddr, writer_, len(writer_))
@@ -432,7 +445,7 @@ CONTAINS
     , par_access, pool_gatherer, pool_reader, pool_writer, read_metadata_par, reader, record_offset  &
     , split_end_offset, split_freq, split_freq_format, split_last_date, split_start_offset, sync_freq  &
     , time_counter, time_counter_name, time_stamp_format, time_stamp_name, time_units, timeseries  &
-    , ts_prefix, type, using_server2, uuid_format, uuid_name, writer )
+    , ts_prefix, type, using_server2, uuid_format, uuid_name, write_initial_condition, writer )
 
     IMPLICIT NONE
       TYPE(txios(filegroup))  :: filegroup_hdl
@@ -483,6 +496,8 @@ CONTAINS
       LOGICAL (KIND=C_BOOL) :: using_server2_tmp
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: uuid_format
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: uuid_name
+      LOGICAL  , OPTIONAL, INTENT(OUT) :: write_initial_condition
+      LOGICAL (KIND=C_BOOL) :: write_initial_condition_tmp
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: writer
 
       CALL xios(get_filegroup_handle) &
@@ -493,7 +508,7 @@ CONTAINS
       , par_access, pool_gatherer, pool_reader, pool_writer, read_metadata_par, reader, record_offset  &
       , split_end_offset, split_freq, split_freq_format, split_last_date, split_start_offset, sync_freq  &
       , time_counter, time_counter_name, time_stamp_format, time_stamp_name, time_units, timeseries  &
-      , ts_prefix, type, using_server2, uuid_format, uuid_name, writer )
+      , ts_prefix, type, using_server2, uuid_format, uuid_name, write_initial_condition, writer )
 
   END SUBROUTINE xios(get_filegroup_attr)
 
@@ -503,7 +518,7 @@ CONTAINS
     , par_access, pool_gatherer, pool_reader, pool_writer, read_metadata_par, reader, record_offset  &
     , split_end_offset, split_freq, split_freq_format, split_last_date, split_start_offset, sync_freq  &
     , time_counter, time_counter_name, time_stamp_format, time_stamp_name, time_units, timeseries  &
-    , ts_prefix, type, using_server2, uuid_format, uuid_name, writer )
+    , ts_prefix, type, using_server2, uuid_format, uuid_name, write_initial_condition, writer )
 
     IMPLICIT NONE
       TYPE(txios(filegroup)) , INTENT(IN) :: filegroup_hdl
@@ -553,6 +568,8 @@ CONTAINS
       LOGICAL (KIND=C_BOOL) :: using_server2_tmp
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: uuid_format
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: uuid_name
+      LOGICAL  , OPTIONAL, INTENT(OUT) :: write_initial_condition
+      LOGICAL (KIND=C_BOOL) :: write_initial_condition_tmp
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: writer
 
       CALL xios(get_filegroup_attr_hdl_)  &
@@ -561,7 +578,7 @@ CONTAINS
       , par_access, pool_gatherer, pool_reader, pool_writer, read_metadata_par, reader, record_offset  &
       , split_end_offset, split_freq, split_freq_format, split_last_date, split_start_offset, sync_freq  &
       , time_counter, time_counter_name, time_stamp_format, time_stamp_name, time_units, timeseries  &
-      , ts_prefix, type, using_server2, uuid_format, uuid_name, writer )
+      , ts_prefix, type, using_server2, uuid_format, uuid_name, write_initial_condition, writer )
 
   END SUBROUTINE xios(get_filegroup_attr_hdl)
 
@@ -571,8 +588,8 @@ CONTAINS
     , output_freq_, output_level_, par_access_, pool_gatherer_, pool_reader_, pool_writer_, read_metadata_par_  &
     , reader_, record_offset_, split_end_offset_, split_freq_, split_freq_format_, split_last_date_  &
     , split_start_offset_, sync_freq_, time_counter_, time_counter_name_, time_stamp_format_, time_stamp_name_  &
-    , time_units_, timeseries_, ts_prefix_, type_, using_server2_, uuid_format_, uuid_name_, writer_  &
-     )
+    , time_units_, timeseries_, ts_prefix_, type_, using_server2_, uuid_format_, uuid_name_, write_initial_condition_  &
+    , writer_ )
 
     IMPLICIT NONE
       TYPE(txios(filegroup)) , INTENT(IN) :: filegroup_hdl
@@ -622,6 +639,8 @@ CONTAINS
       LOGICAL (KIND=C_BOOL) :: using_server2__tmp
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: uuid_format_
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: uuid_name_
+      LOGICAL  , OPTIONAL, INTENT(OUT) :: write_initial_condition_
+      LOGICAL (KIND=C_BOOL) :: write_initial_condition__tmp
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: writer_
 
       IF (PRESENT(append_)) THEN
@@ -834,6 +853,13 @@ CONTAINS
       (filegroup_hdl%daddr, uuid_name_, len(uuid_name_))
       ENDIF
 
+      IF (PRESENT(write_initial_condition_)) THEN
+        CALL cxios_get_filegroup_write_initial_condition &
+      (filegroup_hdl%daddr, write_initial_condition__tmp)
+        CALL xios_bool_to_logical_0d(write_initial_condition__tmp)
+        write_initial_condition_ = write_initial_condition__tmp
+      ENDIF
+
       IF (PRESENT(writer_)) THEN
         CALL cxios_get_filegroup_writer &
       (filegroup_hdl%daddr, writer_, len(writer_))
@@ -847,7 +873,7 @@ CONTAINS
     , par_access, pool_gatherer, pool_reader, pool_writer, read_metadata_par, reader, record_offset  &
     , split_end_offset, split_freq, split_freq_format, split_last_date, split_start_offset, sync_freq  &
     , time_counter, time_counter_name, time_stamp_format, time_stamp_name, time_units, timeseries  &
-    , ts_prefix, type, using_server2, uuid_format, uuid_name, writer )
+    , ts_prefix, type, using_server2, uuid_format, uuid_name, write_initial_condition, writer )
 
     IMPLICIT NONE
       TYPE(txios(filegroup))  :: filegroup_hdl
@@ -934,6 +960,8 @@ CONTAINS
       LOGICAL(KIND=C_BOOL) :: uuid_format_tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: uuid_name
       LOGICAL(KIND=C_BOOL) :: uuid_name_tmp
+      LOGICAL, OPTIONAL, INTENT(OUT) :: write_initial_condition
+      LOGICAL(KIND=C_BOOL) :: write_initial_condition_tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: writer
       LOGICAL(KIND=C_BOOL) :: writer_tmp
 
@@ -945,7 +973,7 @@ CONTAINS
       , par_access, pool_gatherer, pool_reader, pool_writer, read_metadata_par, reader, record_offset  &
       , split_end_offset, split_freq, split_freq_format, split_last_date, split_start_offset, sync_freq  &
       , time_counter, time_counter_name, time_stamp_format, time_stamp_name, time_units, timeseries  &
-      , ts_prefix, type, using_server2, uuid_format, uuid_name, writer )
+      , ts_prefix, type, using_server2, uuid_format, uuid_name, write_initial_condition, writer )
 
   END SUBROUTINE xios(is_defined_filegroup_attr)
 
@@ -955,7 +983,7 @@ CONTAINS
     , par_access, pool_gatherer, pool_reader, pool_writer, read_metadata_par, reader, record_offset  &
     , split_end_offset, split_freq, split_freq_format, split_last_date, split_start_offset, sync_freq  &
     , time_counter, time_counter_name, time_stamp_format, time_stamp_name, time_units, timeseries  &
-    , ts_prefix, type, using_server2, uuid_format, uuid_name, writer )
+    , ts_prefix, type, using_server2, uuid_format, uuid_name, write_initial_condition, writer )
 
     IMPLICIT NONE
       TYPE(txios(filegroup)) , INTENT(IN) :: filegroup_hdl
@@ -1041,6 +1069,8 @@ CONTAINS
       LOGICAL(KIND=C_BOOL) :: uuid_format_tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: uuid_name
       LOGICAL(KIND=C_BOOL) :: uuid_name_tmp
+      LOGICAL, OPTIONAL, INTENT(OUT) :: write_initial_condition
+      LOGICAL(KIND=C_BOOL) :: write_initial_condition_tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: writer
       LOGICAL(KIND=C_BOOL) :: writer_tmp
 
@@ -1050,7 +1080,7 @@ CONTAINS
       , par_access, pool_gatherer, pool_reader, pool_writer, read_metadata_par, reader, record_offset  &
       , split_end_offset, split_freq, split_freq_format, split_last_date, split_start_offset, sync_freq  &
       , time_counter, time_counter_name, time_stamp_format, time_stamp_name, time_units, timeseries  &
-      , ts_prefix, type, using_server2, uuid_format, uuid_name, writer )
+      , ts_prefix, type, using_server2, uuid_format, uuid_name, write_initial_condition, writer )
 
   END SUBROUTINE xios(is_defined_filegroup_attr_hdl)
 
@@ -1060,8 +1090,8 @@ CONTAINS
     , output_freq_, output_level_, par_access_, pool_gatherer_, pool_reader_, pool_writer_, read_metadata_par_  &
     , reader_, record_offset_, split_end_offset_, split_freq_, split_freq_format_, split_last_date_  &
     , split_start_offset_, sync_freq_, time_counter_, time_counter_name_, time_stamp_format_, time_stamp_name_  &
-    , time_units_, timeseries_, ts_prefix_, type_, using_server2_, uuid_format_, uuid_name_, writer_  &
-     )
+    , time_units_, timeseries_, ts_prefix_, type_, using_server2_, uuid_format_, uuid_name_, write_initial_condition_  &
+    , writer_ )
 
     IMPLICIT NONE
       TYPE(txios(filegroup)) , INTENT(IN) :: filegroup_hdl
@@ -1147,6 +1177,8 @@ CONTAINS
       LOGICAL(KIND=C_BOOL) :: uuid_format__tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: uuid_name_
       LOGICAL(KIND=C_BOOL) :: uuid_name__tmp
+      LOGICAL, OPTIONAL, INTENT(OUT) :: write_initial_condition_
+      LOGICAL(KIND=C_BOOL) :: write_initial_condition__tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: writer_
       LOGICAL(KIND=C_BOOL) :: writer__tmp
 
@@ -1394,6 +1426,12 @@ CONTAINS
         uuid_name__tmp = cxios_is_defined_filegroup_uuid_name &
       (filegroup_hdl%daddr)
         uuid_name_ = uuid_name__tmp
+      ENDIF
+
+      IF (PRESENT(write_initial_condition_)) THEN
+        write_initial_condition__tmp = cxios_is_defined_filegroup_write_initial_condition &
+      (filegroup_hdl%daddr)
+        write_initial_condition_ = write_initial_condition__tmp
       ENDIF
 
       IF (PRESENT(writer_)) THEN

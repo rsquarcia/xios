@@ -852,6 +852,25 @@ MODULE filegroup_interface_attr
     END FUNCTION cxios_is_defined_filegroup_uuid_name
 
 
+    SUBROUTINE cxios_set_filegroup_write_initial_condition(filegroup_hdl, write_initial_condition) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE :: filegroup_hdl
+      LOGICAL (KIND=C_BOOL)      , VALUE :: write_initial_condition
+    END SUBROUTINE cxios_set_filegroup_write_initial_condition
+
+    SUBROUTINE cxios_get_filegroup_write_initial_condition(filegroup_hdl, write_initial_condition) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE :: filegroup_hdl
+      LOGICAL (KIND=C_BOOL)             :: write_initial_condition
+    END SUBROUTINE cxios_get_filegroup_write_initial_condition
+
+    FUNCTION cxios_is_defined_filegroup_write_initial_condition(filegroup_hdl) BIND(C)
+      USE ISO_C_BINDING
+      LOGICAL(kind=C_BOOL) :: cxios_is_defined_filegroup_write_initial_condition
+      INTEGER (kind = C_INTPTR_T), VALUE :: filegroup_hdl
+    END FUNCTION cxios_is_defined_filegroup_write_initial_condition
+
+
     SUBROUTINE cxios_set_filegroup_writer(filegroup_hdl, writer, writer_size) BIND(C)
       USE ISO_C_BINDING
       INTEGER (kind = C_INTPTR_T), VALUE :: filegroup_hdl

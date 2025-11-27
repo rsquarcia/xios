@@ -800,7 +800,7 @@ namespace xios
     // insert temporal filter before sending to files
     clientToServerStoreFilter_ = std::shared_ptr<CClientToServerStoreFilter>(new CClientToServerStoreFilter(gc, this, client_));
     // insert temporal filter before sending to files
-    getTemporalDataFilter(gc, fileOut_->output_freq)->connectOutput(clientToServerStoreFilter_, 0);
+    getTemporalDataFilter(gc, fileOut_->output_freq, fileOut_->shouldWriteInitialCondition())->connectOutput(clientToServerStoreFilter_, 0);
     const bool buildGraph_ = !build_workflow_graph.isEmpty() && build_workflow_graph == true ;
     if(buildGraph_) 
     {
@@ -839,7 +839,7 @@ namespace xios
   {
     // insert temporal filter before sending to files
     clientOnlineWriterFilter_ = std::shared_ptr<CClientOnlineWriterFilter>(new CClientOnlineWriterFilter( gc, this)) ;
-    getTemporalDataFilter(gc, fileOut_->output_freq)->connectOutput(clientOnlineWriterFilter_, 0);
+    getTemporalDataFilter(gc, fileOut_->output_freq, fileOut_->shouldWriteInitialCondition())->connectOutput(clientOnlineWriterFilter_, 0);
    
     const bool buildGraph_ = !build_workflow_graph.isEmpty() && build_workflow_graph == true ;
   
@@ -1122,7 +1122,7 @@ namespace xios
    * \param outFreq the operation frequency, i.e. the frequency at which the output data will be computed
    * \return the output pin corresponding to the requested temporal filter
    */
-  std::shared_ptr<COutputPin> CField::getTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq)
+  std::shared_ptr<COutputPin> CField::getTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq, const bool writeInitialCondition)
   TRY
   {
     std::map<CDuration, std::shared_ptr<COutputPin> >::iterator it = temporalDataFilters.find(outFreq);
@@ -1130,15 +1130,16 @@ namespace xios
     if (it == temporalDataFilters.end())
     {
       if (operation.isEmpty())
-        ERROR("void CField::getTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq)",
+        ERROR("void CField::getTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq, const bool writeInitialCondition)",
               << "An operation must be defined for field \"" << getId() << "\".");
 
       checkTimeAttributes(&outFreq);
 
       const bool detectMissingValues = (!detect_missing_value.isEmpty()  && detect_missing_value == true);
       std::shared_ptr<CTemporalFilter> temporalFilter(new CTemporalFilter(gc, operation,
-                                                                             context_->getCalendar()->getInitDate(),
-                                                                             freq_op, freq_offset, outFreq, detectMissingValues));
+                                                                          context_->getCalendar()->getInitDate(),
+                                                                          writeInitialCondition, freq_op, freq_offset, outFreq,
+                                                                          detectMissingValues));
 
       instantDataFilter->connectOutput(temporalFilter, 0);
       const bool buildGraph_ = !build_workflow_graph.isEmpty() && build_workflow_graph == true ;
@@ -1166,7 +1167,7 @@ namespace xios
     * \return the output pin corresponding to the requested temporal filter
     */
 
-  std::shared_ptr<COutputPin> CField::getSelfTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq)
+  std::shared_ptr<COutputPin> CField::getSelfTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq, const bool writeInitialCondition)
   TRY
   {
     if (instantDataFilter || !hasExpression())
@@ -1178,7 +1179,7 @@ namespace xios
     if (hasDirectFieldReference())
     {
       CField* fieldRef=getDirectFieldReference();
-      return fieldRef->getTemporalDataFilter(gc, outFreq) ;
+      return fieldRef->getTemporalDataFilter(gc, outFreq, writeInitialCondition) ;
     }
     else
     {
@@ -1193,7 +1194,8 @@ namespace xios
       const bool detectMissingValues = (!detect_missing_value.isEmpty() && detect_missing_value == true);
       selfTemporalDataFilter = std::shared_ptr<CTemporalFilter>(new CTemporalFilter(gc, operation,
                                                                 context_->getCalendar()->getInitDate(),
-                                                                freq_op, freq_offset, outFreq, detectMissingValues));
+                                                                writeInitialCondition, freq_op, freq_offset, outFreq,
+                                                                detectMissingValues));
 
       inputFilter->connectOutput(selfTemporalDataFilter, 0);
       const bool buildGraph_ = !build_workflow_graph.isEmpty() && build_workflow_graph == true ;
