@@ -1,0 +1,67 @@
+workflow:
+  rules: # only run for Merge Reqeusts to `main` and pushes to `main`
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+image: ubuntu
+
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - test
+
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build
+  script:
+    - apt update
+    - apt -yq install $(<dependencies)
+    - echo "Enabling interface generation"
+    - sed -i 's/#bld::target generate_interfaces.exe/bld::target generate_interfaces.exe/g' bld.cfg
+    - echo "Compiling XIOS..."
+    - ./make_xios --job 2 --debug --arch GCC_LINUX_APT
+    - ls -l bin/
+    - echo "Compile complete."
+  cache:
+    key: binaries-cache-$CI_COMMIT_REF_SLUG
+    paths:
+      - bin/*
+
+test-interface-generation:   # This job runs in the test stage.
+  stage: test    # It only starts when the job in the build stage completes successfully.
+  script:
+    - apt update
+    - apt -yq install $(<dependencies)
+    - apt install -yq git
+    - git status ; git diff
+    - ls -lh bin/
+    - cd src
+    - ./../bin/generate_interfaces.exe
+    - mv interface/*_attr.cpp interface/c_attr/
+    - mv interface/*_attr.F90 interface/fortran_attr/
+    - mv interface/*_attr.py interface/python/xios/
+    - git add interface/c_attr/* interface/fortran_attr/* interface/python/xios/*
+    - cd .. ; pwd
+    - git diff
+    - git diff --exit-code # this will generate a failure code if there are any diffs
+    - echo "No source tree code changes, the interface creation results are consistent with the code."
+  cache:
+    key: binaries-cache-$CI_COMMIT_REF_SLUG
+    paths:
+      - bin/*
+
+test-job:   # This job runs in the test stage.
+  stage: test    # It only starts when the job in the build stage completes successfully.
+  script:
+    - apt update
+    - apt -yq install $(<dependencies)
+    - python3 -c 'import unittest; print(unittest)'
+    - ls -lh bin/
+    - echo 'Run mpiexec as root, against openmpi advice, but deemed safe for CI'
+    - export OMPI_ALLOW_RUN_AS_ROOT=1
+    - export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+    - echo "Running test suite... "
+    - export GITHUB_ACTION_LIMIT_RANKS=1
+    - python3 -m xios_test_suite.pyTestingFramework
+  cache:
+    key: binaries-cache-$CI_COMMIT_REF_SLUG
+    paths:
+      - bin/*
