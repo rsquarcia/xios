@@ -84,6 +84,8 @@ namespace xios
 
       }
       
+      int n_subevent = ranks.size();
+      int count = 0;
       event.setFirst() ;
       while(!event.isEmpty())
       {
@@ -97,15 +99,20 @@ namespace xios
         itBuffer->second->eventLoop() ;
         double time=CTimer::getTime() ;
         bool succed = itBuffer->second->writeEvent(timeLine_, event)  ;
+        count++; // count tries to writeEvent to check that all subevent have been tested
         if (succed) 
         {
           time=CTimer::getTime()-time ;
           if (!CTimer::get("Blocking time").isSuspended()) CTimer::get("Blocking time").minus(time) ;
         }
 
-        if (succed) event.remove() ;
+        if (succed)
+        {
+          event.remove() ;
+          itBuffer->second->eventLoop() ;
+        }
         else event.next() ;
-        if (event.isFirst())
+        if ( (count>=n_subevent) && (!event.isEmpty()) && (event.isFirst()) ) // event.isEmpty() -> isFirst return true ?
         {
           if (CTimer::get("Blocking time").isSuspended()) CTimer::get("Blocking time").resume() ;
           yield() ;
