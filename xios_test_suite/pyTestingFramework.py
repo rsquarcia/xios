@@ -151,13 +151,17 @@ for atest_dir in test_dirs:
                        os.path.join(run_test_dir, 'context_atm.xml'))
         # hold n processes at 2 for github action runners
         if os.environ.get('GITHUB_ACTION_LIMIT_RANKS'):
-            acall = ['mpiexec', '--use-hwthread-cpus',
-                     '-n', '1', 'generic_testcase.exe', ':',
+            acall = ['mpiexec',
+                     '-n', '1', './generic_testcase.exe', ':',
                      '-n', '1', './xios_server.exe']
         else:
-            acall = ['mpiexec', '--use-hwthread-cpus',
-                     '-n', str(config_dict["NumberClients"]), 'generic_testcase.exe', ':',
+            acall = ['mpiexec',
+                     '-n', str(config_dict["NumberClients"]), './generic_testcase.exe', ':',
                      '-n', str(config_dict["NumberServers"]), './xios_server.exe']
+        if os.environ.get('MPI_FLAVOUR', '') == 'openmpi':
+            # use hwthread for github ubuntu runner
+            # but only for known openMPI (set by env var)
+            acall = acall[0:1] + ['--use-hwthread-cpus'] + acall[1:]
 
         def make_a_test(the_test_dir, acall):
             """
