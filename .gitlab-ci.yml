@@ -60,6 +60,7 @@ test-job:   # This job runs in the test stage.
     - export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
     - echo "Running test suite... "
     - export GITHUB_ACTION_LIMIT_RANKS=1
+    - export MPI_FLAVOUR='openmpi'
     - python3 -m xios_test_suite.pyTestingFramework
   cache:
     key: binaries-cache-$CI_COMMIT_REF_SLUG
