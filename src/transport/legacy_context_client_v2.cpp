@@ -218,7 +218,7 @@ namespace xios
    {
       if (!mapBufferSize_.count(rank))
       {
-        error(0) << "WARNING: Unexpected request for buffer to communicate with server " << rank << std::endl;
+        info(50) << "WARNING: Unexpected request for buffer to communicate with server " << rank << std::endl;
         mapBufferSize_[rank] = CXios::minBufferSize;
         maxEventSizes_[rank] = CXios::minBufferSize;
       }
