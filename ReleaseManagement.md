@@ -4,7 +4,13 @@
 
 ## Numérotation des Versions
 
-XIOS vise à utiliser le versionnage sémantique (https://semver.org/lang/fr/spec/v2.0.0.html) pour la numérotation actuelle et préceédente des versions de XIOS.
+XIOS utilise un identifiant de version en 4 parties, SUPER-MAJEUR.MAJEUR.MINEUR.CORRECTIF, pour la numérotation actuelle et préceédente des versions de XIOS.
+
+XIOS définit une version super-majeure pour le développement de fonctionnalités étendu et les changements clés d’implémentation.
+Une version super-majeure représente un ensemble de changements significatifs dans la base de code.
+L’adoption d’une nouvelle version super-majeure peut impliquer un travail étendu d’interface et d’analyse de performance pour les systèmes de simulation.
+
+XIOS vise à utiliser le versionnage sémantique (https://semver.org/lang/fr/spec/v2.0.0.html) 
 
 Étant donné un numéro de version MAJEUR.MINEUR.CORRECTIF, il faut incrémenter :
 
@@ -31,7 +37,7 @@ Une fois qu’une version est tagué, aucune modification doit être ajouté à 
 
 Pour chaque branche ciblé vers une version mineure, la nouvelle branche doit être créée avec le dépôt 'upstream'. Une fois cette branche est créée, aucune fonctionnalité nouvelle doit être ajoutée à la branche, sauf les corrections des bugs rétrocompatibles.
 
-Par exemple, une nouvelle branche peut être créée pour une version `xios-vn3.1.x` release: `XIOS3-3.1`. La création de cette branche fige l'ensemble des fonctionnalités incluses dans toutes les versions de `xios-vn3.1.x`.
+Par exemple, une nouvelle branche peut être créée pour une version `xios-3.1.1.x` release: `XIOS-3.1.1`. La création de cette branche fige l'ensemble des fonctionnalités incluses dans toutes les versions de `xios-3.1.1.x`.
 
 Des tags de publication doivent être déposées relativement à la branche de la nouvelle version.
 
@@ -49,7 +55,7 @@ Les candidates de version sont des versions facultative et ne peux pas être ajo
 
 les candidates de version sont des versions immuable, qui sont utilisés pour l'évaluation. Les tags de candidates de version doivent comporter le suffixe `.rc` suivi par un seul chiffre.
 
-Ainsi, 'xios-vn3.1.1.rc1' représente une candidate de version pour une version future 'xios-vn3.1.1'
+Ainsi, `xios-3.1.1.0.rc1` représente une candidate de version pour une version future `xios-3.1.1.0`
 Une candidate de version doit être mise à disposition pendant au moins 1 mois pour permettre aux utilisateurs de XIOS de tester et de rendre compte de l’adéquation de la version candidate pour être une version officielle.
 
 Les candidates de version peuvent entraîner des corrections de bugs sur la branche de publication, avant une publication.
@@ -64,7 +70,14 @@ Si des modifications importantes sont ajouté, une nouvelle version candidate do
 
 ## Version Numbering
 
-XIOS aims to implement semantic versioning (https://semver.org/spec/v2.0.0.html) for the current and previous version numbering of XIOS.
+XIOS uses a 4 part version identifier, SUPER-MAJOR.MAJOR.MINOR.PATCH to label version tags
+for the current and previous version numbering of XIOS.
+
+XIOS defines a super-major version for extensive feature development and key implementation changes.
+A super-major version reprents a significant change set within the code base.
+Adopting a new super-major version may involve extensive interfacing and performance anlysis work for simulation systems.  
+
+XIOS then aims to implement semantic versioning (https://semver.org/spec/v2.0.0.html) for MAJOR.MINOR.PATCH label elements.
 
 This means that, given a version number MAJOR.MINOR.PATCH, increment the:
 
@@ -97,7 +110,7 @@ Once a version is tagged, no changes shall be added to that version, it is a rel
 For each branch targeted towards a minor version, the new branch shall be created with the `upstream` repository.  Once this branch has been created, no new functionality shall be added to the branch.
 Only backward compatible bug fixes may be added to the branch.
 
-For example, a new branch may be created for the `xios-vn3.1.x ` release set, named: `XIOS-3.1`.  The creation of this branch shall freeze the feature set that is included in all `xios-vn3.1.x` releases.
+For example, a new branch may be created for the `xios-3.1.1.x ` release set, named: `XIOS-3.1.1`.  The creation of this branch shall freeze the feature set that is included in all `xios-3.1.1.x` releases.
 
 Release tags shall be made with respect to a release branch.
 
@@ -105,7 +118,7 @@ Release tags shall be made with respect to a release branch.
 
 Each release shall be a Git tag and a Gitlab release.
 
-Release tags shall be of the form: `xios-vn{major}.{minor}.{patch}`, e.g `xios-vn3.1.1`
+Release tags shall be of the form: `xios-{super-major}{major}.{minor}.{patch}`, e.g `xios-3.1.1.0`
 
 ### Release Candidates
 
@@ -113,9 +126,9 @@ A release candidate is an optional tag, releases may not have a release candidat
 
 Release candidates are immutable releases, which are used for evaluation purposes.  The release candidate label shall include the suffix `.rc` plus a single digit number.
 
-Thus `xios-vn3.1.1.rc1` represent a release candidate for a future `xios-vn3.1.1` release
+Thus `xios-3.1.1.0.rc1` represent a release candidate for a future `xios-3.1.1.0` release
 
-A release candidate may be made available for a perriod of 1 month to enable users of XIOS to test and report back on the suitability of the release candidate to be a formal release.
+A release candidate may be made available for a period of 1 month to enable users of XIOS to test and report back on the suitability of the release candidate to be a formal release.
 Release candidates may lead to bug fixes on the release branch, prior to a release.
 If significant changes are made, a new release candidate should be considered for testing prior to a release.
 
