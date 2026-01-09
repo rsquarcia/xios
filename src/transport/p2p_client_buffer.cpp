@@ -281,8 +281,10 @@ namespace xios
 
   void CP2pClientBuffer::listenFinalize(void)
   {
-    if (!isFinalized_)
+    double time = MPI_Wtime();
+    if ( (!isFinalized_) && ((time-lastTime_)>latency_))
     {
+      lastTime_ = time;
       int flag ;
       MPI_Status status ;
       MPI_Test(&finalizeRequest_,&flag, &status) ;
