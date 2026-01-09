@@ -51,6 +51,7 @@ namespace xios
   StdSize CXios::maxBufferSize = std::numeric_limits<int>::max() ;
   bool CXios::printLogs2Files;
   bool CXios::isOptPerformance = true;
+  double CXios::defaultChunkingSizeTarget = 20.;
   CRegistry* CXios::globalRegistry = 0;
   double CXios::recvFieldTimeout = 300.0;
   bool CXios::checkEventSync=false ;
@@ -123,6 +124,9 @@ namespace xios
     bufferSizeFactor = getin<double>("buffer_size_factor", defaultBufferSizeFactor);
     minBufferSize = getin<int>("min_buffer_size", 1024 * sizeof(double));
     maxBufferSize = getin<int>("max_buffer_size", std::numeric_limits<int>::max());
+
+    defaultChunkingSizeTarget = getin<double>("default_chunking_blocksize", 20. );
+
     recvFieldTimeout = getin<double>("recv_field_timeout", recvFieldTimeout);
     if (recvFieldTimeout < 0.0)
       ERROR("CXios::parseXiosConfig()", "recv_field_timeout cannot be negative.");

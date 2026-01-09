@@ -72,6 +72,7 @@ namespace xios {
                                     "checksum_recv_fields",
                                     "checksum_send_fields",
                                     "clients_code_id",
+                                    "default_chunking_blocksize",
                                     "info_level",
                                     "log_memory",
                                     "log_type",
