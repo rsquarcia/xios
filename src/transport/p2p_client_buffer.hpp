@@ -221,6 +221,8 @@ namespace xios
       bool isFinalized_ = false ;
       int maxSentBlocRequests_ = 10000 ;
 
+      double latency_=1;  // latency between 2 calls to listenFinalize
+      double lastTime_=0; // time elapsed since last call to listenFinalize
   } ;
 
 }
