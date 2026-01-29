@@ -61,7 +61,7 @@ namespace xios
   }
 
   template<>
-  MPI_Datatype MPI_GetType<bool>(void) { return MPI_CXX_BOOL ;}
+  MPI_Datatype MPI_GetType<bool>(void) { return MPI_C_BOOL ;}
 
   template<>
   MPI_Datatype MPI_GetType<char>(void) { return MPI_CHAR ;}
