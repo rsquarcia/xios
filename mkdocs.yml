@@ -1,0 +1,57 @@
+site_name: XIOS Documentation
+docs_dir: documentation
+repo_url: https://gitlab.in2p3.fr/ipsl/projets/xios-projects/xios
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - toc.follow
+    - navigation.footer
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.top
+    - navigation.tracking
+    - content.code.copy
+    - content.math
+    - search.highlight
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
+
+nav:
+  - XIOS User: XIOS_user_guide.md
+  - XIOS ref guide: XIOS_reference_guide.md
+  - XIOS tutorials: XIOS_tutorials.md
+  - XIOS tools: XIOS_TOOLS/xios_tools.html
+  - XIOS test suite: XIOS_TEST_SUITE/html_coupling/xios_report.html
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.arithmatex
+  - tables
+  # Ensure that there are links to table of contents items
+  - toc:
+      permalink: "#"
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js

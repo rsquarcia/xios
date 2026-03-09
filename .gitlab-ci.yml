@@ -3,14 +3,14 @@ workflow:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
-image: ubuntu
-
 stages:          # List of stages for jobs, and their order of execution
   - build
   - test
+  - build_doc
 
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
+  image: ubuntu
   script:
     - apt update
     - apt -yq install $(<dependencies)
@@ -27,6 +27,7 @@ build-job:       # This job runs in the build stage, which runs first.
 
 test-interface-generation:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
+  image: ubuntu
   script:
     - apt update
     - apt -yq install $(<dependencies)
@@ -50,6 +51,7 @@ test-interface-generation:   # This job runs in the test stage.
 
 test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
+  image: ubuntu
   script:
     - apt update
     - apt -yq install $(<dependencies)
@@ -66,3 +68,32 @@ test-job:   # This job runs in the test stage.
     key: binaries-cache-$CI_COMMIT_REF_SLUG
     paths:
       - bin/*
+
+
+# The Docker image that will be used to build your app
+build-pages:
+  stage: build
+  image: python:3.14-slim
+  artifacts:
+    paths:
+      - site
+    expire_in: 1 week
+  # Functions that should be executed before the build script is run
+  before_script:
+    - pip install mkdocs mkdocs-material
+  script:
+    - mkdocs build --site-dir site --strict
+
+# The Docker image that will be used to build your app
+create-pages:
+  stage: build_doc
+  image: python:3.14-slim
+  script:
+    - ls site
+  pages:
+    # The folder that contains the files to be exposed at the Page URL
+    publish: site
+  rules:
+    # This ensures that only pushes to the default branch will trigger
+    # a pages deploy
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH

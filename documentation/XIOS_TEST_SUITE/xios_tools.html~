@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <metacharset="utf-8"/>
+        <link rel="stylesheet" href="xios-style.css"/>
+        <title>XIOS Tools Web</title>
+        
+    </head>
+
+    <body onload="generateCompileTable(); generateTestTable(); ">
+        
+        <header>
+            <h1>XIOS Tools</h1>
+        </header>
+
+        <nav>
+            <div>
+                <!-- <p id="xiosinfo">Some useful links:</p> -->
+                <ul>
+                    <li><a href="graph.html" target="_blank">Workflow Graph Visualizer</a></li>
+                    <li><a href="xios_memory.html" target="_blank">Memory Monitoring Visualizer</a></li>
+                </ul> 
+            </div>        
+        </nav> 
+
+    
+
+
+
+        <footer>
+            <p>Copyright XIOS - Tous droits réservés
+                <a href="mailto:xios-dev@forge.ipsl.jussieu.fr">Nous contacter !</a>
+            </p>
+        </footer>
+    </body>
+</html>
+ 
+<script>
+
+    document.getElementById("revision").addEventListener("change", myFunction);
+    
+    function myFunction() 
+    {
+        if(this.value == 0)
+        {
+            // compile part ...
+
+            var ans = document.getElementsByClassName('compile_table_row')
+            for (var i = 0; i < ans.length; i++)
+            {
+                cell = ans[i]
+                cell.classList.remove('hide')
+                cell.classList.add('show')
+            }
+            document.getElementById("empty_compile_row").style.display="none"
+
+            // test part ...
+
+            var ans = document.getElementsByClassName('test_table_row')
+            for (var i = 0; i < ans.length; i++)
+            {
+                cell = ans[i]
+                cell.classList.remove('hide')
+                cell.classList.add('show')
+            }
+            document.getElementById("empty_test_row").style.display="none"
+        }
+        
+        else
+        {
+            // compile part ...
+
+            var ans = document.getElementsByClassName('compile_table_row')
+            for (var i = 0; i < ans.length; i++)
+            {
+                cell = ans[i]
+                cell.classList.remove('show')
+                cell.classList.add('hide')
+            }
+            document.getElementById("empty_compile_row").style.display="none"
+
+            var ans = document.getElementById('compile_table_'+this.value)
+            if(ans)
+            {
+                ans.classList.remove('hide')
+                ans.classList.add('show')
+            } 
+            else
+            {
+                document.getElementById("empty_compile_row_revision").innerHTML=this.value
+                document.getElementById("empty_compile_row").style.display="table-row"
+            } 
+
+            
+            // test part ...
+            
+            var ans = document.getElementsByClassName('test_table_row')
+            for (var i = 0; i < ans.length; i++)
+            {
+                cell = ans[i]
+                cell.classList.remove('show')
+                cell.classList.add('hide')
+            }
+            document.getElementById("empty_test_row").style.display="none"
+            
+            var ans = document.getElementById('test_table_'+this.value)
+            if(ans)
+            {
+                ans.classList.remove('hide')
+                ans.classList.add('show')
+            } 
+            else
+            {
+                document.getElementById("empty_test_row_revision").innerHTML=this.value
+                document.getElementById("empty_test_row").style.display="table-row"
+            } 
+        }
+    }
+</script>
+
+
