@@ -46,6 +46,7 @@ CAxisAlgorithmTemporalSplitting::CAxisAlgorithmTemporalSplitting(bool isSource, 
  : CAlgorithmTransformationNoDataModification(algo->getContext(), isSource)
 {
   nrecords_ = axisDestination->n_glo ; // also axis must not be distributed, make more test later
+  axisDestination->checkAttributes() ;
 }
 
 CTransformFilter* CAxisAlgorithmTemporalSplitting::createTransformFilter(CGarbageCollector& gc, shared_ptr<CGridAlgorithm> algo, bool detectMissingValues, double defaultValue)
