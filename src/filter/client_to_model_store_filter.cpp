@@ -23,7 +23,7 @@ namespace xios
   {
     CTimer timer("CStoreFilter::getPacket");
 //    timer.resume(); 
-    info(0)<<"ENTERING CStoreFilter::getPacket"<<std::endl ;
+    info(10)<<"ENTERING CStoreFilter::getPacket"<<std::endl ;
     traceOff() ;
 //    timer.suspend();
     CConstDataPacketPtr packet;
