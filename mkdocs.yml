@@ -36,6 +36,7 @@ theme:
 nav:
   - XIOS User: XIOS_user_guide.md
   - XIOS ref guide: XIOS_reference_guide.md
+  - OASIS3-MCT and XIOS : XIOS_OASIS_joint.md
   - XIOS tutorials: XIOS_tutorials.md
   - XIOS tools: XIOS_TOOLS/xios_tools.html
   - XIOS test suite: XIOS_TEST_SUITE/html_coupling/xios_report.html
