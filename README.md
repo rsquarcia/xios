@@ -5,6 +5,7 @@ XIOS is a library dedicated to I/O management for simulation code.
 XIOS aims to provide applicable Input Output data flow services for simulations, the first implementation is I/O servers.
 
 XIOS provides:
+
 * Management of input data and output diagnostics;
 * Temporal post-processing online operations (averaging, max/min, instant, etc…);
 * Spatial post-processing online operations.
