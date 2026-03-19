@@ -100,6 +100,10 @@ namespace xios {
                                     "services_use_window_manager",
                                     "max_attached_mem_window"                        
      };
+     if ( id == "call_oasis_enddef" )
+     {
+       info(0) << "WARNING : The variable [ id = " << id << " ] is deprecated." << endl;
+     }
      if (dictionary_.find(id)==dictionary_.end())
      {
        ERROR("CVariable::checkInDictionary(StdString id)",

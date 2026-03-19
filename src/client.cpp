@@ -491,26 +491,26 @@ namespace xios
  */
     void CClient::callOasisEnddef(void)
     {
-      bool oasisEnddef=CXios::getin<bool>("call_oasis_enddef",true) ;
-      if (!oasisEnddef) ERROR("void CClient::callOasisEnddef(void)", <<"Function xios_oasis_enddef called but variable <call_oasis_enddef> is set to false."<<endl
-                                                                     <<"Variable <call_oasis_enddef> must be set to true"<<endl) ;
-      if (!CXios::isClient) // != isServer (change recently )
-      // Attached mode
-      {
-        // nothing to do   
-      }
-      else
-      {
-        int rank ;
-        int msg=0 ;
+      //bool oasisEnddef=CXios::getin<bool>("call_oasis_enddef",true) ;
+      //if (!oasisEnddef) ERROR("void CClient::callOasisEnddef(void)", <<"Function xios_oasis_enddef called but variable <call_oasis_enddef> is set to false."<<endl
+      //                                                               <<"Variable <call_oasis_enddef> must be set to true"<<endl) ;
+      //if (!CXios::isClient) // != isServer (change recently )
+      //// Attached mode
+      //{
+      //  // nothing to do   
+      //}
+      //else
+      //{
+      //  int rank ;
+      //  int msg=0 ;
 
-        MPI_Comm_rank(intraComm_,&rank) ;
-        if (rank==0) 
-        {
-          MPI_Send(&msg,1,MPI_INT,0,5,interComm_) ; // tags oasis_endded = 5
-        }
+      //  MPI_Comm_rank(intraComm_,&rank) ;
+      //  if (rank==0) 
+      //  {
+      //    MPI_Send(&msg,1,MPI_INT,0,5,interComm_) ; // tags oasis_endded = 5
+      //  }
 
-      }
+      //}
     }
 
     void CClient::finalize(void)

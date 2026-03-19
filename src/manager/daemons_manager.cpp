@@ -66,12 +66,12 @@ namespace xios
     CXios::getCouplerManager()->eventLoop() ;
     if (isServer_) 
     {
-      if (CServer::isRoot) 
-      {
-        CServer::listenOasisEnddef() ;
-        CServer::listenRootOasisEnddef() ;
-      }
-      else CServer::listenRootOasisEnddef() ;
+      //if (CServer::isRoot) 
+      //{
+      //  CServer::listenOasisEnddef() ;
+      //  CServer::listenRootOasisEnddef() ;
+      //}
+      //else CServer::listenRootOasisEnddef() ;
       
       if (CThreadManager::isUsingThreads()) return CServer::getServersRessource()->isFinished() ;
       else return CServer::getServersRessource()->eventLoop(false) ;
