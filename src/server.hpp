@@ -21,11 +21,11 @@ namespace xios
         };
         virtual ~CThirdPartyDriver()
         {
-          oasis_finalize();
+          //oasis_finalize();
         };
         virtual void endSynchronizedDefinition()
         {
-          oasis_enddef();
+          //oasis_enddef();
         };
         virtual void getComponentCommunicator(MPI_Comm &intraComm)
         {

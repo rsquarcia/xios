@@ -104,9 +104,10 @@ extern "C"
    void cxios_oasis_enddef()
    TRY
    {
-     CTimer::get("XIOS").resume();
-     CClient::callOasisEnddef();
-     CTimer::get("XIOS").suspend();
+     cout << "WARNING : you are calling the xios_oasis_enddef, the OASIS integration in XIOS do not require it any more." << endl;
+     //CTimer::get("XIOS").resume();
+     //CClient::callOasisEnddef();
+     //CTimer::get("XIOS").suspend();
    }
    CATCH_DUMP_STACK
 

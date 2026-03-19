@@ -48,7 +48,7 @@ In both cases (1) and (2), the call to `xios_initialize` allows XIOS to pick up 
 
 In the model component, the OASIS3-MCT definition phase is finalised by calling the  `oasis_enddef` API routine. This routine includes global collective MPI communications (using the MPI_COMM_WORLD communicator). The XIOS `xios_context_initialize` subroutine initializes one or several XIOS context(s) and also includes collective MPI communications. Hence, deadlocks may occur if the developer does not pay any attention to the calling order of the two subroutines. The calling rule depends on the version of XIOS, as follows:
 
-- XIOS version branch 2.5 or trunk (before revision 1587)
+- (i) XIOS version branch 2.5 or trunk (before revision 1587)
 
 In order to avoid deadlocks, it is mandatory to call first `oasis_enddef` and then `xios_context_initialize` in all the components involved in the coupling, to be coherent with the calling order of XIOS servers. A calling sequence in your models could be as follows:
 
@@ -58,9 +58,10 @@ CALL oasis_enddef
 CALL xios_context_initialize (xios_context, local_comm)
 ```
 
-- XIOS version trunk (revision 1587 or later, including XIOS 3)
+- (ii) XIOS version trunk (revision 1587 or later, including XIOS 3 up to [XIOS-3.0.2.0](https://gitlab.in2p3.fr/ipsl/projets/xios-projects/xios/-/tags))
 
-A XIOS functionality was developed to explicitly inform XIOS servers they have to call `oasis_enddef` function. This function, `xios_oasis_enddef`, allows to solve deadlocks encountered in case of bad call order of `oasis_enddef` and `xios_context_initialize`. The call to `xios_oasis_enddef` needs to be implemented before the call to `oasis_enddef` on model side as follows:
+A XIOS functionality was developed to explicitly inform XIOS servers they have to call `oasis_enddef` function. This function, `xios_oasis_enddef`, allows to solve deadlocks encountered in case of bad call order of `oasis_enddef` and `xios_context_initialize`.
+The call to `xios_oasis_enddef` needs to be implemented before the call to `oasis_enddef` on model side as follows:
 
 ``` {.fortran language="Fortran" breaklines="true" tabsize="2" frame="tb" postbreak="\raisebox{0ex}[0ex][0ex]{\ensuremath{\rcurvearrowse\space}}"}
 …
@@ -84,7 +85,14 @@ CALL oasis_enddef
 The XIOS parameter `call_oasis_enddef` (default value is `true`) must be set in iodef.xml file:
 
 - `true`: `xios_oasis_enddef` function must be called in every component involved in the coupling.
-- `false`: the functionality is deactivated and the behavior of XIOS version branch 2.5 or trunk < revision 1587 is retrieved, i.e. `xios_oasis_enddef` function does not need to be called in the models but deadlocks may happen in case of bad call order of `oasis_enddef` and `xios_context_initialize`.
+- `false`: the functionality is deactivated and the behavior of XIOS version branch 2.5 or trunk < revision 1587 is retrieved, i.e. `xios_oasis_enddef` function does not need to be called in the models but deadlocks may happen in case of bad call order of `oasis_enddef` and `xios_context_initialize`.  
+
+<br>
+
+- (iii) From [XIOS-3.0.2.0](https://gitlab.in2p3.fr/ipsl/projets/xios-projects/xios/-/tags) :
+
+The XIOS servers benefit from the `coupled` option of `oasis_init_comp`, this allows the servers to be not considered during the collective MPI communications of OASIS (in `oasis_enddef` and `oasis_terminate`).
+The call to `xios_oasis_enddef` and the XIOS parameter `call_oasis_enddef` have become useless.
 
 
 ### c. Finalisation phase
