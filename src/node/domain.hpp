@@ -204,6 +204,9 @@ namespace xios
          void fillInRectilinearBoundLonLat(CArray<double,1>& lon, CArray<double,1>& lat,
                                            CArray<double,2>& boundsLon, CArray<double,2>& boundsLat);
          
+         void computeRectilinearBoundLonLatFile(CArray<double,1>& lon, CArray<double,1>& lat,
+                                                CArray<double,2>& boundsLon, CArray<double,2>& boundsLat);
+         
          void fillInLonLat();
          bool distributionAttributesHaveValue() const;
 

@@ -192,6 +192,8 @@ namespace xios
          }
 
          StdString dimVertId = StdString("nvertex").append(appendDomid);
+         if (!domain->nvertex_name.isEmpty())
+             dimVertId = domain->nvertex_name.getValue();
 
          string lonid,latid,bounds_lonid,bounds_latid ;
          string areaId = "area" + appendDomid;
@@ -214,6 +216,7 @@ namespace xios
                      latid = latName+appendDomid;
                      dim0.push_back(dimYid);
                      dim1.push_back(dimXid);
+                     SuperClassWriter::addDimension(dimVertId, 2); // add bounds for CMIP7 CQ
                      break;
                  }
                  if (!domain->bounds_lon_name.isEmpty()) bounds_lonid = domain->bounds_lon_name;
@@ -274,6 +277,20 @@ namespace xios
                      SuperClassWriter::addVariable(bounds_lonid, typePrec, dim0, compressionLevel);
                      SuperClassWriter::addVariable(bounds_latid, typePrec, dim0, compressionLevel);
                    }
+                   else if (domain->type==CDomain::type_attr::rectilinear)  // add bounds for CMIP7 CQ
+                   {
+                     SuperClassWriter::addAttribute("bounds", bounds_lonid, &lonid);
+                     SuperClassWriter::addAttribute("bounds", bounds_latid, &latid);
+ 
+                     dim0.clear();
+                     dim0.push_back(dimYid);
+                     dim0.push_back(dimVertId);
+                     SuperClassWriter::addVariable(bounds_latid, typePrec, dim0, compressionLevel);
+                     dim0.clear();
+                     dim0.push_back(dimXid);
+                     dim0.push_back(dimVertId);
+                     SuperClassWriter::addVariable(bounds_lonid, typePrec, dim0, compressionLevel);
+                   }
                  }
 
                  dim0.clear();
@@ -314,6 +331,14 @@ namespace xios
                      SuperClassWriter::writeData(domain->bounds_lonvalue, bounds_lonid, isCollective, 0);
                      SuperClassWriter::writeData(domain->bounds_latvalue, bounds_latid, isCollective, 0);
                    }
+                   else if (domain->type==CDomain::type_attr::rectilinear) // add bounds for CMIP7 CQ
+                   {
+                     CArray<double,2> bounds_lonvalue( 2, domain->niValue_ );
+                     CArray<double,2> bounds_latvalue( 2, domain->njValue_ );
+                     domain->computeRectilinearBoundLonLatFile( domain->lonvalue, domain->latvalue, bounds_lonvalue, bounds_latvalue );
+                     SuperClassWriter::writeData(bounds_lonvalue, bounds_lonid, isCollective, 0);
+                     SuperClassWriter::writeData(bounds_latvalue, bounds_latid, isCollective, 0);
+                   }
                  }
 
                  if (domain->hasArea)
@@ -352,6 +377,7 @@ namespace xios
                        latid = latName+appendDomid;
                        SuperClassWriter::addVariable(latid, typePrec, dim0, compressionLevel);
                        SuperClassWriter::addVariable(lonid, typePrec, dim1, compressionLevel);
+                       SuperClassWriter::addDimension(dimVertId, 2); // add bounds for CMIP7 CQ
                        break;
                    }
                    if (!domain->bounds_lon_name.isEmpty()) bounds_lonid = domain->bounds_lon_name;
@@ -375,6 +401,20 @@ namespace xios
                      dim0.push_back(dimVertId);
                      SuperClassWriter::addVariable(bounds_lonid, typePrec, dim0, compressionLevel);
                      SuperClassWriter::addVariable(bounds_latid, typePrec, dim0, compressionLevel);
+                   }
+                   else if (domain->type==CDomain::type_attr::rectilinear)  // add bounds for CMIP7 CQ
+                   {
+                     SuperClassWriter::addAttribute("bounds", bounds_lonid, &lonid);
+                     SuperClassWriter::addAttribute("bounds", bounds_latid, &latid);
+ 
+                     dim0.clear();
+                     dim0.push_back(dimYid);
+                     dim0.push_back(dimVertId);
+                     SuperClassWriter::addVariable(bounds_latid, typePrec, dim0, compressionLevel);
+                     dim0.clear();
+                     dim0.push_back(dimXid);
+                     dim0.push_back(dimVertId);
+                     SuperClassWriter::addVariable(bounds_lonid, typePrec, dim0, compressionLevel);
                    }
                  }
 
@@ -453,6 +493,34 @@ namespace xios
                  
                    SuperClassWriter::writeData(domain->bounds_lonvalue, bounds_lonid, isCollective, 0, &start, &count); // will probably not working for rectilinear
                    SuperClassWriter::writeData(domain->bounds_latvalue, bounds_latid, isCollective, 0, &start, &count);
+                 }
+                 else if (domain->type==CDomain::type_attr::rectilinear) // add bounds for CMIP7 CQ
+                 {
+                   CArray<double,2> bounds_lonvalue( 2, domain->niValue_ );
+                   CArray<double,2> bounds_latvalue( 2, domain->njValue_ );
+                   domain->computeRectilinearBoundLonLatFile( domain->lonvalue, domain->latvalue, bounds_lonvalue, bounds_latvalue );
+                   
+                   std::vector<StdSize> start(2);
+                   std::vector<StdSize> count(2);
+                   if (domain->isEmpty())
+                   {
+                     start[1] = start[0] = 0;
+                     count[1] = count[0] = 0;
+                   }
+                   else
+                   {
+                     start[1] = 0;
+                     start[0] = domain->ibeginValue_;
+                     count[1] = 2; // = nvertex
+                     count[0] = domain->niValue_;
+                   }
+                   SuperClassWriter::writeData(bounds_lonvalue, bounds_lonid, isCollective, 0, &start, &count);
+                   if (!domain->isEmpty())
+                   {
+                     start[0] = domain->jbeginValue_;
+                     count[0] = domain->njValue_;
+                   }
+                   SuperClassWriter::writeData(bounds_latvalue, bounds_latid, isCollective, 0, &start, &count);
                  }
 
                  if (domain->hasArea)
