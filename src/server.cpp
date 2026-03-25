@@ -502,50 +502,53 @@ namespace xios
     
      void CServer::listenOasisEnddef(void)
      {
-        //int flag ;
-        //MPI_Status status ;
-        //list<MPI_Comm>::iterator it;
-        //int msg ;
-        //static int nbCompound=0 ;
-        //int size ;
-        //static bool sent=false ;
-        //static MPI_Request* allRequests ;
-        //static MPI_Status* allStatus ;
+       if (!CXios::usingOasisOldAPI)
+         return;
+
+        int flag ;
+        MPI_Status status ;
+        list<MPI_Comm>::iterator it;
+        int msg ;
+        static int nbCompound=0 ;
+        int size ;
+        static bool sent=false ;
+        static MPI_Request* allRequests ;
+        static MPI_Status* allStatus ;
 
 
-        //if (sent)
-        //{
-        //  MPI_Comm_size(intraComm_,&size) ;
-        //  MPI_Testall(size,allRequests, &flag, allStatus) ;
-        //  if (flag==true)
-        //  {
-        //    delete [] allRequests ;
-        //    delete [] allStatus ;
-        //    sent=false ;
-        //  }
-        //}
-        //
+        if (sent)
+        {
+          MPI_Comm_size(intraComm_,&size) ;
+          MPI_Testall(size,allRequests, &flag, allStatus) ;
+          if (flag==true)
+          {
+            delete [] allRequests ;
+            delete [] allStatus ;
+            sent=false ;
+          }
+        }
+        
 
-        //for(it=interCommLeft.begin();it!=interCommLeft.end();it++)
-        //{
-        //   MPI_Status status ;
-        //   traceOff() ;
-        //   MPI_Iprobe(0,5,*it,&flag,&status) ;  // tags oasis_endded = 5
-        //   traceOn() ;
-        //   if (flag==true)
-        //   {
-        //      MPI_Recv(&msg,1,MPI_INT,0,5,*it,&status) ; // tags oasis_endded = 5
-        //      nbCompound++ ;
-        //      if (nbCompound==interCommLeft.size())
-        //      {
-        //        MPI_Comm_size(intraComm_,&size) ;
-        //        allRequests= new MPI_Request[size] ;
-        //        allStatus= new MPI_Status[size] ;
-        //        for(int i=0;i<size;i++) MPI_Isend(&msg,1,MPI_INT,i,5,intraComm_,&allRequests[i]) ; // tags oasis_endded = 5
-        //        sent=true ;
-        //      }
-        //   }
-        //}
+        for(it=interCommLeft.begin();it!=interCommLeft.end();it++)
+        {
+           MPI_Status status ;
+           traceOff() ;
+           MPI_Iprobe(0,5,*it,&flag,&status) ;  // tags oasis_endded = 5
+           traceOn() ;
+           if (flag==true)
+           {
+              MPI_Recv(&msg,1,MPI_INT,0,5,*it,&status) ; // tags oasis_endded = 5
+              nbCompound++ ;
+              if (nbCompound==interCommLeft.size())
+              {
+                MPI_Comm_size(intraComm_,&size) ;
+                allRequests= new MPI_Request[size] ;
+                allStatus= new MPI_Status[size] ;
+                for(int i=0;i<size;i++) MPI_Isend(&msg,1,MPI_INT,i,5,intraComm_,&allRequests[i]) ; // tags oasis_endded = 5
+                sent=true ;
+              }
+           }
+        }
 }
      
    /*!
@@ -554,36 +557,39 @@ namespace xios
     */
      void CServer::listenRootOasisEnddef(void)
      {
-       //int flag ;
-       //MPI_Status status ;
-       //const int root=0 ;
-       //int msg ;
-       //static bool eventSent=false ;
+       if (!CXios::usingOasisOldAPI)
+         return;
+       
+       int flag ;
+       MPI_Status status ;
+       const int root=0 ;
+       int msg ;
+       static bool eventSent=false ;
 
-       //if (eventSent)
-       //{
-       //  std::hash<string> hashString;
-       //  size_t hashId = hashString("oasis_enddef");
+       if (eventSent)
+       {
+         std::hash<string> hashString;
+         size_t hashId = hashString("oasis_enddef");
 
-       //  if (CXios::getPoolRessource()->getEventScheduler()->queryEvent(0,hashId))
-       //  {
-       //    CXios::getPoolRessource()->getEventScheduler()->popEvent() ;
-       //    driver_->endSynchronizedDefinition() ;
-       //    eventSent=false ;
-       //  }
-       //}
-       //  
-       //traceOff() ;
-       //MPI_Iprobe(root,5,intraComm_, &flag, &status) ;
-       //traceOn() ;
-       //if (flag==true)
-       //{
-       //    MPI_Recv(&msg,1,MPI_INT,root,5,intraComm_,&status) ; // tags oasis_endded = 5
-       //    std::hash<string> hashString;
-       //    size_t hashId = hashString("oasis_enddef");
-       //    CXios::getPoolRessource()->getEventScheduler()->registerEvent(0,hashId);
-       //    eventSent=true ;
-       //}
+         if (CXios::getPoolRessource()->getEventScheduler()->queryEvent(0,hashId))
+         {
+           CXios::getPoolRessource()->getEventScheduler()->popEvent() ;
+           driver_->endSynchronizedDefinition() ;
+           eventSent=false ;
+         }
+       }
+         
+       traceOff() ;
+       MPI_Iprobe(root,5,intraComm_, &flag, &status) ;
+       traceOn() ;
+       if (flag==true)
+       {
+           MPI_Recv(&msg,1,MPI_INT,root,5,intraComm_,&status) ; // tags oasis_endded = 5
+           std::hash<string> hashString;
+           size_t hashId = hashString("oasis_enddef");
+           CXios::getPoolRessource()->getEventScheduler()->registerEvent(0,hashId);
+           eventSent=true ;
+       }
      }
 
     void CServer::finalize(void)

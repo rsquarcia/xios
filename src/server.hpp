@@ -17,15 +17,20 @@ namespace xios
       public:
         CThirdPartyDriver()
         {
-          oasis_init(CXios::xiosCodeId);
+          if (!CXios::usingOasisOldAPI)
+            oasis_init(CXios::xiosCodeId);
+          else
+            oasis_init_old_API(CXios::xiosCodeId);
         };
         virtual ~CThirdPartyDriver()
         {
-          //oasis_finalize();
+          if (CXios::usingOasisOldAPI)
+            oasis_finalize();
         };
         virtual void endSynchronizedDefinition()
         {
-          //oasis_enddef();
+          if (CXios::usingOasisOldAPI)
+            oasis_enddef();
         };
         virtual void getComponentCommunicator(MPI_Comm &intraComm)
         {

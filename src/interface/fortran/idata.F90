@@ -796,7 +796,7 @@ MODULE IDATA
    SUBROUTINE  xios(oasis_enddef)
    IMPLICIT NONE
 
-      !CALL cxios_oasis_enddef
+      CALL cxios_oasis_enddef
 
     END SUBROUTINE  xios(oasis_enddef)
 

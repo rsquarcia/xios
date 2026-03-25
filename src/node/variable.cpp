@@ -94,6 +94,7 @@ namespace xios {
                                     "system_stack",
                                     "transport_protocol",
                                     "using_oasis",
+                                    "using_oasis_old_api",
                                     "using_server",
                                     "using_server2",
                                     "xios_stack",
@@ -102,7 +103,7 @@ namespace xios {
      };
      if ( id == "call_oasis_enddef" )
      {
-       info(0) << "WARNING : The variable [ id = " << id << " ] is deprecated." << endl;
+       info(0) << "WARNING : The variable [ id = " << id << " ] is deprecated from OASIS3-MCT 3.0." << endl;
      }
      if (dictionary_.find(id)==dictionary_.end())
      {

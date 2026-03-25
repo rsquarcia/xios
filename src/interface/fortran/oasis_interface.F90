@@ -20,10 +20,37 @@ SUBROUTINE fxios_oasis_init(server_id,str_len) BIND(C,NAME="fxios_oasis_init")
 
 #if defined USE_OASIS || defined USE_OMCT
      CALL prism_init_comp_proto (comp_id, oasis_server_id, ierr, coupled=.false.)
+     PRINT *,"---> prism_init ",oasis_server_id,ierr," (no enddef on servers)" 
 #endif
-    PRINT *,"---> prism_init",oasis_server_id,ierr
 
 END SUBROUTINE fxios_oasis_init
+
+SUBROUTINE fxios_oasis_init_old_API(server_id,str_len) BIND(C,NAME="fxios_oasis_init_old_API")
+  USE, INTRINSIC :: ISO_C_BINDING
+#ifdef USE_OASIS
+  USE mod_prism_proto
+#endif
+#ifdef USE_OMCT
+  USE mod_prism
+#endif
+    CHARACTER(kind = C_CHAR),DIMENSION(*) :: server_id
+    INTEGER(kind = C_INT),VALUE   :: str_len
+    
+    INTEGER                :: comp_id
+    CHARACTER(len=str_len) :: oasis_server_id
+    INTEGER                :: ierr
+    INTEGER :: i
+    
+    DO i=1,str_len
+      oasis_server_id(i:i)=server_id(i)
+    ENDDO
+
+#if defined USE_OASIS || defined USE_OMCT
+     CALL prism_init_comp_proto (comp_id, oasis_server_id, ierr)
+     PRINT *,"---> prism_init ",oasis_server_id,ierr," (with enddef on servers)"
+#endif
+
+END SUBROUTINE fxios_oasis_init_old_API
 
 SUBROUTINE fxios_oasis_enddef() BIND(C,NAME="fxios_oasis_enddef")
   USE, INTRINSIC :: ISO_C_BINDING
@@ -33,7 +60,7 @@ SUBROUTINE fxios_oasis_enddef() BIND(C,NAME="fxios_oasis_enddef")
   IMPLICIT NONE
   INTEGER :: ierr
 #ifdef USE_OMCT
-     !CALL prism_enddef_proto(ierr)
+     CALL prism_enddef_proto(ierr)
 #endif
 
 END SUBROUTINE fxios_oasis_enddef
@@ -50,7 +77,7 @@ SUBROUTINE fxios_oasis_finalize() BIND(C,NAME="fxios_oasis_finalize")
   INTEGER :: ierr
   
 #if defined USE_OASIS || defined USE_OMCT
-    !CALL prism_terminate_proto(ierr)
+    CALL prism_terminate_proto(ierr)
 #endif
     
 END SUBROUTINE fxios_oasis_finalize
