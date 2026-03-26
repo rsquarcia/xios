@@ -2,11 +2,9 @@
 # *               Interface auto generated - do not modify                     *
 # * ************************************************************************** *
 
-from xios.config import lib, typecheck, String, Bool, Int, NpArrayInt, NpArrayBool, NpArray, Double
+from xios.config import String
 from xios.obj import Object, swipswap_ctx
-from xios.icontext import get_current_context_id, set_current_context
-from xios.idate import Date
-from xios.iduration import Duration
+from xios.icontext import get_current_context_id
 import numpy as np
 
 

@@ -1,4 +1,4 @@
-from xios.idata import initialize as initialize_, finalize as finalize_, context_is_initialized
+from xios.idata import initialize as initialize_, finalize as finalize_
 from mpi4py import MPI
 from xios.config import MPIComm
 

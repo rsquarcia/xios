@@ -1,9 +1,8 @@
-from ctypes import c_void_p, c_char_p, c_int, c_bool, POINTER, c_double, string_at, byref, pointer
-import os
+from ctypes import c_char_p, c_int, c_bool, POINTER, c_double, string_at, byref, pointer
 from mpi4py import MPI
 from xios.config import lib, String, MPIComm, typecheck, NpArray, MPIComm, Bool, Double, Int
 from xios.obj import CObject as Field
-from typing import Union, Optional
+from typing import Union
 import numpy as np
 
 #_____________________________________________________________________________________________#
@@ -45,6 +44,9 @@ lib.cxios_get_variable_data_int.restype = c_bool
 
 lib.cxios_get_variable_data_logic.argtypes = [c_char_p, c_int, POINTER(c_bool), POINTER(c_bool)]
 lib.cxios_get_variable_data_logic.restype = c_bool
+
+lib.cxios_get_variable_data_char.argtypes = [c_char_p, c_int, c_char_p, c_int, POINTER(c_bool)]
+lib.cxios_get_variable_data_char.restype = c_bool
 
 lib.cxios_set_variable_data_k8.argtypes = [c_char_p, c_int, POINTER(c_double), POINTER(c_bool)]
 lib.cxios_set_variable_data_k8.restype = c_bool
@@ -308,7 +310,7 @@ def receive_field_id(field_id : Union[str, String], data : Union[NpArray, np.nda
     func(field_id_c, len_field_id_c, data_ptr, *shape)
 
 @typecheck
-def send_field_hdl(field_hdl : Field, data : Union[NpArray, np.ndarray]):
+def receive_field_hdl(field_hdl : Field, data : Union[NpArray, np.ndarray]):
     """
     Receive the field with the given handle.
 
@@ -334,7 +336,7 @@ def send_field_hdl(field_hdl : Field, data : Union[NpArray, np.ndarray]):
     func(byref(field_hdl), data_ptr, *shape)
     
 @typecheck
-def getVar(varId : Union[str, String], data: Union[Double, Int, Bool]):
+def getVar(varId : Union[str, String], data: Union[Double, Int, Bool, String]):
     if isinstance(data, Double):
         return getVar_k8(varId, data)
     elif isinstance(data, Double):
@@ -343,6 +345,8 @@ def getVar(varId : Union[str, String], data: Union[Double, Int, Bool]):
         return getVar_int(varId, data)
     elif isinstance(data, Bool):
         return getVar_logic(varId, data)
+    elif isinstance(data, String):
+        return getVar_char(varId, data)
 
 @typecheck
 def getVar_k8(varId : Union[str, String], data : Double):
@@ -369,11 +373,7 @@ def getVar_int(varId : Union[str, String], data : Int):
     len_varId_c = len(string_at(varId_c))
     val = c_bool(False)
     data_c = pointer(data._c_value)
-    print(data.value)
     lib.cxios_get_variable_data_int(varId_c, len_varId_c, data_c, pointer(val))
-    print(data.value)
-    print(data_c.contents)
-    print(val)
     return bool(val)
 
 @typecheck
@@ -383,6 +383,17 @@ def getVar_logic(varId : Union[str, String], data : Bool):
     len_varId_c = len(string_at(varId_c))
     val = c_bool(False)
     lib.cxios_get_variable_data_logic(varId_c, len_varId_c, data._c_value, pointer(val))
+    return val
+
+@typecheck
+def getVar_char(varId : Union[str, String], data : String):
+    data_c = data._c_value
+    len_data_c = len(string_at(data_c))
+    varId = String(varId)
+    varId_c = varId._c_value
+    len_varId_c = len(string_at(varId_c))
+    val = c_bool(False)
+    lib.cxios_get_variable_data_char(varId_c, len_varId_c, data_c, len_data_c, pointer(val))
     return val
 
 @typecheck

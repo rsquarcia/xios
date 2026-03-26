@@ -1,7 +1,7 @@
-from ctypes import c_void_p, c_char_p, c_int, c_bool, POINTER, c_double, string_at, byref, Structure
+from ctypes import c_int, POINTER, pointer
 from xios.config import lib, String, Int, NpArrayInt, Double, typecheck
 from xios.iduration import Duration
-from xios.idate import Date
+from xios.idate import Date,date_assign_duration
 from typing import Union, Optional
 from xios.icalendar_wrapper import CalendarWrapper, get_default_calendar_wrapper_handle, set_time_origin_hdl, get_time_origin_hdl, set_start_date_hdl, get_start_date_hdl, update_calendar_timestep, create_calendar, is_created_calendar
 from xios.icalendar_wrapper_attr import set_calendar_wrapper_attr_hdl, get_calendar_wrapper_attr_hdl
@@ -286,4 +286,4 @@ def get_day_length_in_seconds(day : Union[int, c_int]):
     """
     day = Int(day)
     day_c = day._c_value
-    return int(lib.cxios_get_day_length_in_seconds(year_c))
+    return int(lib.cxios_get_day_length_in_seconds(day_c))

@@ -1,7 +1,7 @@
 from xios.ovariable_attr import Variable_
-from xios.idata import getVar
+from xios.idata import getVar, receive_field
 from xios.obj import swipswap_ctx
-from xios.config import Bool, Double, Int
+from xios.config import Bool, Double, Int, NpArray, String
 
 
 class Variable(Variable_):
@@ -16,9 +16,12 @@ class Variable(Variable_):
             data = Int(data)
         elif isinstance(data, bool):
             data = Bool(data)
+        elif isinstance(data, str):
+            data = String()
         
         current_context_id = swipswap_ctx(self._context_id)
         if getVar(self.id, data):
+            swipswap_ctx(current_context_id)
             return data.value
         swipswap_ctx(current_context_id)
 

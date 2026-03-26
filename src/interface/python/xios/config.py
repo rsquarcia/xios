@@ -1,10 +1,9 @@
-from ctypes import CDLL, c_int, c_float, c_char, c_void_p, c_char_p, c_bool, pointer
-from ctypes import create_string_buffer, POINTER, cast, string_at, Structure, c_double
+from ctypes import CDLL, c_int, c_void_p, c_char_p, c_bool, pointer
+from ctypes import create_string_buffer, POINTER, string_at, Structure, c_double
 import functools
 import inspect
 from typing import get_type_hints, get_args, Union
 import os
-import importlib
 from mpi4py import MPI
 import numpy as np
 
@@ -198,6 +197,21 @@ class String:
     def value(self, new_value):
         self._c_value = create_string_buffer(new_value.encode('utf-8'))
 
+    def __add__(self, other):
+        if isinstance(other, String):
+            return self.value + other.value
+        elif isinstance(other, str):
+            return self.value + other
+        else:
+            return NotImplemented
+
+
+    def __radd__(self, other):
+        if isinstance(other, str):
+            return other + self.value
+        else:
+            return NotImplemented
+
 
     def __repr__(self):
         return self.value
@@ -216,13 +230,12 @@ class NpArray:
             if dim is None :
                 dim = (1,)
                 self.shape_is_needed = True
-            arr = np.zeros(dim, dtype=self._dtype, order = 'F')
+            arr = np.zeros(dim, dtype=self._dtype)
         if isinstance(arr, np.ndarray):
             if arr.dtype != self._dtype:
-                arr = arr.astype(self._dtype)  
-
-            if not arr.flags['F_CONTIGUOUS']:
-                arr = np.asfortranarray(arr) 
+                arr = arr.astype(self._dtype) 
+            if not arr.flags.contiguous :
+                raise ValueError("The numpy array you are passing to XIOS is not contiguous in memory, make sure it is !")
 
             self._arr = arr 
             self._c_value = arr.ctypes.data_as(POINTER(self._ctype))
@@ -237,7 +250,7 @@ class NpArray:
             self._c_value = arr
         
         elif isinstance(arr, tuple):
-            self._arr = np.array(arr, order = 'F')
+            self._arr = np.array(arr)
             self._c_value = self._arr.ctypes.data_as(POINTER(self._ctype))
 
         else:
@@ -253,8 +266,6 @@ class NpArray:
             raise TypeError("Assigned value must be a numpy.ndarray")
         if new_arr.dtype != self._dtype:
             new_arr = new_arr.astype(self._dtype)
-        if not new_arr.flags['F_CONTIGUOUS']:
-            new_arr = np.asfortranarray(new_arr)
 
         self._arr = new_arr
         self._c_value = new_arr.ctypes.data_as(POINTER(self._ctype))
@@ -328,6 +339,12 @@ class MPIComm:
 
     @property
     def size(self):
+        return self.value.Get_size()
+    
+    def Get_rank(self):
+        return self.value.Get_rank()
+    
+    def Get_size(self):
         return self.value.Get_size()
 
     
