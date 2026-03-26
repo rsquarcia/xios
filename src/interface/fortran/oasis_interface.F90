@@ -18,9 +18,12 @@ SUBROUTINE fxios_oasis_init(server_id,str_len) BIND(C,NAME="fxios_oasis_init")
       oasis_server_id(i:i)=server_id(i)
     ENDDO
 
-#if defined USE_OASIS || defined USE_OMCT
+#if defined USE_OMCT
      CALL prism_init_comp_proto (comp_id, oasis_server_id, ierr, coupled=.false.)
      PRINT *,"---> prism_init ",oasis_server_id,ierr," (no enddef on servers)" 
+#else
+     PRINT *,"---> XIOS is compiled for OASIS3-MCT newer than 3.0, recompile using --use_oasis oasis3_mct_old"
+     CALL MPI_Abort( MPI_COMM_WORLD, -1, ierr )
 #endif
 
 END SUBROUTINE fxios_oasis_init
@@ -30,7 +33,7 @@ SUBROUTINE fxios_oasis_init_old_API(server_id,str_len) BIND(C,NAME="fxios_oasis_
 #ifdef USE_OASIS
   USE mod_prism_proto
 #endif
-#ifdef USE_OMCT
+#if defined USE_OMCT_OLD || defined USE_OMCT
   USE mod_prism
 #endif
     CHARACTER(kind = C_CHAR),DIMENSION(*) :: server_id
@@ -45,7 +48,7 @@ SUBROUTINE fxios_oasis_init_old_API(server_id,str_len) BIND(C,NAME="fxios_oasis_
       oasis_server_id(i:i)=server_id(i)
     ENDDO
 
-#if defined USE_OASIS || defined USE_OMCT
+#if defined USE_OASIS || defined USE_OMCT_OLD || defined USE_OMCT
      CALL prism_init_comp_proto (comp_id, oasis_server_id, ierr)
      PRINT *,"---> prism_init ",oasis_server_id,ierr," (with enddef on servers)"
 #endif
@@ -54,12 +57,12 @@ END SUBROUTINE fxios_oasis_init_old_API
 
 SUBROUTINE fxios_oasis_enddef() BIND(C,NAME="fxios_oasis_enddef")
   USE, INTRINSIC :: ISO_C_BINDING
-#ifdef USE_OMCT
+#if defined USE_OMCT_OLD || defined USE_OMCT
   USE mod_prism
 #endif
   IMPLICIT NONE
   INTEGER :: ierr
-#ifdef USE_OMCT
+#if defined USE_OMCT_OLD || defined USE_OMCT
      CALL prism_enddef_proto(ierr)
 #endif
 
@@ -70,13 +73,13 @@ SUBROUTINE fxios_oasis_finalize() BIND(C,NAME="fxios_oasis_finalize")
 #ifdef USE_OASIS
   USE mod_prism_proto
 #endif
-#ifdef USE_OMCT
+#if defined USE_OMCT_OLD || defined USE_OMCT
   USE mod_prism
 #endif
   IMPLICIT NONE
   INTEGER :: ierr
   
-#if defined USE_OASIS || defined USE_OMCT
+#if defined USE_OASIS || defined USE_OMCT_OLD || defined USE_OMCT
     CALL prism_terminate_proto(ierr)
 #endif
     
@@ -88,7 +91,7 @@ SUBROUTINE fxios_oasis_get_localcomm(f_comm) BIND(C,NAME="fxios_oasis_get_localc
 #ifdef USE_OASIS
   USE mod_prism_get_localcomm_proto 
 #endif
-#ifdef USE_OMCT
+#if defined USE_OMCT_OLD || defined USE_OMCT
   USE mod_prism
 #endif 
   IMPLICIT NONE
@@ -97,7 +100,7 @@ SUBROUTINE fxios_oasis_get_localcomm(f_comm) BIND(C,NAME="fxios_oasis_get_localc
   INTEGER :: comm
   INTEGER :: ierr
     
-#if defined USE_OASIS || defined USE_OMCT
+#if defined USE_OASIS || defined USE_OMCT_OLD || defined USE_OMCT
     CALL prism_get_localcomm_proto(comm,ierr)
 #endif
     f_comm=comm
@@ -112,7 +115,7 @@ SUBROUTINE fxios_oasis_get_intracomm(f_comm_client_server,client_id,str_len) BIN
 #ifdef USE_OASIS
   USE mod_prism_get_comm 
 #endif
-#ifdef USE_OMCT
+#if defined USE_OMCT_OLD || defined USE_OMCT
   USE mod_prism
 #endif
   IMPLICIT NONE
@@ -129,7 +132,7 @@ SUBROUTINE fxios_oasis_get_intracomm(f_comm_client_server,client_id,str_len) BIN
       oasis_client_id(i:i)=client_id(i)
     ENDDO
     
-#if defined USE_OASIS || defined USE_OMCT
+#if defined USE_OASIS || defined USE_OMCT_OLD  || defined USE_OMCT
     CALL prism_get_intracomm(comm_client_server,oasis_client_id,ierr)
 #endif
 
@@ -142,7 +145,7 @@ SUBROUTINE fxios_oasis_get_intercomm(f_comm_client_server,client_id,str_len) BIN
 #ifdef USE_OASIS
   USE mod_prism_get_comm 
 #endif
-#ifdef USE_OMCT
+#if defined USE_OMCT_OLD || defined USE_OMCT
   USE mod_prism
 #endif
   IMPLICIT NONE
@@ -159,7 +162,7 @@ SUBROUTINE fxios_oasis_get_intercomm(f_comm_client_server,client_id,str_len) BIN
       oasis_client_id(i:i)=client_id(i)
     ENDDO
     
-#if defined USE_OASIS || defined USE_OMCT
+#if defined USE_OASIS || defined USE_OMCT_OLD  || defined USE_OMCT
     CALL prism_get_intercomm(comm_client_server,oasis_client_id,ierr)
 #endif
 

@@ -32,7 +32,7 @@ while (($# > 0))
 	    echo "       --arch arch : to choose target architecture"
 	    echo "       [--avail] : to know available target architectures "
 	    echo "       [--full] : to generate dependencies and recompile from scratch"
-	    echo "       [--use_oasis 'oasis3' 'oasis3_mct' : default oasis3_mct] : to use Oasis coupler"
+	    echo "       [--use_oasis 'oasis3' 'oasis3_mct_old' 'oasis3_mct' : default oasis3_mct] : to use Oasis coupler"
         echo "       [--build_path : absolute path to the build directory"
         echo "       [--build_dir : name of the build directory"
         echo "       [--build_suffixed : generate automatically suffixed name of the build directory (e.g. config_X64_CURIE_prod)"
@@ -207,6 +207,9 @@ if [[ "$use_oasis" == "true" ]]
     if [[ "$oasis" == "oasis3_mct" ]]
     then
 	XIOS_CPPKEY="$XIOS_CPPKEY USE_OMCT"
+    elif [[ "$oasis" == "oasis3_mct_old" ]]
+    then
+	XIOS_CPPKEY="$XIOS_CPPKEY USE_OMCT_OLD"
     elif [[ "$oasis" == "oasis3"  ]]
     then
 	XIOS_CPPKEY="$XIOS_CPPKEY USE_OASIS"
@@ -214,7 +217,7 @@ if [[ "$use_oasis" == "true" ]]
 	OASIS_LIBDIR="-L$PWD/../../prism/X64/lib"
 	OASIS_LIB="-lpsmile.MPI1 -lmpp_io"
     else
-	echo "Bad choice for --use_oasis argument : choose between 'oasis3','oasis3_mct'"
+	echo "Bad choice for --use_oasis argument : choose between 'oasis3','oasis3_mct_old','oasis3_mct'"
 	exit
     fi
     NETCDF_LIB="-lnetcdff -lnetcdf"
