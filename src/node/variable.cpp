@@ -73,6 +73,7 @@ namespace xios {
                                     "checksum_send_fields",
                                     "clients_code_id",
                                     "default_chunking_blocksize",
+                                    "default_bounds_suffix",
                                     "info_level",
                                     "log_memory",
                                     "log_type",
