@@ -10,14 +10,19 @@ namespace xios
     fxios_oasis_init(server_id.data(),server_id.size()) ;
   }
   
+  void oasis_init_old_API(const std::string& server_id)
+  {
+    fxios_oasis_init_old_API(server_id.data(),server_id.size()) ;
+  }
+
   void oasis_finalize(void)
   {
-    //fxios_oasis_finalize() ;
+    fxios_oasis_finalize() ;
   }
   
   void oasis_enddef(void)
   {
-    //fxios_oasis_enddef() ;
+    fxios_oasis_enddef() ;
   }
 
   void oasis_get_localcomm(MPI_Comm& comm)

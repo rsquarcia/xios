@@ -41,6 +41,7 @@ namespace xios
   MPI_Comm CXios::xiosComm ;
 
   bool CXios::usingOasis ;
+  bool CXios::usingOasisOldAPI = false ;
   bool CXios::usingServer = false;
   bool CXios::usingServer2 = false;
   int CXios::ratioServer2 = 50;
@@ -96,6 +97,7 @@ namespace xios
   void CXios::parseXiosConfig()
   {
     usingOasis=getin<bool>("using_oasis",false) ;
+    usingOasisOldAPI=getin<bool>("using_oasis_old_api",false) ;
     usingServer=getin<bool>("using_server",false) ;
     usingServer2=getin<bool>("using_server2",false) ;
     ratioServer2=getin<int>("ratio_server2",50);
