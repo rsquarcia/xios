@@ -851,9 +851,9 @@ namespace xios {
      for(i=0;i<niValue_;++i)
      {
        boundsLon(0,i) = (0 == i) ? loc_bounds_lon_start
-           : (lon(ibegin + i)+lon(ibegin + i-1))/2;
+           : (lon((ibegin + i)%niValue_)+lon((ibegin + i-1)%niValue_))/2;
        boundsLon(1,i) = ((i) == niValue_-1) ? loc_bounds_lon_end
-           : (lon(ibegin + i + 1)+lon(ibegin + i))/2;
+           : ( lon((ibegin + i + 1)%niValue_)+lon((ibegin + i)%niValue_) )/2;
        //boundsLon(0,i) = (0 == (ibegin + i)) ? loc_bounds_lon_start
        //                                    : (lon(ibegin + i)+lon(ibegin + i-1))/2;
        //boundsLon(1,i) = ((ibegin + i + 1) == ni_glo) ? loc_bounds_lon_end

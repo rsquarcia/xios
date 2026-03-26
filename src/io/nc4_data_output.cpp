@@ -2271,11 +2271,11 @@ namespace xios
         if (field->hasTimeInstant) timeAxisId = "time_instant";
         else if (field->hasTimeCentered) timeAxisId = "time_centered";
 
-        StdString timeBoundId = getTimeCounterName() + "_bounds";
+        StdString timeBoundId = getTimeCounterName() + CXios::defaultBoundsSuffix;
 
         StdString timeAxisBoundId;
-        if (field->hasTimeInstant) timeAxisBoundId = "time_instant_bounds";
-        else if (field->hasTimeCentered) timeAxisBoundId = "time_centered_bounds";
+        if (field->hasTimeInstant) timeAxisBoundId = "time_instant" + CXios::defaultBoundsSuffix;
+        else if (field->hasTimeCentered) timeAxisBoundId = "time_centered" + CXios::defaultBoundsSuffix;
 
         if (!field->wasWritten())
         {
@@ -2759,14 +2759,14 @@ namespace xios
          if (createInstantAxis)
          {
            axisId="time_instant" ;
-           axisBoundId="time_instant_bounds";
+           axisBoundId="time_instant" + CXios::defaultBoundsSuffix;
            hasTimeInstant=true ;
          }
 
          if (createCenteredAxis)
          {
            axisId="time_centered" ;
-           axisBoundId="time_centered_bounds";
+           axisBoundId="time_centered" + CXios::defaultBoundsSuffix;
            hasTimeCentered=true ;
          }
 
@@ -2805,7 +2805,7 @@ namespace xios
            {
              // Adding time_counter
              axisId = getTimeCounterName();
-             axisBoundId = getTimeCounterName() + "_bounds";
+             axisBoundId = getTimeCounterName() + CXios::defaultBoundsSuffix;
              dims.clear();
              dims.push_back(timeid);
              if (!SuperClassWriter::varExist(axisId))
@@ -3071,9 +3071,9 @@ namespace xios
         std::map<Time, StdSize>::const_iterator it = timeToRecordCache.find(time);
         if (it == timeToRecordCache.end())
         {
-          StdString timeAxisBoundsId(getTimeCounterName() + "_bounds");
-          if (!SuperClassWriter::varExist(timeAxisBoundsId)) timeAxisBoundsId = "time_centered_bounds";
-          if (!SuperClassWriter::varExist(timeAxisBoundsId)) timeAxisBoundsId = "time_instant_bounds";
+          StdString timeAxisBoundsId(getTimeCounterName() + CXios::defaultBoundsSuffix);
+          if (!SuperClassWriter::varExist(timeAxisBoundsId)) timeAxisBoundsId = "time_centered" + CXios::defaultBoundsSuffix;
+          if (!SuperClassWriter::varExist(timeAxisBoundsId)) timeAxisBoundsId = "time_instant" + CXios::defaultBoundsSuffix;
 
           CArray<double,2> timeAxisBounds;
           std::vector<StdSize> dimSize(SuperClassWriter::getDimensions(timeAxisBoundsId)) ;
