@@ -18,382 +18,382 @@ from xios.ofilegroup_attr import FileGroup
 
 
 lib.cxios_get_filegroup_append.argtypes = [FileGroup, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_filegroup_append.restypes = None
+lib.cxios_get_filegroup_append.restype = None
 
 lib.cxios_set_filegroup_append.argtypes = [FileGroup, ctypes.c_bool]
-lib.cxios_set_filegroup_append.restypes = None
+lib.cxios_set_filegroup_append.restype = None
 
 lib.cxios_is_defined_filegroup_append.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_append.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_append.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_comment.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_comment.restypes = None
+lib.cxios_get_filegroup_comment.restype = None
 
 lib.cxios_set_filegroup_comment.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_comment.restypes = None
+lib.cxios_set_filegroup_comment.restype = None
 
 lib.cxios_is_defined_filegroup_comment.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_comment.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_comment.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_compression_level.argtypes = [FileGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_filegroup_compression_level.restypes = None
+lib.cxios_get_filegroup_compression_level.restype = None
 
 lib.cxios_set_filegroup_compression_level.argtypes = [FileGroup, ctypes.c_int]
-lib.cxios_set_filegroup_compression_level.restypes = None
+lib.cxios_set_filegroup_compression_level.restype = None
 
 lib.cxios_is_defined_filegroup_compression_level.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_compression_level.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_compression_level.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_convention.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_convention.restypes = None
+lib.cxios_get_filegroup_convention.restype = None
 
 lib.cxios_set_filegroup_convention.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_convention.restypes = None
+lib.cxios_set_filegroup_convention.restype = None
 
 lib.cxios_is_defined_filegroup_convention.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_convention.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_convention.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_convention_str.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_convention_str.restypes = None
+lib.cxios_get_filegroup_convention_str.restype = None
 
 lib.cxios_set_filegroup_convention_str.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_convention_str.restypes = None
+lib.cxios_set_filegroup_convention_str.restype = None
 
 lib.cxios_is_defined_filegroup_convention_str.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_convention_str.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_convention_str.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_cyclic.argtypes = [FileGroup, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_filegroup_cyclic.restypes = None
+lib.cxios_get_filegroup_cyclic.restype = None
 
 lib.cxios_set_filegroup_cyclic.argtypes = [FileGroup, ctypes.c_bool]
-lib.cxios_set_filegroup_cyclic.restypes = None
+lib.cxios_set_filegroup_cyclic.restype = None
 
 lib.cxios_is_defined_filegroup_cyclic.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_cyclic.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_cyclic.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_description.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_description.restypes = None
+lib.cxios_get_filegroup_description.restype = None
 
 lib.cxios_set_filegroup_description.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_description.restypes = None
+lib.cxios_set_filegroup_description.restype = None
 
 lib.cxios_is_defined_filegroup_description.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_description.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_description.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_enabled.argtypes = [FileGroup, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_filegroup_enabled.restypes = None
+lib.cxios_get_filegroup_enabled.restype = None
 
 lib.cxios_set_filegroup_enabled.argtypes = [FileGroup, ctypes.c_bool]
-lib.cxios_set_filegroup_enabled.restypes = None
+lib.cxios_set_filegroup_enabled.restype = None
 
 lib.cxios_is_defined_filegroup_enabled.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_enabled.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_enabled.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_format.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_format.restypes = None
+lib.cxios_get_filegroup_format.restype = None
 
 lib.cxios_set_filegroup_format.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_format.restypes = None
+lib.cxios_set_filegroup_format.restype = None
 
 lib.cxios_is_defined_filegroup_format.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_format.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_format.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_gatherer.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_gatherer.restypes = None
+lib.cxios_get_filegroup_gatherer.restype = None
 
 lib.cxios_set_filegroup_gatherer.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_gatherer.restypes = None
+lib.cxios_set_filegroup_gatherer.restype = None
 
 lib.cxios_is_defined_filegroup_gatherer.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_gatherer.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_gatherer.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_group_ref.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_group_ref.restypes = None
+lib.cxios_get_filegroup_group_ref.restype = None
 
 lib.cxios_set_filegroup_group_ref.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_group_ref.restypes = None
+lib.cxios_set_filegroup_group_ref.restype = None
 
 lib.cxios_is_defined_filegroup_group_ref.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_group_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_group_ref.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_min_digits.argtypes = [FileGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_filegroup_min_digits.restypes = None
+lib.cxios_get_filegroup_min_digits.restype = None
 
 lib.cxios_set_filegroup_min_digits.argtypes = [FileGroup, ctypes.c_int]
-lib.cxios_set_filegroup_min_digits.restypes = None
+lib.cxios_set_filegroup_min_digits.restype = None
 
 lib.cxios_is_defined_filegroup_min_digits.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_min_digits.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_min_digits.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_mode.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_mode.restypes = None
+lib.cxios_get_filegroup_mode.restype = None
 
 lib.cxios_set_filegroup_mode.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_mode.restypes = None
+lib.cxios_set_filegroup_mode.restype = None
 
 lib.cxios_is_defined_filegroup_mode.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_mode.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_mode.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_name.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_name.restypes = None
+lib.cxios_get_filegroup_name.restype = None
 
 lib.cxios_set_filegroup_name.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_name.restypes = None
+lib.cxios_set_filegroup_name.restype = None
 
 lib.cxios_is_defined_filegroup_name.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_name.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_name_suffix.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_name_suffix.restypes = None
+lib.cxios_get_filegroup_name_suffix.restype = None
 
 lib.cxios_set_filegroup_name_suffix.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_name_suffix.restypes = None
+lib.cxios_set_filegroup_name_suffix.restype = None
 
 lib.cxios_is_defined_filegroup_name_suffix.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_name_suffix.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_name_suffix.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_output_freq.argtypes = [FileGroup, ctypes.POINTER(Duration)]
-lib.cxios_get_filegroup_output_freq.restypes = None
+lib.cxios_get_filegroup_output_freq.restype = None
 
 lib.cxios_set_filegroup_output_freq.argtypes = [FileGroup, Duration]
-lib.cxios_set_filegroup_output_freq.restypes = None
+lib.cxios_set_filegroup_output_freq.restype = None
 
 lib.cxios_is_defined_filegroup_output_freq.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_output_freq.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_output_freq.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_output_level.argtypes = [FileGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_filegroup_output_level.restypes = None
+lib.cxios_get_filegroup_output_level.restype = None
 
 lib.cxios_set_filegroup_output_level.argtypes = [FileGroup, ctypes.c_int]
-lib.cxios_set_filegroup_output_level.restypes = None
+lib.cxios_set_filegroup_output_level.restype = None
 
 lib.cxios_is_defined_filegroup_output_level.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_output_level.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_output_level.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_par_access.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_par_access.restypes = None
+lib.cxios_get_filegroup_par_access.restype = None
 
 lib.cxios_set_filegroup_par_access.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_par_access.restypes = None
+lib.cxios_set_filegroup_par_access.restype = None
 
 lib.cxios_is_defined_filegroup_par_access.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_par_access.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_par_access.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_pool_gatherer.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_pool_gatherer.restypes = None
+lib.cxios_get_filegroup_pool_gatherer.restype = None
 
 lib.cxios_set_filegroup_pool_gatherer.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_pool_gatherer.restypes = None
+lib.cxios_set_filegroup_pool_gatherer.restype = None
 
 lib.cxios_is_defined_filegroup_pool_gatherer.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_pool_gatherer.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_pool_gatherer.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_pool_reader.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_pool_reader.restypes = None
+lib.cxios_get_filegroup_pool_reader.restype = None
 
 lib.cxios_set_filegroup_pool_reader.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_pool_reader.restypes = None
+lib.cxios_set_filegroup_pool_reader.restype = None
 
 lib.cxios_is_defined_filegroup_pool_reader.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_pool_reader.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_pool_reader.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_pool_writer.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_pool_writer.restypes = None
+lib.cxios_get_filegroup_pool_writer.restype = None
 
 lib.cxios_set_filegroup_pool_writer.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_pool_writer.restypes = None
+lib.cxios_set_filegroup_pool_writer.restype = None
 
 lib.cxios_is_defined_filegroup_pool_writer.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_pool_writer.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_pool_writer.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_read_metadata_par.argtypes = [FileGroup, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_filegroup_read_metadata_par.restypes = None
+lib.cxios_get_filegroup_read_metadata_par.restype = None
 
 lib.cxios_set_filegroup_read_metadata_par.argtypes = [FileGroup, ctypes.c_bool]
-lib.cxios_set_filegroup_read_metadata_par.restypes = None
+lib.cxios_set_filegroup_read_metadata_par.restype = None
 
 lib.cxios_is_defined_filegroup_read_metadata_par.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_read_metadata_par.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_read_metadata_par.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_reader.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_reader.restypes = None
+lib.cxios_get_filegroup_reader.restype = None
 
 lib.cxios_set_filegroup_reader.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_reader.restypes = None
+lib.cxios_set_filegroup_reader.restype = None
 
 lib.cxios_is_defined_filegroup_reader.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_reader.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_reader.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_record_offset.argtypes = [FileGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_filegroup_record_offset.restypes = None
+lib.cxios_get_filegroup_record_offset.restype = None
 
 lib.cxios_set_filegroup_record_offset.argtypes = [FileGroup, ctypes.c_int]
-lib.cxios_set_filegroup_record_offset.restypes = None
+lib.cxios_set_filegroup_record_offset.restype = None
 
 lib.cxios_is_defined_filegroup_record_offset.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_record_offset.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_record_offset.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_split_end_offset.argtypes = [FileGroup, ctypes.POINTER(Duration)]
-lib.cxios_get_filegroup_split_end_offset.restypes = None
+lib.cxios_get_filegroup_split_end_offset.restype = None
 
 lib.cxios_set_filegroup_split_end_offset.argtypes = [FileGroup, Duration]
-lib.cxios_set_filegroup_split_end_offset.restypes = None
+lib.cxios_set_filegroup_split_end_offset.restype = None
 
 lib.cxios_is_defined_filegroup_split_end_offset.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_split_end_offset.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_split_end_offset.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_split_freq.argtypes = [FileGroup, ctypes.POINTER(Duration)]
-lib.cxios_get_filegroup_split_freq.restypes = None
+lib.cxios_get_filegroup_split_freq.restype = None
 
 lib.cxios_set_filegroup_split_freq.argtypes = [FileGroup, Duration]
-lib.cxios_set_filegroup_split_freq.restypes = None
+lib.cxios_set_filegroup_split_freq.restype = None
 
 lib.cxios_is_defined_filegroup_split_freq.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_split_freq.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_split_freq.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_split_freq_format.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_split_freq_format.restypes = None
+lib.cxios_get_filegroup_split_freq_format.restype = None
 
 lib.cxios_set_filegroup_split_freq_format.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_split_freq_format.restypes = None
+lib.cxios_set_filegroup_split_freq_format.restype = None
 
 lib.cxios_is_defined_filegroup_split_freq_format.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_split_freq_format.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_split_freq_format.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_split_last_date.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_split_last_date.restypes = None
+lib.cxios_get_filegroup_split_last_date.restype = None
 
 lib.cxios_set_filegroup_split_last_date.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_split_last_date.restypes = None
+lib.cxios_set_filegroup_split_last_date.restype = None
 
 lib.cxios_is_defined_filegroup_split_last_date.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_split_last_date.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_split_last_date.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_split_start_offset.argtypes = [FileGroup, ctypes.POINTER(Duration)]
-lib.cxios_get_filegroup_split_start_offset.restypes = None
+lib.cxios_get_filegroup_split_start_offset.restype = None
 
 lib.cxios_set_filegroup_split_start_offset.argtypes = [FileGroup, Duration]
-lib.cxios_set_filegroup_split_start_offset.restypes = None
+lib.cxios_set_filegroup_split_start_offset.restype = None
 
 lib.cxios_is_defined_filegroup_split_start_offset.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_split_start_offset.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_split_start_offset.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_sync_freq.argtypes = [FileGroup, ctypes.POINTER(Duration)]
-lib.cxios_get_filegroup_sync_freq.restypes = None
+lib.cxios_get_filegroup_sync_freq.restype = None
 
 lib.cxios_set_filegroup_sync_freq.argtypes = [FileGroup, Duration]
-lib.cxios_set_filegroup_sync_freq.restypes = None
+lib.cxios_set_filegroup_sync_freq.restype = None
 
 lib.cxios_is_defined_filegroup_sync_freq.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_sync_freq.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_sync_freq.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_time_counter.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_time_counter.restypes = None
+lib.cxios_get_filegroup_time_counter.restype = None
 
 lib.cxios_set_filegroup_time_counter.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_time_counter.restypes = None
+lib.cxios_set_filegroup_time_counter.restype = None
 
 lib.cxios_is_defined_filegroup_time_counter.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_time_counter.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_time_counter.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_time_counter_name.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_time_counter_name.restypes = None
+lib.cxios_get_filegroup_time_counter_name.restype = None
 
 lib.cxios_set_filegroup_time_counter_name.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_time_counter_name.restypes = None
+lib.cxios_set_filegroup_time_counter_name.restype = None
 
 lib.cxios_is_defined_filegroup_time_counter_name.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_time_counter_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_time_counter_name.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_time_stamp_format.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_time_stamp_format.restypes = None
+lib.cxios_get_filegroup_time_stamp_format.restype = None
 
 lib.cxios_set_filegroup_time_stamp_format.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_time_stamp_format.restypes = None
+lib.cxios_set_filegroup_time_stamp_format.restype = None
 
 lib.cxios_is_defined_filegroup_time_stamp_format.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_time_stamp_format.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_time_stamp_format.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_time_stamp_name.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_time_stamp_name.restypes = None
+lib.cxios_get_filegroup_time_stamp_name.restype = None
 
 lib.cxios_set_filegroup_time_stamp_name.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_time_stamp_name.restypes = None
+lib.cxios_set_filegroup_time_stamp_name.restype = None
 
 lib.cxios_is_defined_filegroup_time_stamp_name.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_time_stamp_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_time_stamp_name.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_time_units.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_time_units.restypes = None
+lib.cxios_get_filegroup_time_units.restype = None
 
 lib.cxios_set_filegroup_time_units.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_time_units.restypes = None
+lib.cxios_set_filegroup_time_units.restype = None
 
 lib.cxios_is_defined_filegroup_time_units.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_time_units.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_time_units.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_timeseries.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_timeseries.restypes = None
+lib.cxios_get_filegroup_timeseries.restype = None
 
 lib.cxios_set_filegroup_timeseries.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_timeseries.restypes = None
+lib.cxios_set_filegroup_timeseries.restype = None
 
 lib.cxios_is_defined_filegroup_timeseries.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_timeseries.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_timeseries.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_ts_prefix.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_ts_prefix.restypes = None
+lib.cxios_get_filegroup_ts_prefix.restype = None
 
 lib.cxios_set_filegroup_ts_prefix.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_ts_prefix.restypes = None
+lib.cxios_set_filegroup_ts_prefix.restype = None
 
 lib.cxios_is_defined_filegroup_ts_prefix.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_ts_prefix.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_ts_prefix.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_type.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_type.restypes = None
+lib.cxios_get_filegroup_type.restype = None
 
 lib.cxios_set_filegroup_type.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_type.restypes = None
+lib.cxios_set_filegroup_type.restype = None
 
 lib.cxios_is_defined_filegroup_type.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_type.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_type.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_using_server2.argtypes = [FileGroup, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_filegroup_using_server2.restypes = None
+lib.cxios_get_filegroup_using_server2.restype = None
 
 lib.cxios_set_filegroup_using_server2.argtypes = [FileGroup, ctypes.c_bool]
-lib.cxios_set_filegroup_using_server2.restypes = None
+lib.cxios_set_filegroup_using_server2.restype = None
 
 lib.cxios_is_defined_filegroup_using_server2.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_using_server2.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_using_server2.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_uuid_format.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_uuid_format.restypes = None
+lib.cxios_get_filegroup_uuid_format.restype = None
 
 lib.cxios_set_filegroup_uuid_format.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_uuid_format.restypes = None
+lib.cxios_set_filegroup_uuid_format.restype = None
 
 lib.cxios_is_defined_filegroup_uuid_format.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_uuid_format.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_uuid_format.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_uuid_name.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_uuid_name.restypes = None
+lib.cxios_get_filegroup_uuid_name.restype = None
 
 lib.cxios_set_filegroup_uuid_name.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_uuid_name.restypes = None
+lib.cxios_set_filegroup_uuid_name.restype = None
 
 lib.cxios_is_defined_filegroup_uuid_name.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_uuid_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_uuid_name.restype = ctypes.c_bool
 
 lib.cxios_get_filegroup_writer.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_filegroup_writer.restypes = None
+lib.cxios_get_filegroup_writer.restype = None
 
 lib.cxios_set_filegroup_writer.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_filegroup_writer.restypes = None
+lib.cxios_set_filegroup_writer.restype = None
 
 lib.cxios_is_defined_filegroup_writer.argtypes = [FileGroup]
-lib.cxios_is_defined_filegroup_writer.restypes = ctypes.c_bool
+lib.cxios_is_defined_filegroup_writer.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #

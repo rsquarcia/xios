@@ -18,49 +18,49 @@ from xios.ocompute_connectivity_domain_attr import ComputeConnectivityDomain
 
 
 lib.cxios_get_compute_connectivity_domain_local_neighbor.argtypes = [ComputeConnectivityDomain, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_compute_connectivity_domain_local_neighbor.restypes = None
+lib.cxios_get_compute_connectivity_domain_local_neighbor.restype = None
 
 lib.cxios_set_compute_connectivity_domain_local_neighbor.argtypes = [ComputeConnectivityDomain, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_compute_connectivity_domain_local_neighbor.restypes = None
+lib.cxios_set_compute_connectivity_domain_local_neighbor.restype = None
 
 lib.cxios_is_defined_compute_connectivity_domain_local_neighbor.argtypes = [ComputeConnectivityDomain]
-lib.cxios_is_defined_compute_connectivity_domain_local_neighbor.restypes = ctypes.c_bool
+lib.cxios_is_defined_compute_connectivity_domain_local_neighbor.restype = ctypes.c_bool
 
 lib.cxios_get_compute_connectivity_domain_n_neighbor.argtypes = [ComputeConnectivityDomain, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_compute_connectivity_domain_n_neighbor.restypes = None
+lib.cxios_get_compute_connectivity_domain_n_neighbor.restype = None
 
 lib.cxios_set_compute_connectivity_domain_n_neighbor.argtypes = [ComputeConnectivityDomain, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_compute_connectivity_domain_n_neighbor.restypes = None
+lib.cxios_set_compute_connectivity_domain_n_neighbor.restype = None
 
 lib.cxios_is_defined_compute_connectivity_domain_n_neighbor.argtypes = [ComputeConnectivityDomain]
-lib.cxios_is_defined_compute_connectivity_domain_n_neighbor.restypes = ctypes.c_bool
+lib.cxios_is_defined_compute_connectivity_domain_n_neighbor.restype = ctypes.c_bool
 
 lib.cxios_get_compute_connectivity_domain_n_neighbor_max.argtypes = [ComputeConnectivityDomain, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_compute_connectivity_domain_n_neighbor_max.restypes = None
+lib.cxios_get_compute_connectivity_domain_n_neighbor_max.restype = None
 
 lib.cxios_set_compute_connectivity_domain_n_neighbor_max.argtypes = [ComputeConnectivityDomain, ctypes.c_int]
-lib.cxios_set_compute_connectivity_domain_n_neighbor_max.restypes = None
+lib.cxios_set_compute_connectivity_domain_n_neighbor_max.restype = None
 
 lib.cxios_is_defined_compute_connectivity_domain_n_neighbor_max.argtypes = [ComputeConnectivityDomain]
-lib.cxios_is_defined_compute_connectivity_domain_n_neighbor_max.restypes = ctypes.c_bool
+lib.cxios_is_defined_compute_connectivity_domain_n_neighbor_max.restype = ctypes.c_bool
 
 lib.cxios_get_compute_connectivity_domain_precision.argtypes = [ComputeConnectivityDomain, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_compute_connectivity_domain_precision.restypes = None
+lib.cxios_get_compute_connectivity_domain_precision.restype = None
 
 lib.cxios_set_compute_connectivity_domain_precision.argtypes = [ComputeConnectivityDomain, ctypes.c_double]
-lib.cxios_set_compute_connectivity_domain_precision.restypes = None
+lib.cxios_set_compute_connectivity_domain_precision.restype = None
 
 lib.cxios_is_defined_compute_connectivity_domain_precision.argtypes = [ComputeConnectivityDomain]
-lib.cxios_is_defined_compute_connectivity_domain_precision.restypes = ctypes.c_bool
+lib.cxios_is_defined_compute_connectivity_domain_precision.restype = ctypes.c_bool
 
 lib.cxios_get_compute_connectivity_domain_type.argtypes = [ComputeConnectivityDomain, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_compute_connectivity_domain_type.restypes = None
+lib.cxios_get_compute_connectivity_domain_type.restype = None
 
 lib.cxios_set_compute_connectivity_domain_type.argtypes = [ComputeConnectivityDomain, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_compute_connectivity_domain_type.restypes = None
+lib.cxios_set_compute_connectivity_domain_type.restype = None
 
 lib.cxios_is_defined_compute_connectivity_domain_type.argtypes = [ComputeConnectivityDomain]
-lib.cxios_is_defined_compute_connectivity_domain_type.restypes = ctypes.c_bool
+lib.cxios_is_defined_compute_connectivity_domain_type.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #
@@ -188,7 +188,7 @@ type_ : Optional[String] = None):
     if local_neighbor_.shape_is_needed: 
       shape_c = (ctypes.c_int * 2)()
       lib.cxios_compute_connectivity_domain_local_neighbor_shape(compute_connectivity_domain_hdl, shape_c)
-      local_neighbor_.arr = np.zeros((shape_c[0], shape_c[1]) , order = 'F')
+      local_neighbor_.arr = np.zeros((shape_c[0], shape_c[1]) )
       lib.cxios_get_compute_connectivity_domain_local_neighbor(compute_connectivity_domain_hdl, local_neighbor_._c_value, shape_c)
     else: 
       local_neighbor_c = local_neighbor_._c_value
@@ -203,7 +203,7 @@ type_ : Optional[String] = None):
     if n_neighbor_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_compute_connectivity_domain_n_neighbor_shape(compute_connectivity_domain_hdl, shape_c)
-      n_neighbor_.arr = np.zeros(shape_c[0], order = 'F')
+      n_neighbor_.arr = np.zeros(shape_c[0])
       lib.cxios_get_compute_connectivity_domain_n_neighbor(compute_connectivity_domain_hdl, n_neighbor_._c_value, shape_c)
     else: 
       n_neighbor_c = n_neighbor_._c_value

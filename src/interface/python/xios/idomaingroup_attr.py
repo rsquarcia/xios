@@ -18,427 +18,427 @@ from xios.odomaingroup_attr import DomainGroup
 
 
 lib.cxios_get_domaingroup_area.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_area.restypes = None
+lib.cxios_get_domaingroup_area.restype = None
 
 lib.cxios_set_domaingroup_area.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_domaingroup_area.restypes = None
+lib.cxios_set_domaingroup_area.restype = None
 
 lib.cxios_is_defined_domaingroup_area.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_area.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_area.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_area_1d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_area_1d.restypes = None
+lib.cxios_get_domaingroup_area_1d.restype = None
 
 lib.cxios_set_domaingroup_area_1d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_domaingroup_area_1d.restypes = None
+lib.cxios_set_domaingroup_area_1d.restype = None
 
 lib.cxios_is_defined_domaingroup_area_1d.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_area_1d.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_area_1d.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_area_2d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_area_2d.restypes = None
+lib.cxios_get_domaingroup_area_2d.restype = None
 
 lib.cxios_set_domaingroup_area_2d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_domaingroup_area_2d.restypes = None
+lib.cxios_set_domaingroup_area_2d.restype = None
 
 lib.cxios_is_defined_domaingroup_area_2d.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_area_2d.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_area_2d.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_bounds_lat_1d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_bounds_lat_1d.restypes = None
+lib.cxios_get_domaingroup_bounds_lat_1d.restype = None
 
 lib.cxios_set_domaingroup_bounds_lat_1d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_domaingroup_bounds_lat_1d.restypes = None
+lib.cxios_set_domaingroup_bounds_lat_1d.restype = None
 
 lib.cxios_is_defined_domaingroup_bounds_lat_1d.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_bounds_lat_1d.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_bounds_lat_1d.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_bounds_lat_2d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_bounds_lat_2d.restypes = None
+lib.cxios_get_domaingroup_bounds_lat_2d.restype = None
 
 lib.cxios_set_domaingroup_bounds_lat_2d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_domaingroup_bounds_lat_2d.restypes = None
+lib.cxios_set_domaingroup_bounds_lat_2d.restype = None
 
 lib.cxios_is_defined_domaingroup_bounds_lat_2d.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_bounds_lat_2d.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_bounds_lat_2d.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_bounds_lat_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_domaingroup_bounds_lat_name.restypes = None
+lib.cxios_get_domaingroup_bounds_lat_name.restype = None
 
 lib.cxios_set_domaingroup_bounds_lat_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_domaingroup_bounds_lat_name.restypes = None
+lib.cxios_set_domaingroup_bounds_lat_name.restype = None
 
 lib.cxios_is_defined_domaingroup_bounds_lat_name.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_bounds_lat_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_bounds_lat_name.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_bounds_lon_1d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_bounds_lon_1d.restypes = None
+lib.cxios_get_domaingroup_bounds_lon_1d.restype = None
 
 lib.cxios_set_domaingroup_bounds_lon_1d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_domaingroup_bounds_lon_1d.restypes = None
+lib.cxios_set_domaingroup_bounds_lon_1d.restype = None
 
 lib.cxios_is_defined_domaingroup_bounds_lon_1d.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_bounds_lon_1d.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_bounds_lon_1d.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_bounds_lon_2d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_bounds_lon_2d.restypes = None
+lib.cxios_get_domaingroup_bounds_lon_2d.restype = None
 
 lib.cxios_set_domaingroup_bounds_lon_2d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_domaingroup_bounds_lon_2d.restypes = None
+lib.cxios_set_domaingroup_bounds_lon_2d.restype = None
 
 lib.cxios_is_defined_domaingroup_bounds_lon_2d.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_bounds_lon_2d.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_bounds_lon_2d.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_bounds_lon_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_domaingroup_bounds_lon_name.restypes = None
+lib.cxios_get_domaingroup_bounds_lon_name.restype = None
 
 lib.cxios_set_domaingroup_bounds_lon_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_domaingroup_bounds_lon_name.restypes = None
+lib.cxios_set_domaingroup_bounds_lon_name.restype = None
 
 lib.cxios_is_defined_domaingroup_bounds_lon_name.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_bounds_lon_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_bounds_lon_name.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_chunking_weight_i.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_domaingroup_chunking_weight_i.restypes = None
+lib.cxios_get_domaingroup_chunking_weight_i.restype = None
 
 lib.cxios_set_domaingroup_chunking_weight_i.argtypes = [DomainGroup, ctypes.c_double]
-lib.cxios_set_domaingroup_chunking_weight_i.restypes = None
+lib.cxios_set_domaingroup_chunking_weight_i.restype = None
 
 lib.cxios_is_defined_domaingroup_chunking_weight_i.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_chunking_weight_i.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_chunking_weight_i.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_chunking_weight_j.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_domaingroup_chunking_weight_j.restypes = None
+lib.cxios_get_domaingroup_chunking_weight_j.restype = None
 
 lib.cxios_set_domaingroup_chunking_weight_j.argtypes = [DomainGroup, ctypes.c_double]
-lib.cxios_set_domaingroup_chunking_weight_j.restypes = None
+lib.cxios_set_domaingroup_chunking_weight_j.restype = None
 
 lib.cxios_is_defined_domaingroup_chunking_weight_j.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_chunking_weight_j.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_chunking_weight_j.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_comment.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_domaingroup_comment.restypes = None
+lib.cxios_get_domaingroup_comment.restype = None
 
 lib.cxios_set_domaingroup_comment.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_domaingroup_comment.restypes = None
+lib.cxios_set_domaingroup_comment.restype = None
 
 lib.cxios_is_defined_domaingroup_comment.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_comment.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_comment.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_data_dim.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_data_dim.restypes = None
+lib.cxios_get_domaingroup_data_dim.restype = None
 
 lib.cxios_set_domaingroup_data_dim.argtypes = [DomainGroup, ctypes.c_int]
-lib.cxios_set_domaingroup_data_dim.restypes = None
+lib.cxios_set_domaingroup_data_dim.restype = None
 
 lib.cxios_is_defined_domaingroup_data_dim.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_data_dim.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_data_dim.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_data_i_index.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_data_i_index.restypes = None
+lib.cxios_get_domaingroup_data_i_index.restype = None
 
 lib.cxios_set_domaingroup_data_i_index.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_domaingroup_data_i_index.restypes = None
+lib.cxios_set_domaingroup_data_i_index.restype = None
 
 lib.cxios_is_defined_domaingroup_data_i_index.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_data_i_index.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_data_i_index.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_data_ibegin.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_data_ibegin.restypes = None
+lib.cxios_get_domaingroup_data_ibegin.restype = None
 
 lib.cxios_set_domaingroup_data_ibegin.argtypes = [DomainGroup, ctypes.c_int]
-lib.cxios_set_domaingroup_data_ibegin.restypes = None
+lib.cxios_set_domaingroup_data_ibegin.restype = None
 
 lib.cxios_is_defined_domaingroup_data_ibegin.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_data_ibegin.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_data_ibegin.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_data_j_index.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_data_j_index.restypes = None
+lib.cxios_get_domaingroup_data_j_index.restype = None
 
 lib.cxios_set_domaingroup_data_j_index.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_domaingroup_data_j_index.restypes = None
+lib.cxios_set_domaingroup_data_j_index.restype = None
 
 lib.cxios_is_defined_domaingroup_data_j_index.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_data_j_index.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_data_j_index.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_data_jbegin.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_data_jbegin.restypes = None
+lib.cxios_get_domaingroup_data_jbegin.restype = None
 
 lib.cxios_set_domaingroup_data_jbegin.argtypes = [DomainGroup, ctypes.c_int]
-lib.cxios_set_domaingroup_data_jbegin.restypes = None
+lib.cxios_set_domaingroup_data_jbegin.restype = None
 
 lib.cxios_is_defined_domaingroup_data_jbegin.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_data_jbegin.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_data_jbegin.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_data_ni.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_data_ni.restypes = None
+lib.cxios_get_domaingroup_data_ni.restype = None
 
 lib.cxios_set_domaingroup_data_ni.argtypes = [DomainGroup, ctypes.c_int]
-lib.cxios_set_domaingroup_data_ni.restypes = None
+lib.cxios_set_domaingroup_data_ni.restype = None
 
 lib.cxios_is_defined_domaingroup_data_ni.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_data_ni.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_data_ni.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_data_nj.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_data_nj.restypes = None
+lib.cxios_get_domaingroup_data_nj.restype = None
 
 lib.cxios_set_domaingroup_data_nj.argtypes = [DomainGroup, ctypes.c_int]
-lib.cxios_set_domaingroup_data_nj.restypes = None
+lib.cxios_set_domaingroup_data_nj.restype = None
 
 lib.cxios_is_defined_domaingroup_data_nj.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_data_nj.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_data_nj.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_dim_i_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_domaingroup_dim_i_name.restypes = None
+lib.cxios_get_domaingroup_dim_i_name.restype = None
 
 lib.cxios_set_domaingroup_dim_i_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_domaingroup_dim_i_name.restypes = None
+lib.cxios_set_domaingroup_dim_i_name.restype = None
 
 lib.cxios_is_defined_domaingroup_dim_i_name.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_dim_i_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_dim_i_name.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_dim_j_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_domaingroup_dim_j_name.restypes = None
+lib.cxios_get_domaingroup_dim_j_name.restype = None
 
 lib.cxios_set_domaingroup_dim_j_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_domaingroup_dim_j_name.restypes = None
+lib.cxios_set_domaingroup_dim_j_name.restype = None
 
 lib.cxios_is_defined_domaingroup_dim_j_name.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_dim_j_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_dim_j_name.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_domain_ref.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_domaingroup_domain_ref.restypes = None
+lib.cxios_get_domaingroup_domain_ref.restype = None
 
 lib.cxios_set_domaingroup_domain_ref.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_domaingroup_domain_ref.restypes = None
+lib.cxios_set_domaingroup_domain_ref.restype = None
 
 lib.cxios_is_defined_domaingroup_domain_ref.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_domain_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_domain_ref.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_group_ref.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_domaingroup_group_ref.restypes = None
+lib.cxios_get_domaingroup_group_ref.restype = None
 
 lib.cxios_set_domaingroup_group_ref.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_domaingroup_group_ref.restypes = None
+lib.cxios_set_domaingroup_group_ref.restype = None
 
 lib.cxios_is_defined_domaingroup_group_ref.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_group_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_group_ref.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_i_index.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_i_index.restypes = None
+lib.cxios_get_domaingroup_i_index.restype = None
 
 lib.cxios_set_domaingroup_i_index.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_domaingroup_i_index.restypes = None
+lib.cxios_set_domaingroup_i_index.restype = None
 
 lib.cxios_is_defined_domaingroup_i_index.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_i_index.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_i_index.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_ibegin.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_ibegin.restypes = None
+lib.cxios_get_domaingroup_ibegin.restype = None
 
 lib.cxios_set_domaingroup_ibegin.argtypes = [DomainGroup, ctypes.c_int]
-lib.cxios_set_domaingroup_ibegin.restypes = None
+lib.cxios_set_domaingroup_ibegin.restype = None
 
 lib.cxios_is_defined_domaingroup_ibegin.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_ibegin.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_ibegin.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_j_index.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_j_index.restypes = None
+lib.cxios_get_domaingroup_j_index.restype = None
 
 lib.cxios_set_domaingroup_j_index.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_domaingroup_j_index.restypes = None
+lib.cxios_set_domaingroup_j_index.restype = None
 
 lib.cxios_is_defined_domaingroup_j_index.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_j_index.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_j_index.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_jbegin.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_jbegin.restypes = None
+lib.cxios_get_domaingroup_jbegin.restype = None
 
 lib.cxios_set_domaingroup_jbegin.argtypes = [DomainGroup, ctypes.c_int]
-lib.cxios_set_domaingroup_jbegin.restypes = None
+lib.cxios_set_domaingroup_jbegin.restype = None
 
 lib.cxios_is_defined_domaingroup_jbegin.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_jbegin.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_jbegin.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_lat_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_domaingroup_lat_name.restypes = None
+lib.cxios_get_domaingroup_lat_name.restype = None
 
 lib.cxios_set_domaingroup_lat_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_domaingroup_lat_name.restypes = None
+lib.cxios_set_domaingroup_lat_name.restype = None
 
 lib.cxios_is_defined_domaingroup_lat_name.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_lat_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_lat_name.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_latvalue_1d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_latvalue_1d.restypes = None
+lib.cxios_get_domaingroup_latvalue_1d.restype = None
 
 lib.cxios_set_domaingroup_latvalue_1d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_domaingroup_latvalue_1d.restypes = None
+lib.cxios_set_domaingroup_latvalue_1d.restype = None
 
 lib.cxios_is_defined_domaingroup_latvalue_1d.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_latvalue_1d.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_latvalue_1d.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_latvalue_2d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_latvalue_2d.restypes = None
+lib.cxios_get_domaingroup_latvalue_2d.restype = None
 
 lib.cxios_set_domaingroup_latvalue_2d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_domaingroup_latvalue_2d.restypes = None
+lib.cxios_set_domaingroup_latvalue_2d.restype = None
 
 lib.cxios_is_defined_domaingroup_latvalue_2d.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_latvalue_2d.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_latvalue_2d.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_lon_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_domaingroup_lon_name.restypes = None
+lib.cxios_get_domaingroup_lon_name.restype = None
 
 lib.cxios_set_domaingroup_lon_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_domaingroup_lon_name.restypes = None
+lib.cxios_set_domaingroup_lon_name.restype = None
 
 lib.cxios_is_defined_domaingroup_lon_name.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_lon_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_lon_name.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_long_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_domaingroup_long_name.restypes = None
+lib.cxios_get_domaingroup_long_name.restype = None
 
 lib.cxios_set_domaingroup_long_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_domaingroup_long_name.restypes = None
+lib.cxios_set_domaingroup_long_name.restype = None
 
 lib.cxios_is_defined_domaingroup_long_name.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_long_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_long_name.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_lonvalue_1d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_lonvalue_1d.restypes = None
+lib.cxios_get_domaingroup_lonvalue_1d.restype = None
 
 lib.cxios_set_domaingroup_lonvalue_1d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_domaingroup_lonvalue_1d.restypes = None
+lib.cxios_set_domaingroup_lonvalue_1d.restype = None
 
 lib.cxios_is_defined_domaingroup_lonvalue_1d.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_lonvalue_1d.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_lonvalue_1d.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_lonvalue_2d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_lonvalue_2d.restypes = None
+lib.cxios_get_domaingroup_lonvalue_2d.restype = None
 
 lib.cxios_set_domaingroup_lonvalue_2d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_domaingroup_lonvalue_2d.restypes = None
+lib.cxios_set_domaingroup_lonvalue_2d.restype = None
 
 lib.cxios_is_defined_domaingroup_lonvalue_2d.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_lonvalue_2d.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_lonvalue_2d.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_mask_1d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_mask_1d.restypes = None
+lib.cxios_get_domaingroup_mask_1d.restype = None
 
 lib.cxios_set_domaingroup_mask_1d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_domaingroup_mask_1d.restypes = None
+lib.cxios_set_domaingroup_mask_1d.restype = None
 
 lib.cxios_is_defined_domaingroup_mask_1d.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_mask_1d.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_mask_1d.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_mask_2d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_mask_2d.restypes = None
+lib.cxios_get_domaingroup_mask_2d.restype = None
 
 lib.cxios_set_domaingroup_mask_2d.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_domaingroup_mask_2d.restypes = None
+lib.cxios_set_domaingroup_mask_2d.restype = None
 
 lib.cxios_is_defined_domaingroup_mask_2d.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_mask_2d.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_mask_2d.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_domaingroup_name.restypes = None
+lib.cxios_get_domaingroup_name.restype = None
 
 lib.cxios_set_domaingroup_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_domaingroup_name.restypes = None
+lib.cxios_set_domaingroup_name.restype = None
 
 lib.cxios_is_defined_domaingroup_name.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_name.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_ni.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_ni.restypes = None
+lib.cxios_get_domaingroup_ni.restype = None
 
 lib.cxios_set_domaingroup_ni.argtypes = [DomainGroup, ctypes.c_int]
-lib.cxios_set_domaingroup_ni.restypes = None
+lib.cxios_set_domaingroup_ni.restype = None
 
 lib.cxios_is_defined_domaingroup_ni.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_ni.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_ni.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_ni_glo.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_ni_glo.restypes = None
+lib.cxios_get_domaingroup_ni_glo.restype = None
 
 lib.cxios_set_domaingroup_ni_glo.argtypes = [DomainGroup, ctypes.c_int]
-lib.cxios_set_domaingroup_ni_glo.restypes = None
+lib.cxios_set_domaingroup_ni_glo.restype = None
 
 lib.cxios_is_defined_domaingroup_ni_glo.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_ni_glo.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_ni_glo.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_nj.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_nj.restypes = None
+lib.cxios_get_domaingroup_nj.restype = None
 
 lib.cxios_set_domaingroup_nj.argtypes = [DomainGroup, ctypes.c_int]
-lib.cxios_set_domaingroup_nj.restypes = None
+lib.cxios_set_domaingroup_nj.restype = None
 
 lib.cxios_is_defined_domaingroup_nj.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_nj.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_nj.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_nj_glo.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_nj_glo.restypes = None
+lib.cxios_get_domaingroup_nj_glo.restype = None
 
 lib.cxios_set_domaingroup_nj_glo.argtypes = [DomainGroup, ctypes.c_int]
-lib.cxios_set_domaingroup_nj_glo.restypes = None
+lib.cxios_set_domaingroup_nj_glo.restype = None
 
 lib.cxios_is_defined_domaingroup_nj_glo.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_nj_glo.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_nj_glo.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_nvertex.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_nvertex.restypes = None
+lib.cxios_get_domaingroup_nvertex.restype = None
 
 lib.cxios_set_domaingroup_nvertex.argtypes = [DomainGroup, ctypes.c_int]
-lib.cxios_set_domaingroup_nvertex.restypes = None
+lib.cxios_set_domaingroup_nvertex.restype = None
 
 lib.cxios_is_defined_domaingroup_nvertex.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_nvertex.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_nvertex.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_nvertex_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_domaingroup_nvertex_name.restypes = None
+lib.cxios_get_domaingroup_nvertex_name.restype = None
 
 lib.cxios_set_domaingroup_nvertex_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_domaingroup_nvertex_name.restypes = None
+lib.cxios_set_domaingroup_nvertex_name.restype = None
 
 lib.cxios_is_defined_domaingroup_nvertex_name.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_nvertex_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_nvertex_name.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_prec.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_domaingroup_prec.restypes = None
+lib.cxios_get_domaingroup_prec.restype = None
 
 lib.cxios_set_domaingroup_prec.argtypes = [DomainGroup, ctypes.c_int]
-lib.cxios_set_domaingroup_prec.restypes = None
+lib.cxios_set_domaingroup_prec.restype = None
 
 lib.cxios_is_defined_domaingroup_prec.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_prec.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_prec.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_radius.argtypes = [DomainGroup, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_domaingroup_radius.restypes = None
+lib.cxios_get_domaingroup_radius.restype = None
 
 lib.cxios_set_domaingroup_radius.argtypes = [DomainGroup, ctypes.c_double]
-lib.cxios_set_domaingroup_radius.restypes = None
+lib.cxios_set_domaingroup_radius.restype = None
 
 lib.cxios_is_defined_domaingroup_radius.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_radius.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_radius.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_standard_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_domaingroup_standard_name.restypes = None
+lib.cxios_get_domaingroup_standard_name.restype = None
 
 lib.cxios_set_domaingroup_standard_name.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_domaingroup_standard_name.restypes = None
+lib.cxios_set_domaingroup_standard_name.restype = None
 
 lib.cxios_is_defined_domaingroup_standard_name.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_standard_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_standard_name.restype = ctypes.c_bool
 
 lib.cxios_get_domaingroup_type.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_domaingroup_type.restypes = None
+lib.cxios_get_domaingroup_type.restype = None
 
 lib.cxios_set_domaingroup_type.argtypes = [DomainGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_domaingroup_type.restypes = None
+lib.cxios_set_domaingroup_type.restype = None
 
 lib.cxios_is_defined_domaingroup_type.argtypes = [DomainGroup]
-lib.cxios_is_defined_domaingroup_type.restypes = ctypes.c_bool
+lib.cxios_is_defined_domaingroup_type.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #
@@ -1079,7 +1079,7 @@ radius_ : Optional[Double] = None, standard_name_ : Optional[String] = None, typ
     if area_.shape_is_needed: 
       shape_c = (ctypes.c_int * 2)()
       lib.cxios_domaingroup_area_shape(domaingroup_hdl, shape_c)
-      area_.arr = np.zeros((shape_c[0], shape_c[1]) , order = 'F')
+      area_.arr = np.zeros((shape_c[0], shape_c[1]) )
       lib.cxios_get_domaingroup_area(domaingroup_hdl, area_._c_value, shape_c)
     else: 
       area_c = area_._c_value
@@ -1094,7 +1094,7 @@ radius_ : Optional[Double] = None, standard_name_ : Optional[String] = None, typ
     if area_1d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_domaingroup_area_1d_shape(domaingroup_hdl, shape_c)
-      area_1d_.arr = np.zeros(shape_c[0], order = 'F')
+      area_1d_.arr = np.zeros(shape_c[0])
       lib.cxios_get_domaingroup_area_1d(domaingroup_hdl, area_1d_._c_value, shape_c)
     else: 
       area_1d_c = area_1d_._c_value
@@ -1109,7 +1109,7 @@ radius_ : Optional[Double] = None, standard_name_ : Optional[String] = None, typ
     if area_2d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 2)()
       lib.cxios_domaingroup_area_2d_shape(domaingroup_hdl, shape_c)
-      area_2d_.arr = np.zeros((shape_c[0], shape_c[1]) , order = 'F')
+      area_2d_.arr = np.zeros((shape_c[0], shape_c[1]) )
       lib.cxios_get_domaingroup_area_2d(domaingroup_hdl, area_2d_._c_value, shape_c)
     else: 
       area_2d_c = area_2d_._c_value
@@ -1124,7 +1124,7 @@ radius_ : Optional[Double] = None, standard_name_ : Optional[String] = None, typ
     if bounds_lat_1d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 2)()
       lib.cxios_domaingroup_bounds_lat_1d_shape(domaingroup_hdl, shape_c)
-      bounds_lat_1d_.arr = np.zeros((shape_c[0], shape_c[1]) , order = 'F')
+      bounds_lat_1d_.arr = np.zeros((shape_c[0], shape_c[1]) )
       lib.cxios_get_domaingroup_bounds_lat_1d(domaingroup_hdl, bounds_lat_1d_._c_value, shape_c)
     else: 
       bounds_lat_1d_c = bounds_lat_1d_._c_value
@@ -1139,7 +1139,7 @@ radius_ : Optional[Double] = None, standard_name_ : Optional[String] = None, typ
     if bounds_lat_2d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 3)()
       lib.cxios_domaingroup_bounds_lat_2d_shape(domaingroup_hdl, shape_c)
-      bounds_lat_2d_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2]) , order = 'F')
+      bounds_lat_2d_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2]) )
       lib.cxios_get_domaingroup_bounds_lat_2d(domaingroup_hdl, bounds_lat_2d_._c_value, shape_c)
     else: 
       bounds_lat_2d_c = bounds_lat_2d_._c_value
@@ -1162,7 +1162,7 @@ radius_ : Optional[Double] = None, standard_name_ : Optional[String] = None, typ
     if bounds_lon_1d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 2)()
       lib.cxios_domaingroup_bounds_lon_1d_shape(domaingroup_hdl, shape_c)
-      bounds_lon_1d_.arr = np.zeros((shape_c[0], shape_c[1]) , order = 'F')
+      bounds_lon_1d_.arr = np.zeros((shape_c[0], shape_c[1]) )
       lib.cxios_get_domaingroup_bounds_lon_1d(domaingroup_hdl, bounds_lon_1d_._c_value, shape_c)
     else: 
       bounds_lon_1d_c = bounds_lon_1d_._c_value
@@ -1177,7 +1177,7 @@ radius_ : Optional[Double] = None, standard_name_ : Optional[String] = None, typ
     if bounds_lon_2d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 3)()
       lib.cxios_domaingroup_bounds_lon_2d_shape(domaingroup_hdl, shape_c)
-      bounds_lon_2d_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2]) , order = 'F')
+      bounds_lon_2d_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2]) )
       lib.cxios_get_domaingroup_bounds_lon_2d(domaingroup_hdl, bounds_lon_2d_._c_value, shape_c)
     else: 
       bounds_lon_2d_c = bounds_lon_2d_._c_value
@@ -1229,7 +1229,7 @@ radius_ : Optional[Double] = None, standard_name_ : Optional[String] = None, typ
     if data_i_index_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_domaingroup_data_i_index_shape(domaingroup_hdl, shape_c)
-      data_i_index_.arr = np.zeros(shape_c[0], order = 'F')
+      data_i_index_.arr = np.zeros(shape_c[0])
       lib.cxios_get_domaingroup_data_i_index(domaingroup_hdl, data_i_index_._c_value, shape_c)
     else: 
       data_i_index_c = data_i_index_._c_value
@@ -1251,7 +1251,7 @@ radius_ : Optional[Double] = None, standard_name_ : Optional[String] = None, typ
     if data_j_index_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_domaingroup_data_j_index_shape(domaingroup_hdl, shape_c)
-      data_j_index_.arr = np.zeros(shape_c[0], order = 'F')
+      data_j_index_.arr = np.zeros(shape_c[0])
       lib.cxios_get_domaingroup_data_j_index(domaingroup_hdl, data_j_index_._c_value, shape_c)
     else: 
       data_j_index_c = data_j_index_._c_value
@@ -1319,7 +1319,7 @@ radius_ : Optional[Double] = None, standard_name_ : Optional[String] = None, typ
     if i_index_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_domaingroup_i_index_shape(domaingroup_hdl, shape_c)
-      i_index_.arr = np.zeros(shape_c[0], order = 'F')
+      i_index_.arr = np.zeros(shape_c[0])
       lib.cxios_get_domaingroup_i_index(domaingroup_hdl, i_index_._c_value, shape_c)
     else: 
       i_index_c = i_index_._c_value
@@ -1341,7 +1341,7 @@ radius_ : Optional[Double] = None, standard_name_ : Optional[String] = None, typ
     if j_index_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_domaingroup_j_index_shape(domaingroup_hdl, shape_c)
-      j_index_.arr = np.zeros(shape_c[0], order = 'F')
+      j_index_.arr = np.zeros(shape_c[0])
       lib.cxios_get_domaingroup_j_index(domaingroup_hdl, j_index_._c_value, shape_c)
     else: 
       j_index_c = j_index_._c_value
@@ -1371,7 +1371,7 @@ radius_ : Optional[Double] = None, standard_name_ : Optional[String] = None, typ
     if latvalue_1d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_domaingroup_latvalue_1d_shape(domaingroup_hdl, shape_c)
-      latvalue_1d_.arr = np.zeros(shape_c[0], order = 'F')
+      latvalue_1d_.arr = np.zeros(shape_c[0])
       lib.cxios_get_domaingroup_latvalue_1d(domaingroup_hdl, latvalue_1d_._c_value, shape_c)
     else: 
       latvalue_1d_c = latvalue_1d_._c_value
@@ -1386,7 +1386,7 @@ radius_ : Optional[Double] = None, standard_name_ : Optional[String] = None, typ
     if latvalue_2d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 2)()
       lib.cxios_domaingroup_latvalue_2d_shape(domaingroup_hdl, shape_c)
-      latvalue_2d_.arr = np.zeros((shape_c[0], shape_c[1]) , order = 'F')
+      latvalue_2d_.arr = np.zeros((shape_c[0], shape_c[1]) )
       lib.cxios_get_domaingroup_latvalue_2d(domaingroup_hdl, latvalue_2d_._c_value, shape_c)
     else: 
       latvalue_2d_c = latvalue_2d_._c_value
@@ -1417,7 +1417,7 @@ radius_ : Optional[Double] = None, standard_name_ : Optional[String] = None, typ
     if lonvalue_1d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_domaingroup_lonvalue_1d_shape(domaingroup_hdl, shape_c)
-      lonvalue_1d_.arr = np.zeros(shape_c[0], order = 'F')
+      lonvalue_1d_.arr = np.zeros(shape_c[0])
       lib.cxios_get_domaingroup_lonvalue_1d(domaingroup_hdl, lonvalue_1d_._c_value, shape_c)
     else: 
       lonvalue_1d_c = lonvalue_1d_._c_value
@@ -1432,7 +1432,7 @@ radius_ : Optional[Double] = None, standard_name_ : Optional[String] = None, typ
     if lonvalue_2d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 2)()
       lib.cxios_domaingroup_lonvalue_2d_shape(domaingroup_hdl, shape_c)
-      lonvalue_2d_.arr = np.zeros((shape_c[0], shape_c[1]) , order = 'F')
+      lonvalue_2d_.arr = np.zeros((shape_c[0], shape_c[1]) )
       lib.cxios_get_domaingroup_lonvalue_2d(domaingroup_hdl, lonvalue_2d_._c_value, shape_c)
     else: 
       lonvalue_2d_c = lonvalue_2d_._c_value
@@ -1447,7 +1447,7 @@ radius_ : Optional[Double] = None, standard_name_ : Optional[String] = None, typ
     if mask_1d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_domaingroup_mask_1d_shape(domaingroup_hdl, shape_c)
-      mask_1d_.arr = np.zeros(shape_c[0], order = 'F')
+      mask_1d_.arr = np.zeros(shape_c[0])
       lib.cxios_get_domaingroup_mask_1d(domaingroup_hdl, mask_1d_._c_value, shape_c)
     else: 
       mask_1d_c = mask_1d_._c_value
@@ -1462,7 +1462,7 @@ radius_ : Optional[Double] = None, standard_name_ : Optional[String] = None, typ
     if mask_2d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 2)()
       lib.cxios_domaingroup_mask_2d_shape(domaingroup_hdl, shape_c)
-      mask_2d_.arr = np.zeros((shape_c[0], shape_c[1]) , order = 'F')
+      mask_2d_.arr = np.zeros((shape_c[0], shape_c[1]) )
       lib.cxios_get_domaingroup_mask_2d(domaingroup_hdl, mask_2d_._c_value, shape_c)
     else: 
       mask_2d_c = mask_2d_._c_value

@@ -18,373 +18,373 @@ from xios.ofile_attr import File
 
 
 lib.cxios_get_file_append.argtypes = [File, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_file_append.restypes = None
+lib.cxios_get_file_append.restype = None
 
 lib.cxios_set_file_append.argtypes = [File, ctypes.c_bool]
-lib.cxios_set_file_append.restypes = None
+lib.cxios_set_file_append.restype = None
 
 lib.cxios_is_defined_file_append.argtypes = [File]
-lib.cxios_is_defined_file_append.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_append.restype = ctypes.c_bool
 
 lib.cxios_get_file_comment.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_comment.restypes = None
+lib.cxios_get_file_comment.restype = None
 
 lib.cxios_set_file_comment.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_comment.restypes = None
+lib.cxios_set_file_comment.restype = None
 
 lib.cxios_is_defined_file_comment.argtypes = [File]
-lib.cxios_is_defined_file_comment.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_comment.restype = ctypes.c_bool
 
 lib.cxios_get_file_compression_level.argtypes = [File, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_file_compression_level.restypes = None
+lib.cxios_get_file_compression_level.restype = None
 
 lib.cxios_set_file_compression_level.argtypes = [File, ctypes.c_int]
-lib.cxios_set_file_compression_level.restypes = None
+lib.cxios_set_file_compression_level.restype = None
 
 lib.cxios_is_defined_file_compression_level.argtypes = [File]
-lib.cxios_is_defined_file_compression_level.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_compression_level.restype = ctypes.c_bool
 
 lib.cxios_get_file_convention.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_convention.restypes = None
+lib.cxios_get_file_convention.restype = None
 
 lib.cxios_set_file_convention.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_convention.restypes = None
+lib.cxios_set_file_convention.restype = None
 
 lib.cxios_is_defined_file_convention.argtypes = [File]
-lib.cxios_is_defined_file_convention.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_convention.restype = ctypes.c_bool
 
 lib.cxios_get_file_convention_str.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_convention_str.restypes = None
+lib.cxios_get_file_convention_str.restype = None
 
 lib.cxios_set_file_convention_str.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_convention_str.restypes = None
+lib.cxios_set_file_convention_str.restype = None
 
 lib.cxios_is_defined_file_convention_str.argtypes = [File]
-lib.cxios_is_defined_file_convention_str.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_convention_str.restype = ctypes.c_bool
 
 lib.cxios_get_file_cyclic.argtypes = [File, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_file_cyclic.restypes = None
+lib.cxios_get_file_cyclic.restype = None
 
 lib.cxios_set_file_cyclic.argtypes = [File, ctypes.c_bool]
-lib.cxios_set_file_cyclic.restypes = None
+lib.cxios_set_file_cyclic.restype = None
 
 lib.cxios_is_defined_file_cyclic.argtypes = [File]
-lib.cxios_is_defined_file_cyclic.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_cyclic.restype = ctypes.c_bool
 
 lib.cxios_get_file_description.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_description.restypes = None
+lib.cxios_get_file_description.restype = None
 
 lib.cxios_set_file_description.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_description.restypes = None
+lib.cxios_set_file_description.restype = None
 
 lib.cxios_is_defined_file_description.argtypes = [File]
-lib.cxios_is_defined_file_description.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_description.restype = ctypes.c_bool
 
 lib.cxios_get_file_enabled.argtypes = [File, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_file_enabled.restypes = None
+lib.cxios_get_file_enabled.restype = None
 
 lib.cxios_set_file_enabled.argtypes = [File, ctypes.c_bool]
-lib.cxios_set_file_enabled.restypes = None
+lib.cxios_set_file_enabled.restype = None
 
 lib.cxios_is_defined_file_enabled.argtypes = [File]
-lib.cxios_is_defined_file_enabled.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_enabled.restype = ctypes.c_bool
 
 lib.cxios_get_file_format.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_format.restypes = None
+lib.cxios_get_file_format.restype = None
 
 lib.cxios_set_file_format.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_format.restypes = None
+lib.cxios_set_file_format.restype = None
 
 lib.cxios_is_defined_file_format.argtypes = [File]
-lib.cxios_is_defined_file_format.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_format.restype = ctypes.c_bool
 
 lib.cxios_get_file_gatherer.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_gatherer.restypes = None
+lib.cxios_get_file_gatherer.restype = None
 
 lib.cxios_set_file_gatherer.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_gatherer.restypes = None
+lib.cxios_set_file_gatherer.restype = None
 
 lib.cxios_is_defined_file_gatherer.argtypes = [File]
-lib.cxios_is_defined_file_gatherer.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_gatherer.restype = ctypes.c_bool
 
 lib.cxios_get_file_min_digits.argtypes = [File, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_file_min_digits.restypes = None
+lib.cxios_get_file_min_digits.restype = None
 
 lib.cxios_set_file_min_digits.argtypes = [File, ctypes.c_int]
-lib.cxios_set_file_min_digits.restypes = None
+lib.cxios_set_file_min_digits.restype = None
 
 lib.cxios_is_defined_file_min_digits.argtypes = [File]
-lib.cxios_is_defined_file_min_digits.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_min_digits.restype = ctypes.c_bool
 
 lib.cxios_get_file_mode.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_mode.restypes = None
+lib.cxios_get_file_mode.restype = None
 
 lib.cxios_set_file_mode.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_mode.restypes = None
+lib.cxios_set_file_mode.restype = None
 
 lib.cxios_is_defined_file_mode.argtypes = [File]
-lib.cxios_is_defined_file_mode.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_mode.restype = ctypes.c_bool
 
 lib.cxios_get_file_name.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_name.restypes = None
+lib.cxios_get_file_name.restype = None
 
 lib.cxios_set_file_name.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_name.restypes = None
+lib.cxios_set_file_name.restype = None
 
 lib.cxios_is_defined_file_name.argtypes = [File]
-lib.cxios_is_defined_file_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_name.restype = ctypes.c_bool
 
 lib.cxios_get_file_name_suffix.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_name_suffix.restypes = None
+lib.cxios_get_file_name_suffix.restype = None
 
 lib.cxios_set_file_name_suffix.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_name_suffix.restypes = None
+lib.cxios_set_file_name_suffix.restype = None
 
 lib.cxios_is_defined_file_name_suffix.argtypes = [File]
-lib.cxios_is_defined_file_name_suffix.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_name_suffix.restype = ctypes.c_bool
 
 lib.cxios_get_file_output_freq.argtypes = [File, ctypes.POINTER(Duration)]
-lib.cxios_get_file_output_freq.restypes = None
+lib.cxios_get_file_output_freq.restype = None
 
 lib.cxios_set_file_output_freq.argtypes = [File, Duration]
-lib.cxios_set_file_output_freq.restypes = None
+lib.cxios_set_file_output_freq.restype = None
 
 lib.cxios_is_defined_file_output_freq.argtypes = [File]
-lib.cxios_is_defined_file_output_freq.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_output_freq.restype = ctypes.c_bool
 
 lib.cxios_get_file_output_level.argtypes = [File, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_file_output_level.restypes = None
+lib.cxios_get_file_output_level.restype = None
 
 lib.cxios_set_file_output_level.argtypes = [File, ctypes.c_int]
-lib.cxios_set_file_output_level.restypes = None
+lib.cxios_set_file_output_level.restype = None
 
 lib.cxios_is_defined_file_output_level.argtypes = [File]
-lib.cxios_is_defined_file_output_level.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_output_level.restype = ctypes.c_bool
 
 lib.cxios_get_file_par_access.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_par_access.restypes = None
+lib.cxios_get_file_par_access.restype = None
 
 lib.cxios_set_file_par_access.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_par_access.restypes = None
+lib.cxios_set_file_par_access.restype = None
 
 lib.cxios_is_defined_file_par_access.argtypes = [File]
-lib.cxios_is_defined_file_par_access.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_par_access.restype = ctypes.c_bool
 
 lib.cxios_get_file_pool_gatherer.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_pool_gatherer.restypes = None
+lib.cxios_get_file_pool_gatherer.restype = None
 
 lib.cxios_set_file_pool_gatherer.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_pool_gatherer.restypes = None
+lib.cxios_set_file_pool_gatherer.restype = None
 
 lib.cxios_is_defined_file_pool_gatherer.argtypes = [File]
-lib.cxios_is_defined_file_pool_gatherer.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_pool_gatherer.restype = ctypes.c_bool
 
 lib.cxios_get_file_pool_reader.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_pool_reader.restypes = None
+lib.cxios_get_file_pool_reader.restype = None
 
 lib.cxios_set_file_pool_reader.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_pool_reader.restypes = None
+lib.cxios_set_file_pool_reader.restype = None
 
 lib.cxios_is_defined_file_pool_reader.argtypes = [File]
-lib.cxios_is_defined_file_pool_reader.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_pool_reader.restype = ctypes.c_bool
 
 lib.cxios_get_file_pool_writer.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_pool_writer.restypes = None
+lib.cxios_get_file_pool_writer.restype = None
 
 lib.cxios_set_file_pool_writer.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_pool_writer.restypes = None
+lib.cxios_set_file_pool_writer.restype = None
 
 lib.cxios_is_defined_file_pool_writer.argtypes = [File]
-lib.cxios_is_defined_file_pool_writer.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_pool_writer.restype = ctypes.c_bool
 
 lib.cxios_get_file_read_metadata_par.argtypes = [File, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_file_read_metadata_par.restypes = None
+lib.cxios_get_file_read_metadata_par.restype = None
 
 lib.cxios_set_file_read_metadata_par.argtypes = [File, ctypes.c_bool]
-lib.cxios_set_file_read_metadata_par.restypes = None
+lib.cxios_set_file_read_metadata_par.restype = None
 
 lib.cxios_is_defined_file_read_metadata_par.argtypes = [File]
-lib.cxios_is_defined_file_read_metadata_par.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_read_metadata_par.restype = ctypes.c_bool
 
 lib.cxios_get_file_reader.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_reader.restypes = None
+lib.cxios_get_file_reader.restype = None
 
 lib.cxios_set_file_reader.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_reader.restypes = None
+lib.cxios_set_file_reader.restype = None
 
 lib.cxios_is_defined_file_reader.argtypes = [File]
-lib.cxios_is_defined_file_reader.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_reader.restype = ctypes.c_bool
 
 lib.cxios_get_file_record_offset.argtypes = [File, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_file_record_offset.restypes = None
+lib.cxios_get_file_record_offset.restype = None
 
 lib.cxios_set_file_record_offset.argtypes = [File, ctypes.c_int]
-lib.cxios_set_file_record_offset.restypes = None
+lib.cxios_set_file_record_offset.restype = None
 
 lib.cxios_is_defined_file_record_offset.argtypes = [File]
-lib.cxios_is_defined_file_record_offset.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_record_offset.restype = ctypes.c_bool
 
 lib.cxios_get_file_split_end_offset.argtypes = [File, ctypes.POINTER(Duration)]
-lib.cxios_get_file_split_end_offset.restypes = None
+lib.cxios_get_file_split_end_offset.restype = None
 
 lib.cxios_set_file_split_end_offset.argtypes = [File, Duration]
-lib.cxios_set_file_split_end_offset.restypes = None
+lib.cxios_set_file_split_end_offset.restype = None
 
 lib.cxios_is_defined_file_split_end_offset.argtypes = [File]
-lib.cxios_is_defined_file_split_end_offset.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_split_end_offset.restype = ctypes.c_bool
 
 lib.cxios_get_file_split_freq.argtypes = [File, ctypes.POINTER(Duration)]
-lib.cxios_get_file_split_freq.restypes = None
+lib.cxios_get_file_split_freq.restype = None
 
 lib.cxios_set_file_split_freq.argtypes = [File, Duration]
-lib.cxios_set_file_split_freq.restypes = None
+lib.cxios_set_file_split_freq.restype = None
 
 lib.cxios_is_defined_file_split_freq.argtypes = [File]
-lib.cxios_is_defined_file_split_freq.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_split_freq.restype = ctypes.c_bool
 
 lib.cxios_get_file_split_freq_format.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_split_freq_format.restypes = None
+lib.cxios_get_file_split_freq_format.restype = None
 
 lib.cxios_set_file_split_freq_format.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_split_freq_format.restypes = None
+lib.cxios_set_file_split_freq_format.restype = None
 
 lib.cxios_is_defined_file_split_freq_format.argtypes = [File]
-lib.cxios_is_defined_file_split_freq_format.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_split_freq_format.restype = ctypes.c_bool
 
 lib.cxios_get_file_split_last_date.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_split_last_date.restypes = None
+lib.cxios_get_file_split_last_date.restype = None
 
 lib.cxios_set_file_split_last_date.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_split_last_date.restypes = None
+lib.cxios_set_file_split_last_date.restype = None
 
 lib.cxios_is_defined_file_split_last_date.argtypes = [File]
-lib.cxios_is_defined_file_split_last_date.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_split_last_date.restype = ctypes.c_bool
 
 lib.cxios_get_file_split_start_offset.argtypes = [File, ctypes.POINTER(Duration)]
-lib.cxios_get_file_split_start_offset.restypes = None
+lib.cxios_get_file_split_start_offset.restype = None
 
 lib.cxios_set_file_split_start_offset.argtypes = [File, Duration]
-lib.cxios_set_file_split_start_offset.restypes = None
+lib.cxios_set_file_split_start_offset.restype = None
 
 lib.cxios_is_defined_file_split_start_offset.argtypes = [File]
-lib.cxios_is_defined_file_split_start_offset.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_split_start_offset.restype = ctypes.c_bool
 
 lib.cxios_get_file_sync_freq.argtypes = [File, ctypes.POINTER(Duration)]
-lib.cxios_get_file_sync_freq.restypes = None
+lib.cxios_get_file_sync_freq.restype = None
 
 lib.cxios_set_file_sync_freq.argtypes = [File, Duration]
-lib.cxios_set_file_sync_freq.restypes = None
+lib.cxios_set_file_sync_freq.restype = None
 
 lib.cxios_is_defined_file_sync_freq.argtypes = [File]
-lib.cxios_is_defined_file_sync_freq.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_sync_freq.restype = ctypes.c_bool
 
 lib.cxios_get_file_time_counter.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_time_counter.restypes = None
+lib.cxios_get_file_time_counter.restype = None
 
 lib.cxios_set_file_time_counter.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_time_counter.restypes = None
+lib.cxios_set_file_time_counter.restype = None
 
 lib.cxios_is_defined_file_time_counter.argtypes = [File]
-lib.cxios_is_defined_file_time_counter.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_time_counter.restype = ctypes.c_bool
 
 lib.cxios_get_file_time_counter_name.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_time_counter_name.restypes = None
+lib.cxios_get_file_time_counter_name.restype = None
 
 lib.cxios_set_file_time_counter_name.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_time_counter_name.restypes = None
+lib.cxios_set_file_time_counter_name.restype = None
 
 lib.cxios_is_defined_file_time_counter_name.argtypes = [File]
-lib.cxios_is_defined_file_time_counter_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_time_counter_name.restype = ctypes.c_bool
 
 lib.cxios_get_file_time_stamp_format.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_time_stamp_format.restypes = None
+lib.cxios_get_file_time_stamp_format.restype = None
 
 lib.cxios_set_file_time_stamp_format.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_time_stamp_format.restypes = None
+lib.cxios_set_file_time_stamp_format.restype = None
 
 lib.cxios_is_defined_file_time_stamp_format.argtypes = [File]
-lib.cxios_is_defined_file_time_stamp_format.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_time_stamp_format.restype = ctypes.c_bool
 
 lib.cxios_get_file_time_stamp_name.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_time_stamp_name.restypes = None
+lib.cxios_get_file_time_stamp_name.restype = None
 
 lib.cxios_set_file_time_stamp_name.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_time_stamp_name.restypes = None
+lib.cxios_set_file_time_stamp_name.restype = None
 
 lib.cxios_is_defined_file_time_stamp_name.argtypes = [File]
-lib.cxios_is_defined_file_time_stamp_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_time_stamp_name.restype = ctypes.c_bool
 
 lib.cxios_get_file_time_units.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_time_units.restypes = None
+lib.cxios_get_file_time_units.restype = None
 
 lib.cxios_set_file_time_units.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_time_units.restypes = None
+lib.cxios_set_file_time_units.restype = None
 
 lib.cxios_is_defined_file_time_units.argtypes = [File]
-lib.cxios_is_defined_file_time_units.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_time_units.restype = ctypes.c_bool
 
 lib.cxios_get_file_timeseries.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_timeseries.restypes = None
+lib.cxios_get_file_timeseries.restype = None
 
 lib.cxios_set_file_timeseries.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_timeseries.restypes = None
+lib.cxios_set_file_timeseries.restype = None
 
 lib.cxios_is_defined_file_timeseries.argtypes = [File]
-lib.cxios_is_defined_file_timeseries.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_timeseries.restype = ctypes.c_bool
 
 lib.cxios_get_file_ts_prefix.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_ts_prefix.restypes = None
+lib.cxios_get_file_ts_prefix.restype = None
 
 lib.cxios_set_file_ts_prefix.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_ts_prefix.restypes = None
+lib.cxios_set_file_ts_prefix.restype = None
 
 lib.cxios_is_defined_file_ts_prefix.argtypes = [File]
-lib.cxios_is_defined_file_ts_prefix.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_ts_prefix.restype = ctypes.c_bool
 
 lib.cxios_get_file_type.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_type.restypes = None
+lib.cxios_get_file_type.restype = None
 
 lib.cxios_set_file_type.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_type.restypes = None
+lib.cxios_set_file_type.restype = None
 
 lib.cxios_is_defined_file_type.argtypes = [File]
-lib.cxios_is_defined_file_type.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_type.restype = ctypes.c_bool
 
 lib.cxios_get_file_using_server2.argtypes = [File, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_file_using_server2.restypes = None
+lib.cxios_get_file_using_server2.restype = None
 
 lib.cxios_set_file_using_server2.argtypes = [File, ctypes.c_bool]
-lib.cxios_set_file_using_server2.restypes = None
+lib.cxios_set_file_using_server2.restype = None
 
 lib.cxios_is_defined_file_using_server2.argtypes = [File]
-lib.cxios_is_defined_file_using_server2.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_using_server2.restype = ctypes.c_bool
 
 lib.cxios_get_file_uuid_format.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_uuid_format.restypes = None
+lib.cxios_get_file_uuid_format.restype = None
 
 lib.cxios_set_file_uuid_format.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_uuid_format.restypes = None
+lib.cxios_set_file_uuid_format.restype = None
 
 lib.cxios_is_defined_file_uuid_format.argtypes = [File]
-lib.cxios_is_defined_file_uuid_format.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_uuid_format.restype = ctypes.c_bool
 
 lib.cxios_get_file_uuid_name.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_uuid_name.restypes = None
+lib.cxios_get_file_uuid_name.restype = None
 
 lib.cxios_set_file_uuid_name.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_uuid_name.restypes = None
+lib.cxios_set_file_uuid_name.restype = None
 
 lib.cxios_is_defined_file_uuid_name.argtypes = [File]
-lib.cxios_is_defined_file_uuid_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_uuid_name.restype = ctypes.c_bool
 
 lib.cxios_get_file_writer.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_file_writer.restypes = None
+lib.cxios_get_file_writer.restype = None
 
 lib.cxios_set_file_writer.argtypes = [File, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_file_writer.restypes = None
+lib.cxios_set_file_writer.restype = None
 
 lib.cxios_is_defined_file_writer.argtypes = [File]
-lib.cxios_is_defined_file_writer.restypes = ctypes.c_bool
+lib.cxios_is_defined_file_writer.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #

@@ -18,40 +18,40 @@ from xios.ovariablegroup_attr import VariableGroup
 
 
 lib.cxios_get_variablegroup_group_ref.argtypes = [VariableGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_variablegroup_group_ref.restypes = None
+lib.cxios_get_variablegroup_group_ref.restype = None
 
 lib.cxios_set_variablegroup_group_ref.argtypes = [VariableGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_variablegroup_group_ref.restypes = None
+lib.cxios_set_variablegroup_group_ref.restype = None
 
 lib.cxios_is_defined_variablegroup_group_ref.argtypes = [VariableGroup]
-lib.cxios_is_defined_variablegroup_group_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_variablegroup_group_ref.restype = ctypes.c_bool
 
 lib.cxios_get_variablegroup_name.argtypes = [VariableGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_variablegroup_name.restypes = None
+lib.cxios_get_variablegroup_name.restype = None
 
 lib.cxios_set_variablegroup_name.argtypes = [VariableGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_variablegroup_name.restypes = None
+lib.cxios_set_variablegroup_name.restype = None
 
 lib.cxios_is_defined_variablegroup_name.argtypes = [VariableGroup]
-lib.cxios_is_defined_variablegroup_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_variablegroup_name.restype = ctypes.c_bool
 
 lib.cxios_get_variablegroup_ts_target.argtypes = [VariableGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_variablegroup_ts_target.restypes = None
+lib.cxios_get_variablegroup_ts_target.restype = None
 
 lib.cxios_set_variablegroup_ts_target.argtypes = [VariableGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_variablegroup_ts_target.restypes = None
+lib.cxios_set_variablegroup_ts_target.restype = None
 
 lib.cxios_is_defined_variablegroup_ts_target.argtypes = [VariableGroup]
-lib.cxios_is_defined_variablegroup_ts_target.restypes = ctypes.c_bool
+lib.cxios_is_defined_variablegroup_ts_target.restype = ctypes.c_bool
 
 lib.cxios_get_variablegroup_type.argtypes = [VariableGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_variablegroup_type.restypes = None
+lib.cxios_get_variablegroup_type.restype = None
 
 lib.cxios_set_variablegroup_type.argtypes = [VariableGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_variablegroup_type.restypes = None
+lib.cxios_set_variablegroup_type.restype = None
 
 lib.cxios_is_defined_variablegroup_type.argtypes = [VariableGroup]
-lib.cxios_is_defined_variablegroup_type.restypes = ctypes.c_bool
+lib.cxios_is_defined_variablegroup_type.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #

@@ -18,58 +18,58 @@ from xios.ointerpolate_axis_attr import InterpolateAxis
 
 
 lib.cxios_get_interpolate_axis_coordinate.argtypes = [InterpolateAxis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_interpolate_axis_coordinate.restypes = None
+lib.cxios_get_interpolate_axis_coordinate.restype = None
 
 lib.cxios_set_interpolate_axis_coordinate.argtypes = [InterpolateAxis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_interpolate_axis_coordinate.restypes = None
+lib.cxios_set_interpolate_axis_coordinate.restype = None
 
 lib.cxios_is_defined_interpolate_axis_coordinate.argtypes = [InterpolateAxis]
-lib.cxios_is_defined_interpolate_axis_coordinate.restypes = ctypes.c_bool
+lib.cxios_is_defined_interpolate_axis_coordinate.restype = ctypes.c_bool
 
 lib.cxios_get_interpolate_axis_coordinate_dst.argtypes = [InterpolateAxis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_interpolate_axis_coordinate_dst.restypes = None
+lib.cxios_get_interpolate_axis_coordinate_dst.restype = None
 
 lib.cxios_set_interpolate_axis_coordinate_dst.argtypes = [InterpolateAxis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_interpolate_axis_coordinate_dst.restypes = None
+lib.cxios_set_interpolate_axis_coordinate_dst.restype = None
 
 lib.cxios_is_defined_interpolate_axis_coordinate_dst.argtypes = [InterpolateAxis]
-lib.cxios_is_defined_interpolate_axis_coordinate_dst.restypes = ctypes.c_bool
+lib.cxios_is_defined_interpolate_axis_coordinate_dst.restype = ctypes.c_bool
 
 lib.cxios_get_interpolate_axis_coordinate_src.argtypes = [InterpolateAxis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_interpolate_axis_coordinate_src.restypes = None
+lib.cxios_get_interpolate_axis_coordinate_src.restype = None
 
 lib.cxios_set_interpolate_axis_coordinate_src.argtypes = [InterpolateAxis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_interpolate_axis_coordinate_src.restypes = None
+lib.cxios_set_interpolate_axis_coordinate_src.restype = None
 
 lib.cxios_is_defined_interpolate_axis_coordinate_src.argtypes = [InterpolateAxis]
-lib.cxios_is_defined_interpolate_axis_coordinate_src.restypes = ctypes.c_bool
+lib.cxios_is_defined_interpolate_axis_coordinate_src.restype = ctypes.c_bool
 
 lib.cxios_get_interpolate_axis_extrapolate.argtypes = [InterpolateAxis, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_interpolate_axis_extrapolate.restypes = None
+lib.cxios_get_interpolate_axis_extrapolate.restype = None
 
 lib.cxios_set_interpolate_axis_extrapolate.argtypes = [InterpolateAxis, ctypes.c_bool]
-lib.cxios_set_interpolate_axis_extrapolate.restypes = None
+lib.cxios_set_interpolate_axis_extrapolate.restype = None
 
 lib.cxios_is_defined_interpolate_axis_extrapolate.argtypes = [InterpolateAxis]
-lib.cxios_is_defined_interpolate_axis_extrapolate.restypes = ctypes.c_bool
+lib.cxios_is_defined_interpolate_axis_extrapolate.restype = ctypes.c_bool
 
 lib.cxios_get_interpolate_axis_order.argtypes = [InterpolateAxis, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_interpolate_axis_order.restypes = None
+lib.cxios_get_interpolate_axis_order.restype = None
 
 lib.cxios_set_interpolate_axis_order.argtypes = [InterpolateAxis, ctypes.c_int]
-lib.cxios_set_interpolate_axis_order.restypes = None
+lib.cxios_set_interpolate_axis_order.restype = None
 
 lib.cxios_is_defined_interpolate_axis_order.argtypes = [InterpolateAxis]
-lib.cxios_is_defined_interpolate_axis_order.restypes = ctypes.c_bool
+lib.cxios_is_defined_interpolate_axis_order.restype = ctypes.c_bool
 
 lib.cxios_get_interpolate_axis_type.argtypes = [InterpolateAxis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_interpolate_axis_type.restypes = None
+lib.cxios_get_interpolate_axis_type.restype = None
 
 lib.cxios_set_interpolate_axis_type.argtypes = [InterpolateAxis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_interpolate_axis_type.restypes = None
+lib.cxios_set_interpolate_axis_type.restype = None
 
 lib.cxios_is_defined_interpolate_axis_type.argtypes = [InterpolateAxis]
-lib.cxios_is_defined_interpolate_axis_type.restypes = ctypes.c_bool
+lib.cxios_is_defined_interpolate_axis_type.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #

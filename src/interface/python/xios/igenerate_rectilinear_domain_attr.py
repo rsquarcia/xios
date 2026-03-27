@@ -18,76 +18,76 @@ from xios.ogenerate_rectilinear_domain_attr import GenerateRectilinearDomain
 
 
 lib.cxios_get_generate_rectilinear_domain_bounds_lat_end.argtypes = [GenerateRectilinearDomain, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_generate_rectilinear_domain_bounds_lat_end.restypes = None
+lib.cxios_get_generate_rectilinear_domain_bounds_lat_end.restype = None
 
 lib.cxios_set_generate_rectilinear_domain_bounds_lat_end.argtypes = [GenerateRectilinearDomain, ctypes.c_double]
-lib.cxios_set_generate_rectilinear_domain_bounds_lat_end.restypes = None
+lib.cxios_set_generate_rectilinear_domain_bounds_lat_end.restype = None
 
 lib.cxios_is_defined_generate_rectilinear_domain_bounds_lat_end.argtypes = [GenerateRectilinearDomain]
-lib.cxios_is_defined_generate_rectilinear_domain_bounds_lat_end.restypes = ctypes.c_bool
+lib.cxios_is_defined_generate_rectilinear_domain_bounds_lat_end.restype = ctypes.c_bool
 
 lib.cxios_get_generate_rectilinear_domain_bounds_lat_start.argtypes = [GenerateRectilinearDomain, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_generate_rectilinear_domain_bounds_lat_start.restypes = None
+lib.cxios_get_generate_rectilinear_domain_bounds_lat_start.restype = None
 
 lib.cxios_set_generate_rectilinear_domain_bounds_lat_start.argtypes = [GenerateRectilinearDomain, ctypes.c_double]
-lib.cxios_set_generate_rectilinear_domain_bounds_lat_start.restypes = None
+lib.cxios_set_generate_rectilinear_domain_bounds_lat_start.restype = None
 
 lib.cxios_is_defined_generate_rectilinear_domain_bounds_lat_start.argtypes = [GenerateRectilinearDomain]
-lib.cxios_is_defined_generate_rectilinear_domain_bounds_lat_start.restypes = ctypes.c_bool
+lib.cxios_is_defined_generate_rectilinear_domain_bounds_lat_start.restype = ctypes.c_bool
 
 lib.cxios_get_generate_rectilinear_domain_bounds_lon_end.argtypes = [GenerateRectilinearDomain, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_generate_rectilinear_domain_bounds_lon_end.restypes = None
+lib.cxios_get_generate_rectilinear_domain_bounds_lon_end.restype = None
 
 lib.cxios_set_generate_rectilinear_domain_bounds_lon_end.argtypes = [GenerateRectilinearDomain, ctypes.c_double]
-lib.cxios_set_generate_rectilinear_domain_bounds_lon_end.restypes = None
+lib.cxios_set_generate_rectilinear_domain_bounds_lon_end.restype = None
 
 lib.cxios_is_defined_generate_rectilinear_domain_bounds_lon_end.argtypes = [GenerateRectilinearDomain]
-lib.cxios_is_defined_generate_rectilinear_domain_bounds_lon_end.restypes = ctypes.c_bool
+lib.cxios_is_defined_generate_rectilinear_domain_bounds_lon_end.restype = ctypes.c_bool
 
 lib.cxios_get_generate_rectilinear_domain_bounds_lon_start.argtypes = [GenerateRectilinearDomain, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_generate_rectilinear_domain_bounds_lon_start.restypes = None
+lib.cxios_get_generate_rectilinear_domain_bounds_lon_start.restype = None
 
 lib.cxios_set_generate_rectilinear_domain_bounds_lon_start.argtypes = [GenerateRectilinearDomain, ctypes.c_double]
-lib.cxios_set_generate_rectilinear_domain_bounds_lon_start.restypes = None
+lib.cxios_set_generate_rectilinear_domain_bounds_lon_start.restype = None
 
 lib.cxios_is_defined_generate_rectilinear_domain_bounds_lon_start.argtypes = [GenerateRectilinearDomain]
-lib.cxios_is_defined_generate_rectilinear_domain_bounds_lon_start.restypes = ctypes.c_bool
+lib.cxios_is_defined_generate_rectilinear_domain_bounds_lon_start.restype = ctypes.c_bool
 
 lib.cxios_get_generate_rectilinear_domain_lat_end.argtypes = [GenerateRectilinearDomain, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_generate_rectilinear_domain_lat_end.restypes = None
+lib.cxios_get_generate_rectilinear_domain_lat_end.restype = None
 
 lib.cxios_set_generate_rectilinear_domain_lat_end.argtypes = [GenerateRectilinearDomain, ctypes.c_double]
-lib.cxios_set_generate_rectilinear_domain_lat_end.restypes = None
+lib.cxios_set_generate_rectilinear_domain_lat_end.restype = None
 
 lib.cxios_is_defined_generate_rectilinear_domain_lat_end.argtypes = [GenerateRectilinearDomain]
-lib.cxios_is_defined_generate_rectilinear_domain_lat_end.restypes = ctypes.c_bool
+lib.cxios_is_defined_generate_rectilinear_domain_lat_end.restype = ctypes.c_bool
 
 lib.cxios_get_generate_rectilinear_domain_lat_start.argtypes = [GenerateRectilinearDomain, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_generate_rectilinear_domain_lat_start.restypes = None
+lib.cxios_get_generate_rectilinear_domain_lat_start.restype = None
 
 lib.cxios_set_generate_rectilinear_domain_lat_start.argtypes = [GenerateRectilinearDomain, ctypes.c_double]
-lib.cxios_set_generate_rectilinear_domain_lat_start.restypes = None
+lib.cxios_set_generate_rectilinear_domain_lat_start.restype = None
 
 lib.cxios_is_defined_generate_rectilinear_domain_lat_start.argtypes = [GenerateRectilinearDomain]
-lib.cxios_is_defined_generate_rectilinear_domain_lat_start.restypes = ctypes.c_bool
+lib.cxios_is_defined_generate_rectilinear_domain_lat_start.restype = ctypes.c_bool
 
 lib.cxios_get_generate_rectilinear_domain_lon_end.argtypes = [GenerateRectilinearDomain, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_generate_rectilinear_domain_lon_end.restypes = None
+lib.cxios_get_generate_rectilinear_domain_lon_end.restype = None
 
 lib.cxios_set_generate_rectilinear_domain_lon_end.argtypes = [GenerateRectilinearDomain, ctypes.c_double]
-lib.cxios_set_generate_rectilinear_domain_lon_end.restypes = None
+lib.cxios_set_generate_rectilinear_domain_lon_end.restype = None
 
 lib.cxios_is_defined_generate_rectilinear_domain_lon_end.argtypes = [GenerateRectilinearDomain]
-lib.cxios_is_defined_generate_rectilinear_domain_lon_end.restypes = ctypes.c_bool
+lib.cxios_is_defined_generate_rectilinear_domain_lon_end.restype = ctypes.c_bool
 
 lib.cxios_get_generate_rectilinear_domain_lon_start.argtypes = [GenerateRectilinearDomain, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_generate_rectilinear_domain_lon_start.restypes = None
+lib.cxios_get_generate_rectilinear_domain_lon_start.restype = None
 
 lib.cxios_set_generate_rectilinear_domain_lon_start.argtypes = [GenerateRectilinearDomain, ctypes.c_double]
-lib.cxios_set_generate_rectilinear_domain_lon_start.restypes = None
+lib.cxios_set_generate_rectilinear_domain_lon_start.restype = None
 
 lib.cxios_is_defined_generate_rectilinear_domain_lon_start.argtypes = [GenerateRectilinearDomain]
-lib.cxios_is_defined_generate_rectilinear_domain_lon_start.restypes = ctypes.c_bool
+lib.cxios_is_defined_generate_rectilinear_domain_lon_start.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #

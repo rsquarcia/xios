@@ -18,346 +18,346 @@ from xios.ofieldgroup_attr import FieldGroup
 
 
 lib.cxios_get_fieldgroup_add_offset.argtypes = [FieldGroup, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_fieldgroup_add_offset.restypes = None
+lib.cxios_get_fieldgroup_add_offset.restype = None
 
 lib.cxios_set_fieldgroup_add_offset.argtypes = [FieldGroup, ctypes.c_double]
-lib.cxios_set_fieldgroup_add_offset.restypes = None
+lib.cxios_set_fieldgroup_add_offset.restype = None
 
 lib.cxios_is_defined_fieldgroup_add_offset.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_add_offset.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_add_offset.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_axis_ref.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_fieldgroup_axis_ref.restypes = None
+lib.cxios_get_fieldgroup_axis_ref.restype = None
 
 lib.cxios_set_fieldgroup_axis_ref.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_fieldgroup_axis_ref.restypes = None
+lib.cxios_set_fieldgroup_axis_ref.restype = None
 
 lib.cxios_is_defined_fieldgroup_axis_ref.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_axis_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_axis_ref.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_build_workflow_graph.argtypes = [FieldGroup, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_fieldgroup_build_workflow_graph.restypes = None
+lib.cxios_get_fieldgroup_build_workflow_graph.restype = None
 
 lib.cxios_set_fieldgroup_build_workflow_graph.argtypes = [FieldGroup, ctypes.c_bool]
-lib.cxios_set_fieldgroup_build_workflow_graph.restypes = None
+lib.cxios_set_fieldgroup_build_workflow_graph.restype = None
 
 lib.cxios_is_defined_fieldgroup_build_workflow_graph.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_build_workflow_graph.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_build_workflow_graph.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_cell_methods.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_fieldgroup_cell_methods.restypes = None
+lib.cxios_get_fieldgroup_cell_methods.restype = None
 
 lib.cxios_set_fieldgroup_cell_methods.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_fieldgroup_cell_methods.restypes = None
+lib.cxios_set_fieldgroup_cell_methods.restype = None
 
 lib.cxios_is_defined_fieldgroup_cell_methods.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_cell_methods.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_cell_methods.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_cell_methods_mode.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_fieldgroup_cell_methods_mode.restypes = None
+lib.cxios_get_fieldgroup_cell_methods_mode.restype = None
 
 lib.cxios_set_fieldgroup_cell_methods_mode.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_fieldgroup_cell_methods_mode.restypes = None
+lib.cxios_set_fieldgroup_cell_methods_mode.restype = None
 
 lib.cxios_is_defined_fieldgroup_cell_methods_mode.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_cell_methods_mode.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_cell_methods_mode.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_check_if_active.argtypes = [FieldGroup, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_fieldgroup_check_if_active.restypes = None
+lib.cxios_get_fieldgroup_check_if_active.restype = None
 
 lib.cxios_set_fieldgroup_check_if_active.argtypes = [FieldGroup, ctypes.c_bool]
-lib.cxios_set_fieldgroup_check_if_active.restypes = None
+lib.cxios_set_fieldgroup_check_if_active.restype = None
 
 lib.cxios_is_defined_fieldgroup_check_if_active.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_check_if_active.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_check_if_active.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_chunking_blocksize_target.argtypes = [FieldGroup, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_fieldgroup_chunking_blocksize_target.restypes = None
+lib.cxios_get_fieldgroup_chunking_blocksize_target.restype = None
 
 lib.cxios_set_fieldgroup_chunking_blocksize_target.argtypes = [FieldGroup, ctypes.c_double]
-lib.cxios_set_fieldgroup_chunking_blocksize_target.restypes = None
+lib.cxios_set_fieldgroup_chunking_blocksize_target.restype = None
 
 lib.cxios_is_defined_fieldgroup_chunking_blocksize_target.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_chunking_blocksize_target.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_chunking_blocksize_target.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_comment.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_fieldgroup_comment.restypes = None
+lib.cxios_get_fieldgroup_comment.restype = None
 
 lib.cxios_set_fieldgroup_comment.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_fieldgroup_comment.restypes = None
+lib.cxios_set_fieldgroup_comment.restype = None
 
 lib.cxios_is_defined_fieldgroup_comment.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_comment.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_comment.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_compression_level.argtypes = [FieldGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_fieldgroup_compression_level.restypes = None
+lib.cxios_get_fieldgroup_compression_level.restype = None
 
 lib.cxios_set_fieldgroup_compression_level.argtypes = [FieldGroup, ctypes.c_int]
-lib.cxios_set_fieldgroup_compression_level.restypes = None
+lib.cxios_set_fieldgroup_compression_level.restype = None
 
 lib.cxios_is_defined_fieldgroup_compression_level.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_compression_level.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_compression_level.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_compression_params.argtypes = [FieldGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_fieldgroup_compression_params.restypes = None
+lib.cxios_get_fieldgroup_compression_params.restype = None
 
 lib.cxios_set_fieldgroup_compression_params.argtypes = [FieldGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_fieldgroup_compression_params.restypes = None
+lib.cxios_set_fieldgroup_compression_params.restype = None
 
 lib.cxios_is_defined_fieldgroup_compression_params.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_compression_params.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_compression_params.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_compression_type.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_fieldgroup_compression_type.restypes = None
+lib.cxios_get_fieldgroup_compression_type.restype = None
 
 lib.cxios_set_fieldgroup_compression_type.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_fieldgroup_compression_type.restypes = None
+lib.cxios_set_fieldgroup_compression_type.restype = None
 
 lib.cxios_is_defined_fieldgroup_compression_type.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_compression_type.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_compression_type.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_conversion_by_netcdf.argtypes = [FieldGroup, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_fieldgroup_conversion_by_netcdf.restypes = None
+lib.cxios_get_fieldgroup_conversion_by_netcdf.restype = None
 
 lib.cxios_set_fieldgroup_conversion_by_netcdf.argtypes = [FieldGroup, ctypes.c_bool]
-lib.cxios_set_fieldgroup_conversion_by_netcdf.restypes = None
+lib.cxios_set_fieldgroup_conversion_by_netcdf.restype = None
 
 lib.cxios_is_defined_fieldgroup_conversion_by_netcdf.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_conversion_by_netcdf.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_conversion_by_netcdf.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_default_value.argtypes = [FieldGroup, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_fieldgroup_default_value.restypes = None
+lib.cxios_get_fieldgroup_default_value.restype = None
 
 lib.cxios_set_fieldgroup_default_value.argtypes = [FieldGroup, ctypes.c_double]
-lib.cxios_set_fieldgroup_default_value.restypes = None
+lib.cxios_set_fieldgroup_default_value.restype = None
 
 lib.cxios_is_defined_fieldgroup_default_value.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_default_value.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_default_value.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_detect_missing_value.argtypes = [FieldGroup, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_fieldgroup_detect_missing_value.restypes = None
+lib.cxios_get_fieldgroup_detect_missing_value.restype = None
 
 lib.cxios_set_fieldgroup_detect_missing_value.argtypes = [FieldGroup, ctypes.c_bool]
-lib.cxios_set_fieldgroup_detect_missing_value.restypes = None
+lib.cxios_set_fieldgroup_detect_missing_value.restype = None
 
 lib.cxios_is_defined_fieldgroup_detect_missing_value.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_detect_missing_value.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_detect_missing_value.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_domain_ref.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_fieldgroup_domain_ref.restypes = None
+lib.cxios_get_fieldgroup_domain_ref.restype = None
 
 lib.cxios_set_fieldgroup_domain_ref.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_fieldgroup_domain_ref.restypes = None
+lib.cxios_set_fieldgroup_domain_ref.restype = None
 
 lib.cxios_is_defined_fieldgroup_domain_ref.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_domain_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_domain_ref.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_enabled.argtypes = [FieldGroup, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_fieldgroup_enabled.restypes = None
+lib.cxios_get_fieldgroup_enabled.restype = None
 
 lib.cxios_set_fieldgroup_enabled.argtypes = [FieldGroup, ctypes.c_bool]
-lib.cxios_set_fieldgroup_enabled.restypes = None
+lib.cxios_set_fieldgroup_enabled.restype = None
 
 lib.cxios_is_defined_fieldgroup_enabled.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_enabled.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_enabled.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_expr.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_fieldgroup_expr.restypes = None
+lib.cxios_get_fieldgroup_expr.restype = None
 
 lib.cxios_set_fieldgroup_expr.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_fieldgroup_expr.restypes = None
+lib.cxios_set_fieldgroup_expr.restype = None
 
 lib.cxios_is_defined_fieldgroup_expr.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_expr.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_expr.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_field_ref.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_fieldgroup_field_ref.restypes = None
+lib.cxios_get_fieldgroup_field_ref.restype = None
 
 lib.cxios_set_fieldgroup_field_ref.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_fieldgroup_field_ref.restypes = None
+lib.cxios_set_fieldgroup_field_ref.restype = None
 
 lib.cxios_is_defined_fieldgroup_field_ref.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_field_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_field_ref.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_freq_offset.argtypes = [FieldGroup, ctypes.POINTER(Duration)]
-lib.cxios_get_fieldgroup_freq_offset.restypes = None
+lib.cxios_get_fieldgroup_freq_offset.restype = None
 
 lib.cxios_set_fieldgroup_freq_offset.argtypes = [FieldGroup, Duration]
-lib.cxios_set_fieldgroup_freq_offset.restypes = None
+lib.cxios_set_fieldgroup_freq_offset.restype = None
 
 lib.cxios_is_defined_fieldgroup_freq_offset.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_freq_offset.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_freq_offset.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_freq_op.argtypes = [FieldGroup, ctypes.POINTER(Duration)]
-lib.cxios_get_fieldgroup_freq_op.restypes = None
+lib.cxios_get_fieldgroup_freq_op.restype = None
 
 lib.cxios_set_fieldgroup_freq_op.argtypes = [FieldGroup, Duration]
-lib.cxios_set_fieldgroup_freq_op.restypes = None
+lib.cxios_set_fieldgroup_freq_op.restype = None
 
 lib.cxios_is_defined_fieldgroup_freq_op.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_freq_op.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_freq_op.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_grid_path.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_fieldgroup_grid_path.restypes = None
+lib.cxios_get_fieldgroup_grid_path.restype = None
 
 lib.cxios_set_fieldgroup_grid_path.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_fieldgroup_grid_path.restypes = None
+lib.cxios_set_fieldgroup_grid_path.restype = None
 
 lib.cxios_is_defined_fieldgroup_grid_path.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_grid_path.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_grid_path.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_grid_ref.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_fieldgroup_grid_ref.restypes = None
+lib.cxios_get_fieldgroup_grid_ref.restype = None
 
 lib.cxios_set_fieldgroup_grid_ref.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_fieldgroup_grid_ref.restypes = None
+lib.cxios_set_fieldgroup_grid_ref.restype = None
 
 lib.cxios_is_defined_fieldgroup_grid_ref.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_grid_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_grid_ref.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_group_ref.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_fieldgroup_group_ref.restypes = None
+lib.cxios_get_fieldgroup_group_ref.restype = None
 
 lib.cxios_set_fieldgroup_group_ref.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_fieldgroup_group_ref.restypes = None
+lib.cxios_set_fieldgroup_group_ref.restype = None
 
 lib.cxios_is_defined_fieldgroup_group_ref.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_group_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_group_ref.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_indexed_output.argtypes = [FieldGroup, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_fieldgroup_indexed_output.restypes = None
+lib.cxios_get_fieldgroup_indexed_output.restype = None
 
 lib.cxios_set_fieldgroup_indexed_output.argtypes = [FieldGroup, ctypes.c_bool]
-lib.cxios_set_fieldgroup_indexed_output.restypes = None
+lib.cxios_set_fieldgroup_indexed_output.restype = None
 
 lib.cxios_is_defined_fieldgroup_indexed_output.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_indexed_output.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_indexed_output.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_level.argtypes = [FieldGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_fieldgroup_level.restypes = None
+lib.cxios_get_fieldgroup_level.restype = None
 
 lib.cxios_set_fieldgroup_level.argtypes = [FieldGroup, ctypes.c_int]
-lib.cxios_set_fieldgroup_level.restypes = None
+lib.cxios_set_fieldgroup_level.restype = None
 
 lib.cxios_is_defined_fieldgroup_level.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_level.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_level.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_long_name.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_fieldgroup_long_name.restypes = None
+lib.cxios_get_fieldgroup_long_name.restype = None
 
 lib.cxios_set_fieldgroup_long_name.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_fieldgroup_long_name.restypes = None
+lib.cxios_set_fieldgroup_long_name.restype = None
 
 lib.cxios_is_defined_fieldgroup_long_name.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_long_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_long_name.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_name.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_fieldgroup_name.restypes = None
+lib.cxios_get_fieldgroup_name.restype = None
 
 lib.cxios_set_fieldgroup_name.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_fieldgroup_name.restypes = None
+lib.cxios_set_fieldgroup_name.restype = None
 
 lib.cxios_is_defined_fieldgroup_name.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_name.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_operation.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_fieldgroup_operation.restypes = None
+lib.cxios_get_fieldgroup_operation.restype = None
 
 lib.cxios_set_fieldgroup_operation.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_fieldgroup_operation.restypes = None
+lib.cxios_set_fieldgroup_operation.restype = None
 
 lib.cxios_is_defined_fieldgroup_operation.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_operation.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_operation.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_prec.argtypes = [FieldGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_fieldgroup_prec.restypes = None
+lib.cxios_get_fieldgroup_prec.restype = None
 
 lib.cxios_set_fieldgroup_prec.argtypes = [FieldGroup, ctypes.c_int]
-lib.cxios_set_fieldgroup_prec.restypes = None
+lib.cxios_set_fieldgroup_prec.restype = None
 
 lib.cxios_is_defined_fieldgroup_prec.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_prec.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_prec.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_read_access.argtypes = [FieldGroup, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_fieldgroup_read_access.restypes = None
+lib.cxios_get_fieldgroup_read_access.restype = None
 
 lib.cxios_set_fieldgroup_read_access.argtypes = [FieldGroup, ctypes.c_bool]
-lib.cxios_set_fieldgroup_read_access.restypes = None
+lib.cxios_set_fieldgroup_read_access.restype = None
 
 lib.cxios_is_defined_fieldgroup_read_access.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_read_access.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_read_access.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_scalar_ref.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_fieldgroup_scalar_ref.restypes = None
+lib.cxios_get_fieldgroup_scalar_ref.restype = None
 
 lib.cxios_set_fieldgroup_scalar_ref.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_fieldgroup_scalar_ref.restypes = None
+lib.cxios_set_fieldgroup_scalar_ref.restype = None
 
 lib.cxios_is_defined_fieldgroup_scalar_ref.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_scalar_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_scalar_ref.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_scale_factor.argtypes = [FieldGroup, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_fieldgroup_scale_factor.restypes = None
+lib.cxios_get_fieldgroup_scale_factor.restype = None
 
 lib.cxios_set_fieldgroup_scale_factor.argtypes = [FieldGroup, ctypes.c_double]
-lib.cxios_set_fieldgroup_scale_factor.restypes = None
+lib.cxios_set_fieldgroup_scale_factor.restype = None
 
 lib.cxios_is_defined_fieldgroup_scale_factor.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_scale_factor.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_scale_factor.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_standard_name.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_fieldgroup_standard_name.restypes = None
+lib.cxios_get_fieldgroup_standard_name.restype = None
 
 lib.cxios_set_fieldgroup_standard_name.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_fieldgroup_standard_name.restypes = None
+lib.cxios_set_fieldgroup_standard_name.restype = None
 
 lib.cxios_is_defined_fieldgroup_standard_name.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_standard_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_standard_name.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_ts_enabled.argtypes = [FieldGroup, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_fieldgroup_ts_enabled.restypes = None
+lib.cxios_get_fieldgroup_ts_enabled.restype = None
 
 lib.cxios_set_fieldgroup_ts_enabled.argtypes = [FieldGroup, ctypes.c_bool]
-lib.cxios_set_fieldgroup_ts_enabled.restypes = None
+lib.cxios_set_fieldgroup_ts_enabled.restype = None
 
 lib.cxios_is_defined_fieldgroup_ts_enabled.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_ts_enabled.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_ts_enabled.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_ts_split_freq.argtypes = [FieldGroup, ctypes.POINTER(Duration)]
-lib.cxios_get_fieldgroup_ts_split_freq.restypes = None
+lib.cxios_get_fieldgroup_ts_split_freq.restype = None
 
 lib.cxios_set_fieldgroup_ts_split_freq.argtypes = [FieldGroup, Duration]
-lib.cxios_set_fieldgroup_ts_split_freq.restypes = None
+lib.cxios_set_fieldgroup_ts_split_freq.restype = None
 
 lib.cxios_is_defined_fieldgroup_ts_split_freq.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_ts_split_freq.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_ts_split_freq.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_unit.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_fieldgroup_unit.restypes = None
+lib.cxios_get_fieldgroup_unit.restype = None
 
 lib.cxios_set_fieldgroup_unit.argtypes = [FieldGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_fieldgroup_unit.restypes = None
+lib.cxios_set_fieldgroup_unit.restype = None
 
 lib.cxios_is_defined_fieldgroup_unit.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_unit.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_unit.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_valid_max.argtypes = [FieldGroup, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_fieldgroup_valid_max.restypes = None
+lib.cxios_get_fieldgroup_valid_max.restype = None
 
 lib.cxios_set_fieldgroup_valid_max.argtypes = [FieldGroup, ctypes.c_double]
-lib.cxios_set_fieldgroup_valid_max.restypes = None
+lib.cxios_set_fieldgroup_valid_max.restype = None
 
 lib.cxios_is_defined_fieldgroup_valid_max.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_valid_max.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_valid_max.restype = ctypes.c_bool
 
 lib.cxios_get_fieldgroup_valid_min.argtypes = [FieldGroup, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_fieldgroup_valid_min.restypes = None
+lib.cxios_get_fieldgroup_valid_min.restype = None
 
 lib.cxios_set_fieldgroup_valid_min.argtypes = [FieldGroup, ctypes.c_double]
-lib.cxios_set_fieldgroup_valid_min.restypes = None
+lib.cxios_set_fieldgroup_valid_min.restype = None
 
 lib.cxios_is_defined_fieldgroup_valid_min.argtypes = [FieldGroup]
-lib.cxios_is_defined_fieldgroup_valid_min.restypes = ctypes.c_bool
+lib.cxios_is_defined_fieldgroup_valid_min.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #
@@ -927,7 +927,7 @@ valid_max_ : Optional[Double] = None, valid_min_ : Optional[Double] = None):
     if compression_params_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_fieldgroup_compression_params_shape(fieldgroup_hdl, shape_c)
-      compression_params_.arr = np.zeros(shape_c[0], order = 'F')
+      compression_params_.arr = np.zeros(shape_c[0])
       lib.cxios_get_fieldgroup_compression_params(fieldgroup_hdl, compression_params_._c_value, shape_c)
     else: 
       compression_params_c = compression_params_._c_value

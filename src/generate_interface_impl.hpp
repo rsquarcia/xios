@@ -366,9 +366,9 @@ namespace xios
   void CInterface::AttributePythonInterfaceCRes(ostream& oss, const string& className, const string& name, const string& funcName)
   {
     if (funcName == "is_defined"){
-      oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restypes = ctypes.c_bool" << iendl;     
+      oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restype = ctypes.c_bool" << iendl;     
     }else{
-      oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restypes = None" << iendl;     
+      oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restype = None" << iendl;     
     }
   }
   
@@ -429,9 +429,9 @@ namespace xios
   void CInterface::AttributePythonInterfaceCRes<string>(ostream& oss, const string& className, const string& name, const string& funcName)
   {
     if (funcName == "is_defined"){
-      oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restypes = ctypes.c_bool" << iendl;     
+      oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restype = ctypes.c_bool" << iendl;     
     }else{
-      oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restypes = None" << iendl;     
+      oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restype = None" << iendl;     
     }
   }
 
@@ -1235,63 +1235,63 @@ template <> \
 void CInterface::AttributePythonInterfaceCRes<CArray<T,1> >(ostream& oss, const string& className, const string& name, const string& funcName) \
 { \
   if (funcName == "is_defined"){ \
-    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restypes = ctypes.c_bool" << iendl;  \
+    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restype = ctypes.c_bool" << iendl;  \
   }else{ \
-    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restypes = None" << iendl;    \
+    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restype = None" << iendl;    \
   } \
 } \
 template <> \
 void CInterface::AttributePythonInterfaceCRes<CArray<T,2> >(ostream& oss, const string& className, const string& name, const string& funcName) \
 { \
   if (funcName == "is_defined"){ \
-    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restypes = ctypes.c_bool" << iendl;  \
+    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restype = ctypes.c_bool" << iendl;  \
   }else{ \
-    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restypes = None" << iendl;    \
+    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restype = None" << iendl;    \
   } \
 } \
 template <> \
 void CInterface::AttributePythonInterfaceCRes<CArray<T,3> >(ostream& oss, const string& className, const string& name, const string& funcName) \
 { \
   if (funcName == "is_defined"){ \
-    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restypes = ctypes.c_bool" << iendl;  \
+    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restype = ctypes.c_bool" << iendl;  \
   }else{ \
-    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restypes = None" << iendl;    \
+    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restype = None" << iendl;    \
   } \
 } \
 template <> \
 void CInterface::AttributePythonInterfaceCRes<CArray<T,4> >(ostream& oss, const string& className, const string& name, const string& funcName) \
 { \
   if (funcName == "is_defined"){ \
-    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restypes = ctypes.c_bool" << iendl;  \
+    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restype = ctypes.c_bool" << iendl;  \
   }else{ \
-    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restypes = None" << iendl;    \
+    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restype = None" << iendl;    \
   } \
 } \
 template <> \
 void CInterface::AttributePythonInterfaceCRes<CArray<T,5> >(ostream& oss, const string& className, const string& name, const string& funcName) \
 { \
   if (funcName == "is_defined"){ \
-    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restypes = ctypes.c_bool" << iendl;  \
+    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restype = ctypes.c_bool" << iendl;  \
   }else{ \
-    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restypes = None" << iendl;    \
+    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restype = None" << iendl;    \
   } \
 } \
 template <> \
 void CInterface::AttributePythonInterfaceCRes<CArray<T,6> >(ostream& oss, const string& className, const string& name, const string& funcName) \
 { \
   if (funcName == "is_defined"){ \
-    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restypes = ctypes.c_bool" << iendl;  \
+    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restype = ctypes.c_bool" << iendl;  \
   }else{ \
-    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restypes = None" << iendl;    \
+    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restype = None" << iendl;    \
   } \
 } \
 template <> \
 void CInterface::AttributePythonInterfaceCRes<CArray<T,7> >(ostream& oss, const string& className, const string& name, const string& funcName) \
 { \
   if (funcName == "is_defined"){ \
-    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restypes = ctypes.c_bool" << iendl;  \
+    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restype = ctypes.c_bool" << iendl;  \
   }else{ \
-    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restypes = None" << iendl;    \
+    oss << "lib.cxios_" << funcName << "_" << className << "_" << name  << ".restype = None" << iendl;    \
   } \
 } 
 
@@ -1802,7 +1802,7 @@ void CInterface::AttributeObjPythonInterfaceBody<CArray<std::string, 1>>(std::os
       oss << "if " << name << "_.shape_is_needed: " << (iendl+=1); \
       oss << "shape_c = (ctypes.c_int * 1)()" << iendl; \
       oss << "lib.cxios_" << className << "_" << name << "_shape(" << className << "_hdl, shape_c)" << iendl; \
-      oss << name << "_.arr = np.zeros(shape_c[0], order = 'F')" << iendl; \
+      oss << name << "_.arr = np.zeros(shape_c[0])" << iendl; \
       oss << "lib.cxios_get_" << className << "_" << name << "(" << className << "_hdl, " << name << "_._c_value, shape_c)" << (iendl-=1); \
       oss << "else: " << (iendl+=1); \
       oss << name << "_c = " << name << "_._c_value" << iendl; \
@@ -1821,7 +1821,7 @@ void CInterface::AttributeObjPythonInterfaceBody<CArray<std::string, 1>>(std::os
       oss << "if " << name << "_.shape_is_needed: " << (iendl+=1); \
       oss << "shape_c = (ctypes.c_int * 2)()" << iendl; \
       oss << "lib.cxios_" << className << "_" << name << "_shape(" << className << "_hdl, shape_c)" << iendl; \
-      oss << name << "_.arr = np.zeros((shape_c[0], shape_c[1]) , order = 'F')" << iendl; \
+      oss << name << "_.arr = np.zeros((shape_c[0], shape_c[1]) )" << iendl; \
       oss << "lib.cxios_get_" << className << "_" << name << "(" << className << "_hdl, " << name << "_._c_value, shape_c)" << (iendl-=1); \
       oss << "else: " << (iendl+=1); \
       oss << name << "_c = " << name << "_._c_value" << iendl; \
@@ -1840,7 +1840,7 @@ void CInterface::AttributeObjPythonInterfaceBody<CArray<std::string, 1>>(std::os
       oss << "if " << name << "_.shape_is_needed: " << (iendl+=1); \
       oss << "shape_c = (ctypes.c_int * 3)()" << iendl; \
       oss << "lib.cxios_" << className << "_" << name << "_shape(" << className << "_hdl, shape_c)" << iendl; \
-      oss << name << "_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2]) , order = 'F')" << iendl; \
+      oss << name << "_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2]) )" << iendl; \
       oss << "lib.cxios_get_" << className << "_" << name << "(" << className << "_hdl, " << name << "_._c_value, shape_c)" << (iendl-=1); \
       oss << "else: " << (iendl+=1); \
       oss << name << "_c = " << name << "_._c_value" << iendl; \
@@ -1859,7 +1859,7 @@ void CInterface::AttributeObjPythonInterfaceBody<CArray<std::string, 1>>(std::os
       oss << "if " << name << "_.shape_is_needed: " << (iendl+=1); \
       oss << "shape_c = (ctypes.c_int * 4)()" << iendl; \
       oss << "lib.cxios_" << className << "_" << name << "_shape(" << className << "_hdl, shape_c)" << iendl; \
-      oss << name << "_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2], shape_c[3]) , order = 'F')" << iendl; \
+      oss << name << "_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2], shape_c[3]) )" << iendl; \
       oss << "lib.cxios_get_" << className << "_" << name << "(" << className << "_hdl, " << name << "_._c_value, shape_c)" << (iendl-=1); \
       oss << "else: " << (iendl+=1); \
       oss << name << "_c = " << name << "_._c_value" << iendl; \
@@ -1878,7 +1878,7 @@ void CInterface::AttributeObjPythonInterfaceBody<CArray<std::string, 1>>(std::os
       oss << "if " << name << "_.shape_is_needed: " << (iendl+=1); \
       oss << "shape_c = (ctypes.c_int * 5)()" << iendl; \
       oss << "lib.cxios_" << className << "_" << name << "_shape(" << className << "_hdl, shape_c)" << iendl; \
-      oss << name << "_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2], shape_c[3], shape_c[4]) , order = 'F')" << iendl; \
+      oss << name << "_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2], shape_c[3], shape_c[4]) )" << iendl; \
       oss << "lib.cxios_get_" << className << "_" << name << "(" << className << "_hdl, " << name << "_._c_value, shape_c)" << (iendl-=1); \
       oss << "else: " << (iendl+=1); \
       oss << name << "_c = " << name << "_._c_value" << iendl; \
@@ -1897,7 +1897,7 @@ void CInterface::AttributeObjPythonInterfaceBody<CArray<std::string, 1>>(std::os
       oss << "if " << name << "_.shape_is_needed: " << (iendl+=1); \
       oss << "shape_c = (ctypes.c_int * 6)()" << iendl; \
       oss << "lib.cxios_" << className << "_" << name << "_shape(" << className << "_hdl, shape_c)" << iendl; \
-      oss << name << "_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2], shape_c[3], shape_c[4], shape_c[5]) , order = 'F')" << iendl; \
+      oss << name << "_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2], shape_c[3], shape_c[4], shape_c[5]) )" << iendl; \
       oss << "lib.cxios_get_" << className << "_" << name << "(" << className << "_hdl, " << name << "_._c_value, shape_c)" << (iendl-=1); \
       oss << "else: " << (iendl+=1); \
       oss << name << "_c = " << name << "_._c_value" << iendl; \
@@ -1916,7 +1916,7 @@ void CInterface::AttributeObjPythonInterfaceBody<CArray<std::string, 1>>(std::os
       oss << "if " << name << "_.shape_is_needed: " << (iendl+=1); \
       oss << "shape_c = (ctypes.c_int * 7)()" << iendl; \
       oss << "lib.cxios_" << className << "_" << name << "_shape(" << className << "_hdl, shape_c)" << iendl; \
-      oss << name << "_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2], shape_c[3], shape_c[4], shape_c[5], shape_c[6]) , order = 'F')" << iendl; \
+      oss << name << "_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2], shape_c[3], shape_c[4], shape_c[5], shape_c[6]) )" << iendl; \
       oss << "lib.cxios_get_" << className << "_" << name << "(" << className << "_hdl, " << name << "_._c_value, shape_c)" << (iendl-=1); \
       oss << "else: " << (iendl+=1); \
       oss << name << "_c = " << name << "_._c_value" << iendl; \

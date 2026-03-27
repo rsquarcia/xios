@@ -18,13 +18,13 @@ from xios.oextract_axis_to_scalar_attr import ExtractAxisToScalar
 
 
 lib.cxios_get_extract_axis_to_scalar_position.argtypes = [ExtractAxisToScalar, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_extract_axis_to_scalar_position.restypes = None
+lib.cxios_get_extract_axis_to_scalar_position.restype = None
 
 lib.cxios_set_extract_axis_to_scalar_position.argtypes = [ExtractAxisToScalar, ctypes.c_int]
-lib.cxios_set_extract_axis_to_scalar_position.restypes = None
+lib.cxios_set_extract_axis_to_scalar_position.restype = None
 
 lib.cxios_is_defined_extract_axis_to_scalar_position.argtypes = [ExtractAxisToScalar]
-lib.cxios_is_defined_extract_axis_to_scalar_position.restypes = ctypes.c_bool
+lib.cxios_is_defined_extract_axis_to_scalar_position.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #

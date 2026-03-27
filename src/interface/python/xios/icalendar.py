@@ -55,7 +55,7 @@ def define_calendar(type : Union[String, str], timestep : Optional[Duration] = N
     """
                         
     type                                                           = String(type)
-    if day_length             is not None : daylength              = Int(day_length)
+    if day_length             is not None : day_length             = Int(day_length)
     if month_lengths          is not None : month_lengths          = NpArrayInt(month_lengths)
     if year_length            is not None : year_length            = Int(year_length)
     if leap_year_month        is not None : leap_year_month        = Int(leap_year_month)
@@ -274,16 +274,11 @@ def get_year_length_in_seconds(year : Union[int, c_int]):
     return int(lib.cxios_get_year_length_in_seconds(year_c))
     
 @typecheck
-def get_day_length_in_seconds(day : Union[int, c_int]):
+def get_day_length_in_seconds():
     """
     Gets the length of a day in seconds.
-
-    Parameters:
-        day (Union[int, c_int]): The day to query.
 
     Returns:
         int: The length of the day in seconds.
     """
-    day = Int(day)
-    day_c = day._c_value
-    return int(lib.cxios_get_day_length_in_seconds(day_c))
+    return int(lib.cxios_get_day_length_in_seconds())

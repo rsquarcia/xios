@@ -1,4 +1,4 @@
-from xios.config import String, Int, Double, NpArrayInt, Bool
+from xios.config import String, Int, Bool, NpArrayInt
 from xios.icalendar_wrapper import CalendarWrapper, get_default_calendar_wrapper_handle
 from xios.icalendar_wrapper_attr import set_calendar_wrapper_attr_hdl, get_calendar_wrapper_attr_hdl, is_defined_calendar_wrapper_attr_hdl
 from xios.icalendar import get_timestep, set_timestep, get_start_date, set_start_date, set_start_date_dur, get_current_date
@@ -57,7 +57,7 @@ class Calendar:
         if not is_month_lengths.value:
             raise RuntimeError(f"The attribute month lengths has not yet been set for the calendar of the context {self._context_id} !")
         current_context_id = swipswap_ctx(self._context_id)
-        month_lengths = Int()
+        month_lengths = NpArrayInt()
         get_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, month_lengths = month_lengths)
         swipswap_ctx(current_context_id)
         return month_lengths
@@ -65,7 +65,7 @@ class Calendar:
     @month_lengths.setter
     def month_lengths(self, value):
         current_context_id = swipswap_ctx(self._context_id)
-        value = Int(value)
+        value = NpArrayInt(value)
         set_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, month_lengths = value)
         swipswap_ctx(current_context_id)
 

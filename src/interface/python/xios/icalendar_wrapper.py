@@ -1,8 +1,7 @@
-from ctypes import c_void_p, c_char_p, c_int, c_bool, POINTER, c_double, string_at, byref, Structure, pointer
+from ctypes import c_char_p, c_int, c_bool, POINTER, string_at, pointer
 from typing import Union
-from xios.config import lib, typecheck, String
+from xios.config import lib, typecheck, String, Bool
 from xios.config import CObject as CalendarWrapper
-from xios.iduration import Duration
 from xios.idate import Date
 
 
@@ -23,7 +22,7 @@ lib.cxios_create_calendar.argtypes = [CalendarWrapper]
 lib.cxios_create_calendar.restype = None
 
 lib.cxios_is_created_calendar.argtypes = [CalendarWrapper]
-lib.cxios_is_created_calendar.restype = bool
+lib.cxios_is_created_calendar.restype = c_bool
 
 lib.cxios_update_calendar_timestep.argtypes = [CalendarWrapper]
 lib.cxios_update_calendar_timestep.restype = None
@@ -86,7 +85,7 @@ def is_valid_calendar_wrapper(idt: Union[str, String]) -> bool:
         bool: True if the axis is valid, False otherwise.
     """
     idt = String(idt)
-    is_val = xios.Bool(False)
+    is_val = Bool(False)
     idt_c = idt._c_value
     len_idt_c = len(string_at(idt_c))
     is_val_c = pointer(is_val._c_value)

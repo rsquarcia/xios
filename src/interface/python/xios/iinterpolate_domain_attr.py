@@ -18,85 +18,85 @@ from xios.ointerpolate_domain_attr import InterpolateDomain
 
 
 lib.cxios_get_interpolate_domain_detect_missing_value.argtypes = [InterpolateDomain, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_interpolate_domain_detect_missing_value.restypes = None
+lib.cxios_get_interpolate_domain_detect_missing_value.restype = None
 
 lib.cxios_set_interpolate_domain_detect_missing_value.argtypes = [InterpolateDomain, ctypes.c_bool]
-lib.cxios_set_interpolate_domain_detect_missing_value.restypes = None
+lib.cxios_set_interpolate_domain_detect_missing_value.restype = None
 
 lib.cxios_is_defined_interpolate_domain_detect_missing_value.argtypes = [InterpolateDomain]
-lib.cxios_is_defined_interpolate_domain_detect_missing_value.restypes = ctypes.c_bool
+lib.cxios_is_defined_interpolate_domain_detect_missing_value.restype = ctypes.c_bool
 
 lib.cxios_get_interpolate_domain_mode.argtypes = [InterpolateDomain, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_interpolate_domain_mode.restypes = None
+lib.cxios_get_interpolate_domain_mode.restype = None
 
 lib.cxios_set_interpolate_domain_mode.argtypes = [InterpolateDomain, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_interpolate_domain_mode.restypes = None
+lib.cxios_set_interpolate_domain_mode.restype = None
 
 lib.cxios_is_defined_interpolate_domain_mode.argtypes = [InterpolateDomain]
-lib.cxios_is_defined_interpolate_domain_mode.restypes = ctypes.c_bool
+lib.cxios_is_defined_interpolate_domain_mode.restype = ctypes.c_bool
 
 lib.cxios_get_interpolate_domain_order.argtypes = [InterpolateDomain, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_interpolate_domain_order.restypes = None
+lib.cxios_get_interpolate_domain_order.restype = None
 
 lib.cxios_set_interpolate_domain_order.argtypes = [InterpolateDomain, ctypes.c_int]
-lib.cxios_set_interpolate_domain_order.restypes = None
+lib.cxios_set_interpolate_domain_order.restype = None
 
 lib.cxios_is_defined_interpolate_domain_order.argtypes = [InterpolateDomain]
-lib.cxios_is_defined_interpolate_domain_order.restypes = ctypes.c_bool
+lib.cxios_is_defined_interpolate_domain_order.restype = ctypes.c_bool
 
 lib.cxios_get_interpolate_domain_quantity.argtypes = [InterpolateDomain, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_interpolate_domain_quantity.restypes = None
+lib.cxios_get_interpolate_domain_quantity.restype = None
 
 lib.cxios_set_interpolate_domain_quantity.argtypes = [InterpolateDomain, ctypes.c_bool]
-lib.cxios_set_interpolate_domain_quantity.restypes = None
+lib.cxios_set_interpolate_domain_quantity.restype = None
 
 lib.cxios_is_defined_interpolate_domain_quantity.argtypes = [InterpolateDomain]
-lib.cxios_is_defined_interpolate_domain_quantity.restypes = ctypes.c_bool
+lib.cxios_is_defined_interpolate_domain_quantity.restype = ctypes.c_bool
 
 lib.cxios_get_interpolate_domain_read_write_convention.argtypes = [InterpolateDomain, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_interpolate_domain_read_write_convention.restypes = None
+lib.cxios_get_interpolate_domain_read_write_convention.restype = None
 
 lib.cxios_set_interpolate_domain_read_write_convention.argtypes = [InterpolateDomain, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_interpolate_domain_read_write_convention.restypes = None
+lib.cxios_set_interpolate_domain_read_write_convention.restype = None
 
 lib.cxios_is_defined_interpolate_domain_read_write_convention.argtypes = [InterpolateDomain]
-lib.cxios_is_defined_interpolate_domain_read_write_convention.restypes = ctypes.c_bool
+lib.cxios_is_defined_interpolate_domain_read_write_convention.restype = ctypes.c_bool
 
 lib.cxios_get_interpolate_domain_renormalize.argtypes = [InterpolateDomain, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_interpolate_domain_renormalize.restypes = None
+lib.cxios_get_interpolate_domain_renormalize.restype = None
 
 lib.cxios_set_interpolate_domain_renormalize.argtypes = [InterpolateDomain, ctypes.c_bool]
-lib.cxios_set_interpolate_domain_renormalize.restypes = None
+lib.cxios_set_interpolate_domain_renormalize.restype = None
 
 lib.cxios_is_defined_interpolate_domain_renormalize.argtypes = [InterpolateDomain]
-lib.cxios_is_defined_interpolate_domain_renormalize.restypes = ctypes.c_bool
+lib.cxios_is_defined_interpolate_domain_renormalize.restype = ctypes.c_bool
 
 lib.cxios_get_interpolate_domain_use_area.argtypes = [InterpolateDomain, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_interpolate_domain_use_area.restypes = None
+lib.cxios_get_interpolate_domain_use_area.restype = None
 
 lib.cxios_set_interpolate_domain_use_area.argtypes = [InterpolateDomain, ctypes.c_bool]
-lib.cxios_set_interpolate_domain_use_area.restypes = None
+lib.cxios_set_interpolate_domain_use_area.restype = None
 
 lib.cxios_is_defined_interpolate_domain_use_area.argtypes = [InterpolateDomain]
-lib.cxios_is_defined_interpolate_domain_use_area.restypes = ctypes.c_bool
+lib.cxios_is_defined_interpolate_domain_use_area.restype = ctypes.c_bool
 
 lib.cxios_get_interpolate_domain_weight_filename.argtypes = [InterpolateDomain, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_interpolate_domain_weight_filename.restypes = None
+lib.cxios_get_interpolate_domain_weight_filename.restype = None
 
 lib.cxios_set_interpolate_domain_weight_filename.argtypes = [InterpolateDomain, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_interpolate_domain_weight_filename.restypes = None
+lib.cxios_set_interpolate_domain_weight_filename.restype = None
 
 lib.cxios_is_defined_interpolate_domain_weight_filename.argtypes = [InterpolateDomain]
-lib.cxios_is_defined_interpolate_domain_weight_filename.restypes = ctypes.c_bool
+lib.cxios_is_defined_interpolate_domain_weight_filename.restype = ctypes.c_bool
 
 lib.cxios_get_interpolate_domain_write_weight.argtypes = [InterpolateDomain, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_interpolate_domain_write_weight.restypes = None
+lib.cxios_get_interpolate_domain_write_weight.restype = None
 
 lib.cxios_set_interpolate_domain_write_weight.argtypes = [InterpolateDomain, ctypes.c_bool]
-lib.cxios_set_interpolate_domain_write_weight.restypes = None
+lib.cxios_set_interpolate_domain_write_weight.restype = None
 
 lib.cxios_is_defined_interpolate_domain_write_weight.argtypes = [InterpolateDomain]
-lib.cxios_is_defined_interpolate_domain_write_weight.restypes = ctypes.c_bool
+lib.cxios_is_defined_interpolate_domain_write_weight.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #

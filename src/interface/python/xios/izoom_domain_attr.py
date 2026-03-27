@@ -18,40 +18,40 @@ from xios.ozoom_domain_attr import ZoomDomain
 
 
 lib.cxios_get_zoom_domain_ibegin.argtypes = [ZoomDomain, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_zoom_domain_ibegin.restypes = None
+lib.cxios_get_zoom_domain_ibegin.restype = None
 
 lib.cxios_set_zoom_domain_ibegin.argtypes = [ZoomDomain, ctypes.c_int]
-lib.cxios_set_zoom_domain_ibegin.restypes = None
+lib.cxios_set_zoom_domain_ibegin.restype = None
 
 lib.cxios_is_defined_zoom_domain_ibegin.argtypes = [ZoomDomain]
-lib.cxios_is_defined_zoom_domain_ibegin.restypes = ctypes.c_bool
+lib.cxios_is_defined_zoom_domain_ibegin.restype = ctypes.c_bool
 
 lib.cxios_get_zoom_domain_jbegin.argtypes = [ZoomDomain, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_zoom_domain_jbegin.restypes = None
+lib.cxios_get_zoom_domain_jbegin.restype = None
 
 lib.cxios_set_zoom_domain_jbegin.argtypes = [ZoomDomain, ctypes.c_int]
-lib.cxios_set_zoom_domain_jbegin.restypes = None
+lib.cxios_set_zoom_domain_jbegin.restype = None
 
 lib.cxios_is_defined_zoom_domain_jbegin.argtypes = [ZoomDomain]
-lib.cxios_is_defined_zoom_domain_jbegin.restypes = ctypes.c_bool
+lib.cxios_is_defined_zoom_domain_jbegin.restype = ctypes.c_bool
 
 lib.cxios_get_zoom_domain_ni.argtypes = [ZoomDomain, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_zoom_domain_ni.restypes = None
+lib.cxios_get_zoom_domain_ni.restype = None
 
 lib.cxios_set_zoom_domain_ni.argtypes = [ZoomDomain, ctypes.c_int]
-lib.cxios_set_zoom_domain_ni.restypes = None
+lib.cxios_set_zoom_domain_ni.restype = None
 
 lib.cxios_is_defined_zoom_domain_ni.argtypes = [ZoomDomain]
-lib.cxios_is_defined_zoom_domain_ni.restypes = ctypes.c_bool
+lib.cxios_is_defined_zoom_domain_ni.restype = ctypes.c_bool
 
 lib.cxios_get_zoom_domain_nj.argtypes = [ZoomDomain, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_zoom_domain_nj.restypes = None
+lib.cxios_get_zoom_domain_nj.restype = None
 
 lib.cxios_set_zoom_domain_nj.argtypes = [ZoomDomain, ctypes.c_int]
-lib.cxios_set_zoom_domain_nj.restypes = None
+lib.cxios_set_zoom_domain_nj.restype = None
 
 lib.cxios_is_defined_zoom_domain_nj.argtypes = [ZoomDomain]
-lib.cxios_is_defined_zoom_domain_nj.restypes = ctypes.c_bool
+lib.cxios_is_defined_zoom_domain_nj.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #

@@ -18,94 +18,94 @@ from xios.ocontext import Context
 
 
 lib.cxios_get_context_attached_mode.argtypes = [Context, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_context_attached_mode.restypes = None
+lib.cxios_get_context_attached_mode.restype = None
 
 lib.cxios_set_context_attached_mode.argtypes = [Context, ctypes.c_bool]
-lib.cxios_set_context_attached_mode.restypes = None
+lib.cxios_set_context_attached_mode.restype = None
 
 lib.cxios_is_defined_context_attached_mode.argtypes = [Context]
-lib.cxios_is_defined_context_attached_mode.restypes = ctypes.c_bool
+lib.cxios_is_defined_context_attached_mode.restype = ctypes.c_bool
 
 lib.cxios_get_context_default_gatherer.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_context_default_gatherer.restypes = None
+lib.cxios_get_context_default_gatherer.restype = None
 
 lib.cxios_set_context_default_gatherer.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_context_default_gatherer.restypes = None
+lib.cxios_set_context_default_gatherer.restype = None
 
 lib.cxios_is_defined_context_default_gatherer.argtypes = [Context]
-lib.cxios_is_defined_context_default_gatherer.restypes = ctypes.c_bool
+lib.cxios_is_defined_context_default_gatherer.restype = ctypes.c_bool
 
 lib.cxios_get_context_default_pool.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_context_default_pool.restypes = None
+lib.cxios_get_context_default_pool.restype = None
 
 lib.cxios_set_context_default_pool.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_context_default_pool.restypes = None
+lib.cxios_set_context_default_pool.restype = None
 
 lib.cxios_is_defined_context_default_pool.argtypes = [Context]
-lib.cxios_is_defined_context_default_pool.restypes = ctypes.c_bool
+lib.cxios_is_defined_context_default_pool.restype = ctypes.c_bool
 
 lib.cxios_get_context_default_pool_gatherer.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_context_default_pool_gatherer.restypes = None
+lib.cxios_get_context_default_pool_gatherer.restype = None
 
 lib.cxios_set_context_default_pool_gatherer.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_context_default_pool_gatherer.restypes = None
+lib.cxios_set_context_default_pool_gatherer.restype = None
 
 lib.cxios_is_defined_context_default_pool_gatherer.argtypes = [Context]
-lib.cxios_is_defined_context_default_pool_gatherer.restypes = ctypes.c_bool
+lib.cxios_is_defined_context_default_pool_gatherer.restype = ctypes.c_bool
 
 lib.cxios_get_context_default_pool_reader.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_context_default_pool_reader.restypes = None
+lib.cxios_get_context_default_pool_reader.restype = None
 
 lib.cxios_set_context_default_pool_reader.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_context_default_pool_reader.restypes = None
+lib.cxios_set_context_default_pool_reader.restype = None
 
 lib.cxios_is_defined_context_default_pool_reader.argtypes = [Context]
-lib.cxios_is_defined_context_default_pool_reader.restypes = ctypes.c_bool
+lib.cxios_is_defined_context_default_pool_reader.restype = ctypes.c_bool
 
 lib.cxios_get_context_default_pool_writer.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_context_default_pool_writer.restypes = None
+lib.cxios_get_context_default_pool_writer.restype = None
 
 lib.cxios_set_context_default_pool_writer.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_context_default_pool_writer.restypes = None
+lib.cxios_set_context_default_pool_writer.restype = None
 
 lib.cxios_is_defined_context_default_pool_writer.argtypes = [Context]
-lib.cxios_is_defined_context_default_pool_writer.restypes = ctypes.c_bool
+lib.cxios_is_defined_context_default_pool_writer.restype = ctypes.c_bool
 
 lib.cxios_get_context_default_reader.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_context_default_reader.restypes = None
+lib.cxios_get_context_default_reader.restype = None
 
 lib.cxios_set_context_default_reader.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_context_default_reader.restypes = None
+lib.cxios_set_context_default_reader.restype = None
 
 lib.cxios_is_defined_context_default_reader.argtypes = [Context]
-lib.cxios_is_defined_context_default_reader.restypes = ctypes.c_bool
+lib.cxios_is_defined_context_default_reader.restype = ctypes.c_bool
 
 lib.cxios_get_context_default_using_server2.argtypes = [Context, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_context_default_using_server2.restypes = None
+lib.cxios_get_context_default_using_server2.restype = None
 
 lib.cxios_set_context_default_using_server2.argtypes = [Context, ctypes.c_bool]
-lib.cxios_set_context_default_using_server2.restypes = None
+lib.cxios_set_context_default_using_server2.restype = None
 
 lib.cxios_is_defined_context_default_using_server2.argtypes = [Context]
-lib.cxios_is_defined_context_default_using_server2.restypes = ctypes.c_bool
+lib.cxios_is_defined_context_default_using_server2.restype = ctypes.c_bool
 
 lib.cxios_get_context_default_writer.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_context_default_writer.restypes = None
+lib.cxios_get_context_default_writer.restype = None
 
 lib.cxios_set_context_default_writer.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_context_default_writer.restypes = None
+lib.cxios_set_context_default_writer.restype = None
 
 lib.cxios_is_defined_context_default_writer.argtypes = [Context]
-lib.cxios_is_defined_context_default_writer.restypes = ctypes.c_bool
+lib.cxios_is_defined_context_default_writer.restype = ctypes.c_bool
 
 lib.cxios_get_context_output_dir.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_context_output_dir.restypes = None
+lib.cxios_get_context_output_dir.restype = None
 
 lib.cxios_set_context_output_dir.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_context_output_dir.restypes = None
+lib.cxios_set_context_output_dir.restype = None
 
 lib.cxios_is_defined_context_output_dir.argtypes = [Context]
-lib.cxios_is_defined_context_output_dir.restypes = ctypes.c_bool
+lib.cxios_is_defined_context_output_dir.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #

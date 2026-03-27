@@ -18,103 +18,103 @@ from xios.config import CObject as CalendarWrapper
 
 
 lib.cxios_get_calendar_wrapper_comment.argtypes = [CalendarWrapper, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_calendar_wrapper_comment.restypes = None
+lib.cxios_get_calendar_wrapper_comment.restype = None
 
 lib.cxios_set_calendar_wrapper_comment.argtypes = [CalendarWrapper, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_calendar_wrapper_comment.restypes = None
+lib.cxios_set_calendar_wrapper_comment.restype = None
 
 lib.cxios_is_defined_calendar_wrapper_comment.argtypes = [CalendarWrapper]
-lib.cxios_is_defined_calendar_wrapper_comment.restypes = ctypes.c_bool
+lib.cxios_is_defined_calendar_wrapper_comment.restype = ctypes.c_bool
 
 lib.cxios_get_calendar_wrapper_day_length.argtypes = [CalendarWrapper, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_calendar_wrapper_day_length.restypes = None
+lib.cxios_get_calendar_wrapper_day_length.restype = None
 
 lib.cxios_set_calendar_wrapper_day_length.argtypes = [CalendarWrapper, ctypes.c_int]
-lib.cxios_set_calendar_wrapper_day_length.restypes = None
+lib.cxios_set_calendar_wrapper_day_length.restype = None
 
 lib.cxios_is_defined_calendar_wrapper_day_length.argtypes = [CalendarWrapper]
-lib.cxios_is_defined_calendar_wrapper_day_length.restypes = ctypes.c_bool
+lib.cxios_is_defined_calendar_wrapper_day_length.restype = ctypes.c_bool
 
 lib.cxios_get_calendar_wrapper_leap_year_drift.argtypes = [CalendarWrapper, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_calendar_wrapper_leap_year_drift.restypes = None
+lib.cxios_get_calendar_wrapper_leap_year_drift.restype = None
 
 lib.cxios_set_calendar_wrapper_leap_year_drift.argtypes = [CalendarWrapper, ctypes.c_double]
-lib.cxios_set_calendar_wrapper_leap_year_drift.restypes = None
+lib.cxios_set_calendar_wrapper_leap_year_drift.restype = None
 
 lib.cxios_is_defined_calendar_wrapper_leap_year_drift.argtypes = [CalendarWrapper]
-lib.cxios_is_defined_calendar_wrapper_leap_year_drift.restypes = ctypes.c_bool
+lib.cxios_is_defined_calendar_wrapper_leap_year_drift.restype = ctypes.c_bool
 
 lib.cxios_get_calendar_wrapper_leap_year_drift_offset.argtypes = [CalendarWrapper, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_calendar_wrapper_leap_year_drift_offset.restypes = None
+lib.cxios_get_calendar_wrapper_leap_year_drift_offset.restype = None
 
 lib.cxios_set_calendar_wrapper_leap_year_drift_offset.argtypes = [CalendarWrapper, ctypes.c_double]
-lib.cxios_set_calendar_wrapper_leap_year_drift_offset.restypes = None
+lib.cxios_set_calendar_wrapper_leap_year_drift_offset.restype = None
 
 lib.cxios_is_defined_calendar_wrapper_leap_year_drift_offset.argtypes = [CalendarWrapper]
-lib.cxios_is_defined_calendar_wrapper_leap_year_drift_offset.restypes = ctypes.c_bool
+lib.cxios_is_defined_calendar_wrapper_leap_year_drift_offset.restype = ctypes.c_bool
 
 lib.cxios_get_calendar_wrapper_leap_year_month.argtypes = [CalendarWrapper, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_calendar_wrapper_leap_year_month.restypes = None
+lib.cxios_get_calendar_wrapper_leap_year_month.restype = None
 
 lib.cxios_set_calendar_wrapper_leap_year_month.argtypes = [CalendarWrapper, ctypes.c_int]
-lib.cxios_set_calendar_wrapper_leap_year_month.restypes = None
+lib.cxios_set_calendar_wrapper_leap_year_month.restype = None
 
 lib.cxios_is_defined_calendar_wrapper_leap_year_month.argtypes = [CalendarWrapper]
-lib.cxios_is_defined_calendar_wrapper_leap_year_month.restypes = ctypes.c_bool
+lib.cxios_is_defined_calendar_wrapper_leap_year_month.restype = ctypes.c_bool
 
 lib.cxios_get_calendar_wrapper_month_lengths.argtypes = [CalendarWrapper, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_calendar_wrapper_month_lengths.restypes = None
+lib.cxios_get_calendar_wrapper_month_lengths.restype = None
 
 lib.cxios_set_calendar_wrapper_month_lengths.argtypes = [CalendarWrapper, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_calendar_wrapper_month_lengths.restypes = None
+lib.cxios_set_calendar_wrapper_month_lengths.restype = None
 
 lib.cxios_is_defined_calendar_wrapper_month_lengths.argtypes = [CalendarWrapper]
-lib.cxios_is_defined_calendar_wrapper_month_lengths.restypes = ctypes.c_bool
+lib.cxios_is_defined_calendar_wrapper_month_lengths.restype = ctypes.c_bool
 
 lib.cxios_get_calendar_wrapper_start_date.argtypes = [CalendarWrapper, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_calendar_wrapper_start_date.restypes = None
+lib.cxios_get_calendar_wrapper_start_date.restype = None
 
 lib.cxios_set_calendar_wrapper_start_date.argtypes = [CalendarWrapper, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_calendar_wrapper_start_date.restypes = None
+lib.cxios_set_calendar_wrapper_start_date.restype = None
 
 lib.cxios_is_defined_calendar_wrapper_start_date.argtypes = [CalendarWrapper]
-lib.cxios_is_defined_calendar_wrapper_start_date.restypes = ctypes.c_bool
+lib.cxios_is_defined_calendar_wrapper_start_date.restype = ctypes.c_bool
 
 lib.cxios_get_calendar_wrapper_time_origin.argtypes = [CalendarWrapper, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_calendar_wrapper_time_origin.restypes = None
+lib.cxios_get_calendar_wrapper_time_origin.restype = None
 
 lib.cxios_set_calendar_wrapper_time_origin.argtypes = [CalendarWrapper, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_calendar_wrapper_time_origin.restypes = None
+lib.cxios_set_calendar_wrapper_time_origin.restype = None
 
 lib.cxios_is_defined_calendar_wrapper_time_origin.argtypes = [CalendarWrapper]
-lib.cxios_is_defined_calendar_wrapper_time_origin.restypes = ctypes.c_bool
+lib.cxios_is_defined_calendar_wrapper_time_origin.restype = ctypes.c_bool
 
 lib.cxios_get_calendar_wrapper_timestep.argtypes = [CalendarWrapper, ctypes.POINTER(Duration)]
-lib.cxios_get_calendar_wrapper_timestep.restypes = None
+lib.cxios_get_calendar_wrapper_timestep.restype = None
 
 lib.cxios_set_calendar_wrapper_timestep.argtypes = [CalendarWrapper, Duration]
-lib.cxios_set_calendar_wrapper_timestep.restypes = None
+lib.cxios_set_calendar_wrapper_timestep.restype = None
 
 lib.cxios_is_defined_calendar_wrapper_timestep.argtypes = [CalendarWrapper]
-lib.cxios_is_defined_calendar_wrapper_timestep.restypes = ctypes.c_bool
+lib.cxios_is_defined_calendar_wrapper_timestep.restype = ctypes.c_bool
 
 lib.cxios_get_calendar_wrapper_type.argtypes = [CalendarWrapper, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_calendar_wrapper_type.restypes = None
+lib.cxios_get_calendar_wrapper_type.restype = None
 
 lib.cxios_set_calendar_wrapper_type.argtypes = [CalendarWrapper, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_calendar_wrapper_type.restypes = None
+lib.cxios_set_calendar_wrapper_type.restype = None
 
 lib.cxios_is_defined_calendar_wrapper_type.argtypes = [CalendarWrapper]
-lib.cxios_is_defined_calendar_wrapper_type.restypes = ctypes.c_bool
+lib.cxios_is_defined_calendar_wrapper_type.restype = ctypes.c_bool
 
 lib.cxios_get_calendar_wrapper_year_length.argtypes = [CalendarWrapper, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_calendar_wrapper_year_length.restypes = None
+lib.cxios_get_calendar_wrapper_year_length.restype = None
 
 lib.cxios_set_calendar_wrapper_year_length.argtypes = [CalendarWrapper, ctypes.c_int]
-lib.cxios_set_calendar_wrapper_year_length.restypes = None
+lib.cxios_set_calendar_wrapper_year_length.restype = None
 
 lib.cxios_is_defined_calendar_wrapper_year_length.argtypes = [CalendarWrapper]
-lib.cxios_is_defined_calendar_wrapper_year_length.restypes = ctypes.c_bool
+lib.cxios_is_defined_calendar_wrapper_year_length.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #
@@ -344,7 +344,7 @@ year_length_ : Optional[Int] = None):
     if month_lengths_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_calendar_wrapper_month_lengths_shape(calendar_wrapper_hdl, shape_c)
-      month_lengths_.arr = np.zeros(shape_c[0], order = 'F')
+      month_lengths_.arr = np.zeros(shape_c[0])
       lib.cxios_get_calendar_wrapper_month_lengths(calendar_wrapper_hdl, month_lengths_._c_value, shape_c)
     else: 
       month_lengths_c = month_lengths_._c_value

@@ -18,22 +18,22 @@ from xios.oextract_domain_to_axis_attr import ExtractDomainToAxis
 
 
 lib.cxios_get_extract_domain_to_axis_direction.argtypes = [ExtractDomainToAxis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_extract_domain_to_axis_direction.restypes = None
+lib.cxios_get_extract_domain_to_axis_direction.restype = None
 
 lib.cxios_set_extract_domain_to_axis_direction.argtypes = [ExtractDomainToAxis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_extract_domain_to_axis_direction.restypes = None
+lib.cxios_set_extract_domain_to_axis_direction.restype = None
 
 lib.cxios_is_defined_extract_domain_to_axis_direction.argtypes = [ExtractDomainToAxis]
-lib.cxios_is_defined_extract_domain_to_axis_direction.restypes = ctypes.c_bool
+lib.cxios_is_defined_extract_domain_to_axis_direction.restype = ctypes.c_bool
 
 lib.cxios_get_extract_domain_to_axis_position.argtypes = [ExtractDomainToAxis, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_extract_domain_to_axis_position.restypes = None
+lib.cxios_get_extract_domain_to_axis_position.restype = None
 
 lib.cxios_set_extract_domain_to_axis_position.argtypes = [ExtractDomainToAxis, ctypes.c_int]
-lib.cxios_set_extract_domain_to_axis_position.restypes = None
+lib.cxios_set_extract_domain_to_axis_position.restype = None
 
 lib.cxios_is_defined_extract_domain_to_axis_position.argtypes = [ExtractDomainToAxis]
-lib.cxios_is_defined_extract_domain_to_axis_position.restypes = ctypes.c_bool
+lib.cxios_is_defined_extract_domain_to_axis_position.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #

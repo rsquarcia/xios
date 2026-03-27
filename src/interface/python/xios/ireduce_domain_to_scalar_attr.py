@@ -18,22 +18,22 @@ from xios.oreduce_domain_to_scalar_attr import ReduceDomainToScalar
 
 
 lib.cxios_get_reduce_domain_to_scalar_local.argtypes = [ReduceDomainToScalar, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_reduce_domain_to_scalar_local.restypes = None
+lib.cxios_get_reduce_domain_to_scalar_local.restype = None
 
 lib.cxios_set_reduce_domain_to_scalar_local.argtypes = [ReduceDomainToScalar, ctypes.c_bool]
-lib.cxios_set_reduce_domain_to_scalar_local.restypes = None
+lib.cxios_set_reduce_domain_to_scalar_local.restype = None
 
 lib.cxios_is_defined_reduce_domain_to_scalar_local.argtypes = [ReduceDomainToScalar]
-lib.cxios_is_defined_reduce_domain_to_scalar_local.restypes = ctypes.c_bool
+lib.cxios_is_defined_reduce_domain_to_scalar_local.restype = ctypes.c_bool
 
 lib.cxios_get_reduce_domain_to_scalar_operation.argtypes = [ReduceDomainToScalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_reduce_domain_to_scalar_operation.restypes = None
+lib.cxios_get_reduce_domain_to_scalar_operation.restype = None
 
 lib.cxios_set_reduce_domain_to_scalar_operation.argtypes = [ReduceDomainToScalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_reduce_domain_to_scalar_operation.restypes = None
+lib.cxios_set_reduce_domain_to_scalar_operation.restype = None
 
 lib.cxios_is_defined_reduce_domain_to_scalar_operation.argtypes = [ReduceDomainToScalar]
-lib.cxios_is_defined_reduce_domain_to_scalar_operation.restypes = ctypes.c_bool
+lib.cxios_is_defined_reduce_domain_to_scalar_operation.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #

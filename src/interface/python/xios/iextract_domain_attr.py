@@ -18,40 +18,40 @@ from xios.oextract_domain_attr import ExtractDomain
 
 
 lib.cxios_get_extract_domain_ibegin.argtypes = [ExtractDomain, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_extract_domain_ibegin.restypes = None
+lib.cxios_get_extract_domain_ibegin.restype = None
 
 lib.cxios_set_extract_domain_ibegin.argtypes = [ExtractDomain, ctypes.c_int]
-lib.cxios_set_extract_domain_ibegin.restypes = None
+lib.cxios_set_extract_domain_ibegin.restype = None
 
 lib.cxios_is_defined_extract_domain_ibegin.argtypes = [ExtractDomain]
-lib.cxios_is_defined_extract_domain_ibegin.restypes = ctypes.c_bool
+lib.cxios_is_defined_extract_domain_ibegin.restype = ctypes.c_bool
 
 lib.cxios_get_extract_domain_jbegin.argtypes = [ExtractDomain, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_extract_domain_jbegin.restypes = None
+lib.cxios_get_extract_domain_jbegin.restype = None
 
 lib.cxios_set_extract_domain_jbegin.argtypes = [ExtractDomain, ctypes.c_int]
-lib.cxios_set_extract_domain_jbegin.restypes = None
+lib.cxios_set_extract_domain_jbegin.restype = None
 
 lib.cxios_is_defined_extract_domain_jbegin.argtypes = [ExtractDomain]
-lib.cxios_is_defined_extract_domain_jbegin.restypes = ctypes.c_bool
+lib.cxios_is_defined_extract_domain_jbegin.restype = ctypes.c_bool
 
 lib.cxios_get_extract_domain_ni.argtypes = [ExtractDomain, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_extract_domain_ni.restypes = None
+lib.cxios_get_extract_domain_ni.restype = None
 
 lib.cxios_set_extract_domain_ni.argtypes = [ExtractDomain, ctypes.c_int]
-lib.cxios_set_extract_domain_ni.restypes = None
+lib.cxios_set_extract_domain_ni.restype = None
 
 lib.cxios_is_defined_extract_domain_ni.argtypes = [ExtractDomain]
-lib.cxios_is_defined_extract_domain_ni.restypes = ctypes.c_bool
+lib.cxios_is_defined_extract_domain_ni.restype = ctypes.c_bool
 
 lib.cxios_get_extract_domain_nj.argtypes = [ExtractDomain, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_extract_domain_nj.restypes = None
+lib.cxios_get_extract_domain_nj.restype = None
 
 lib.cxios_set_extract_domain_nj.argtypes = [ExtractDomain, ctypes.c_int]
-lib.cxios_set_extract_domain_nj.restypes = None
+lib.cxios_set_extract_domain_nj.restype = None
 
 lib.cxios_is_defined_extract_domain_nj.argtypes = [ExtractDomain]
-lib.cxios_is_defined_extract_domain_nj.restypes = ctypes.c_bool
+lib.cxios_is_defined_extract_domain_nj.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #

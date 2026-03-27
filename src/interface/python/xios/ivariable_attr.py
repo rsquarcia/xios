@@ -18,31 +18,31 @@ from xios.ovariable import Variable
 
 
 lib.cxios_get_variable_name.argtypes = [Variable, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_variable_name.restypes = None
+lib.cxios_get_variable_name.restype = None
 
 lib.cxios_set_variable_name.argtypes = [Variable, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_variable_name.restypes = None
+lib.cxios_set_variable_name.restype = None
 
 lib.cxios_is_defined_variable_name.argtypes = [Variable]
-lib.cxios_is_defined_variable_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_variable_name.restype = ctypes.c_bool
 
 lib.cxios_get_variable_ts_target.argtypes = [Variable, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_variable_ts_target.restypes = None
+lib.cxios_get_variable_ts_target.restype = None
 
 lib.cxios_set_variable_ts_target.argtypes = [Variable, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_variable_ts_target.restypes = None
+lib.cxios_set_variable_ts_target.restype = None
 
 lib.cxios_is_defined_variable_ts_target.argtypes = [Variable]
-lib.cxios_is_defined_variable_ts_target.restypes = ctypes.c_bool
+lib.cxios_is_defined_variable_ts_target.restype = ctypes.c_bool
 
 lib.cxios_get_variable_type.argtypes = [Variable, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_variable_type.restypes = None
+lib.cxios_get_variable_type.restype = None
 
 lib.cxios_set_variable_type.argtypes = [Variable, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_variable_type.restypes = None
+lib.cxios_set_variable_type.restype = None
 
 lib.cxios_is_defined_variable_type.argtypes = [Variable]
-lib.cxios_is_defined_variable_type.restypes = ctypes.c_bool
+lib.cxios_is_defined_variable_type.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #

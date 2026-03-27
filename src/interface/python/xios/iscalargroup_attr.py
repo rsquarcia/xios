@@ -18,148 +18,148 @@ from xios.oscalargroup_attr import ScalarGroup
 
 
 lib.cxios_get_scalargroup_axis_type.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalargroup_axis_type.restypes = None
+lib.cxios_get_scalargroup_axis_type.restype = None
 
 lib.cxios_set_scalargroup_axis_type.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalargroup_axis_type.restypes = None
+lib.cxios_set_scalargroup_axis_type.restype = None
 
 lib.cxios_is_defined_scalargroup_axis_type.argtypes = [ScalarGroup]
-lib.cxios_is_defined_scalargroup_axis_type.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalargroup_axis_type.restype = ctypes.c_bool
 
 lib.cxios_get_scalargroup_bounds.argtypes = [ScalarGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_scalargroup_bounds.restypes = None
+lib.cxios_get_scalargroup_bounds.restype = None
 
 lib.cxios_set_scalargroup_bounds.argtypes = [ScalarGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_scalargroup_bounds.restypes = None
+lib.cxios_set_scalargroup_bounds.restype = None
 
 lib.cxios_is_defined_scalargroup_bounds.argtypes = [ScalarGroup]
-lib.cxios_is_defined_scalargroup_bounds.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalargroup_bounds.restype = ctypes.c_bool
 
 lib.cxios_get_scalargroup_bounds_name.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalargroup_bounds_name.restypes = None
+lib.cxios_get_scalargroup_bounds_name.restype = None
 
 lib.cxios_set_scalargroup_bounds_name.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalargroup_bounds_name.restypes = None
+lib.cxios_set_scalargroup_bounds_name.restype = None
 
 lib.cxios_is_defined_scalargroup_bounds_name.argtypes = [ScalarGroup]
-lib.cxios_is_defined_scalargroup_bounds_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalargroup_bounds_name.restype = ctypes.c_bool
 
 lib.cxios_get_scalargroup_comment.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalargroup_comment.restypes = None
+lib.cxios_get_scalargroup_comment.restype = None
 
 lib.cxios_set_scalargroup_comment.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalargroup_comment.restypes = None
+lib.cxios_set_scalargroup_comment.restype = None
 
 lib.cxios_is_defined_scalargroup_comment.argtypes = [ScalarGroup]
-lib.cxios_is_defined_scalargroup_comment.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalargroup_comment.restype = ctypes.c_bool
 
 lib.cxios_get_scalargroup_group_ref.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalargroup_group_ref.restypes = None
+lib.cxios_get_scalargroup_group_ref.restype = None
 
 lib.cxios_set_scalargroup_group_ref.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalargroup_group_ref.restypes = None
+lib.cxios_set_scalargroup_group_ref.restype = None
 
 lib.cxios_is_defined_scalargroup_group_ref.argtypes = [ScalarGroup]
-lib.cxios_is_defined_scalargroup_group_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalargroup_group_ref.restype = ctypes.c_bool
 
 lib.cxios_get_scalargroup_label.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalargroup_label.restypes = None
+lib.cxios_get_scalargroup_label.restype = None
 
 lib.cxios_set_scalargroup_label.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalargroup_label.restypes = None
+lib.cxios_set_scalargroup_label.restype = None
 
 lib.cxios_is_defined_scalargroup_label.argtypes = [ScalarGroup]
-lib.cxios_is_defined_scalargroup_label.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalargroup_label.restype = ctypes.c_bool
 
 lib.cxios_get_scalargroup_long_name.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalargroup_long_name.restypes = None
+lib.cxios_get_scalargroup_long_name.restype = None
 
 lib.cxios_set_scalargroup_long_name.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalargroup_long_name.restypes = None
+lib.cxios_set_scalargroup_long_name.restype = None
 
 lib.cxios_is_defined_scalargroup_long_name.argtypes = [ScalarGroup]
-lib.cxios_is_defined_scalargroup_long_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalargroup_long_name.restype = ctypes.c_bool
 
 lib.cxios_get_scalargroup_mask.argtypes = [ScalarGroup, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_scalargroup_mask.restypes = None
+lib.cxios_get_scalargroup_mask.restype = None
 
 lib.cxios_set_scalargroup_mask.argtypes = [ScalarGroup, ctypes.c_bool]
-lib.cxios_set_scalargroup_mask.restypes = None
+lib.cxios_set_scalargroup_mask.restype = None
 
 lib.cxios_is_defined_scalargroup_mask.argtypes = [ScalarGroup]
-lib.cxios_is_defined_scalargroup_mask.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalargroup_mask.restype = ctypes.c_bool
 
 lib.cxios_get_scalargroup_n.argtypes = [ScalarGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_scalargroup_n.restypes = None
+lib.cxios_get_scalargroup_n.restype = None
 
 lib.cxios_set_scalargroup_n.argtypes = [ScalarGroup, ctypes.c_int]
-lib.cxios_set_scalargroup_n.restypes = None
+lib.cxios_set_scalargroup_n.restype = None
 
 lib.cxios_is_defined_scalargroup_n.argtypes = [ScalarGroup]
-lib.cxios_is_defined_scalargroup_n.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalargroup_n.restype = ctypes.c_bool
 
 lib.cxios_get_scalargroup_name.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalargroup_name.restypes = None
+lib.cxios_get_scalargroup_name.restype = None
 
 lib.cxios_set_scalargroup_name.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalargroup_name.restypes = None
+lib.cxios_set_scalargroup_name.restype = None
 
 lib.cxios_is_defined_scalargroup_name.argtypes = [ScalarGroup]
-lib.cxios_is_defined_scalargroup_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalargroup_name.restype = ctypes.c_bool
 
 lib.cxios_get_scalargroup_positive.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalargroup_positive.restypes = None
+lib.cxios_get_scalargroup_positive.restype = None
 
 lib.cxios_set_scalargroup_positive.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalargroup_positive.restypes = None
+lib.cxios_set_scalargroup_positive.restype = None
 
 lib.cxios_is_defined_scalargroup_positive.argtypes = [ScalarGroup]
-lib.cxios_is_defined_scalargroup_positive.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalargroup_positive.restype = ctypes.c_bool
 
 lib.cxios_get_scalargroup_prec.argtypes = [ScalarGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_scalargroup_prec.restypes = None
+lib.cxios_get_scalargroup_prec.restype = None
 
 lib.cxios_set_scalargroup_prec.argtypes = [ScalarGroup, ctypes.c_int]
-lib.cxios_set_scalargroup_prec.restypes = None
+lib.cxios_set_scalargroup_prec.restype = None
 
 lib.cxios_is_defined_scalargroup_prec.argtypes = [ScalarGroup]
-lib.cxios_is_defined_scalargroup_prec.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalargroup_prec.restype = ctypes.c_bool
 
 lib.cxios_get_scalargroup_scalar_ref.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalargroup_scalar_ref.restypes = None
+lib.cxios_get_scalargroup_scalar_ref.restype = None
 
 lib.cxios_set_scalargroup_scalar_ref.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalargroup_scalar_ref.restypes = None
+lib.cxios_set_scalargroup_scalar_ref.restype = None
 
 lib.cxios_is_defined_scalargroup_scalar_ref.argtypes = [ScalarGroup]
-lib.cxios_is_defined_scalargroup_scalar_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalargroup_scalar_ref.restype = ctypes.c_bool
 
 lib.cxios_get_scalargroup_standard_name.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalargroup_standard_name.restypes = None
+lib.cxios_get_scalargroup_standard_name.restype = None
 
 lib.cxios_set_scalargroup_standard_name.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalargroup_standard_name.restypes = None
+lib.cxios_set_scalargroup_standard_name.restype = None
 
 lib.cxios_is_defined_scalargroup_standard_name.argtypes = [ScalarGroup]
-lib.cxios_is_defined_scalargroup_standard_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalargroup_standard_name.restype = ctypes.c_bool
 
 lib.cxios_get_scalargroup_unit.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalargroup_unit.restypes = None
+lib.cxios_get_scalargroup_unit.restype = None
 
 lib.cxios_set_scalargroup_unit.argtypes = [ScalarGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalargroup_unit.restypes = None
+lib.cxios_set_scalargroup_unit.restype = None
 
 lib.cxios_is_defined_scalargroup_unit.argtypes = [ScalarGroup]
-lib.cxios_is_defined_scalargroup_unit.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalargroup_unit.restype = ctypes.c_bool
 
 lib.cxios_get_scalargroup_value.argtypes = [ScalarGroup, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_scalargroup_value.restypes = None
+lib.cxios_get_scalargroup_value.restype = None
 
 lib.cxios_set_scalargroup_value.argtypes = [ScalarGroup, ctypes.c_double]
-lib.cxios_set_scalargroup_value.restypes = None
+lib.cxios_set_scalargroup_value.restype = None
 
 lib.cxios_is_defined_scalargroup_value.argtypes = [ScalarGroup]
-lib.cxios_is_defined_scalargroup_value.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalargroup_value.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #
@@ -418,7 +418,7 @@ unit_ : Optional[String] = None, value_ : Optional[Double] = None):
     if bounds_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_scalargroup_bounds_shape(scalargroup_hdl, shape_c)
-      bounds_.arr = np.zeros(shape_c[0], order = 'F')
+      bounds_.arr = np.zeros(shape_c[0])
       lib.cxios_get_scalargroup_bounds(scalargroup_hdl, bounds_._c_value, shape_c)
     else: 
       bounds_c = bounds_._c_value
