@@ -826,6 +826,13 @@ namespace xios {
      const int nvertexValue = 2;
      boundsLon.resize(nvertexValue,niValue_);
 
+     if ((lon.isEmpty() || lat.isEmpty()))
+     {
+       ERROR("CDomain::computeRectilinearBoundLonLatFile(...)",
+             << "The domain id [" << this->getId() << "] has no lon/lat.");
+
+     }
+
      double loc_bounds_lon_start, loc_bounds_lon_end;
      if (ni_glo>1)
      {

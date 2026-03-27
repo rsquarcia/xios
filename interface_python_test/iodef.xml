@@ -40,7 +40,9 @@
     </file_definition>
 
     <domain_definition>
-      <domain id="domain" type="rectilinear"/>
+      <domain id="domain" type="rectilinear">
+        <generate_rectilinear_domain/>
+      </domain>
     </domain_definition>
 
     <axis_definition>
