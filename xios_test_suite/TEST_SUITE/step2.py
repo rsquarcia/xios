@@ -129,7 +129,7 @@ def main():
                             res = Dataset( config+"/"+checkfile )
                             validated = 1
                             np.seterr(divide='ignore', invalid='ignore')
-                            for var in res.variables:
+                            for var in ref.variables:
                                 print("checkfile = ", checkfile, ", var = ", var)
                                 if (not (var.startswith('lon_'))) and (not (var.startswith('lat_'))) and (not (var.startswith('time_'))) and (not (var.startswith('atm__')) and (var!="lat") and (var!="lon") ) and \
                                         (var!="axis") and (not (var.startswith('axis_')))and (not (var.startswith('domain_'))) and (not (var.startswith('default_pool_id__default_gatherer_id_0__atm__'))):
