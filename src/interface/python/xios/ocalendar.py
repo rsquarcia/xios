@@ -254,10 +254,6 @@ class Calendar:
 
     @property
     def current_date(self):
-        is_current_date = Bool()
-        is_defined_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, current_date = is_current_date)
-        if not is_current_date.value:
-            raise RuntimeError(f"The attribute current date has not yet been set for the calendar of the context {self._context_id} !")
         current_context_id = swipswap_ctx(self._context_id)
         current_date = Date()
         get_current_date(current_date)
