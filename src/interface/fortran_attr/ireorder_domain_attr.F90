@@ -59,9 +59,8 @@ CONTAINS
 
       IF (PRESENT(invert_lat_)) THEN
         invert_lat__tmp = invert_lat_
-        CALL xios_logical_to_bool_0d(invert_lat__tmp)
         CALL cxios_set_reorder_domain_invert_lat &
-      (reorder_domain_hdl%daddr, invert_lat__tmp)
+      (reorder_domain_hdl%daddr, logical_to_bool(invert_lat__tmp) )
       ENDIF
 
       IF (PRESENT(max_lon_)) THEN
@@ -130,8 +129,7 @@ CONTAINS
       IF (PRESENT(invert_lat_)) THEN
         CALL cxios_get_reorder_domain_invert_lat &
       (reorder_domain_hdl%daddr, invert_lat__tmp)
-        CALL xios_bool_to_logical_0d(invert_lat__tmp)
-        invert_lat_ = invert_lat__tmp
+        invert_lat_ = bool_to_logical( invert_lat__tmp )
       ENDIF
 
       IF (PRESENT(max_lon_)) THEN

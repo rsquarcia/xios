@@ -129,8 +129,7 @@ MODULE IFIELD
       LOGICAL  (kind = 1)                 :: val
       
       CALL cxios_field_valid_id(val, idt, len(idt));
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_field) = val
+      xios(is_valid_field) = bool_to_logical(val)
 
    END FUNCTION  xios(is_valid_field)
 
@@ -139,8 +138,7 @@ MODULE IFIELD
       CHARACTER(len  = *)    , INTENT(IN) :: idt
       LOGICAL  (kind = 1)                 :: val
       CALL cxios_fieldgroup_valid_id(val, idt, len(idt));
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_fieldgroup) = val
+      xios(is_valid_fieldgroup) = bool_to_logical(val)
 
    END FUNCTION  xios(is_valid_fieldgroup)
    
@@ -168,10 +166,8 @@ MODULE IFIELD
          at_current_timestep = .FALSE.
       ENDIF
 
-      CALL xios_logical_to_bool_0d(at_current_timestep)
-      CALL cxios_field_is_active(field_hdl%daddr, at_current_timestep, ret);
-      CALL xios_bool_to_logical_0d(ret)
-      xios(field_is_active_hdl) = ret
+      CALL cxios_field_is_active(field_hdl%daddr, logical_to_bool(at_current_timestep), ret);
+      xios(field_is_active_hdl) = bool_to_logical(ret)
       
    END FUNCTION xios(field_is_active_hdl)
  

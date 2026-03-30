@@ -55,14 +55,13 @@ MODULE ICONTEXT
 
       TYPE(txios(context))          , INTENT(IN) :: context
       LOGICAL             , OPTIONAL, INTENT(IN) :: withswap
-      LOGICAL (kind = 1)                         :: wswap
+      LOGICAL (kind = C_BOOL)                    :: wswap
 
       IF (PRESENT(withswap)) THEN
-         wswap = withswap
+         wswap = logical_to_bool(withswap)
       ELSE
-         wswap = .FALSE.
+         wswap = logical_to_bool(.FALSE.)
       END IF
-      CALL xios_logical_to_bool_0d(wswap)
       CALL cxios_context_set_current(context%daddr, wswap)
 
    END SUBROUTINE xios(set_current_context_hdl)
@@ -84,8 +83,7 @@ MODULE ICONTEXT
       LOGICAL  (kind = 1)                 :: val
 
       CALL cxios_context_valid_id(val, idt, len(idt));
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_context) = val
+      xios(is_valid_context) = bool_to_logical(val)
 
    END FUNCTION  xios(is_valid_context)
 

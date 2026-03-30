@@ -40,8 +40,7 @@ MODULE IAXIS
       LOGICAL  (kind = 1)                 :: val
       
       CALL cxios_axis_valid_id(val, idt, len(idt))
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_axis) = val
+      xios(is_valid_axis) = bool_to_logical( val )
 
    END FUNCTION  xios(is_valid_axis)
 
@@ -51,8 +50,7 @@ MODULE IAXIS
       LOGICAL  (kind = 1)                 :: val
 
       CALL cxios_axisgroup_valid_id(val, idt, len(idt))
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_axisgroup) = val
+      xios(is_valid_axisgroup) = bool_to_logical(val)
 
    END FUNCTION  xios(is_valid_axisgroup)
 

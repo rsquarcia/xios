@@ -24,8 +24,7 @@ MODULE IINTERPOLATE_AXIS
       LOGICAL  (kind = 1)                 :: val
 
       CALL cxios_interpolate_axis_valid_id(val, idt, len(idt))
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_interpolate_axis) = val
+      xios(is_valid_interpolate_axis) = bool_to_logical(val)
 
    END FUNCTION  xios(is_valid_interpolate_axis)
 

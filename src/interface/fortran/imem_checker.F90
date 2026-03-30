@@ -38,9 +38,8 @@ MODULE IMEM_CHECKER
       LOGICAL, OPTIONAL,INTENT(IN)    :: finalize
       LOGICAL (KIND=C_BOOL)           :: finalize_               
 
-      finalize_=.FALSE.
-      IF (PRESENT(finalize)) finalize_ = finalize
-      CALL xios_logical_to_bool_0d(finalize_)
+      finalize_=logical_to_bool(.FALSE.)
+      IF (PRESENT(finalize)) finalize_ = logical_to_bool(finalize)
       CALL cxios_mem_checker_log(mem_id, len(mem_id), finalize_)
 
    END SUBROUTINE xios(mem_checker_log)

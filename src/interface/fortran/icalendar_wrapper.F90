@@ -34,8 +34,7 @@ MODULE ICALENDAR_WRAPPER
       LOGICAL  (kind = 1)             :: val
 
       CALL cxios_calendar_wrapper_valid_id(val, idt, len(idt));
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_calendar_wrapper) = val
+      xios(is_valid_calendar_wrapper) = bool_to_logical(val)
    END FUNCTION  xios(is_valid_calendar_wrapper)
 
    SUBROUTINE xios(create_calendar)(hdl)

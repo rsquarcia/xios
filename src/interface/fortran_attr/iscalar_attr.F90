@@ -127,9 +127,8 @@ CONTAINS
 
       IF (PRESENT(mask_)) THEN
         mask__tmp = mask_
-        CALL xios_logical_to_bool_0d(mask__tmp)
         CALL cxios_set_scalar_mask &
-      (scalar_hdl%daddr, mask__tmp)
+      (scalar_hdl%daddr, logical_to_bool(mask__tmp) )
       ENDIF
 
       IF (PRESENT(n_)) THEN
@@ -291,8 +290,7 @@ CONTAINS
       IF (PRESENT(mask_)) THEN
         CALL cxios_get_scalar_mask &
       (scalar_hdl%daddr, mask__tmp)
-        CALL xios_bool_to_logical_0d(mask__tmp)
-        mask_ = mask__tmp
+        mask_ = bool_to_logical( mask__tmp )
       ENDIF
 
       IF (PRESENT(n_)) THEN

@@ -24,8 +24,7 @@ MODULE IDUPLICATE_SCALAR_TO_AXIS
       LOGICAL  (kind = 1)                 :: val
 
       CALL cxios_duplicate_scalar_to_axis_valid_id(val, idt, len(idt))
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_duplicate_scalar_to_axis) = val
+      xios(is_valid_duplicate_scalar_to_axis) = bool_to_logical(val)
 
    END FUNCTION  xios(is_valid_duplicate_scalar_to_axis)
 

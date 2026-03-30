@@ -42,8 +42,7 @@ MODULE IDOMAIN
       CHARACTER(len  = *)    , INTENT(IN) :: idt
       LOGICAL  (kind = 1)                 :: val
       CALL cxios_domain_valid_id(val, idt, len(idt));
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_domain) = val
+      xios(is_valid_domain) = bool_to_logical(val)
    END FUNCTION  xios(is_valid_domain)
 
    LOGICAL FUNCTION xios(is_valid_domaingroup)(idt)
@@ -51,8 +50,7 @@ MODULE IDOMAIN
       CHARACTER(len  = *)    , INTENT(IN) :: idt
       LOGICAL  (kind = 1)                 :: val
       CALL cxios_domaingroup_valid_id(val, idt, len(idt));
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_domaingroup) = val
+      xios(is_valid_domaingroup) = bool_to_logical(val)
    END FUNCTION  xios(is_valid_domaingroup)
    
 END MODULE IDOMAIN

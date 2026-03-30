@@ -43,8 +43,7 @@ MODULE IGRID
       LOGICAL  (kind = 1)                 :: val
 
       CALL cxios_grid_valid_id(val, idt, len(idt));
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_grid) = val
+      xios(is_valid_grid) = bool_to_logical(val)
 
    END FUNCTION  xios(is_valid_grid)
 
@@ -54,8 +53,7 @@ MODULE IGRID
       LOGICAL  (kind = 1)                 :: val
 
       CALL cxios_gridgroup_valid_id(val, idt, len(idt));
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_gridgroup) = val
+      xios(is_valid_gridgroup) = bool_to_logical(val)
 
    END FUNCTION  xios(is_valid_gridgroup)
 
