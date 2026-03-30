@@ -13,9 +13,8 @@ MODULE ITIMER
       LOGICAL, OPTIONAL,INTENT(IN)    :: trace
       LOGICAL (KIND=C_BOOL)           :: trace_           
 
-      trace_=.TRUE.
-      IF (PRESENT(trace)) trace_ = trace
-      CALL xios_logical_to_bool_0d(trace_)
+      trace_=logical_to_bool(.TRUE.)
+      IF (PRESENT(trace)) trace_ = logical_to_bool(trace)
       CALL cxios_timer_resume(timer_id, len(timer_id),trace_)            
 
    END SUBROUTINE xios(timer_resume)
@@ -26,9 +25,8 @@ MODULE ITIMER
       LOGICAL, OPTIONAL,INTENT(IN)    :: trace
       LOGICAL (KIND=C_BOOL)           :: trace_               
 
-      trace_=.TRUE.
-      IF (PRESENT(trace)) trace_ = trace
-      CALL xios_logical_to_bool_0d(trace_)
+      trace_=logical_to_bool(.TRUE.)
+      IF (PRESENT(trace)) trace_ = logical_to_bool(trace)
       CALL cxios_timer_suspend(timer_id, len(timer_id),trace_)            
 
    END SUBROUTINE xios(timer_suspend)

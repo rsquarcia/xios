@@ -40,8 +40,7 @@ MODULE ISCALAR
       LOGICAL  (kind = 1)                 :: val
 
       CALL cxios_scalar_valid_id(val, idt, len(idt))
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_scalar) = val
+      xios(is_valid_scalar) = bool_to_logical(val)
 
    END FUNCTION  xios(is_valid_scalar)
 
@@ -51,8 +50,7 @@ MODULE ISCALAR
       LOGICAL  (kind = 1)                 :: val
 
       CALL cxios_scalargroup_valid_id(val, idt, len(idt))
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_scalargroup) = val
+      xios(is_valid_scalargroup) = bool_to_logical(val)
 
    END FUNCTION  xios(is_valid_scalargroup)
 

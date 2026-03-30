@@ -24,8 +24,7 @@ MODULE ICOMPUTE_CONNECTIVITY_DOMAIN
       LOGICAL  (kind = 1)                 :: val
 
       CALL cxios_compute_connectivity_domain_valid_id(val, idt, len(idt))
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_compute_connectivity_domain) = val
+      xios(is_valid_compute_connectivity_domain) = bool_to_logical(val)
 
    END FUNCTION  xios(is_valid_compute_connectivity_domain)
 

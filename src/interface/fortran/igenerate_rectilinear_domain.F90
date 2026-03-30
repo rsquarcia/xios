@@ -24,8 +24,7 @@ MODULE IGENERATE_RECTILINEAR_DOMAIN
       LOGICAL  (kind = 1)                 :: val
 
       CALL cxios_generate_rectilinear_domain_valid_id(val, idt, len(idt))
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_generate_rectilinear_domain) = val
+      xios(is_valid_generate_rectilinear_domain) = bool_to_logical(val)
 
    END FUNCTION  xios(is_valid_generate_rectilinear_domain)
 

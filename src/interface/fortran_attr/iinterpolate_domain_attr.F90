@@ -91,9 +91,8 @@ CONTAINS
 
       IF (PRESENT(detect_missing_value_)) THEN
         detect_missing_value__tmp = detect_missing_value_
-        CALL xios_logical_to_bool_0d(detect_missing_value__tmp)
         CALL cxios_set_interpolate_domain_detect_missing_value &
-      (interpolate_domain_hdl%daddr, detect_missing_value__tmp)
+      (interpolate_domain_hdl%daddr, logical_to_bool(detect_missing_value__tmp) )
       ENDIF
 
       IF (PRESENT(mode_)) THEN
@@ -108,9 +107,8 @@ CONTAINS
 
       IF (PRESENT(quantity_)) THEN
         quantity__tmp = quantity_
-        CALL xios_logical_to_bool_0d(quantity__tmp)
         CALL cxios_set_interpolate_domain_quantity &
-      (interpolate_domain_hdl%daddr, quantity__tmp)
+      (interpolate_domain_hdl%daddr, logical_to_bool(quantity__tmp) )
       ENDIF
 
       IF (PRESENT(read_write_convention_)) THEN
@@ -120,16 +118,14 @@ CONTAINS
 
       IF (PRESENT(renormalize_)) THEN
         renormalize__tmp = renormalize_
-        CALL xios_logical_to_bool_0d(renormalize__tmp)
         CALL cxios_set_interpolate_domain_renormalize &
-      (interpolate_domain_hdl%daddr, renormalize__tmp)
+      (interpolate_domain_hdl%daddr, logical_to_bool(renormalize__tmp) )
       ENDIF
 
       IF (PRESENT(use_area_)) THEN
         use_area__tmp = use_area_
-        CALL xios_logical_to_bool_0d(use_area__tmp)
         CALL cxios_set_interpolate_domain_use_area &
-      (interpolate_domain_hdl%daddr, use_area__tmp)
+      (interpolate_domain_hdl%daddr, logical_to_bool(use_area__tmp) )
       ENDIF
 
       IF (PRESENT(weight_filename_)) THEN
@@ -139,9 +135,8 @@ CONTAINS
 
       IF (PRESENT(write_weight_)) THEN
         write_weight__tmp = write_weight_
-        CALL xios_logical_to_bool_0d(write_weight__tmp)
         CALL cxios_set_interpolate_domain_write_weight &
-      (interpolate_domain_hdl%daddr, write_weight__tmp)
+      (interpolate_domain_hdl%daddr, logical_to_bool(write_weight__tmp) )
       ENDIF
 
   END SUBROUTINE xios(set_interpolate_domain_attr_hdl_)
@@ -227,8 +222,7 @@ CONTAINS
       IF (PRESENT(detect_missing_value_)) THEN
         CALL cxios_get_interpolate_domain_detect_missing_value &
       (interpolate_domain_hdl%daddr, detect_missing_value__tmp)
-        CALL xios_bool_to_logical_0d(detect_missing_value__tmp)
-        detect_missing_value_ = detect_missing_value__tmp
+        detect_missing_value_ = bool_to_logical( detect_missing_value__tmp )
       ENDIF
 
       IF (PRESENT(mode_)) THEN
@@ -244,8 +238,7 @@ CONTAINS
       IF (PRESENT(quantity_)) THEN
         CALL cxios_get_interpolate_domain_quantity &
       (interpolate_domain_hdl%daddr, quantity__tmp)
-        CALL xios_bool_to_logical_0d(quantity__tmp)
-        quantity_ = quantity__tmp
+        quantity_ = bool_to_logical( quantity__tmp )
       ENDIF
 
       IF (PRESENT(read_write_convention_)) THEN
@@ -256,15 +249,13 @@ CONTAINS
       IF (PRESENT(renormalize_)) THEN
         CALL cxios_get_interpolate_domain_renormalize &
       (interpolate_domain_hdl%daddr, renormalize__tmp)
-        CALL xios_bool_to_logical_0d(renormalize__tmp)
-        renormalize_ = renormalize__tmp
+        renormalize_ = bool_to_logical( renormalize__tmp )
       ENDIF
 
       IF (PRESENT(use_area_)) THEN
         CALL cxios_get_interpolate_domain_use_area &
       (interpolate_domain_hdl%daddr, use_area__tmp)
-        CALL xios_bool_to_logical_0d(use_area__tmp)
-        use_area_ = use_area__tmp
+        use_area_ = bool_to_logical( use_area__tmp )
       ENDIF
 
       IF (PRESENT(weight_filename_)) THEN
@@ -275,8 +266,7 @@ CONTAINS
       IF (PRESENT(write_weight_)) THEN
         CALL cxios_get_interpolate_domain_write_weight &
       (interpolate_domain_hdl%daddr, write_weight__tmp)
-        CALL xios_bool_to_logical_0d(write_weight__tmp)
-        write_weight_ = write_weight__tmp
+        write_weight_ = bool_to_logical( write_weight__tmp )
       ENDIF
 
   END SUBROUTINE xios(get_interpolate_domain_attr_hdl_)

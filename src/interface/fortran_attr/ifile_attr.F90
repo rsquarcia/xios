@@ -207,9 +207,8 @@ CONTAINS
 
       IF (PRESENT(append_)) THEN
         append__tmp = append_
-        CALL xios_logical_to_bool_0d(append__tmp)
         CALL cxios_set_file_append &
-      (file_hdl%daddr, append__tmp)
+      (file_hdl%daddr, logical_to_bool(append__tmp) )
       ENDIF
 
       IF (PRESENT(comment_)) THEN
@@ -234,9 +233,8 @@ CONTAINS
 
       IF (PRESENT(cyclic_)) THEN
         cyclic__tmp = cyclic_
-        CALL xios_logical_to_bool_0d(cyclic__tmp)
         CALL cxios_set_file_cyclic &
-      (file_hdl%daddr, cyclic__tmp)
+      (file_hdl%daddr, logical_to_bool(cyclic__tmp) )
       ENDIF
 
       IF (PRESENT(description_)) THEN
@@ -246,9 +244,8 @@ CONTAINS
 
       IF (PRESENT(enabled_)) THEN
         enabled__tmp = enabled_
-        CALL xios_logical_to_bool_0d(enabled__tmp)
         CALL cxios_set_file_enabled &
-      (file_hdl%daddr, enabled__tmp)
+      (file_hdl%daddr, logical_to_bool(enabled__tmp) )
       ENDIF
 
       IF (PRESENT(format_)) THEN
@@ -313,9 +310,8 @@ CONTAINS
 
       IF (PRESENT(read_metadata_par_)) THEN
         read_metadata_par__tmp = read_metadata_par_
-        CALL xios_logical_to_bool_0d(read_metadata_par__tmp)
         CALL cxios_set_file_read_metadata_par &
-      (file_hdl%daddr, read_metadata_par__tmp)
+      (file_hdl%daddr, logical_to_bool(read_metadata_par__tmp) )
       ENDIF
 
       IF (PRESENT(reader_)) THEN
@@ -400,9 +396,8 @@ CONTAINS
 
       IF (PRESENT(using_server2_)) THEN
         using_server2__tmp = using_server2_
-        CALL xios_logical_to_bool_0d(using_server2__tmp)
         CALL cxios_set_file_using_server2 &
-      (file_hdl%daddr, using_server2__tmp)
+      (file_hdl%daddr, logical_to_bool(using_server2__tmp) )
       ENDIF
 
       IF (PRESENT(uuid_format_)) THEN
@@ -619,8 +614,7 @@ CONTAINS
       IF (PRESENT(append_)) THEN
         CALL cxios_get_file_append &
       (file_hdl%daddr, append__tmp)
-        CALL xios_bool_to_logical_0d(append__tmp)
-        append_ = append__tmp
+        append_ = bool_to_logical( append__tmp )
       ENDIF
 
       IF (PRESENT(comment_)) THEN
@@ -646,8 +640,7 @@ CONTAINS
       IF (PRESENT(cyclic_)) THEN
         CALL cxios_get_file_cyclic &
       (file_hdl%daddr, cyclic__tmp)
-        CALL xios_bool_to_logical_0d(cyclic__tmp)
-        cyclic_ = cyclic__tmp
+        cyclic_ = bool_to_logical( cyclic__tmp )
       ENDIF
 
       IF (PRESENT(description_)) THEN
@@ -658,8 +651,7 @@ CONTAINS
       IF (PRESENT(enabled_)) THEN
         CALL cxios_get_file_enabled &
       (file_hdl%daddr, enabled__tmp)
-        CALL xios_bool_to_logical_0d(enabled__tmp)
-        enabled_ = enabled__tmp
+        enabled_ = bool_to_logical( enabled__tmp )
       ENDIF
 
       IF (PRESENT(format_)) THEN
@@ -725,8 +717,7 @@ CONTAINS
       IF (PRESENT(read_metadata_par_)) THEN
         CALL cxios_get_file_read_metadata_par &
       (file_hdl%daddr, read_metadata_par__tmp)
-        CALL xios_bool_to_logical_0d(read_metadata_par__tmp)
-        read_metadata_par_ = read_metadata_par__tmp
+        read_metadata_par_ = bool_to_logical( read_metadata_par__tmp )
       ENDIF
 
       IF (PRESENT(reader_)) THEN
@@ -812,8 +803,7 @@ CONTAINS
       IF (PRESENT(using_server2_)) THEN
         CALL cxios_get_file_using_server2 &
       (file_hdl%daddr, using_server2__tmp)
-        CALL xios_bool_to_logical_0d(using_server2__tmp)
-        using_server2_ = using_server2__tmp
+        using_server2_ = bool_to_logical( using_server2__tmp )
       ENDIF
 
       IF (PRESENT(uuid_format_)) THEN

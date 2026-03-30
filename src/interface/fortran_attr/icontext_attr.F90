@@ -86,9 +86,8 @@ CONTAINS
 
       IF (PRESENT(attached_mode_)) THEN
         attached_mode__tmp = attached_mode_
-        CALL xios_logical_to_bool_0d(attached_mode__tmp)
         CALL cxios_set_context_attached_mode &
-      (context_hdl%daddr, attached_mode__tmp)
+      (context_hdl%daddr, logical_to_bool(attached_mode__tmp) )
       ENDIF
 
       IF (PRESENT(default_gatherer_)) THEN
@@ -123,9 +122,8 @@ CONTAINS
 
       IF (PRESENT(default_using_server2_)) THEN
         default_using_server2__tmp = default_using_server2_
-        CALL xios_logical_to_bool_0d(default_using_server2__tmp)
         CALL cxios_set_context_default_using_server2 &
-      (context_hdl%daddr, default_using_server2__tmp)
+      (context_hdl%daddr, logical_to_bool(default_using_server2__tmp) )
       ENDIF
 
       IF (PRESENT(default_writer_)) THEN
@@ -216,8 +214,7 @@ CONTAINS
       IF (PRESENT(attached_mode_)) THEN
         CALL cxios_get_context_attached_mode &
       (context_hdl%daddr, attached_mode__tmp)
-        CALL xios_bool_to_logical_0d(attached_mode__tmp)
-        attached_mode_ = attached_mode__tmp
+        attached_mode_ = bool_to_logical( attached_mode__tmp )
       ENDIF
 
       IF (PRESENT(default_gatherer_)) THEN
@@ -253,8 +250,7 @@ CONTAINS
       IF (PRESENT(default_using_server2_)) THEN
         CALL cxios_get_context_default_using_server2 &
       (context_hdl%daddr, default_using_server2__tmp)
-        CALL xios_bool_to_logical_0d(default_using_server2__tmp)
-        default_using_server2_ = default_using_server2__tmp
+        default_using_server2_ = bool_to_logical( default_using_server2__tmp )
       ENDIF
 
       IF (PRESENT(default_writer_)) THEN

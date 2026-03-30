@@ -24,8 +24,7 @@ MODULE IEXPAND_DOMAIN
       LOGICAL  (kind = 1)                 :: val
 
       CALL cxios_expand_domain_valid_id(val, idt, len(idt))
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_expand_domain) = val
+      xios(is_valid_expand_domain) = bool_to_logical(val)
 
    END FUNCTION  xios(is_valid_expand_domain)
 

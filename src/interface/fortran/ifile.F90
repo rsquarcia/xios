@@ -43,8 +43,7 @@ MODULE IFILE
       LOGICAL  (kind = 1)                 :: val
 
       CALL cxios_file_valid_id(val, idt, len(idt));
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_file) = val
+      xios(is_valid_file) = bool_to_logical(val)
 
    END FUNCTION  xios(is_valid_file)
 
@@ -54,8 +53,7 @@ MODULE IFILE
       LOGICAL  (kind = 1)                 :: val
 
       CALL cxios_filegroup_valid_id(val, idt, len(idt));
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_filegroup) = val
+      xios(is_valid_filegroup) = bool_to_logical(val)
 
    END FUNCTION  xios(is_valid_filegroup)
 
