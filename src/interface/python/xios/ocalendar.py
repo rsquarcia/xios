@@ -2,7 +2,7 @@ from xios.config import String, Int, Bool, NpArrayInt
 from xios.icalendar_wrapper import CalendarWrapper, get_default_calendar_wrapper_handle
 from xios.icalendar_wrapper_attr import set_calendar_wrapper_attr_hdl, get_calendar_wrapper_attr_hdl, is_defined_calendar_wrapper_attr_hdl
 from xios.icalendar import get_timestep, set_timestep, get_start_date, set_start_date, set_start_date_dur, get_current_date
-from xios.icalendar import get_time_origin, set_time_origin, set_time_origin_dur, get_calendar_type, update_calendar
+from xios.icalendar import get_time_origin, set_time_origin, set_time_origin_dur, get_calendar_type, update_calendar, define_calendar
 from xios.iduration import Duration
 from xios.idate import Date
 from xios.obj import swipswap_ctx, current_context_id
@@ -14,6 +14,15 @@ class Calendar:
         self._context_id = current_context_id()
         self._calendar_wrapper_hdl = CalendarWrapper()
         get_default_calendar_wrapper_handle(self._calendar_wrapper_hdl)
+        self._is_defined = False
+
+    def define(self, type, timestep = None, start_date = None, time_origin = None, day_length = None,
+                    month_lengths = None, year_length = None, leap_year_month = None, leap_year_drift = None,
+                    leap_year_drift_offset = None):
+        if not self._is_defined : define_calendar(type, timestep, start_date, time_origin, day_length, month_lengths, year_length, 
+                        leap_year_month, leap_year_drift, leap_year_drift_offset)
+        else : raise RuntimeError(f"The calendar can be defined only once !")
+        self._is_defined = True
 
     def set_attr(self, type = None, timestep = None, start_date = None, time_origin = None,
                  day_length = None, month_lengths = None, year_length = None,
@@ -182,6 +191,9 @@ class Calendar:
         current_context_id = swipswap_ctx(self._context_id)
         value = String(value)
         set_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, type = value)
+        if not self._is_defined : define_calendar(value)
+        else : raise RuntimeError(f"The calendar (type) can be defined only once !")
+        self._is_defined = True
         swipswap_ctx(current_context_id)
 
     @property

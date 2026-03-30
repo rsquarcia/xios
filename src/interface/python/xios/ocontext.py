@@ -64,18 +64,7 @@ class Context(Context_):
 
         self._context_id = context_id
         set_current_context(String(context_id))
-        self._is_calendar_defined = is_defined_calendar()
         self._calendar = Calendar()
-        if not self._is_calendar_defined:
-            self._define_calendar()
-
-
-    def _define_calendar(self, type = 'gregorian'):
-        if self._finalized : raise RuntimeError("Cannot use context after it has been finalized.")
-        if self._is_calendar_defined:
-            raise ValueError("Calendar already defined")
-
-        define_calendar(type)
     
     @property
     def calendar(self):

@@ -36,9 +36,9 @@ elif (rank < client_number):
     comm = xios.initialize("client")
     ctx = xios.Context("test", comm)
     rank = comm.rank
-    size_loc = client_number
+    size_loc = client_number    
 
-    ctx.calendar.timestep = xios.Duration(day = 1)
+    ctx.calendar.define(type = "Gregorian", timestep = xios.Duration(day = 1))
 
     if ni_glo%size_loc != 0 :
         print("ERROR: You must have a number of client : ", size_loc, " that devide exactly ni_glo : ", ni_glo)
