@@ -737,7 +737,10 @@ MODULE IDATA
    CONTAINS ! Fonctions disponibles pour les utilisateurs.
 
    SUBROUTINE  xios(init_server)()
-   IMPLICIT NONE
+     IMPLICIT NONE
+     kfalse = cxios_set_logical_false()
+     ktrue = cxios_set_logical_true()
+
      CALL cxios_init_server()
    END SUBROUTINE xios(init_server)
 
@@ -749,6 +752,9 @@ MODULE IDATA
    INTEGER,INTENT(OUT),OPTIONAL        :: return_comm
    INTEGER :: f_local_comm
    INTEGER :: f_return_comm
+
+      kfalse = cxios_set_logical_false()
+      ktrue = cxios_set_logical_true()
 
       IF (PRESENT(local_comm)) THEN
         f_local_comm=local_comm
@@ -780,8 +786,7 @@ MODULE IDATA
    LOGICAL(KIND=C_BOOL) :: is_init
 
       CALL cxios_context_is_initialized(context_id, LEN(context_id), is_init)
-      CALL xios_bool_to_logical_0d(is_init)
-      xios(context_is_initialized) = is_init
+      xios(context_is_initialized) = bool_to_logical(is_init)
 
     END FUNCTION xios(context_is_initialized)
 
@@ -1348,8 +1353,7 @@ MODULE IDATA
 
       CALL cxios_get_variable_data_k8(varId, len(varId), data_k8, val)
 
-      CALL xios_bool_to_logical_0d(val)
-      xios(getVar_k8) = val
+      xios(getVar_k8) = bool_to_logical(val)
    END FUNCTION xios(getVar_k8)
 
    LOGICAL FUNCTION xios(getVar_k4)(varId, data_k4)
@@ -1361,8 +1365,7 @@ MODULE IDATA
 
       CALL cxios_get_variable_data_k4(varId, len(varId), data_k4, val)
 
-      CALL xios_bool_to_logical_0d(val)
-      xios(getVar_k4) = val
+      xios(getVar_k4) = bool_to_logical(val)
    END FUNCTION xios(getVar_k4)
 
    LOGICAL FUNCTION xios(getVar_int)(varId, data_int)
@@ -1374,8 +1377,7 @@ MODULE IDATA
 
       CALL cxios_get_variable_data_int(varId, len(varId), data_int, val)
 
-      CALL xios_bool_to_logical_0d(val)
-      xios(getVar_int) = val
+      xios(getVar_int) = bool_to_logical(val)
    END FUNCTION xios(getVar_int)
 
    LOGICAL FUNCTION xios(getVar_logic)(varId, data_logic)
@@ -1387,11 +1389,9 @@ MODULE IDATA
       LOGICAL (C_BOOL)                              :: data_tmp
 
       CALL cxios_get_variable_data_logic(varId, len(varId), data_tmp, val)
-      CALL xios_bool_to_logical_0d(val)
-      xios(getVar_logic) = val
+      xios(getVar_logic) = bool_to_logical(val)
       IF (val) THEN
-         CALL xios_bool_to_logical_0d(data_tmp)
-         data_logic = data_tmp
+         data_logic = bool_to_logical(data_tmp)
       ENDIF
    END FUNCTION xios(getVar_logic)
 
@@ -1404,8 +1404,7 @@ MODULE IDATA
 
       CALL cxios_get_variable_data_char(varId, len(varId), data_char, len(data_char), val)
 
-      CALL xios_bool_to_logical_0d(val)
-      xios(getVar_char) = val
+      xios(getVar_char) = bool_to_logical(val)
    END FUNCTION xios(getVar_char)
 
    ! Set variable functions
@@ -1418,8 +1417,7 @@ MODULE IDATA
 
       CALL cxios_set_variable_data_k8(varId, len(varId), data_k8, val)
 
-      CALL xios_bool_to_logical_0d(val)
-      xios(setVar_k8) = val
+      xios(setVar_k8) = bool_to_logical(val)
    END FUNCTION xios(setVar_k8)
 
    LOGICAL FUNCTION xios(setVar_k4)(varId, data_k4)
@@ -1431,8 +1429,7 @@ MODULE IDATA
 
       CALL cxios_set_variable_data_k4(varId, len(varId), data_k4, val)
 
-      CALL xios_bool_to_logical_0d(val)
-      xios(setVar_k4) = val
+      xios(setVar_k4) = bool_to_logical(val)
    END FUNCTION xios(setVar_k4)
 
    LOGICAL FUNCTION xios(setVar_int)(varId, data_int)
@@ -1444,8 +1441,7 @@ MODULE IDATA
 
       CALL cxios_set_variable_data_int(varId, len(varId), data_int, val)
 
-      CALL xios_bool_to_logical_0d(val)
-      xios(setVar_int) = val
+      xios(setVar_int) = bool_to_logical(val)
    END FUNCTION xios(setVar_int)
 
    LOGICAL FUNCTION xios(setVar_logic)(varId, data_logic)
@@ -1454,14 +1450,10 @@ MODULE IDATA
       LOGICAL(kind = C_BOOL)                        :: val
       CHARACTER(len  = *)              , INTENT(IN) :: varId
       LOGICAL                          , INTENT(IN) :: data_logic
-      LOGICAL  (kind = C_BOOL)                      :: data_tmp
 
-      data_tmp = data_logic
-      CALL xios_logical_to_bool_0d(data_tmp)
-      CALL cxios_set_variable_data_logic(varId, len(varId), data_tmp, val)
+      CALL cxios_set_variable_data_logic(varId, len(varId), logical_to_bool(data_logic), val)
 
-      CALL xios_bool_to_logical_0d(val)
-      xios(setVar_logic) = val
+      xios(setVar_logic) = bool_to_logical(val)
    END FUNCTION xios(setVar_logic)
 
    LOGICAL FUNCTION xios(setVar_char)(varId, data_char)
@@ -1473,8 +1465,7 @@ MODULE IDATA
 
       CALL cxios_set_variable_data_char(varId, len(varId), data_char, len(data_char), val)
 
-      CALL xios_bool_to_logical_0d(val)
-      xios(setVar_char) = val
+      xios(setVar_char) = bool_to_logical(val)
    END FUNCTION xios(setVar_char)
 
 END MODULE IDATA

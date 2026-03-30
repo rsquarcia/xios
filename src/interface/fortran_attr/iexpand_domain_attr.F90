@@ -62,16 +62,14 @@ CONTAINS
 
       IF (PRESENT(i_periodic_)) THEN
         i_periodic__tmp = i_periodic_
-        CALL xios_logical_to_bool_0d(i_periodic__tmp)
         CALL cxios_set_expand_domain_i_periodic &
-      (expand_domain_hdl%daddr, i_periodic__tmp)
+      (expand_domain_hdl%daddr, logical_to_bool(i_periodic__tmp) )
       ENDIF
 
       IF (PRESENT(j_periodic_)) THEN
         j_periodic__tmp = j_periodic_
-        CALL xios_logical_to_bool_0d(j_periodic__tmp)
         CALL cxios_set_expand_domain_j_periodic &
-      (expand_domain_hdl%daddr, j_periodic__tmp)
+      (expand_domain_hdl%daddr, logical_to_bool(j_periodic__tmp) )
       ENDIF
 
       IF (PRESENT(order_)) THEN
@@ -138,15 +136,13 @@ CONTAINS
       IF (PRESENT(i_periodic_)) THEN
         CALL cxios_get_expand_domain_i_periodic &
       (expand_domain_hdl%daddr, i_periodic__tmp)
-        CALL xios_bool_to_logical_0d(i_periodic__tmp)
-        i_periodic_ = i_periodic__tmp
+        i_periodic_ = bool_to_logical( i_periodic__tmp )
       ENDIF
 
       IF (PRESENT(j_periodic_)) THEN
         CALL cxios_get_expand_domain_j_periodic &
       (expand_domain_hdl%daddr, j_periodic__tmp)
-        CALL xios_bool_to_logical_0d(j_periodic__tmp)
-        j_periodic_ = j_periodic__tmp
+        j_periodic_ = bool_to_logical( j_periodic__tmp )
       ENDIF
 
       IF (PRESENT(order_)) THEN

@@ -85,9 +85,8 @@ CONTAINS
 
       IF (PRESENT(extrapolate_)) THEN
         extrapolate__tmp = extrapolate_
-        CALL xios_logical_to_bool_0d(extrapolate__tmp)
         CALL cxios_set_interpolate_axis_extrapolate &
-      (interpolate_axis_hdl%daddr, extrapolate__tmp)
+      (interpolate_axis_hdl%daddr, logical_to_bool(extrapolate__tmp) )
       ENDIF
 
       IF (PRESENT(order_)) THEN
@@ -177,8 +176,7 @@ CONTAINS
       IF (PRESENT(extrapolate_)) THEN
         CALL cxios_get_interpolate_axis_extrapolate &
       (interpolate_axis_hdl%daddr, extrapolate__tmp)
-        CALL xios_bool_to_logical_0d(extrapolate__tmp)
-        extrapolate_ = extrapolate__tmp
+        extrapolate_ = bool_to_logical( extrapolate__tmp )
       ENDIF
 
       IF (PRESENT(order_)) THEN

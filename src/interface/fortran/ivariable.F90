@@ -40,8 +40,7 @@ MODULE IVARIABLE
       LOGICAL  (kind = 1)                 :: val
       
       CALL cxios_variable_valid_id(val, idt, len(idt))
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_variable) = val
+      xios(is_valid_variable) = bool_to_logical(val)
 
    END FUNCTION  xios(is_valid_variable)
 
@@ -51,8 +50,7 @@ MODULE IVARIABLE
       LOGICAL  (kind = 1)                 :: val
 
       CALL cxios_variablegroup_valid_id(val, idt, len(idt))
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_variablegroup) = val
+      xios(is_valid_variablegroup) = bool_to_logical(val)
 
    END FUNCTION  xios(is_valid_variablegroup)
 

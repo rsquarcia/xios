@@ -53,9 +53,8 @@ CONTAINS
 
       IF (PRESENT(local_)) THEN
         local__tmp = local_
-        CALL xios_logical_to_bool_0d(local__tmp)
         CALL cxios_set_reduce_domain_to_scalar_local &
-      (reduce_domain_to_scalar_hdl%daddr, local__tmp)
+      (reduce_domain_to_scalar_hdl%daddr, logical_to_bool(local__tmp) )
       ENDIF
 
       IF (PRESENT(operation_)) THEN
@@ -108,8 +107,7 @@ CONTAINS
       IF (PRESENT(local_)) THEN
         CALL cxios_get_reduce_domain_to_scalar_local &
       (reduce_domain_to_scalar_hdl%daddr, local__tmp)
-        CALL xios_bool_to_logical_0d(local__tmp)
-        local_ = local__tmp
+        local_ = bool_to_logical( local__tmp )
       ENDIF
 
       IF (PRESENT(operation_)) THEN

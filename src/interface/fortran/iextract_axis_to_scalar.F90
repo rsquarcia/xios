@@ -24,8 +24,7 @@ MODULE IEXTRACT_AXIS_TO_SCALAR
       LOGICAL  (kind = 1)                 :: val
 
       CALL cxios_extract_axis_to_scalar_valid_id(val, idt, len(idt))
-      CALL xios_bool_to_logical_0d(val)
-      xios(is_valid_extract_axis_to_scalar) = val
+      xios(is_valid_extract_axis_to_scalar) = bool_to_logical(val)
 
    END FUNCTION  xios(is_valid_extract_axis_to_scalar)
 
