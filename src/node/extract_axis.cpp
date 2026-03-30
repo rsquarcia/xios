@@ -53,7 +53,11 @@ namespace xios {
     {
       begin = min(this->index);
       end   = max(this->index);
-      n     = end - begin + 1;
+      n     = this->index.numElements();
+
+      vector<int> index_sort( this->index.data(), this->index.data() + this->index.numElements() );
+      std::sort( index_sort.begin(), index_sort.end() );
+      std::copy(index_sort.begin(), index_sort.end(), this->index.data());
     }
     else
     {
