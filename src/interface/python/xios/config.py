@@ -64,7 +64,7 @@ class Bool:
         if isinstance(value, bool):
             self._c_value = c_bool(value)
         else:
-            raise ValueError("Bool only accpets bool")
+            raise ValueError("Bool only accepts bool")
 
     @property
     def value(self):
@@ -75,6 +75,10 @@ class Bool:
 
     def __str__(self):
         return self.value
+    
+    def __bool__(self):
+        if self.value : return True
+        return False
         
 class Int:
     def __init__(self, value=0):
@@ -83,7 +87,7 @@ class Int:
         elif isinstance(value, Int):
             self._c_value = value._c_value
         else:
-            raise ValueError("xios.Int only accpets int or xios.Int")
+            raise ValueError("xios.Int only accepts int or xios.Int")
 
     @property
     def value(self):
@@ -132,7 +136,7 @@ class Double:
         elif isinstance(value, int):
             self._c_value = c_double(float(value))
         else:
-            raise ValueError("xios.Double only accpets float or int")
+            raise ValueError("xios.Double only accepts float or int")
 
     @property
     def value(self):

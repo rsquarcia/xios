@@ -6,6 +6,7 @@ from xios.icalendar import get_time_origin, set_time_origin, set_time_origin_dur
 from xios.iduration import Duration
 from xios.idate import Date
 from xios.obj import swipswap_ctx, current_context_id
+import numpy as np
 
 class Calendar:
 
@@ -60,12 +61,12 @@ class Calendar:
         month_lengths = NpArrayInt()
         get_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, month_lengths = month_lengths)
         swipswap_ctx(current_context_id)
-        return month_lengths
+        return month_lengths.value.tolist()
 
     @month_lengths.setter
     def month_lengths(self, value):
         current_context_id = swipswap_ctx(self._context_id)
-        value = NpArrayInt(value)
+        value = NpArrayInt(np.ascontiguousarray(value))
         set_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, month_lengths = value)
         swipswap_ctx(current_context_id)
 
@@ -79,7 +80,7 @@ class Calendar:
         year_length = Int()
         get_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, year_length = year_length)
         swipswap_ctx(current_context_id)
-        return year_length
+        return year_length.value
 
     @year_length.setter
     def year_length(self, value):
@@ -98,7 +99,7 @@ class Calendar:
         leap_year_drift = Int()
         get_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, leap_year_drift = leap_year_drift)
         swipswap_ctx(current_context_id)
-        return leap_year_drift
+        return leap_year_drift.value
 
     @leap_year_drift.setter
     def leap_year_drift(self, value):
@@ -117,7 +118,7 @@ class Calendar:
         leap_year_drift_offset = Int()
         get_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, leap_year_drift_offset = leap_year_drift_offset)
         swipswap_ctx(current_context_id)
-        return leap_year_drift_offset
+        return leap_year_drift_offset.value
 
     @leap_year_drift_offset.setter
     def leap_year_drift_offset(self, value):
@@ -136,7 +137,7 @@ class Calendar:
         leap_year_month = Int()
         get_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, leap_year_month = leap_year_month)
         swipswap_ctx(current_context_id)
-        return leap_year_month
+        return leap_year_month.value
 
     @leap_year_month.setter
     def leap_year_month(self, value):
@@ -155,7 +156,7 @@ class Calendar:
         comment = String()
         get_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, comment = comment)
         swipswap_ctx(current_context_id)
-        return comment
+        return comment.value
 
     @comment.setter
     def comment(self, value):
@@ -174,7 +175,7 @@ class Calendar:
         type_ = String()
         get_calendar_type(type_)
         swipswap_ctx(current_context_id)
-        return type_
+        return type_.value
 
     @type.setter
     def type(self, value):
