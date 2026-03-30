@@ -71,12 +71,15 @@ TRY
            << "Extract size is " << extractN_ );
   }
 
+  bool extractByIndex = !extractAxis->index.isEmpty() && (0 != extractAxis->index.numElements());
+
   int idxSrc, nDest = 0, beginDestLoc, beginDestGlo = 0 ;
   int indGloDest, indGloSrc, iSrc;
   for (int i = 0; i < axisSrc_->n.getValue(); i++)
   {
     idxSrc = axisSrc_->index(i);
-    if ((idxSrc >= extractBegin_) && (idxSrc <= extractEnd_))
+    if ( ( (!extractByIndex) && (idxSrc >= extractBegin_) && (idxSrc <= extractEnd_))
+         || ((extractByIndex) && (any(extractAxis->index == idxSrc))) )
     {
       if (nDest == 0) beginDestLoc = i;
       ++nDest;
@@ -113,13 +116,36 @@ TRY
       idxMin = sourceGlobalIdx(countSrc);
   }
 
+  int countExtracted = 0;
+  int countExtractedBegin = 0;
+  if ( (extractByIndex) && (axisSrc_->index.numElements()>0) )
+  {
+    for( int i=0 ; i<extractAxis->index.numElements() ; i++ )
+    {
+        int isDstIdxInLocal = extractAxis->index(i);
+        if ( any( isDstIdxInLocal == axisSrc_->index ) )
+        {
+          countExtractedBegin = i ;
+          break;
+        }
+    }
+  }
+
   int countDest(0); // increment of the position in destination domain 
   for (int countSrc = 0; countSrc < indexSize ; ++countSrc)
   {
     int idxSrc = sourceGlobalIdx(countSrc);
-    if ( (idxSrc >= extractBegin_) && (idxSrc <= extractEnd_) )
+    if ( ( (!extractByIndex) && (idxSrc >= extractBegin_) && (idxSrc <= extractEnd_))
+         || ((extractByIndex) && (any(extractAxis->index == idxSrc))) )
     {
-      axisDest_->index(countDest) = idxSrc-extractBegin_;
+      int globalDstIdx =-1;
+      if (!extractByIndex) globalDstIdx = idxSrc-extractBegin_;
+      else
+      {
+        globalDstIdx = countExtracted + countExtractedBegin ;
+        countExtracted++;
+      }
+      axisDest_->index(countDest) = globalDstIdx;
 
       // ------------------ define transformation only if in the WF ------------------ 
       int iIdxSrc2 = (countSrc+idxMin)%axisSource->n_glo;
@@ -136,7 +162,7 @@ TRY
 
       if (concerned_by_WF)
       {
-        transformationMapping_[idxSrc-extractBegin_]=sourceGlobalIdx(countSrc);
+        transformationMapping_[globalDstIdx]=sourceGlobalIdx(countSrc);
         axisDest_->data_index( countDest ) = countDest;
       }
       // -----------------------------------------------------------------------------
