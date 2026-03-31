@@ -1,6 +1,4 @@
-from xios import Domain
-from xios import Axis
-from xios import Context
+from xios.ocontext import Context
 
 class Filter:
 

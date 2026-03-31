@@ -18,31 +18,31 @@ from xios.oredistribute_axis_attr import RedistributeAxis
 
 
 lib.cxios_get_redistribute_axis_index.argtypes = [RedistributeAxis, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_redistribute_axis_index.restypes = None
+lib.cxios_get_redistribute_axis_index.restype = None
 
 lib.cxios_set_redistribute_axis_index.argtypes = [RedistributeAxis, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_redistribute_axis_index.restypes = None
+lib.cxios_set_redistribute_axis_index.restype = None
 
 lib.cxios_is_defined_redistribute_axis_index.argtypes = [RedistributeAxis]
-lib.cxios_is_defined_redistribute_axis_index.restypes = ctypes.c_bool
+lib.cxios_is_defined_redistribute_axis_index.restype = ctypes.c_bool
 
 lib.cxios_get_redistribute_axis_mask.argtypes = [RedistributeAxis, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_redistribute_axis_mask.restypes = None
+lib.cxios_get_redistribute_axis_mask.restype = None
 
 lib.cxios_set_redistribute_axis_mask.argtypes = [RedistributeAxis, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_redistribute_axis_mask.restypes = None
+lib.cxios_set_redistribute_axis_mask.restype = None
 
 lib.cxios_is_defined_redistribute_axis_mask.argtypes = [RedistributeAxis]
-lib.cxios_is_defined_redistribute_axis_mask.restypes = ctypes.c_bool
+lib.cxios_is_defined_redistribute_axis_mask.restype = ctypes.c_bool
 
 lib.cxios_get_redistribute_axis_type.argtypes = [RedistributeAxis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_redistribute_axis_type.restypes = None
+lib.cxios_get_redistribute_axis_type.restype = None
 
 lib.cxios_set_redistribute_axis_type.argtypes = [RedistributeAxis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_redistribute_axis_type.restypes = None
+lib.cxios_set_redistribute_axis_type.restype = None
 
 lib.cxios_is_defined_redistribute_axis_type.argtypes = [RedistributeAxis]
-lib.cxios_is_defined_redistribute_axis_type.restypes = ctypes.c_bool
+lib.cxios_is_defined_redistribute_axis_type.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #
@@ -148,7 +148,7 @@ type_ : Optional[String] = None):
     if index_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_redistribute_axis_index_shape(redistribute_axis_hdl, shape_c)
-      index_.arr = np.zeros(shape_c[0], order = 'F')
+      index_.arr = np.zeros(shape_c[0])
       lib.cxios_get_redistribute_axis_index(redistribute_axis_hdl, index_._c_value, shape_c)
     else: 
       index_c = index_._c_value
@@ -163,7 +163,7 @@ type_ : Optional[String] = None):
     if mask_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_redistribute_axis_mask_shape(redistribute_axis_hdl, shape_c)
-      mask_.arr = np.zeros(shape_c[0], order = 'F')
+      mask_.arr = np.zeros(shape_c[0])
       lib.cxios_get_redistribute_axis_mask(redistribute_axis_hdl, mask_._c_value, shape_c)
     else: 
       mask_c = mask_._c_value

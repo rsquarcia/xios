@@ -18,31 +18,31 @@ from xios.oredistribute_scalar_attr import RedistributeScalar
 
 
 lib.cxios_get_redistribute_scalar_index.argtypes = [RedistributeScalar, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_redistribute_scalar_index.restypes = None
+lib.cxios_get_redistribute_scalar_index.restype = None
 
 lib.cxios_set_redistribute_scalar_index.argtypes = [RedistributeScalar, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_redistribute_scalar_index.restypes = None
+lib.cxios_set_redistribute_scalar_index.restype = None
 
 lib.cxios_is_defined_redistribute_scalar_index.argtypes = [RedistributeScalar]
-lib.cxios_is_defined_redistribute_scalar_index.restypes = ctypes.c_bool
+lib.cxios_is_defined_redistribute_scalar_index.restype = ctypes.c_bool
 
 lib.cxios_get_redistribute_scalar_mask.argtypes = [RedistributeScalar, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_redistribute_scalar_mask.restypes = None
+lib.cxios_get_redistribute_scalar_mask.restype = None
 
 lib.cxios_set_redistribute_scalar_mask.argtypes = [RedistributeScalar, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_redistribute_scalar_mask.restypes = None
+lib.cxios_set_redistribute_scalar_mask.restype = None
 
 lib.cxios_is_defined_redistribute_scalar_mask.argtypes = [RedistributeScalar]
-lib.cxios_is_defined_redistribute_scalar_mask.restypes = ctypes.c_bool
+lib.cxios_is_defined_redistribute_scalar_mask.restype = ctypes.c_bool
 
 lib.cxios_get_redistribute_scalar_type.argtypes = [RedistributeScalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_redistribute_scalar_type.restypes = None
+lib.cxios_get_redistribute_scalar_type.restype = None
 
 lib.cxios_set_redistribute_scalar_type.argtypes = [RedistributeScalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_redistribute_scalar_type.restypes = None
+lib.cxios_set_redistribute_scalar_type.restype = None
 
 lib.cxios_is_defined_redistribute_scalar_type.argtypes = [RedistributeScalar]
-lib.cxios_is_defined_redistribute_scalar_type.restypes = ctypes.c_bool
+lib.cxios_is_defined_redistribute_scalar_type.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #
@@ -148,7 +148,7 @@ type_ : Optional[String] = None):
     if index_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_redistribute_scalar_index_shape(redistribute_scalar_hdl, shape_c)
-      index_.arr = np.zeros(shape_c[0], order = 'F')
+      index_.arr = np.zeros(shape_c[0])
       lib.cxios_get_redistribute_scalar_index(redistribute_scalar_hdl, index_._c_value, shape_c)
     else: 
       index_c = index_._c_value
@@ -163,7 +163,7 @@ type_ : Optional[String] = None):
     if mask_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_redistribute_scalar_mask_shape(redistribute_scalar_hdl, shape_c)
-      mask_.arr = np.zeros(shape_c[0], order = 'F')
+      mask_.arr = np.zeros(shape_c[0])
       lib.cxios_get_redistribute_scalar_mask(redistribute_scalar_hdl, mask_._c_value, shape_c)
     else: 
       mask_c = mask_._c_value

@@ -1,11 +1,12 @@
-from xios.config import String, Int, Double, NpArrayInt, Bool
+from xios.config import String, Int, Bool, NpArrayInt
 from xios.icalendar_wrapper import CalendarWrapper, get_default_calendar_wrapper_handle
 from xios.icalendar_wrapper_attr import set_calendar_wrapper_attr_hdl, get_calendar_wrapper_attr_hdl, is_defined_calendar_wrapper_attr_hdl
 from xios.icalendar import get_timestep, set_timestep, get_start_date, set_start_date, set_start_date_dur, get_current_date
-from xios.icalendar import get_time_origin, set_time_origin, set_time_origin_dur, get_calendar_type, update_calendar
+from xios.icalendar import get_time_origin, set_time_origin, set_time_origin_dur, get_calendar_type, update_calendar, define_calendar
 from xios.iduration import Duration
 from xios.idate import Date
 from xios.obj import swipswap_ctx, current_context_id
+import numpy as np
 
 class Calendar:
 
@@ -13,6 +14,15 @@ class Calendar:
         self._context_id = current_context_id()
         self._calendar_wrapper_hdl = CalendarWrapper()
         get_default_calendar_wrapper_handle(self._calendar_wrapper_hdl)
+        self._is_defined = False
+
+    def define(self, type, timestep = None, start_date = None, time_origin = None, day_length = None,
+                    month_lengths = None, year_length = None, leap_year_month = None, leap_year_drift = None,
+                    leap_year_drift_offset = None):
+        if not self._is_defined : define_calendar(type, timestep, start_date, time_origin, day_length, month_lengths, year_length, 
+                        leap_year_month, leap_year_drift, leap_year_drift_offset)
+        else : raise RuntimeError(f"The calendar can be defined only once !")
+        self._is_defined = True
 
     def set_attr(self, type = None, timestep = None, start_date = None, time_origin = None,
                  day_length = None, month_lengths = None, year_length = None,
@@ -57,15 +67,15 @@ class Calendar:
         if not is_month_lengths.value:
             raise RuntimeError(f"The attribute month lengths has not yet been set for the calendar of the context {self._context_id} !")
         current_context_id = swipswap_ctx(self._context_id)
-        month_lengths = Int()
+        month_lengths = NpArrayInt()
         get_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, month_lengths = month_lengths)
         swipswap_ctx(current_context_id)
-        return month_lengths
+        return month_lengths.value.tolist()
 
     @month_lengths.setter
     def month_lengths(self, value):
         current_context_id = swipswap_ctx(self._context_id)
-        value = Int(value)
+        value = NpArrayInt(np.ascontiguousarray(value))
         set_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, month_lengths = value)
         swipswap_ctx(current_context_id)
 
@@ -79,7 +89,7 @@ class Calendar:
         year_length = Int()
         get_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, year_length = year_length)
         swipswap_ctx(current_context_id)
-        return year_length
+        return year_length.value
 
     @year_length.setter
     def year_length(self, value):
@@ -98,7 +108,7 @@ class Calendar:
         leap_year_drift = Int()
         get_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, leap_year_drift = leap_year_drift)
         swipswap_ctx(current_context_id)
-        return leap_year_drift
+        return leap_year_drift.value
 
     @leap_year_drift.setter
     def leap_year_drift(self, value):
@@ -117,7 +127,7 @@ class Calendar:
         leap_year_drift_offset = Int()
         get_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, leap_year_drift_offset = leap_year_drift_offset)
         swipswap_ctx(current_context_id)
-        return leap_year_drift_offset
+        return leap_year_drift_offset.value
 
     @leap_year_drift_offset.setter
     def leap_year_drift_offset(self, value):
@@ -136,7 +146,7 @@ class Calendar:
         leap_year_month = Int()
         get_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, leap_year_month = leap_year_month)
         swipswap_ctx(current_context_id)
-        return leap_year_month
+        return leap_year_month.value
 
     @leap_year_month.setter
     def leap_year_month(self, value):
@@ -155,7 +165,7 @@ class Calendar:
         comment = String()
         get_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, comment = comment)
         swipswap_ctx(current_context_id)
-        return comment
+        return comment.value
 
     @comment.setter
     def comment(self, value):
@@ -174,13 +184,16 @@ class Calendar:
         type_ = String()
         get_calendar_type(type_)
         swipswap_ctx(current_context_id)
-        return type_
+        return type_.value
 
     @type.setter
     def type(self, value):
         current_context_id = swipswap_ctx(self._context_id)
         value = String(value)
         set_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, type = value)
+        if not self._is_defined : define_calendar(value)
+        else : raise RuntimeError(f"The calendar (type) can be defined only once !")
+        self._is_defined = True
         swipswap_ctx(current_context_id)
 
     @property

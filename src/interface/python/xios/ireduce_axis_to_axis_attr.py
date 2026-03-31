@@ -18,13 +18,13 @@ from xios.oreduce_axis_to_axis_attr import ReduceAxisToAxis
 
 
 lib.cxios_get_reduce_axis_to_axis_operation.argtypes = [ReduceAxisToAxis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_reduce_axis_to_axis_operation.restypes = None
+lib.cxios_get_reduce_axis_to_axis_operation.restype = None
 
 lib.cxios_set_reduce_axis_to_axis_operation.argtypes = [ReduceAxisToAxis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_reduce_axis_to_axis_operation.restypes = None
+lib.cxios_set_reduce_axis_to_axis_operation.restype = None
 
 lib.cxios_is_defined_reduce_axis_to_axis_operation.argtypes = [ReduceAxisToAxis]
-lib.cxios_is_defined_reduce_axis_to_axis_operation.restypes = ctypes.c_bool
+lib.cxios_is_defined_reduce_axis_to_axis_operation.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #

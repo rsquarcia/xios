@@ -18,337 +18,337 @@ from xios.ofield import Field
 
 
 lib.cxios_get_field_add_offset.argtypes = [Field, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_field_add_offset.restypes = None
+lib.cxios_get_field_add_offset.restype = None
 
 lib.cxios_set_field_add_offset.argtypes = [Field, ctypes.c_double]
-lib.cxios_set_field_add_offset.restypes = None
+lib.cxios_set_field_add_offset.restype = None
 
 lib.cxios_is_defined_field_add_offset.argtypes = [Field]
-lib.cxios_is_defined_field_add_offset.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_add_offset.restype = ctypes.c_bool
 
 lib.cxios_get_field_axis_ref.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_field_axis_ref.restypes = None
+lib.cxios_get_field_axis_ref.restype = None
 
 lib.cxios_set_field_axis_ref.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_field_axis_ref.restypes = None
+lib.cxios_set_field_axis_ref.restype = None
 
 lib.cxios_is_defined_field_axis_ref.argtypes = [Field]
-lib.cxios_is_defined_field_axis_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_axis_ref.restype = ctypes.c_bool
 
 lib.cxios_get_field_build_workflow_graph.argtypes = [Field, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_field_build_workflow_graph.restypes = None
+lib.cxios_get_field_build_workflow_graph.restype = None
 
 lib.cxios_set_field_build_workflow_graph.argtypes = [Field, ctypes.c_bool]
-lib.cxios_set_field_build_workflow_graph.restypes = None
+lib.cxios_set_field_build_workflow_graph.restype = None
 
 lib.cxios_is_defined_field_build_workflow_graph.argtypes = [Field]
-lib.cxios_is_defined_field_build_workflow_graph.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_build_workflow_graph.restype = ctypes.c_bool
 
 lib.cxios_get_field_cell_methods.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_field_cell_methods.restypes = None
+lib.cxios_get_field_cell_methods.restype = None
 
 lib.cxios_set_field_cell_methods.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_field_cell_methods.restypes = None
+lib.cxios_set_field_cell_methods.restype = None
 
 lib.cxios_is_defined_field_cell_methods.argtypes = [Field]
-lib.cxios_is_defined_field_cell_methods.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_cell_methods.restype = ctypes.c_bool
 
 lib.cxios_get_field_cell_methods_mode.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_field_cell_methods_mode.restypes = None
+lib.cxios_get_field_cell_methods_mode.restype = None
 
 lib.cxios_set_field_cell_methods_mode.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_field_cell_methods_mode.restypes = None
+lib.cxios_set_field_cell_methods_mode.restype = None
 
 lib.cxios_is_defined_field_cell_methods_mode.argtypes = [Field]
-lib.cxios_is_defined_field_cell_methods_mode.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_cell_methods_mode.restype = ctypes.c_bool
 
 lib.cxios_get_field_check_if_active.argtypes = [Field, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_field_check_if_active.restypes = None
+lib.cxios_get_field_check_if_active.restype = None
 
 lib.cxios_set_field_check_if_active.argtypes = [Field, ctypes.c_bool]
-lib.cxios_set_field_check_if_active.restypes = None
+lib.cxios_set_field_check_if_active.restype = None
 
 lib.cxios_is_defined_field_check_if_active.argtypes = [Field]
-lib.cxios_is_defined_field_check_if_active.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_check_if_active.restype = ctypes.c_bool
 
 lib.cxios_get_field_chunking_blocksize_target.argtypes = [Field, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_field_chunking_blocksize_target.restypes = None
+lib.cxios_get_field_chunking_blocksize_target.restype = None
 
 lib.cxios_set_field_chunking_blocksize_target.argtypes = [Field, ctypes.c_double]
-lib.cxios_set_field_chunking_blocksize_target.restypes = None
+lib.cxios_set_field_chunking_blocksize_target.restype = None
 
 lib.cxios_is_defined_field_chunking_blocksize_target.argtypes = [Field]
-lib.cxios_is_defined_field_chunking_blocksize_target.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_chunking_blocksize_target.restype = ctypes.c_bool
 
 lib.cxios_get_field_comment.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_field_comment.restypes = None
+lib.cxios_get_field_comment.restype = None
 
 lib.cxios_set_field_comment.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_field_comment.restypes = None
+lib.cxios_set_field_comment.restype = None
 
 lib.cxios_is_defined_field_comment.argtypes = [Field]
-lib.cxios_is_defined_field_comment.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_comment.restype = ctypes.c_bool
 
 lib.cxios_get_field_compression_level.argtypes = [Field, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_field_compression_level.restypes = None
+lib.cxios_get_field_compression_level.restype = None
 
 lib.cxios_set_field_compression_level.argtypes = [Field, ctypes.c_int]
-lib.cxios_set_field_compression_level.restypes = None
+lib.cxios_set_field_compression_level.restype = None
 
 lib.cxios_is_defined_field_compression_level.argtypes = [Field]
-lib.cxios_is_defined_field_compression_level.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_compression_level.restype = ctypes.c_bool
 
 lib.cxios_get_field_compression_params.argtypes = [Field, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_field_compression_params.restypes = None
+lib.cxios_get_field_compression_params.restype = None
 
 lib.cxios_set_field_compression_params.argtypes = [Field, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_field_compression_params.restypes = None
+lib.cxios_set_field_compression_params.restype = None
 
 lib.cxios_is_defined_field_compression_params.argtypes = [Field]
-lib.cxios_is_defined_field_compression_params.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_compression_params.restype = ctypes.c_bool
 
 lib.cxios_get_field_compression_type.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_field_compression_type.restypes = None
+lib.cxios_get_field_compression_type.restype = None
 
 lib.cxios_set_field_compression_type.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_field_compression_type.restypes = None
+lib.cxios_set_field_compression_type.restype = None
 
 lib.cxios_is_defined_field_compression_type.argtypes = [Field]
-lib.cxios_is_defined_field_compression_type.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_compression_type.restype = ctypes.c_bool
 
 lib.cxios_get_field_conversion_by_netcdf.argtypes = [Field, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_field_conversion_by_netcdf.restypes = None
+lib.cxios_get_field_conversion_by_netcdf.restype = None
 
 lib.cxios_set_field_conversion_by_netcdf.argtypes = [Field, ctypes.c_bool]
-lib.cxios_set_field_conversion_by_netcdf.restypes = None
+lib.cxios_set_field_conversion_by_netcdf.restype = None
 
 lib.cxios_is_defined_field_conversion_by_netcdf.argtypes = [Field]
-lib.cxios_is_defined_field_conversion_by_netcdf.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_conversion_by_netcdf.restype = ctypes.c_bool
 
 lib.cxios_get_field_default_value.argtypes = [Field, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_field_default_value.restypes = None
+lib.cxios_get_field_default_value.restype = None
 
 lib.cxios_set_field_default_value.argtypes = [Field, ctypes.c_double]
-lib.cxios_set_field_default_value.restypes = None
+lib.cxios_set_field_default_value.restype = None
 
 lib.cxios_is_defined_field_default_value.argtypes = [Field]
-lib.cxios_is_defined_field_default_value.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_default_value.restype = ctypes.c_bool
 
 lib.cxios_get_field_detect_missing_value.argtypes = [Field, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_field_detect_missing_value.restypes = None
+lib.cxios_get_field_detect_missing_value.restype = None
 
 lib.cxios_set_field_detect_missing_value.argtypes = [Field, ctypes.c_bool]
-lib.cxios_set_field_detect_missing_value.restypes = None
+lib.cxios_set_field_detect_missing_value.restype = None
 
 lib.cxios_is_defined_field_detect_missing_value.argtypes = [Field]
-lib.cxios_is_defined_field_detect_missing_value.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_detect_missing_value.restype = ctypes.c_bool
 
 lib.cxios_get_field_domain_ref.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_field_domain_ref.restypes = None
+lib.cxios_get_field_domain_ref.restype = None
 
 lib.cxios_set_field_domain_ref.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_field_domain_ref.restypes = None
+lib.cxios_set_field_domain_ref.restype = None
 
 lib.cxios_is_defined_field_domain_ref.argtypes = [Field]
-lib.cxios_is_defined_field_domain_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_domain_ref.restype = ctypes.c_bool
 
 lib.cxios_get_field_enabled.argtypes = [Field, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_field_enabled.restypes = None
+lib.cxios_get_field_enabled.restype = None
 
 lib.cxios_set_field_enabled.argtypes = [Field, ctypes.c_bool]
-lib.cxios_set_field_enabled.restypes = None
+lib.cxios_set_field_enabled.restype = None
 
 lib.cxios_is_defined_field_enabled.argtypes = [Field]
-lib.cxios_is_defined_field_enabled.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_enabled.restype = ctypes.c_bool
 
 lib.cxios_get_field_expr.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_field_expr.restypes = None
+lib.cxios_get_field_expr.restype = None
 
 lib.cxios_set_field_expr.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_field_expr.restypes = None
+lib.cxios_set_field_expr.restype = None
 
 lib.cxios_is_defined_field_expr.argtypes = [Field]
-lib.cxios_is_defined_field_expr.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_expr.restype = ctypes.c_bool
 
 lib.cxios_get_field_field_ref.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_field_field_ref.restypes = None
+lib.cxios_get_field_field_ref.restype = None
 
 lib.cxios_set_field_field_ref.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_field_field_ref.restypes = None
+lib.cxios_set_field_field_ref.restype = None
 
 lib.cxios_is_defined_field_field_ref.argtypes = [Field]
-lib.cxios_is_defined_field_field_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_field_ref.restype = ctypes.c_bool
 
 lib.cxios_get_field_freq_offset.argtypes = [Field, ctypes.POINTER(Duration)]
-lib.cxios_get_field_freq_offset.restypes = None
+lib.cxios_get_field_freq_offset.restype = None
 
 lib.cxios_set_field_freq_offset.argtypes = [Field, Duration]
-lib.cxios_set_field_freq_offset.restypes = None
+lib.cxios_set_field_freq_offset.restype = None
 
 lib.cxios_is_defined_field_freq_offset.argtypes = [Field]
-lib.cxios_is_defined_field_freq_offset.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_freq_offset.restype = ctypes.c_bool
 
 lib.cxios_get_field_freq_op.argtypes = [Field, ctypes.POINTER(Duration)]
-lib.cxios_get_field_freq_op.restypes = None
+lib.cxios_get_field_freq_op.restype = None
 
 lib.cxios_set_field_freq_op.argtypes = [Field, Duration]
-lib.cxios_set_field_freq_op.restypes = None
+lib.cxios_set_field_freq_op.restype = None
 
 lib.cxios_is_defined_field_freq_op.argtypes = [Field]
-lib.cxios_is_defined_field_freq_op.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_freq_op.restype = ctypes.c_bool
 
 lib.cxios_get_field_grid_path.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_field_grid_path.restypes = None
+lib.cxios_get_field_grid_path.restype = None
 
 lib.cxios_set_field_grid_path.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_field_grid_path.restypes = None
+lib.cxios_set_field_grid_path.restype = None
 
 lib.cxios_is_defined_field_grid_path.argtypes = [Field]
-lib.cxios_is_defined_field_grid_path.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_grid_path.restype = ctypes.c_bool
 
 lib.cxios_get_field_grid_ref.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_field_grid_ref.restypes = None
+lib.cxios_get_field_grid_ref.restype = None
 
 lib.cxios_set_field_grid_ref.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_field_grid_ref.restypes = None
+lib.cxios_set_field_grid_ref.restype = None
 
 lib.cxios_is_defined_field_grid_ref.argtypes = [Field]
-lib.cxios_is_defined_field_grid_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_grid_ref.restype = ctypes.c_bool
 
 lib.cxios_get_field_indexed_output.argtypes = [Field, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_field_indexed_output.restypes = None
+lib.cxios_get_field_indexed_output.restype = None
 
 lib.cxios_set_field_indexed_output.argtypes = [Field, ctypes.c_bool]
-lib.cxios_set_field_indexed_output.restypes = None
+lib.cxios_set_field_indexed_output.restype = None
 
 lib.cxios_is_defined_field_indexed_output.argtypes = [Field]
-lib.cxios_is_defined_field_indexed_output.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_indexed_output.restype = ctypes.c_bool
 
 lib.cxios_get_field_level.argtypes = [Field, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_field_level.restypes = None
+lib.cxios_get_field_level.restype = None
 
 lib.cxios_set_field_level.argtypes = [Field, ctypes.c_int]
-lib.cxios_set_field_level.restypes = None
+lib.cxios_set_field_level.restype = None
 
 lib.cxios_is_defined_field_level.argtypes = [Field]
-lib.cxios_is_defined_field_level.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_level.restype = ctypes.c_bool
 
 lib.cxios_get_field_long_name.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_field_long_name.restypes = None
+lib.cxios_get_field_long_name.restype = None
 
 lib.cxios_set_field_long_name.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_field_long_name.restypes = None
+lib.cxios_set_field_long_name.restype = None
 
 lib.cxios_is_defined_field_long_name.argtypes = [Field]
-lib.cxios_is_defined_field_long_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_long_name.restype = ctypes.c_bool
 
 lib.cxios_get_field_name.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_field_name.restypes = None
+lib.cxios_get_field_name.restype = None
 
 lib.cxios_set_field_name.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_field_name.restypes = None
+lib.cxios_set_field_name.restype = None
 
 lib.cxios_is_defined_field_name.argtypes = [Field]
-lib.cxios_is_defined_field_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_name.restype = ctypes.c_bool
 
 lib.cxios_get_field_operation.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_field_operation.restypes = None
+lib.cxios_get_field_operation.restype = None
 
 lib.cxios_set_field_operation.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_field_operation.restypes = None
+lib.cxios_set_field_operation.restype = None
 
 lib.cxios_is_defined_field_operation.argtypes = [Field]
-lib.cxios_is_defined_field_operation.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_operation.restype = ctypes.c_bool
 
 lib.cxios_get_field_prec.argtypes = [Field, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_field_prec.restypes = None
+lib.cxios_get_field_prec.restype = None
 
 lib.cxios_set_field_prec.argtypes = [Field, ctypes.c_int]
-lib.cxios_set_field_prec.restypes = None
+lib.cxios_set_field_prec.restype = None
 
 lib.cxios_is_defined_field_prec.argtypes = [Field]
-lib.cxios_is_defined_field_prec.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_prec.restype = ctypes.c_bool
 
 lib.cxios_get_field_read_access.argtypes = [Field, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_field_read_access.restypes = None
+lib.cxios_get_field_read_access.restype = None
 
 lib.cxios_set_field_read_access.argtypes = [Field, ctypes.c_bool]
-lib.cxios_set_field_read_access.restypes = None
+lib.cxios_set_field_read_access.restype = None
 
 lib.cxios_is_defined_field_read_access.argtypes = [Field]
-lib.cxios_is_defined_field_read_access.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_read_access.restype = ctypes.c_bool
 
 lib.cxios_get_field_scalar_ref.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_field_scalar_ref.restypes = None
+lib.cxios_get_field_scalar_ref.restype = None
 
 lib.cxios_set_field_scalar_ref.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_field_scalar_ref.restypes = None
+lib.cxios_set_field_scalar_ref.restype = None
 
 lib.cxios_is_defined_field_scalar_ref.argtypes = [Field]
-lib.cxios_is_defined_field_scalar_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_scalar_ref.restype = ctypes.c_bool
 
 lib.cxios_get_field_scale_factor.argtypes = [Field, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_field_scale_factor.restypes = None
+lib.cxios_get_field_scale_factor.restype = None
 
 lib.cxios_set_field_scale_factor.argtypes = [Field, ctypes.c_double]
-lib.cxios_set_field_scale_factor.restypes = None
+lib.cxios_set_field_scale_factor.restype = None
 
 lib.cxios_is_defined_field_scale_factor.argtypes = [Field]
-lib.cxios_is_defined_field_scale_factor.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_scale_factor.restype = ctypes.c_bool
 
 lib.cxios_get_field_standard_name.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_field_standard_name.restypes = None
+lib.cxios_get_field_standard_name.restype = None
 
 lib.cxios_set_field_standard_name.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_field_standard_name.restypes = None
+lib.cxios_set_field_standard_name.restype = None
 
 lib.cxios_is_defined_field_standard_name.argtypes = [Field]
-lib.cxios_is_defined_field_standard_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_standard_name.restype = ctypes.c_bool
 
 lib.cxios_get_field_ts_enabled.argtypes = [Field, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_field_ts_enabled.restypes = None
+lib.cxios_get_field_ts_enabled.restype = None
 
 lib.cxios_set_field_ts_enabled.argtypes = [Field, ctypes.c_bool]
-lib.cxios_set_field_ts_enabled.restypes = None
+lib.cxios_set_field_ts_enabled.restype = None
 
 lib.cxios_is_defined_field_ts_enabled.argtypes = [Field]
-lib.cxios_is_defined_field_ts_enabled.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_ts_enabled.restype = ctypes.c_bool
 
 lib.cxios_get_field_ts_split_freq.argtypes = [Field, ctypes.POINTER(Duration)]
-lib.cxios_get_field_ts_split_freq.restypes = None
+lib.cxios_get_field_ts_split_freq.restype = None
 
 lib.cxios_set_field_ts_split_freq.argtypes = [Field, Duration]
-lib.cxios_set_field_ts_split_freq.restypes = None
+lib.cxios_set_field_ts_split_freq.restype = None
 
 lib.cxios_is_defined_field_ts_split_freq.argtypes = [Field]
-lib.cxios_is_defined_field_ts_split_freq.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_ts_split_freq.restype = ctypes.c_bool
 
 lib.cxios_get_field_unit.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_field_unit.restypes = None
+lib.cxios_get_field_unit.restype = None
 
 lib.cxios_set_field_unit.argtypes = [Field, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_field_unit.restypes = None
+lib.cxios_set_field_unit.restype = None
 
 lib.cxios_is_defined_field_unit.argtypes = [Field]
-lib.cxios_is_defined_field_unit.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_unit.restype = ctypes.c_bool
 
 lib.cxios_get_field_valid_max.argtypes = [Field, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_field_valid_max.restypes = None
+lib.cxios_get_field_valid_max.restype = None
 
 lib.cxios_set_field_valid_max.argtypes = [Field, ctypes.c_double]
-lib.cxios_set_field_valid_max.restypes = None
+lib.cxios_set_field_valid_max.restype = None
 
 lib.cxios_is_defined_field_valid_max.argtypes = [Field]
-lib.cxios_is_defined_field_valid_max.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_valid_max.restype = ctypes.c_bool
 
 lib.cxios_get_field_valid_min.argtypes = [Field, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_field_valid_min.restypes = None
+lib.cxios_get_field_valid_min.restype = None
 
 lib.cxios_set_field_valid_min.argtypes = [Field, ctypes.c_double]
-lib.cxios_set_field_valid_min.restypes = None
+lib.cxios_set_field_valid_min.restype = None
 
 lib.cxios_is_defined_field_valid_min.argtypes = [Field]
-lib.cxios_is_defined_field_valid_min.restypes = ctypes.c_bool
+lib.cxios_is_defined_field_valid_min.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #
@@ -905,7 +905,7 @@ valid_min_ : Optional[Double] = None):
     if compression_params_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_field_compression_params_shape(field_hdl, shape_c)
-      compression_params_.arr = np.zeros(shape_c[0], order = 'F')
+      compression_params_.arr = np.zeros(shape_c[0])
       lib.cxios_get_field_compression_params(field_hdl, compression_params_._c_value, shape_c)
     else: 
       compression_params_c = compression_params_._c_value

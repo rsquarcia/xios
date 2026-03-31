@@ -18,31 +18,31 @@ from xios.ozoom_axis_attr import ZoomAxis
 
 
 lib.cxios_get_zoom_axis_begin.argtypes = [ZoomAxis, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_zoom_axis_begin.restypes = None
+lib.cxios_get_zoom_axis_begin.restype = None
 
 lib.cxios_set_zoom_axis_begin.argtypes = [ZoomAxis, ctypes.c_int]
-lib.cxios_set_zoom_axis_begin.restypes = None
+lib.cxios_set_zoom_axis_begin.restype = None
 
 lib.cxios_is_defined_zoom_axis_begin.argtypes = [ZoomAxis]
-lib.cxios_is_defined_zoom_axis_begin.restypes = ctypes.c_bool
+lib.cxios_is_defined_zoom_axis_begin.restype = ctypes.c_bool
 
 lib.cxios_get_zoom_axis_index.argtypes = [ZoomAxis, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_zoom_axis_index.restypes = None
+lib.cxios_get_zoom_axis_index.restype = None
 
 lib.cxios_set_zoom_axis_index.argtypes = [ZoomAxis, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_zoom_axis_index.restypes = None
+lib.cxios_set_zoom_axis_index.restype = None
 
 lib.cxios_is_defined_zoom_axis_index.argtypes = [ZoomAxis]
-lib.cxios_is_defined_zoom_axis_index.restypes = ctypes.c_bool
+lib.cxios_is_defined_zoom_axis_index.restype = ctypes.c_bool
 
 lib.cxios_get_zoom_axis_n.argtypes = [ZoomAxis, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_zoom_axis_n.restypes = None
+lib.cxios_get_zoom_axis_n.restype = None
 
 lib.cxios_set_zoom_axis_n.argtypes = [ZoomAxis, ctypes.c_int]
-lib.cxios_set_zoom_axis_n.restypes = None
+lib.cxios_set_zoom_axis_n.restype = None
 
 lib.cxios_is_defined_zoom_axis_n.argtypes = [ZoomAxis]
-lib.cxios_is_defined_zoom_axis_n.restypes = ctypes.c_bool
+lib.cxios_is_defined_zoom_axis_n.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #
@@ -151,7 +151,7 @@ n_ : Optional[Int] = None):
     if index_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_zoom_axis_index_shape(zoom_axis_hdl, shape_c)
-      index_.arr = np.zeros(shape_c[0], order = 'F')
+      index_.arr = np.zeros(shape_c[0])
       lib.cxios_get_zoom_axis_index(zoom_axis_hdl, index_._c_value, shape_c)
     else: 
       index_c = index_._c_value

@@ -18,112 +18,112 @@ from xios.ogridgroup_attr import GridGroup
 
 
 lib.cxios_get_gridgroup_comment.argtypes = [GridGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_gridgroup_comment.restypes = None
+lib.cxios_get_gridgroup_comment.restype = None
 
 lib.cxios_set_gridgroup_comment.argtypes = [GridGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_gridgroup_comment.restypes = None
+lib.cxios_set_gridgroup_comment.restype = None
 
 lib.cxios_is_defined_gridgroup_comment.argtypes = [GridGroup]
-lib.cxios_is_defined_gridgroup_comment.restypes = ctypes.c_bool
+lib.cxios_is_defined_gridgroup_comment.restype = ctypes.c_bool
 
 lib.cxios_get_gridgroup_description.argtypes = [GridGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_gridgroup_description.restypes = None
+lib.cxios_get_gridgroup_description.restype = None
 
 lib.cxios_set_gridgroup_description.argtypes = [GridGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_gridgroup_description.restypes = None
+lib.cxios_set_gridgroup_description.restype = None
 
 lib.cxios_is_defined_gridgroup_description.argtypes = [GridGroup]
-lib.cxios_is_defined_gridgroup_description.restypes = ctypes.c_bool
+lib.cxios_is_defined_gridgroup_description.restype = ctypes.c_bool
 
 lib.cxios_get_gridgroup_group_ref.argtypes = [GridGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_gridgroup_group_ref.restypes = None
+lib.cxios_get_gridgroup_group_ref.restype = None
 
 lib.cxios_set_gridgroup_group_ref.argtypes = [GridGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_gridgroup_group_ref.restypes = None
+lib.cxios_set_gridgroup_group_ref.restype = None
 
 lib.cxios_is_defined_gridgroup_group_ref.argtypes = [GridGroup]
-lib.cxios_is_defined_gridgroup_group_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_gridgroup_group_ref.restype = ctypes.c_bool
 
 lib.cxios_get_gridgroup_mask_0d.argtypes = [GridGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_gridgroup_mask_0d.restypes = None
+lib.cxios_get_gridgroup_mask_0d.restype = None
 
 lib.cxios_set_gridgroup_mask_0d.argtypes = [GridGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_gridgroup_mask_0d.restypes = None
+lib.cxios_set_gridgroup_mask_0d.restype = None
 
 lib.cxios_is_defined_gridgroup_mask_0d.argtypes = [GridGroup]
-lib.cxios_is_defined_gridgroup_mask_0d.restypes = ctypes.c_bool
+lib.cxios_is_defined_gridgroup_mask_0d.restype = ctypes.c_bool
 
 lib.cxios_get_gridgroup_mask_1d.argtypes = [GridGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_gridgroup_mask_1d.restypes = None
+lib.cxios_get_gridgroup_mask_1d.restype = None
 
 lib.cxios_set_gridgroup_mask_1d.argtypes = [GridGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_gridgroup_mask_1d.restypes = None
+lib.cxios_set_gridgroup_mask_1d.restype = None
 
 lib.cxios_is_defined_gridgroup_mask_1d.argtypes = [GridGroup]
-lib.cxios_is_defined_gridgroup_mask_1d.restypes = ctypes.c_bool
+lib.cxios_is_defined_gridgroup_mask_1d.restype = ctypes.c_bool
 
 lib.cxios_get_gridgroup_mask_2d.argtypes = [GridGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_gridgroup_mask_2d.restypes = None
+lib.cxios_get_gridgroup_mask_2d.restype = None
 
 lib.cxios_set_gridgroup_mask_2d.argtypes = [GridGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_gridgroup_mask_2d.restypes = None
+lib.cxios_set_gridgroup_mask_2d.restype = None
 
 lib.cxios_is_defined_gridgroup_mask_2d.argtypes = [GridGroup]
-lib.cxios_is_defined_gridgroup_mask_2d.restypes = ctypes.c_bool
+lib.cxios_is_defined_gridgroup_mask_2d.restype = ctypes.c_bool
 
 lib.cxios_get_gridgroup_mask_3d.argtypes = [GridGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_gridgroup_mask_3d.restypes = None
+lib.cxios_get_gridgroup_mask_3d.restype = None
 
 lib.cxios_set_gridgroup_mask_3d.argtypes = [GridGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_gridgroup_mask_3d.restypes = None
+lib.cxios_set_gridgroup_mask_3d.restype = None
 
 lib.cxios_is_defined_gridgroup_mask_3d.argtypes = [GridGroup]
-lib.cxios_is_defined_gridgroup_mask_3d.restypes = ctypes.c_bool
+lib.cxios_is_defined_gridgroup_mask_3d.restype = ctypes.c_bool
 
 lib.cxios_get_gridgroup_mask_4d.argtypes = [GridGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_gridgroup_mask_4d.restypes = None
+lib.cxios_get_gridgroup_mask_4d.restype = None
 
 lib.cxios_set_gridgroup_mask_4d.argtypes = [GridGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_gridgroup_mask_4d.restypes = None
+lib.cxios_set_gridgroup_mask_4d.restype = None
 
 lib.cxios_is_defined_gridgroup_mask_4d.argtypes = [GridGroup]
-lib.cxios_is_defined_gridgroup_mask_4d.restypes = ctypes.c_bool
+lib.cxios_is_defined_gridgroup_mask_4d.restype = ctypes.c_bool
 
 lib.cxios_get_gridgroup_mask_5d.argtypes = [GridGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_gridgroup_mask_5d.restypes = None
+lib.cxios_get_gridgroup_mask_5d.restype = None
 
 lib.cxios_set_gridgroup_mask_5d.argtypes = [GridGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_gridgroup_mask_5d.restypes = None
+lib.cxios_set_gridgroup_mask_5d.restype = None
 
 lib.cxios_is_defined_gridgroup_mask_5d.argtypes = [GridGroup]
-lib.cxios_is_defined_gridgroup_mask_5d.restypes = ctypes.c_bool
+lib.cxios_is_defined_gridgroup_mask_5d.restype = ctypes.c_bool
 
 lib.cxios_get_gridgroup_mask_6d.argtypes = [GridGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_gridgroup_mask_6d.restypes = None
+lib.cxios_get_gridgroup_mask_6d.restype = None
 
 lib.cxios_set_gridgroup_mask_6d.argtypes = [GridGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_gridgroup_mask_6d.restypes = None
+lib.cxios_set_gridgroup_mask_6d.restype = None
 
 lib.cxios_is_defined_gridgroup_mask_6d.argtypes = [GridGroup]
-lib.cxios_is_defined_gridgroup_mask_6d.restypes = ctypes.c_bool
+lib.cxios_is_defined_gridgroup_mask_6d.restype = ctypes.c_bool
 
 lib.cxios_get_gridgroup_mask_7d.argtypes = [GridGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_gridgroup_mask_7d.restypes = None
+lib.cxios_get_gridgroup_mask_7d.restype = None
 
 lib.cxios_set_gridgroup_mask_7d.argtypes = [GridGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_gridgroup_mask_7d.restypes = None
+lib.cxios_set_gridgroup_mask_7d.restype = None
 
 lib.cxios_is_defined_gridgroup_mask_7d.argtypes = [GridGroup]
-lib.cxios_is_defined_gridgroup_mask_7d.restypes = ctypes.c_bool
+lib.cxios_is_defined_gridgroup_mask_7d.restype = ctypes.c_bool
 
 lib.cxios_get_gridgroup_name.argtypes = [GridGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_gridgroup_name.restypes = None
+lib.cxios_get_gridgroup_name.restype = None
 
 lib.cxios_set_gridgroup_name.argtypes = [GridGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_gridgroup_name.restypes = None
+lib.cxios_set_gridgroup_name.restype = None
 
 lib.cxios_is_defined_gridgroup_name.argtypes = [GridGroup]
-lib.cxios_is_defined_gridgroup_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_gridgroup_name.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #
@@ -371,7 +371,7 @@ name_ : Optional[String] = None):
     if mask_0d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_gridgroup_mask_0d_shape(gridgroup_hdl, shape_c)
-      mask_0d_.arr = np.zeros(shape_c[0], order = 'F')
+      mask_0d_.arr = np.zeros(shape_c[0])
       lib.cxios_get_gridgroup_mask_0d(gridgroup_hdl, mask_0d_._c_value, shape_c)
     else: 
       mask_0d_c = mask_0d_._c_value
@@ -386,7 +386,7 @@ name_ : Optional[String] = None):
     if mask_1d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_gridgroup_mask_1d_shape(gridgroup_hdl, shape_c)
-      mask_1d_.arr = np.zeros(shape_c[0], order = 'F')
+      mask_1d_.arr = np.zeros(shape_c[0])
       lib.cxios_get_gridgroup_mask_1d(gridgroup_hdl, mask_1d_._c_value, shape_c)
     else: 
       mask_1d_c = mask_1d_._c_value
@@ -401,7 +401,7 @@ name_ : Optional[String] = None):
     if mask_2d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 2)()
       lib.cxios_gridgroup_mask_2d_shape(gridgroup_hdl, shape_c)
-      mask_2d_.arr = np.zeros((shape_c[0], shape_c[1]) , order = 'F')
+      mask_2d_.arr = np.zeros((shape_c[0], shape_c[1]) )
       lib.cxios_get_gridgroup_mask_2d(gridgroup_hdl, mask_2d_._c_value, shape_c)
     else: 
       mask_2d_c = mask_2d_._c_value
@@ -416,7 +416,7 @@ name_ : Optional[String] = None):
     if mask_3d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 3)()
       lib.cxios_gridgroup_mask_3d_shape(gridgroup_hdl, shape_c)
-      mask_3d_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2]) , order = 'F')
+      mask_3d_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2]) )
       lib.cxios_get_gridgroup_mask_3d(gridgroup_hdl, mask_3d_._c_value, shape_c)
     else: 
       mask_3d_c = mask_3d_._c_value
@@ -431,7 +431,7 @@ name_ : Optional[String] = None):
     if mask_4d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 4)()
       lib.cxios_gridgroup_mask_4d_shape(gridgroup_hdl, shape_c)
-      mask_4d_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2], shape_c[3]) , order = 'F')
+      mask_4d_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2], shape_c[3]) )
       lib.cxios_get_gridgroup_mask_4d(gridgroup_hdl, mask_4d_._c_value, shape_c)
     else: 
       mask_4d_c = mask_4d_._c_value
@@ -446,7 +446,7 @@ name_ : Optional[String] = None):
     if mask_5d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 5)()
       lib.cxios_gridgroup_mask_5d_shape(gridgroup_hdl, shape_c)
-      mask_5d_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2], shape_c[3], shape_c[4]) , order = 'F')
+      mask_5d_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2], shape_c[3], shape_c[4]) )
       lib.cxios_get_gridgroup_mask_5d(gridgroup_hdl, mask_5d_._c_value, shape_c)
     else: 
       mask_5d_c = mask_5d_._c_value
@@ -461,7 +461,7 @@ name_ : Optional[String] = None):
     if mask_6d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 6)()
       lib.cxios_gridgroup_mask_6d_shape(gridgroup_hdl, shape_c)
-      mask_6d_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2], shape_c[3], shape_c[4], shape_c[5]) , order = 'F')
+      mask_6d_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2], shape_c[3], shape_c[4], shape_c[5]) )
       lib.cxios_get_gridgroup_mask_6d(gridgroup_hdl, mask_6d_._c_value, shape_c)
     else: 
       mask_6d_c = mask_6d_._c_value
@@ -476,7 +476,7 @@ name_ : Optional[String] = None):
     if mask_7d_.shape_is_needed: 
       shape_c = (ctypes.c_int * 7)()
       lib.cxios_gridgroup_mask_7d_shape(gridgroup_hdl, shape_c)
-      mask_7d_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2], shape_c[3], shape_c[4], shape_c[5], shape_c[6]) , order = 'F')
+      mask_7d_.arr = np.zeros((shape_c[0], shape_c[1], shape_c[2], shape_c[3], shape_c[4], shape_c[5], shape_c[6]) )
       lib.cxios_get_gridgroup_mask_7d(gridgroup_hdl, mask_7d_._c_value, shape_c)
     else: 
       mask_7d_c = mask_7d_._c_value

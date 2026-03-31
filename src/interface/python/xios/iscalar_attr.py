@@ -18,139 +18,139 @@ from xios.oscalar_attr import Scalar
 
 
 lib.cxios_get_scalar_axis_type.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalar_axis_type.restypes = None
+lib.cxios_get_scalar_axis_type.restype = None
 
 lib.cxios_set_scalar_axis_type.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalar_axis_type.restypes = None
+lib.cxios_set_scalar_axis_type.restype = None
 
 lib.cxios_is_defined_scalar_axis_type.argtypes = [Scalar]
-lib.cxios_is_defined_scalar_axis_type.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalar_axis_type.restype = ctypes.c_bool
 
 lib.cxios_get_scalar_bounds.argtypes = [Scalar, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_scalar_bounds.restypes = None
+lib.cxios_get_scalar_bounds.restype = None
 
 lib.cxios_set_scalar_bounds.argtypes = [Scalar, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_scalar_bounds.restypes = None
+lib.cxios_set_scalar_bounds.restype = None
 
 lib.cxios_is_defined_scalar_bounds.argtypes = [Scalar]
-lib.cxios_is_defined_scalar_bounds.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalar_bounds.restype = ctypes.c_bool
 
 lib.cxios_get_scalar_bounds_name.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalar_bounds_name.restypes = None
+lib.cxios_get_scalar_bounds_name.restype = None
 
 lib.cxios_set_scalar_bounds_name.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalar_bounds_name.restypes = None
+lib.cxios_set_scalar_bounds_name.restype = None
 
 lib.cxios_is_defined_scalar_bounds_name.argtypes = [Scalar]
-lib.cxios_is_defined_scalar_bounds_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalar_bounds_name.restype = ctypes.c_bool
 
 lib.cxios_get_scalar_comment.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalar_comment.restypes = None
+lib.cxios_get_scalar_comment.restype = None
 
 lib.cxios_set_scalar_comment.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalar_comment.restypes = None
+lib.cxios_set_scalar_comment.restype = None
 
 lib.cxios_is_defined_scalar_comment.argtypes = [Scalar]
-lib.cxios_is_defined_scalar_comment.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalar_comment.restype = ctypes.c_bool
 
 lib.cxios_get_scalar_label.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalar_label.restypes = None
+lib.cxios_get_scalar_label.restype = None
 
 lib.cxios_set_scalar_label.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalar_label.restypes = None
+lib.cxios_set_scalar_label.restype = None
 
 lib.cxios_is_defined_scalar_label.argtypes = [Scalar]
-lib.cxios_is_defined_scalar_label.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalar_label.restype = ctypes.c_bool
 
 lib.cxios_get_scalar_long_name.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalar_long_name.restypes = None
+lib.cxios_get_scalar_long_name.restype = None
 
 lib.cxios_set_scalar_long_name.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalar_long_name.restypes = None
+lib.cxios_set_scalar_long_name.restype = None
 
 lib.cxios_is_defined_scalar_long_name.argtypes = [Scalar]
-lib.cxios_is_defined_scalar_long_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalar_long_name.restype = ctypes.c_bool
 
 lib.cxios_get_scalar_mask.argtypes = [Scalar, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_scalar_mask.restypes = None
+lib.cxios_get_scalar_mask.restype = None
 
 lib.cxios_set_scalar_mask.argtypes = [Scalar, ctypes.c_bool]
-lib.cxios_set_scalar_mask.restypes = None
+lib.cxios_set_scalar_mask.restype = None
 
 lib.cxios_is_defined_scalar_mask.argtypes = [Scalar]
-lib.cxios_is_defined_scalar_mask.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalar_mask.restype = ctypes.c_bool
 
 lib.cxios_get_scalar_n.argtypes = [Scalar, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_scalar_n.restypes = None
+lib.cxios_get_scalar_n.restype = None
 
 lib.cxios_set_scalar_n.argtypes = [Scalar, ctypes.c_int]
-lib.cxios_set_scalar_n.restypes = None
+lib.cxios_set_scalar_n.restype = None
 
 lib.cxios_is_defined_scalar_n.argtypes = [Scalar]
-lib.cxios_is_defined_scalar_n.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalar_n.restype = ctypes.c_bool
 
 lib.cxios_get_scalar_name.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalar_name.restypes = None
+lib.cxios_get_scalar_name.restype = None
 
 lib.cxios_set_scalar_name.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalar_name.restypes = None
+lib.cxios_set_scalar_name.restype = None
 
 lib.cxios_is_defined_scalar_name.argtypes = [Scalar]
-lib.cxios_is_defined_scalar_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalar_name.restype = ctypes.c_bool
 
 lib.cxios_get_scalar_positive.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalar_positive.restypes = None
+lib.cxios_get_scalar_positive.restype = None
 
 lib.cxios_set_scalar_positive.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalar_positive.restypes = None
+lib.cxios_set_scalar_positive.restype = None
 
 lib.cxios_is_defined_scalar_positive.argtypes = [Scalar]
-lib.cxios_is_defined_scalar_positive.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalar_positive.restype = ctypes.c_bool
 
 lib.cxios_get_scalar_prec.argtypes = [Scalar, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_scalar_prec.restypes = None
+lib.cxios_get_scalar_prec.restype = None
 
 lib.cxios_set_scalar_prec.argtypes = [Scalar, ctypes.c_int]
-lib.cxios_set_scalar_prec.restypes = None
+lib.cxios_set_scalar_prec.restype = None
 
 lib.cxios_is_defined_scalar_prec.argtypes = [Scalar]
-lib.cxios_is_defined_scalar_prec.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalar_prec.restype = ctypes.c_bool
 
 lib.cxios_get_scalar_scalar_ref.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalar_scalar_ref.restypes = None
+lib.cxios_get_scalar_scalar_ref.restype = None
 
 lib.cxios_set_scalar_scalar_ref.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalar_scalar_ref.restypes = None
+lib.cxios_set_scalar_scalar_ref.restype = None
 
 lib.cxios_is_defined_scalar_scalar_ref.argtypes = [Scalar]
-lib.cxios_is_defined_scalar_scalar_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalar_scalar_ref.restype = ctypes.c_bool
 
 lib.cxios_get_scalar_standard_name.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalar_standard_name.restypes = None
+lib.cxios_get_scalar_standard_name.restype = None
 
 lib.cxios_set_scalar_standard_name.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalar_standard_name.restypes = None
+lib.cxios_set_scalar_standard_name.restype = None
 
 lib.cxios_is_defined_scalar_standard_name.argtypes = [Scalar]
-lib.cxios_is_defined_scalar_standard_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalar_standard_name.restype = ctypes.c_bool
 
 lib.cxios_get_scalar_unit.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_scalar_unit.restypes = None
+lib.cxios_get_scalar_unit.restype = None
 
 lib.cxios_set_scalar_unit.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_scalar_unit.restypes = None
+lib.cxios_set_scalar_unit.restype = None
 
 lib.cxios_is_defined_scalar_unit.argtypes = [Scalar]
-lib.cxios_is_defined_scalar_unit.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalar_unit.restype = ctypes.c_bool
 
 lib.cxios_get_scalar_value.argtypes = [Scalar, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_scalar_value.restypes = None
+lib.cxios_get_scalar_value.restype = None
 
 lib.cxios_set_scalar_value.argtypes = [Scalar, ctypes.c_double]
-lib.cxios_set_scalar_value.restypes = None
+lib.cxios_set_scalar_value.restype = None
 
 lib.cxios_is_defined_scalar_value.argtypes = [Scalar]
-lib.cxios_is_defined_scalar_value.restypes = ctypes.c_bool
+lib.cxios_is_defined_scalar_value.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #
@@ -397,7 +397,7 @@ value_ : Optional[Double] = None):
     if bounds_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_scalar_bounds_shape(scalar_hdl, shape_c)
-      bounds_.arr = np.zeros(shape_c[0], order = 'F')
+      bounds_.arr = np.zeros(shape_c[0])
       lib.cxios_get_scalar_bounds(scalar_hdl, bounds_._c_value, shape_c)
     else: 
       bounds_c = bounds_._c_value

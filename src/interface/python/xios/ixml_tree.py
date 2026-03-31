@@ -172,6 +172,14 @@ lib.cxios_xml_tree_add_redistributescalar.restype = None
 
 @typecheck
 def add_scalar(parent_hdl: ScalarGroup, child_hdl: Scalar, child_id: Optional[Union[str, String]] = None):
+    """
+    Add a scalar child_hdl with an optionnal child_id id to the scalarGroup parent_hdl
+
+    Parameters:
+        parent_hdl (ScalarGroup): The ScalarGroup parent handle
+        child_hdl (Scalar):  The Scalar child handle
+        child_id (Optional[Union[str, String]]): The optionnal scalar child id
+    """
     if child_id is None:
         lib.cxios_xml_tree_add_scalar(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -183,7 +191,14 @@ def add_scalar(parent_hdl: ScalarGroup, child_hdl: Scalar, child_id: Optional[Un
 
 @typecheck
 def add_axis(parent_hdl : AxisGroup, child_hdl : Axis, child_id : Optional[Union[str, String]] = None):
+    """
+    Add an axis child_hdl with an optional child_id id to the axisGroup parent_hdl
 
+    Parameters:
+        parent_hdl (AxisGroup): The AxisGroup parent handle
+        child_hdl (Axis): The Axis child handle
+        child_id (Optional[Union[str, String]]): The optional axis child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_axis(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -194,7 +209,14 @@ def add_axis(parent_hdl : AxisGroup, child_hdl : Axis, child_id : Optional[Union
 
 @typecheck
 def add_file(parent_hdl : FileGroup, child_hdl : File, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a file child_hdl with an optional child_id id to the fileGroup parent_hdl
 
+    Parameters:
+        parent_hdl (FileGroup): The FileGroup parent handle
+        child_hdl (File): The File child handle
+        child_id (Optional[Union[str, String]]): The optional file child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_file(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -205,7 +227,14 @@ def add_file(parent_hdl : FileGroup, child_hdl : File, child_id : Optional[Union
 
 @typecheck
 def add_grid(parent_hdl : GridGroup, child_hdl : Grid, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a grid child_hdl with an optional child_id id to the gridGroup parent_hdl
 
+    Parameters:
+        parent_hdl (GridGroup): The GridGroup parent handle
+        child_hdl (Grid): The Grid child handle
+        child_id (Optional[Union[str, String]]): The optional grid child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_grid(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -216,7 +245,14 @@ def add_grid(parent_hdl : GridGroup, child_hdl : Grid, child_id : Optional[Union
 
 @typecheck
 def add_domain(parent_hdl : DomainGroup, child_hdl : Domain, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a domain child_hdl with an optional child_id id to the domainGroup parent_hdl
 
+    Parameters:
+        parent_hdl (DomainGroup): The DomainGroup parent handle
+        child_hdl (Domain): The Domain child handle
+        child_id (Optional[Union[str, String]]): The optional domain child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_domain(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -228,7 +264,14 @@ def add_domain(parent_hdl : DomainGroup, child_hdl : Domain, child_id : Optional
 
 @typecheck
 def add_fieldtofile(parent_hdl : File, child_hdl : Field, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a field child_hdl with an optional child_id id to the file parent_hdl
 
+    Parameters:
+        parent_hdl (File): The File parent handle
+        child_hdl (Field): The Field child handle
+        child_id (Optional[Union[str, String]]): The optional field child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_fieldtofile(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -239,7 +282,14 @@ def add_fieldtofile(parent_hdl : File, child_hdl : Field, child_id : Optional[Un
 
 @typecheck
 def add_variabletofile(parent_hdl : File, child_hdl : Variable, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a variable child_hdl with an optional child_id id to the file parent_hdl
 
+    Parameters:
+        parent_hdl (File): The File parent handle
+        child_hdl (Variable): The Variable child handle
+        child_id (Optional[Union[str, String]]): The optional variable child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_variabletofile(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -250,7 +300,14 @@ def add_variabletofile(parent_hdl : File, child_hdl : Variable, child_id : Optio
 
 @typecheck
 def add_variabletofield(parent_hdl : Field, child_hdl : Variable, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a variable child_hdl with an optional child_id id to the field parent_hdl
 
+    Parameters:
+        parent_hdl (Field): The Field parent handle
+        child_hdl (Variable): The Variable child handle
+        child_id (Optional[Union[str, String]]): The optional variable child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_variabletofield(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -262,7 +319,14 @@ def add_variabletofield(parent_hdl : Field, child_hdl : Variable, child_id : Opt
 
 @typecheck
 def add_axisgroup(parent_hdl : AxisGroup, child_hdl : AxisGroup, child_id : Optional[Union[str, String]] = None):
+    """
+    Add an axisGroup child_hdl with an optional child_id id to the axisGroup parent_hdl
 
+    Parameters:
+        parent_hdl (AxisGroup): The AxisGroup parent handle
+        child_hdl (AxisGroup): The AxisGroup child handle
+        child_id (Optional[Union[str, String]]): The optional axisGroup child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_axisgroup(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -273,7 +337,14 @@ def add_axisgroup(parent_hdl : AxisGroup, child_hdl : AxisGroup, child_id : Opti
 
 @typecheck
 def add_scalargroup(parent_hdl : ScalarGroup, child_hdl : ScalarGroup, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a scalarGroup child_hdl with an optional child_id id to the scalarGroup parent_hdl
 
+    Parameters:
+        parent_hdl (ScalarGroup): The ScalarGroup parent handle
+        child_hdl (ScalarGroup): The ScalarGroup child handle
+        child_id (Optional[Union[str, String]]): The optional scalarGroup child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_scalargroup(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -284,7 +355,14 @@ def add_scalargroup(parent_hdl : ScalarGroup, child_hdl : ScalarGroup, child_id 
 
 @typecheck
 def add_filegroup(parent_hdl : FileGroup, child_hdl : FileGroup, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a fileGroup child_hdl with an optional child_id id to the fileGroup parent_hdl
 
+    Parameters:
+        parent_hdl (FileGroup): The FileGroup parent handle
+        child_hdl (FileGroup): The FileGroup child handle
+        child_id (Optional[Union[str, String]]): The optional fileGroup child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_filegroup(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -295,7 +373,14 @@ def add_filegroup(parent_hdl : FileGroup, child_hdl : FileGroup, child_id : Opti
 
 @typecheck
 def add_gridgroup(parent_hdl : GridGroup, child_hdl : GridGroup, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a gridGroup child_hdl with an optional child_id id to the gridGroup parent_hdl
 
+    Parameters:
+        parent_hdl (GridGroup): The GridGroup parent handle
+        child_hdl (GridGroup): The GridGroup child handle
+        child_id (Optional[Union[str, String]]): The optional gridGroup child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_gridgroup(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -306,7 +391,14 @@ def add_gridgroup(parent_hdl : GridGroup, child_hdl : GridGroup, child_id : Opti
 
 @typecheck
 def add_domaingroup(parent_hdl : DomainGroup, child_hdl : DomainGroup, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a domainGroup child_hdl with an optional child_id id to the domainGroup parent_hdl
 
+    Parameters:
+        parent_hdl (DomainGroup): The DomainGroup parent handle
+        child_hdl (DomainGroup): The DomainGroup child handle
+        child_id (Optional[Union[str, String]]): The optional domainGroup child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_domaingroup(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -317,7 +409,14 @@ def add_domaingroup(parent_hdl : DomainGroup, child_hdl : DomainGroup, child_id 
 
 @typecheck
 def add_fieldgrouptofile(parent_hdl : File, child_hdl : FieldGroup, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a fieldGroup child_hdl with an optional child_id id to the file parent_hdl
 
+    Parameters:
+        parent_hdl (File): The File parent handle
+        child_hdl (FieldGroup): The FieldGroup child handle
+        child_id (Optional[Union[str, String]]): The optional fieldGroup child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_fieldgrouptofile(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -328,7 +427,14 @@ def add_fieldgrouptofile(parent_hdl : File, child_hdl : FieldGroup, child_id : O
 
 @typecheck
 def add_variablegrouptofile(parent_hdl : File, child_hdl : VariableGroup, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a variableGroup child_hdl with an optional child_id id to the file parent_hdl
 
+    Parameters:
+        parent_hdl (File): The File parent handle
+        child_hdl (VariableGroup): The VariableGroup child handle
+        child_id (Optional[Union[str, String]]): The optional variableGroup child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_variablegrouptofile(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -339,7 +445,14 @@ def add_variablegrouptofile(parent_hdl : File, child_hdl : VariableGroup, child_
 
 @typecheck
 def add_variablegrouptofield(parent_hdl : Field, child_hdl : VariableGroup, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a variableGroup child_hdl with an optional child_id id to the field parent_hdl
 
+    Parameters:
+        parent_hdl (Field): The Field parent handle
+        child_hdl (VariableGroup): The VariableGroup child handle
+        child_id (Optional[Union[str, String]]): The optional variableGroup child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_variablegrouptofield(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -350,7 +463,14 @@ def add_variablegrouptofield(parent_hdl : Field, child_hdl : VariableGroup, chil
 
 @typecheck
 def add_scalartogrid(parent_hdl : Grid, child_hdl : Scalar, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a scalar child_hdl with an optional child_id id to the grid parent_hdl
 
+    Parameters:
+        parent_hdl (Grid): The Grid parent handle
+        child_hdl (Scalar): The Scalar child handle
+        child_id (Optional[Union[str, String]]): The optional scalar child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_scalartogrid(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -361,7 +481,14 @@ def add_scalartogrid(parent_hdl : Grid, child_hdl : Scalar, child_id : Optional[
 
 @typecheck
 def add_axistogrid(parent_hdl : Grid, child_hdl : Axis, child_id : Optional[Union[str, String]] = None):
+    """
+    Add an axis child_hdl with an optional child_id id to the grid parent_hdl
 
+    Parameters:
+        parent_hdl (Grid): The Grid parent handle
+        child_hdl (Axis): The Axis child handle
+        child_id (Optional[Union[str, String]]): The optional axis child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_axistogrid(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -372,7 +499,14 @@ def add_axistogrid(parent_hdl : Grid, child_hdl : Axis, child_id : Optional[Unio
 
 @typecheck
 def add_domaintogrid(parent_hdl : Grid, child_hdl : Domain, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a domain child_hdl with an optional child_id id to the grid parent_hdl
 
+    Parameters:
+        parent_hdl (Grid): The Grid parent handle
+        child_hdl (Domain): The Domain child handle
+        child_id (Optional[Union[str, String]]): The optional domain child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_domaintogrid(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -384,7 +518,14 @@ def add_domaintogrid(parent_hdl : Grid, child_hdl : Domain, child_id : Optional[
 
 @typecheck
 def add_zoomdomaintodomain(parent_hdl : Domain, child_hdl : ZoomDomain, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a zoomDomain child_hdl with an optional child_id id to the domain parent_hdl
 
+    Parameters:
+        parent_hdl (Domain): The Domain parent handle
+        child_hdl (ZoomDomain): The ZoomDomain child handle
+        child_id (Optional[Union[str, String]]): The optional zoomDomain child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_zoomdomaintodomain(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -395,7 +536,14 @@ def add_zoomdomaintodomain(parent_hdl : Domain, child_hdl : ZoomDomain, child_id
 
 @typecheck
 def add_extractdomaintodomain(parent_hdl : Domain, child_hdl : ExtractDomain, child_id : Optional[Union[str, String]] = None):
+    """
+    Add an extractDomain child_hdl with an optional child_id id to the domain parent_hdl
 
+    Parameters:
+        parent_hdl (Domain): The Domain parent handle
+        child_hdl (ExtractDomain): The ExtractDomain child handle
+        child_id (Optional[Union[str, String]]): The optional extractDomain child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_extractdomaintodomain(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -406,7 +554,14 @@ def add_extractdomaintodomain(parent_hdl : Domain, child_hdl : ExtractDomain, ch
 
 @typecheck
 def add_interpolatedomaintodomain(parent_hdl : Domain, child_hdl : InterpolateDomain, child_id : Optional[Union[str, String]] = None):
+    """
+    Add an interpolateDomain child_hdl with an optional child_id id to the domain parent_hdl
 
+    Parameters:
+        parent_hdl (Domain): The Domain parent handle
+        child_hdl (InterpolateDomain): The InterpolateDomain child handle
+        child_id (Optional[Union[str, String]]): The optional interpolateDomain child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_interpolatedomaintodomain(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -417,7 +572,14 @@ def add_interpolatedomaintodomain(parent_hdl : Domain, child_hdl : InterpolateDo
 
 @typecheck
 def add_generaterectilineardomaintodomain(parent_hdl : Domain, child_hdl : GenerateRectilinearDomain, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a generateRectilinearDomain child_hdl with an optional child_id id to the domain parent_hdl
 
+    Parameters:
+        parent_hdl (Domain): The Domain parent handle
+        child_hdl (GenerateRectilinearDomain): The GenerateRectilinearDomain child handle
+        child_id (Optional[Union[str, String]]): The optional generateRectilinearDomain child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_generatedomaintodomain(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -428,7 +590,14 @@ def add_generaterectilineardomaintodomain(parent_hdl : Domain, child_hdl : Gener
 
 @typecheck
 def add_computeconnectivitydomaintodomain(parent_hdl : Domain, child_hdl : ComputeConnectivityDomain, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a computeConnectivityDomain child_hdl with an optional child_id id to the domain parent_hdl
 
+    Parameters:
+        parent_hdl (Domain): The Domain parent handle
+        child_hdl (ComputeConnectivityDomain): The ComputeConnectivityDomain child handle
+        child_id (Optional[Union[str, String]]): The optional computeConnectivityDomain child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_computeconnectivitydomaintodomain(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -439,7 +608,14 @@ def add_computeconnectivitydomaintodomain(parent_hdl : Domain, child_hdl : Compu
 
 @typecheck
 def add_expanddomaintodomain(parent_hdl : Domain, child_hdl : ExpandDomain, child_id : Optional[Union[str, String]] = None):
+    """
+    Add an expandDomain child_hdl with an optional child_id id to the domain parent_hdl
 
+    Parameters:
+        parent_hdl (Domain): The Domain parent handle
+        child_hdl (ExpandDomain): The ExpandDomain child handle
+        child_id (Optional[Union[str, String]]): The optional expandDomain child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_expanddomaintodomain(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -450,7 +626,14 @@ def add_expanddomaintodomain(parent_hdl : Domain, child_hdl : ExpandDomain, chil
 
 @typecheck
 def add_redistributedomain(parent_hdl : Domain, child_hdl : RedistributeDomain, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a redistributeDomain child_hdl with an optional child_id id to the domain parent_hdl
 
+    Parameters:
+        parent_hdl (Domain): The Domain parent handle
+        child_hdl (RedistributeDomain): The RedistributeDomain child handle
+        child_id (Optional[Union[str, String]]): The optional redistributeDomain child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_redistributedomain(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -461,7 +644,14 @@ def add_redistributedomain(parent_hdl : Domain, child_hdl : RedistributeDomain, 
 
 @typecheck
 def add_zoomaxistoaxis(parent_hdl : Axis, child_hdl : ZoomAxis, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a zoomAxis child_hdl with an optional child_id id to the axis parent_hdl
 
+    Parameters:
+        parent_hdl (Axis): The Axis parent handle
+        child_hdl (ZoomAxis): The ZoomAxis child handle
+        child_id (Optional[Union[str, String]]): The optional zoomAxis child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_zoomaxistoaxis(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -483,7 +673,14 @@ def add_zoomaxistoaxis(parent_hdl : Axis, child_hdl : ZoomAxis, child_id : Optio
 
 @typecheck
 def add_interpolateaxistoaxis(parent_hdl : Axis, child_hdl : InterpolateAxis, child_id : Optional[Union[str, String]] = None):
+    """
+    Add an interpolateAxis child_hdl with an optional child_id id to the axis parent_hdl
 
+    Parameters:
+        parent_hdl (Axis): The Axis parent handle
+        child_hdl (InterpolateAxis): The InterpolateAxis child handle
+        child_id (Optional[Union[str, String]]): The optional interpolateAxis child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_interpolateaxistoaxis(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -494,7 +691,14 @@ def add_interpolateaxistoaxis(parent_hdl : Axis, child_hdl : InterpolateAxis, ch
 
 @typecheck
 def add_inverseaxistoaxis(parent_hdl : Axis, child_hdl : InverseAxis, child_id : Optional[Union[str, String]] = None):
+    """
+    Add an inverseAxis child_hdl with an optional child_id id to the axis parent_hdl
 
+    Parameters:
+        parent_hdl (Axis): The Axis parent handle
+        child_hdl (InverseAxis): The InverseAxis child handle
+        child_id (Optional[Union[str, String]]): The optional inverseAxis child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_inverseaxistoaxis(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -505,7 +709,14 @@ def add_inverseaxistoaxis(parent_hdl : Axis, child_hdl : InverseAxis, child_id :
 
 @typecheck
 def add_reducedomaintoaxistoaxis(parent_hdl : Axis, child_hdl : ReduceDomainToAxis, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a reduceDomainToAxis child_hdl with an optional child_id id to the axis parent_hdl
 
+    Parameters:
+        parent_hdl (Axis): The Axis parent handle
+        child_hdl (ReduceDomainToAxis): The ReduceDomainToAxis child handle
+        child_id (Optional[Union[str, String]]): The optional reduceDomainToAxis child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_reducedomaintoaxistoaxis(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -516,7 +727,14 @@ def add_reducedomaintoaxistoaxis(parent_hdl : Axis, child_hdl : ReduceDomainToAx
 
 @typecheck
 def add_extractdomaintoaxistoaxis(parent_hdl : Axis, child_hdl : ExtractDomainToAxis, child_id : Optional[Union[str, String]] = None):
+    """
+    Add an extractDomainToAxis child_hdl with an optional child_id id to the axis parent_hdl
 
+    Parameters:
+        parent_hdl (Axis): The Axis parent handle
+        child_hdl (ExtractDomainToAxis): The ExtractDomainToAxis child handle
+        child_id (Optional[Union[str, String]]): The optional extractDomainToAxis child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_extractdomaintoaxistoaxis(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -527,7 +745,14 @@ def add_extractdomaintoaxistoaxis(parent_hdl : Axis, child_hdl : ExtractDomainTo
 
 @typecheck
 def add_redistributeaxis(parent_hdl : Axis, child_hdl : RedistributeAxis, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a redistributeAxis child_hdl with an optional child_id id to the axis parent_hdl
 
+    Parameters:
+        parent_hdl (Axis): The Axis parent handle
+        child_hdl (RedistributeAxis): The RedistributeAxis child handle
+        child_id (Optional[Union[str, String]]): The optional redistributeAxis child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_redistributeaxis(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -538,7 +763,14 @@ def add_redistributeaxis(parent_hdl : Axis, child_hdl : RedistributeAxis, child_
 
 @typecheck
 def add_reduceaxistoscalartoscalar(parent_hdl : Scalar, child_hdl : ReduceAxisToScalar, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a reduceAxisToScalar child_hdl with an optional child_id id to the scalar parent_hdl
 
+    Parameters:
+        parent_hdl (Scalar): The Scalar parent handle
+        child_hdl (ReduceAxisToScalar): The ReduceAxisToScalar child handle
+        child_id (Optional[Union[str, String]]): The optional reduceAxisToScalar child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_reduceaxistoscalartoscalar(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -549,7 +781,14 @@ def add_reduceaxistoscalartoscalar(parent_hdl : Scalar, child_hdl : ReduceAxisTo
 
 @typecheck
 def add_extractaxistoscalartoscalar(parent_hdl : Scalar, child_hdl : ExtractAxisToScalar, child_id : Optional[Union[str, String]] = None):
+    """
+    Add an extractAxisToScalar child_hdl with an optional child_id id to the scalar parent_hdl
 
+    Parameters:
+        parent_hdl (Scalar): The Scalar parent handle
+        child_hdl (ExtractAxisToScalar): The ExtractAxisToScalar child handle
+        child_id (Optional[Union[str, String]]): The optional extractAxisToScalar child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_extractaxistoscalartoscalar(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -560,7 +799,14 @@ def add_extractaxistoscalartoscalar(parent_hdl : Scalar, child_hdl : ExtractAxis
 
 @typecheck
 def add_reducedomaintoscalartoscalar(parent_hdl : Scalar, child_hdl : ReduceDomainToScalar, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a reduceDomainToScalar child_hdl with an optional child_id id to the scalar parent_hdl
 
+    Parameters:
+        parent_hdl (Scalar): The Scalar parent handle
+        child_hdl (ReduceDomainToScalar): The ReduceDomainToScalar child handle
+        child_id (Optional[Union[str, String]]): The optional reduceDomainToScalar child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_reducedomaintoscalartoscalar(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:
@@ -571,7 +817,14 @@ def add_reducedomaintoscalartoscalar(parent_hdl : Scalar, child_hdl : ReduceDoma
 
 @typecheck
 def add_redistributescalar(parent_hdl : Scalar, child_hdl : RedistributeScalar, child_id : Optional[Union[str, String]] = None):
+    """
+    Add a redistributeScalar child_hdl with an optional child_id id to the scalar parent_hdl
 
+    Parameters:
+        parent_hdl (Scalar): The Scalar parent handle
+        child_hdl (RedistributeScalar): The RedistributeScalar child handle
+        child_id (Optional[Union[str, String]]): The optional redistributeScalar child id
+    """
     if child_id == None:
         lib.cxios_xml_tree_add_redistributescalar(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))
     else:

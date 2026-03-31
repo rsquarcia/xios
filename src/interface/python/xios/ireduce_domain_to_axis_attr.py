@@ -18,31 +18,31 @@ from xios.oreduce_domain_to_axis_attr import ReduceDomainToAxis
 
 
 lib.cxios_get_reduce_domain_to_axis_direction.argtypes = [ReduceDomainToAxis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_reduce_domain_to_axis_direction.restypes = None
+lib.cxios_get_reduce_domain_to_axis_direction.restype = None
 
 lib.cxios_set_reduce_domain_to_axis_direction.argtypes = [ReduceDomainToAxis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_reduce_domain_to_axis_direction.restypes = None
+lib.cxios_set_reduce_domain_to_axis_direction.restype = None
 
 lib.cxios_is_defined_reduce_domain_to_axis_direction.argtypes = [ReduceDomainToAxis]
-lib.cxios_is_defined_reduce_domain_to_axis_direction.restypes = ctypes.c_bool
+lib.cxios_is_defined_reduce_domain_to_axis_direction.restype = ctypes.c_bool
 
 lib.cxios_get_reduce_domain_to_axis_local.argtypes = [ReduceDomainToAxis, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_reduce_domain_to_axis_local.restypes = None
+lib.cxios_get_reduce_domain_to_axis_local.restype = None
 
 lib.cxios_set_reduce_domain_to_axis_local.argtypes = [ReduceDomainToAxis, ctypes.c_bool]
-lib.cxios_set_reduce_domain_to_axis_local.restypes = None
+lib.cxios_set_reduce_domain_to_axis_local.restype = None
 
 lib.cxios_is_defined_reduce_domain_to_axis_local.argtypes = [ReduceDomainToAxis]
-lib.cxios_is_defined_reduce_domain_to_axis_local.restypes = ctypes.c_bool
+lib.cxios_is_defined_reduce_domain_to_axis_local.restype = ctypes.c_bool
 
 lib.cxios_get_reduce_domain_to_axis_operation.argtypes = [ReduceDomainToAxis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_reduce_domain_to_axis_operation.restypes = None
+lib.cxios_get_reduce_domain_to_axis_operation.restype = None
 
 lib.cxios_set_reduce_domain_to_axis_operation.argtypes = [ReduceDomainToAxis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_reduce_domain_to_axis_operation.restypes = None
+lib.cxios_set_reduce_domain_to_axis_operation.restype = None
 
 lib.cxios_is_defined_reduce_domain_to_axis_operation.argtypes = [ReduceDomainToAxis]
-lib.cxios_is_defined_reduce_domain_to_axis_operation.restypes = ctypes.c_bool
+lib.cxios_is_defined_reduce_domain_to_axis_operation.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #

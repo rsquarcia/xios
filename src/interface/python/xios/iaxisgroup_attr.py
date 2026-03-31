@@ -18,274 +18,274 @@ from xios.oaxisgroup_attr import AxisGroup
 
 
 lib.cxios_get_axisgroup_axis_ref.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axisgroup_axis_ref.restypes = None
+lib.cxios_get_axisgroup_axis_ref.restype = None
 
 lib.cxios_set_axisgroup_axis_ref.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axisgroup_axis_ref.restypes = None
+lib.cxios_set_axisgroup_axis_ref.restype = None
 
 lib.cxios_is_defined_axisgroup_axis_ref.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_axis_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_axis_ref.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_axis_type.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axisgroup_axis_type.restypes = None
+lib.cxios_get_axisgroup_axis_type.restype = None
 
 lib.cxios_set_axisgroup_axis_type.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axisgroup_axis_type.restypes = None
+lib.cxios_set_axisgroup_axis_type.restype = None
 
 lib.cxios_is_defined_axisgroup_axis_type.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_axis_type.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_axis_type.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_begin.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axisgroup_begin.restypes = None
+lib.cxios_get_axisgroup_begin.restype = None
 
 lib.cxios_set_axisgroup_begin.argtypes = [AxisGroup, ctypes.c_int]
-lib.cxios_set_axisgroup_begin.restypes = None
+lib.cxios_set_axisgroup_begin.restype = None
 
 lib.cxios_is_defined_axisgroup_begin.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_begin.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_begin.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_bounds.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axisgroup_bounds.restypes = None
+lib.cxios_get_axisgroup_bounds.restype = None
 
 lib.cxios_set_axisgroup_bounds.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_axisgroup_bounds.restypes = None
+lib.cxios_set_axisgroup_bounds.restype = None
 
 lib.cxios_is_defined_axisgroup_bounds.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_bounds.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_bounds.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_bounds_name.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axisgroup_bounds_name.restypes = None
+lib.cxios_get_axisgroup_bounds_name.restype = None
 
 lib.cxios_set_axisgroup_bounds_name.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axisgroup_bounds_name.restypes = None
+lib.cxios_set_axisgroup_bounds_name.restype = None
 
 lib.cxios_is_defined_axisgroup_bounds_name.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_bounds_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_bounds_name.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_chunking_weight.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_axisgroup_chunking_weight.restypes = None
+lib.cxios_get_axisgroup_chunking_weight.restype = None
 
 lib.cxios_set_axisgroup_chunking_weight.argtypes = [AxisGroup, ctypes.c_double]
-lib.cxios_set_axisgroup_chunking_weight.restypes = None
+lib.cxios_set_axisgroup_chunking_weight.restype = None
 
 lib.cxios_is_defined_axisgroup_chunking_weight.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_chunking_weight.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_chunking_weight.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_comment.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axisgroup_comment.restypes = None
+lib.cxios_get_axisgroup_comment.restype = None
 
 lib.cxios_set_axisgroup_comment.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axisgroup_comment.restypes = None
+lib.cxios_set_axisgroup_comment.restype = None
 
 lib.cxios_is_defined_axisgroup_comment.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_comment.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_comment.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_convert_from_factor.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_axisgroup_convert_from_factor.restypes = None
+lib.cxios_get_axisgroup_convert_from_factor.restype = None
 
 lib.cxios_set_axisgroup_convert_from_factor.argtypes = [AxisGroup, ctypes.c_double]
-lib.cxios_set_axisgroup_convert_from_factor.restypes = None
+lib.cxios_set_axisgroup_convert_from_factor.restype = None
 
 lib.cxios_is_defined_axisgroup_convert_from_factor.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_convert_from_factor.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_convert_from_factor.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_data_begin.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axisgroup_data_begin.restypes = None
+lib.cxios_get_axisgroup_data_begin.restype = None
 
 lib.cxios_set_axisgroup_data_begin.argtypes = [AxisGroup, ctypes.c_int]
-lib.cxios_set_axisgroup_data_begin.restypes = None
+lib.cxios_set_axisgroup_data_begin.restype = None
 
 lib.cxios_is_defined_axisgroup_data_begin.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_data_begin.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_data_begin.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_data_index.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axisgroup_data_index.restypes = None
+lib.cxios_get_axisgroup_data_index.restype = None
 
 lib.cxios_set_axisgroup_data_index.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_axisgroup_data_index.restypes = None
+lib.cxios_set_axisgroup_data_index.restype = None
 
 lib.cxios_is_defined_axisgroup_data_index.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_data_index.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_data_index.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_data_n.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axisgroup_data_n.restypes = None
+lib.cxios_get_axisgroup_data_n.restype = None
 
 lib.cxios_set_axisgroup_data_n.argtypes = [AxisGroup, ctypes.c_int]
-lib.cxios_set_axisgroup_data_n.restypes = None
+lib.cxios_set_axisgroup_data_n.restype = None
 
 lib.cxios_is_defined_axisgroup_data_n.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_data_n.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_data_n.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_dim_name.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axisgroup_dim_name.restypes = None
+lib.cxios_get_axisgroup_dim_name.restype = None
 
 lib.cxios_set_axisgroup_dim_name.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axisgroup_dim_name.restypes = None
+lib.cxios_set_axisgroup_dim_name.restype = None
 
 lib.cxios_is_defined_axisgroup_dim_name.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_dim_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_dim_name.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_formula.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axisgroup_formula.restypes = None
+lib.cxios_get_axisgroup_formula.restype = None
 
 lib.cxios_set_axisgroup_formula.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axisgroup_formula.restypes = None
+lib.cxios_set_axisgroup_formula.restype = None
 
 lib.cxios_is_defined_axisgroup_formula.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_formula.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_formula.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_formula_bounds.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axisgroup_formula_bounds.restypes = None
+lib.cxios_get_axisgroup_formula_bounds.restype = None
 
 lib.cxios_set_axisgroup_formula_bounds.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axisgroup_formula_bounds.restypes = None
+lib.cxios_set_axisgroup_formula_bounds.restype = None
 
 lib.cxios_is_defined_axisgroup_formula_bounds.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_formula_bounds.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_formula_bounds.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_formula_term.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axisgroup_formula_term.restypes = None
+lib.cxios_get_axisgroup_formula_term.restype = None
 
 lib.cxios_set_axisgroup_formula_term.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axisgroup_formula_term.restypes = None
+lib.cxios_set_axisgroup_formula_term.restype = None
 
 lib.cxios_is_defined_axisgroup_formula_term.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_formula_term.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_formula_term.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_formula_term_bounds.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axisgroup_formula_term_bounds.restypes = None
+lib.cxios_get_axisgroup_formula_term_bounds.restype = None
 
 lib.cxios_set_axisgroup_formula_term_bounds.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axisgroup_formula_term_bounds.restypes = None
+lib.cxios_set_axisgroup_formula_term_bounds.restype = None
 
 lib.cxios_is_defined_axisgroup_formula_term_bounds.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_formula_term_bounds.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_formula_term_bounds.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_group_ref.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axisgroup_group_ref.restypes = None
+lib.cxios_get_axisgroup_group_ref.restype = None
 
 lib.cxios_set_axisgroup_group_ref.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axisgroup_group_ref.restypes = None
+lib.cxios_set_axisgroup_group_ref.restype = None
 
 lib.cxios_is_defined_axisgroup_group_ref.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_group_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_group_ref.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_index.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axisgroup_index.restypes = None
+lib.cxios_get_axisgroup_index.restype = None
 
 lib.cxios_set_axisgroup_index.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_axisgroup_index.restypes = None
+lib.cxios_set_axisgroup_index.restype = None
 
 lib.cxios_is_defined_axisgroup_index.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_index.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_index.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_label.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_char_p), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axisgroup_label.restypes = None
+lib.cxios_get_axisgroup_label.restype = None
 
 lib.cxios_set_axisgroup_label.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_char_p), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_axisgroup_label.restypes = None
+lib.cxios_set_axisgroup_label.restype = None
 
 lib.cxios_is_defined_axisgroup_label.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_label.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_label.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_long_name.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axisgroup_long_name.restypes = None
+lib.cxios_get_axisgroup_long_name.restype = None
 
 lib.cxios_set_axisgroup_long_name.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axisgroup_long_name.restypes = None
+lib.cxios_set_axisgroup_long_name.restype = None
 
 lib.cxios_is_defined_axisgroup_long_name.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_long_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_long_name.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_mask.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axisgroup_mask.restypes = None
+lib.cxios_get_axisgroup_mask.restype = None
 
 lib.cxios_set_axisgroup_mask.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_axisgroup_mask.restypes = None
+lib.cxios_set_axisgroup_mask.restype = None
 
 lib.cxios_is_defined_axisgroup_mask.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_mask.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_mask.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_n.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axisgroup_n.restypes = None
+lib.cxios_get_axisgroup_n.restype = None
 
 lib.cxios_set_axisgroup_n.argtypes = [AxisGroup, ctypes.c_int]
-lib.cxios_set_axisgroup_n.restypes = None
+lib.cxios_set_axisgroup_n.restype = None
 
 lib.cxios_is_defined_axisgroup_n.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_n.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_n.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_n_distributed_partition.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axisgroup_n_distributed_partition.restypes = None
+lib.cxios_get_axisgroup_n_distributed_partition.restype = None
 
 lib.cxios_set_axisgroup_n_distributed_partition.argtypes = [AxisGroup, ctypes.c_int]
-lib.cxios_set_axisgroup_n_distributed_partition.restypes = None
+lib.cxios_set_axisgroup_n_distributed_partition.restype = None
 
 lib.cxios_is_defined_axisgroup_n_distributed_partition.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_n_distributed_partition.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_n_distributed_partition.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_n_glo.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axisgroup_n_glo.restypes = None
+lib.cxios_get_axisgroup_n_glo.restype = None
 
 lib.cxios_set_axisgroup_n_glo.argtypes = [AxisGroup, ctypes.c_int]
-lib.cxios_set_axisgroup_n_glo.restypes = None
+lib.cxios_set_axisgroup_n_glo.restype = None
 
 lib.cxios_is_defined_axisgroup_n_glo.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_n_glo.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_n_glo.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_name.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axisgroup_name.restypes = None
+lib.cxios_get_axisgroup_name.restype = None
 
 lib.cxios_set_axisgroup_name.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axisgroup_name.restypes = None
+lib.cxios_set_axisgroup_name.restype = None
 
 lib.cxios_is_defined_axisgroup_name.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_name.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_positive.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axisgroup_positive.restypes = None
+lib.cxios_get_axisgroup_positive.restype = None
 
 lib.cxios_set_axisgroup_positive.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axisgroup_positive.restypes = None
+lib.cxios_set_axisgroup_positive.restype = None
 
 lib.cxios_is_defined_axisgroup_positive.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_positive.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_positive.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_prec.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axisgroup_prec.restypes = None
+lib.cxios_get_axisgroup_prec.restype = None
 
 lib.cxios_set_axisgroup_prec.argtypes = [AxisGroup, ctypes.c_int]
-lib.cxios_set_axisgroup_prec.restypes = None
+lib.cxios_set_axisgroup_prec.restype = None
 
 lib.cxios_is_defined_axisgroup_prec.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_prec.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_prec.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_standard_name.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axisgroup_standard_name.restypes = None
+lib.cxios_get_axisgroup_standard_name.restype = None
 
 lib.cxios_set_axisgroup_standard_name.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axisgroup_standard_name.restypes = None
+lib.cxios_set_axisgroup_standard_name.restype = None
 
 lib.cxios_is_defined_axisgroup_standard_name.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_standard_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_standard_name.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_unit.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axisgroup_unit.restypes = None
+lib.cxios_get_axisgroup_unit.restype = None
 
 lib.cxios_set_axisgroup_unit.argtypes = [AxisGroup, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axisgroup_unit.restypes = None
+lib.cxios_set_axisgroup_unit.restype = None
 
 lib.cxios_is_defined_axisgroup_unit.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_unit.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_unit.restype = ctypes.c_bool
 
 lib.cxios_get_axisgroup_value.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axisgroup_value.restypes = None
+lib.cxios_get_axisgroup_value.restype = None
 
 lib.cxios_set_axisgroup_value.argtypes = [AxisGroup, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_axisgroup_value.restypes = None
+lib.cxios_set_axisgroup_value.restype = None
 
 lib.cxios_is_defined_axisgroup_value.argtypes = [AxisGroup]
-lib.cxios_is_defined_axisgroup_value.restypes = ctypes.c_bool
+lib.cxios_is_defined_axisgroup_value.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #
@@ -728,7 +728,7 @@ value_ : Optional[NpArray] = None):
     if bounds_.shape_is_needed: 
       shape_c = (ctypes.c_int * 2)()
       lib.cxios_axisgroup_bounds_shape(axisgroup_hdl, shape_c)
-      bounds_.arr = np.zeros((shape_c[0], shape_c[1]) , order = 'F')
+      bounds_.arr = np.zeros((shape_c[0], shape_c[1]) )
       lib.cxios_get_axisgroup_bounds(axisgroup_hdl, bounds_._c_value, shape_c)
     else: 
       bounds_c = bounds_._c_value
@@ -780,7 +780,7 @@ value_ : Optional[NpArray] = None):
     if data_index_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_axisgroup_data_index_shape(axisgroup_hdl, shape_c)
-      data_index_.arr = np.zeros(shape_c[0], order = 'F')
+      data_index_.arr = np.zeros(shape_c[0])
       lib.cxios_get_axisgroup_data_index(axisgroup_hdl, data_index_._c_value, shape_c)
     else: 
       data_index_c = data_index_._c_value
@@ -850,7 +850,7 @@ value_ : Optional[NpArray] = None):
     if index_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_axisgroup_index_shape(axisgroup_hdl, shape_c)
-      index_.arr = np.zeros(shape_c[0], order = 'F')
+      index_.arr = np.zeros(shape_c[0])
       lib.cxios_get_axisgroup_index(axisgroup_hdl, index_._c_value, shape_c)
     else: 
       index_c = index_._c_value
@@ -880,7 +880,7 @@ value_ : Optional[NpArray] = None):
     if mask_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_axisgroup_mask_shape(axisgroup_hdl, shape_c)
-      mask_.arr = np.zeros(shape_c[0], order = 'F')
+      mask_.arr = np.zeros(shape_c[0])
       lib.cxios_get_axisgroup_mask(axisgroup_hdl, mask_._c_value, shape_c)
     else: 
       mask_c = mask_._c_value
@@ -955,7 +955,7 @@ value_ : Optional[NpArray] = None):
     if value_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_axisgroup_value_shape(axisgroup_hdl, shape_c)
-      value_.arr = np.zeros(shape_c[0], order = 'F')
+      value_.arr = np.zeros(shape_c[0])
       lib.cxios_get_axisgroup_value(axisgroup_hdl, value_._c_value, shape_c)
     else: 
       value_c = value_._c_value

@@ -18,265 +18,265 @@ from xios.oaxis_attr import Axis
 
 
 lib.cxios_get_axis_axis_ref.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axis_axis_ref.restypes = None
+lib.cxios_get_axis_axis_ref.restype = None
 
 lib.cxios_set_axis_axis_ref.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axis_axis_ref.restypes = None
+lib.cxios_set_axis_axis_ref.restype = None
 
 lib.cxios_is_defined_axis_axis_ref.argtypes = [Axis]
-lib.cxios_is_defined_axis_axis_ref.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_axis_ref.restype = ctypes.c_bool
 
 lib.cxios_get_axis_axis_type.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axis_axis_type.restypes = None
+lib.cxios_get_axis_axis_type.restype = None
 
 lib.cxios_set_axis_axis_type.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axis_axis_type.restypes = None
+lib.cxios_set_axis_axis_type.restype = None
 
 lib.cxios_is_defined_axis_axis_type.argtypes = [Axis]
-lib.cxios_is_defined_axis_axis_type.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_axis_type.restype = ctypes.c_bool
 
 lib.cxios_get_axis_begin.argtypes = [Axis, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axis_begin.restypes = None
+lib.cxios_get_axis_begin.restype = None
 
 lib.cxios_set_axis_begin.argtypes = [Axis, ctypes.c_int]
-lib.cxios_set_axis_begin.restypes = None
+lib.cxios_set_axis_begin.restype = None
 
 lib.cxios_is_defined_axis_begin.argtypes = [Axis]
-lib.cxios_is_defined_axis_begin.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_begin.restype = ctypes.c_bool
 
 lib.cxios_get_axis_bounds.argtypes = [Axis, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axis_bounds.restypes = None
+lib.cxios_get_axis_bounds.restype = None
 
 lib.cxios_set_axis_bounds.argtypes = [Axis, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_axis_bounds.restypes = None
+lib.cxios_set_axis_bounds.restype = None
 
 lib.cxios_is_defined_axis_bounds.argtypes = [Axis]
-lib.cxios_is_defined_axis_bounds.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_bounds.restype = ctypes.c_bool
 
 lib.cxios_get_axis_bounds_name.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axis_bounds_name.restypes = None
+lib.cxios_get_axis_bounds_name.restype = None
 
 lib.cxios_set_axis_bounds_name.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axis_bounds_name.restypes = None
+lib.cxios_set_axis_bounds_name.restype = None
 
 lib.cxios_is_defined_axis_bounds_name.argtypes = [Axis]
-lib.cxios_is_defined_axis_bounds_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_bounds_name.restype = ctypes.c_bool
 
 lib.cxios_get_axis_chunking_weight.argtypes = [Axis, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_axis_chunking_weight.restypes = None
+lib.cxios_get_axis_chunking_weight.restype = None
 
 lib.cxios_set_axis_chunking_weight.argtypes = [Axis, ctypes.c_double]
-lib.cxios_set_axis_chunking_weight.restypes = None
+lib.cxios_set_axis_chunking_weight.restype = None
 
 lib.cxios_is_defined_axis_chunking_weight.argtypes = [Axis]
-lib.cxios_is_defined_axis_chunking_weight.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_chunking_weight.restype = ctypes.c_bool
 
 lib.cxios_get_axis_comment.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axis_comment.restypes = None
+lib.cxios_get_axis_comment.restype = None
 
 lib.cxios_set_axis_comment.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axis_comment.restypes = None
+lib.cxios_set_axis_comment.restype = None
 
 lib.cxios_is_defined_axis_comment.argtypes = [Axis]
-lib.cxios_is_defined_axis_comment.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_comment.restype = ctypes.c_bool
 
 lib.cxios_get_axis_convert_from_factor.argtypes = [Axis, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_axis_convert_from_factor.restypes = None
+lib.cxios_get_axis_convert_from_factor.restype = None
 
 lib.cxios_set_axis_convert_from_factor.argtypes = [Axis, ctypes.c_double]
-lib.cxios_set_axis_convert_from_factor.restypes = None
+lib.cxios_set_axis_convert_from_factor.restype = None
 
 lib.cxios_is_defined_axis_convert_from_factor.argtypes = [Axis]
-lib.cxios_is_defined_axis_convert_from_factor.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_convert_from_factor.restype = ctypes.c_bool
 
 lib.cxios_get_axis_data_begin.argtypes = [Axis, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axis_data_begin.restypes = None
+lib.cxios_get_axis_data_begin.restype = None
 
 lib.cxios_set_axis_data_begin.argtypes = [Axis, ctypes.c_int]
-lib.cxios_set_axis_data_begin.restypes = None
+lib.cxios_set_axis_data_begin.restype = None
 
 lib.cxios_is_defined_axis_data_begin.argtypes = [Axis]
-lib.cxios_is_defined_axis_data_begin.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_data_begin.restype = ctypes.c_bool
 
 lib.cxios_get_axis_data_index.argtypes = [Axis, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axis_data_index.restypes = None
+lib.cxios_get_axis_data_index.restype = None
 
 lib.cxios_set_axis_data_index.argtypes = [Axis, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_axis_data_index.restypes = None
+lib.cxios_set_axis_data_index.restype = None
 
 lib.cxios_is_defined_axis_data_index.argtypes = [Axis]
-lib.cxios_is_defined_axis_data_index.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_data_index.restype = ctypes.c_bool
 
 lib.cxios_get_axis_data_n.argtypes = [Axis, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axis_data_n.restypes = None
+lib.cxios_get_axis_data_n.restype = None
 
 lib.cxios_set_axis_data_n.argtypes = [Axis, ctypes.c_int]
-lib.cxios_set_axis_data_n.restypes = None
+lib.cxios_set_axis_data_n.restype = None
 
 lib.cxios_is_defined_axis_data_n.argtypes = [Axis]
-lib.cxios_is_defined_axis_data_n.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_data_n.restype = ctypes.c_bool
 
 lib.cxios_get_axis_dim_name.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axis_dim_name.restypes = None
+lib.cxios_get_axis_dim_name.restype = None
 
 lib.cxios_set_axis_dim_name.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axis_dim_name.restypes = None
+lib.cxios_set_axis_dim_name.restype = None
 
 lib.cxios_is_defined_axis_dim_name.argtypes = [Axis]
-lib.cxios_is_defined_axis_dim_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_dim_name.restype = ctypes.c_bool
 
 lib.cxios_get_axis_formula.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axis_formula.restypes = None
+lib.cxios_get_axis_formula.restype = None
 
 lib.cxios_set_axis_formula.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axis_formula.restypes = None
+lib.cxios_set_axis_formula.restype = None
 
 lib.cxios_is_defined_axis_formula.argtypes = [Axis]
-lib.cxios_is_defined_axis_formula.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_formula.restype = ctypes.c_bool
 
 lib.cxios_get_axis_formula_bounds.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axis_formula_bounds.restypes = None
+lib.cxios_get_axis_formula_bounds.restype = None
 
 lib.cxios_set_axis_formula_bounds.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axis_formula_bounds.restypes = None
+lib.cxios_set_axis_formula_bounds.restype = None
 
 lib.cxios_is_defined_axis_formula_bounds.argtypes = [Axis]
-lib.cxios_is_defined_axis_formula_bounds.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_formula_bounds.restype = ctypes.c_bool
 
 lib.cxios_get_axis_formula_term.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axis_formula_term.restypes = None
+lib.cxios_get_axis_formula_term.restype = None
 
 lib.cxios_set_axis_formula_term.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axis_formula_term.restypes = None
+lib.cxios_set_axis_formula_term.restype = None
 
 lib.cxios_is_defined_axis_formula_term.argtypes = [Axis]
-lib.cxios_is_defined_axis_formula_term.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_formula_term.restype = ctypes.c_bool
 
 lib.cxios_get_axis_formula_term_bounds.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axis_formula_term_bounds.restypes = None
+lib.cxios_get_axis_formula_term_bounds.restype = None
 
 lib.cxios_set_axis_formula_term_bounds.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axis_formula_term_bounds.restypes = None
+lib.cxios_set_axis_formula_term_bounds.restype = None
 
 lib.cxios_is_defined_axis_formula_term_bounds.argtypes = [Axis]
-lib.cxios_is_defined_axis_formula_term_bounds.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_formula_term_bounds.restype = ctypes.c_bool
 
 lib.cxios_get_axis_index.argtypes = [Axis, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axis_index.restypes = None
+lib.cxios_get_axis_index.restype = None
 
 lib.cxios_set_axis_index.argtypes = [Axis, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_axis_index.restypes = None
+lib.cxios_set_axis_index.restype = None
 
 lib.cxios_is_defined_axis_index.argtypes = [Axis]
-lib.cxios_is_defined_axis_index.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_index.restype = ctypes.c_bool
 
 lib.cxios_get_axis_label.argtypes = [Axis, ctypes.POINTER(ctypes.c_char_p), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axis_label.restypes = None
+lib.cxios_get_axis_label.restype = None
 
 lib.cxios_set_axis_label.argtypes = [Axis, ctypes.POINTER(ctypes.c_char_p), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_axis_label.restypes = None
+lib.cxios_set_axis_label.restype = None
 
 lib.cxios_is_defined_axis_label.argtypes = [Axis]
-lib.cxios_is_defined_axis_label.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_label.restype = ctypes.c_bool
 
 lib.cxios_get_axis_long_name.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axis_long_name.restypes = None
+lib.cxios_get_axis_long_name.restype = None
 
 lib.cxios_set_axis_long_name.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axis_long_name.restypes = None
+lib.cxios_set_axis_long_name.restype = None
 
 lib.cxios_is_defined_axis_long_name.argtypes = [Axis]
-lib.cxios_is_defined_axis_long_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_long_name.restype = ctypes.c_bool
 
 lib.cxios_get_axis_mask.argtypes = [Axis, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axis_mask.restypes = None
+lib.cxios_get_axis_mask.restype = None
 
 lib.cxios_set_axis_mask.argtypes = [Axis, ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_axis_mask.restypes = None
+lib.cxios_set_axis_mask.restype = None
 
 lib.cxios_is_defined_axis_mask.argtypes = [Axis]
-lib.cxios_is_defined_axis_mask.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_mask.restype = ctypes.c_bool
 
 lib.cxios_get_axis_n.argtypes = [Axis, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axis_n.restypes = None
+lib.cxios_get_axis_n.restype = None
 
 lib.cxios_set_axis_n.argtypes = [Axis, ctypes.c_int]
-lib.cxios_set_axis_n.restypes = None
+lib.cxios_set_axis_n.restype = None
 
 lib.cxios_is_defined_axis_n.argtypes = [Axis]
-lib.cxios_is_defined_axis_n.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_n.restype = ctypes.c_bool
 
 lib.cxios_get_axis_n_distributed_partition.argtypes = [Axis, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axis_n_distributed_partition.restypes = None
+lib.cxios_get_axis_n_distributed_partition.restype = None
 
 lib.cxios_set_axis_n_distributed_partition.argtypes = [Axis, ctypes.c_int]
-lib.cxios_set_axis_n_distributed_partition.restypes = None
+lib.cxios_set_axis_n_distributed_partition.restype = None
 
 lib.cxios_is_defined_axis_n_distributed_partition.argtypes = [Axis]
-lib.cxios_is_defined_axis_n_distributed_partition.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_n_distributed_partition.restype = ctypes.c_bool
 
 lib.cxios_get_axis_n_glo.argtypes = [Axis, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axis_n_glo.restypes = None
+lib.cxios_get_axis_n_glo.restype = None
 
 lib.cxios_set_axis_n_glo.argtypes = [Axis, ctypes.c_int]
-lib.cxios_set_axis_n_glo.restypes = None
+lib.cxios_set_axis_n_glo.restype = None
 
 lib.cxios_is_defined_axis_n_glo.argtypes = [Axis]
-lib.cxios_is_defined_axis_n_glo.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_n_glo.restype = ctypes.c_bool
 
 lib.cxios_get_axis_name.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axis_name.restypes = None
+lib.cxios_get_axis_name.restype = None
 
 lib.cxios_set_axis_name.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axis_name.restypes = None
+lib.cxios_set_axis_name.restype = None
 
 lib.cxios_is_defined_axis_name.argtypes = [Axis]
-lib.cxios_is_defined_axis_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_name.restype = ctypes.c_bool
 
 lib.cxios_get_axis_positive.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axis_positive.restypes = None
+lib.cxios_get_axis_positive.restype = None
 
 lib.cxios_set_axis_positive.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axis_positive.restypes = None
+lib.cxios_set_axis_positive.restype = None
 
 lib.cxios_is_defined_axis_positive.argtypes = [Axis]
-lib.cxios_is_defined_axis_positive.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_positive.restype = ctypes.c_bool
 
 lib.cxios_get_axis_prec.argtypes = [Axis, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axis_prec.restypes = None
+lib.cxios_get_axis_prec.restype = None
 
 lib.cxios_set_axis_prec.argtypes = [Axis, ctypes.c_int]
-lib.cxios_set_axis_prec.restypes = None
+lib.cxios_set_axis_prec.restype = None
 
 lib.cxios_is_defined_axis_prec.argtypes = [Axis]
-lib.cxios_is_defined_axis_prec.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_prec.restype = ctypes.c_bool
 
 lib.cxios_get_axis_standard_name.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axis_standard_name.restypes = None
+lib.cxios_get_axis_standard_name.restype = None
 
 lib.cxios_set_axis_standard_name.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axis_standard_name.restypes = None
+lib.cxios_set_axis_standard_name.restype = None
 
 lib.cxios_is_defined_axis_standard_name.argtypes = [Axis]
-lib.cxios_is_defined_axis_standard_name.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_standard_name.restype = ctypes.c_bool
 
 lib.cxios_get_axis_unit.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_axis_unit.restypes = None
+lib.cxios_get_axis_unit.restype = None
 
 lib.cxios_set_axis_unit.argtypes = [Axis, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_axis_unit.restypes = None
+lib.cxios_set_axis_unit.restype = None
 
 lib.cxios_is_defined_axis_unit.argtypes = [Axis]
-lib.cxios_is_defined_axis_unit.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_unit.restype = ctypes.c_bool
 
 lib.cxios_get_axis_value.argtypes = [Axis, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_axis_value.restypes = None
+lib.cxios_get_axis_value.restype = None
 
 lib.cxios_set_axis_value.argtypes = [Axis, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
-lib.cxios_set_axis_value.restypes = None
+lib.cxios_set_axis_value.restype = None
 
 lib.cxios_is_defined_axis_value.argtypes = [Axis]
-lib.cxios_is_defined_axis_value.restypes = ctypes.c_bool
+lib.cxios_is_defined_axis_value.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #
@@ -707,7 +707,7 @@ standard_name_ : Optional[String] = None, unit_ : Optional[String] = None, value
     if bounds_.shape_is_needed: 
       shape_c = (ctypes.c_int * 2)()
       lib.cxios_axis_bounds_shape(axis_hdl, shape_c)
-      bounds_.arr = np.zeros((shape_c[0], shape_c[1]) , order = 'F')
+      bounds_.arr = np.zeros((shape_c[0], shape_c[1]) )
       lib.cxios_get_axis_bounds(axis_hdl, bounds_._c_value, shape_c)
     else: 
       bounds_c = bounds_._c_value
@@ -759,7 +759,7 @@ standard_name_ : Optional[String] = None, unit_ : Optional[String] = None, value
     if data_index_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_axis_data_index_shape(axis_hdl, shape_c)
-      data_index_.arr = np.zeros(shape_c[0], order = 'F')
+      data_index_.arr = np.zeros(shape_c[0])
       lib.cxios_get_axis_data_index(axis_hdl, data_index_._c_value, shape_c)
     else: 
       data_index_c = data_index_._c_value
@@ -821,7 +821,7 @@ standard_name_ : Optional[String] = None, unit_ : Optional[String] = None, value
     if index_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_axis_index_shape(axis_hdl, shape_c)
-      index_.arr = np.zeros(shape_c[0], order = 'F')
+      index_.arr = np.zeros(shape_c[0])
       lib.cxios_get_axis_index(axis_hdl, index_._c_value, shape_c)
     else: 
       index_c = index_._c_value
@@ -851,7 +851,7 @@ standard_name_ : Optional[String] = None, unit_ : Optional[String] = None, value
     if mask_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_axis_mask_shape(axis_hdl, shape_c)
-      mask_.arr = np.zeros(shape_c[0], order = 'F')
+      mask_.arr = np.zeros(shape_c[0])
       lib.cxios_get_axis_mask(axis_hdl, mask_._c_value, shape_c)
     else: 
       mask_c = mask_._c_value
@@ -926,7 +926,7 @@ standard_name_ : Optional[String] = None, unit_ : Optional[String] = None, value
     if value_.shape_is_needed: 
       shape_c = (ctypes.c_int * 1)()
       lib.cxios_axis_value_shape(axis_hdl, shape_c)
-      value_.arr = np.zeros(shape_c[0], order = 'F')
+      value_.arr = np.zeros(shape_c[0])
       lib.cxios_get_axis_value(axis_hdl, value_._c_value, shape_c)
     else: 
       value_c = value_._c_value

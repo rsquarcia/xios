@@ -64,18 +64,7 @@ class Context(Context_):
 
         self._context_id = context_id
         set_current_context(String(context_id))
-        self._is_calendar_defined = is_defined_calendar()
         self._calendar = Calendar()
-        if not self._is_calendar_defined:
-            self._define_calendar()
-
-
-    def _define_calendar(self, type = 'gregorian'):
-        if self._finalized : raise RuntimeError("Cannot use context after it has been finalized.")
-        if self._is_calendar_defined:
-            raise ValueError("Calendar already defined")
-
-        define_calendar(type)
     
     @property
     def calendar(self):
@@ -115,10 +104,6 @@ class Context(Context_):
     def set_current(self):
         set_current_context(String(self._id))
 
-    def axis(self, axis_id):
-        return Axis(axis_id)
-
-
     
 def dynamic_methods():
     CLASS_MAP = {
@@ -152,11 +137,10 @@ def dynamic_methods():
     "redistribute_scalar": RedistributeScalar
     }
     def create_method(name):
-        def method(self, idt, **kwargs):
+        def method(self, arg1, arg2=None, **kwargs):
             current_context_id = swipswap_ctx(self._id)
             cls = CLASS_MAP[name]
-
-            res = cls(idt)
+            res = cls(arg1, arg2)
             for key, value in kwargs.items():
                 if key in cls.FIELD_META:
                     setattr(cls, key, value)

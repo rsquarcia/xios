@@ -18,40 +18,40 @@ from xios.oreorder_domain_attr import ReorderDomain
 
 
 lib.cxios_get_reorder_domain_invert_lat.argtypes = [ReorderDomain, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_reorder_domain_invert_lat.restypes = None
+lib.cxios_get_reorder_domain_invert_lat.restype = None
 
 lib.cxios_set_reorder_domain_invert_lat.argtypes = [ReorderDomain, ctypes.c_bool]
-lib.cxios_set_reorder_domain_invert_lat.restypes = None
+lib.cxios_set_reorder_domain_invert_lat.restype = None
 
 lib.cxios_is_defined_reorder_domain_invert_lat.argtypes = [ReorderDomain]
-lib.cxios_is_defined_reorder_domain_invert_lat.restypes = ctypes.c_bool
+lib.cxios_is_defined_reorder_domain_invert_lat.restype = ctypes.c_bool
 
 lib.cxios_get_reorder_domain_max_lon.argtypes = [ReorderDomain, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_reorder_domain_max_lon.restypes = None
+lib.cxios_get_reorder_domain_max_lon.restype = None
 
 lib.cxios_set_reorder_domain_max_lon.argtypes = [ReorderDomain, ctypes.c_double]
-lib.cxios_set_reorder_domain_max_lon.restypes = None
+lib.cxios_set_reorder_domain_max_lon.restype = None
 
 lib.cxios_is_defined_reorder_domain_max_lon.argtypes = [ReorderDomain]
-lib.cxios_is_defined_reorder_domain_max_lon.restypes = ctypes.c_bool
+lib.cxios_is_defined_reorder_domain_max_lon.restype = ctypes.c_bool
 
 lib.cxios_get_reorder_domain_min_lon.argtypes = [ReorderDomain, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_reorder_domain_min_lon.restypes = None
+lib.cxios_get_reorder_domain_min_lon.restype = None
 
 lib.cxios_set_reorder_domain_min_lon.argtypes = [ReorderDomain, ctypes.c_double]
-lib.cxios_set_reorder_domain_min_lon.restypes = None
+lib.cxios_set_reorder_domain_min_lon.restype = None
 
 lib.cxios_is_defined_reorder_domain_min_lon.argtypes = [ReorderDomain]
-lib.cxios_is_defined_reorder_domain_min_lon.restypes = ctypes.c_bool
+lib.cxios_is_defined_reorder_domain_min_lon.restype = ctypes.c_bool
 
 lib.cxios_get_reorder_domain_shift_lon_fraction.argtypes = [ReorderDomain, ctypes.POINTER(ctypes.c_double)]
-lib.cxios_get_reorder_domain_shift_lon_fraction.restypes = None
+lib.cxios_get_reorder_domain_shift_lon_fraction.restype = None
 
 lib.cxios_set_reorder_domain_shift_lon_fraction.argtypes = [ReorderDomain, ctypes.c_double]
-lib.cxios_set_reorder_domain_shift_lon_fraction.restypes = None
+lib.cxios_set_reorder_domain_shift_lon_fraction.restype = None
 
 lib.cxios_is_defined_reorder_domain_shift_lon_fraction.argtypes = [ReorderDomain]
-lib.cxios_is_defined_reorder_domain_shift_lon_fraction.restypes = ctypes.c_bool
+lib.cxios_is_defined_reorder_domain_shift_lon_fraction.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #

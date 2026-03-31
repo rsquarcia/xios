@@ -18,40 +18,40 @@ from xios.oexpand_domain_attr import ExpandDomain
 
 
 lib.cxios_get_expand_domain_i_periodic.argtypes = [ExpandDomain, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_expand_domain_i_periodic.restypes = None
+lib.cxios_get_expand_domain_i_periodic.restype = None
 
 lib.cxios_set_expand_domain_i_periodic.argtypes = [ExpandDomain, ctypes.c_bool]
-lib.cxios_set_expand_domain_i_periodic.restypes = None
+lib.cxios_set_expand_domain_i_periodic.restype = None
 
 lib.cxios_is_defined_expand_domain_i_periodic.argtypes = [ExpandDomain]
-lib.cxios_is_defined_expand_domain_i_periodic.restypes = ctypes.c_bool
+lib.cxios_is_defined_expand_domain_i_periodic.restype = ctypes.c_bool
 
 lib.cxios_get_expand_domain_j_periodic.argtypes = [ExpandDomain, ctypes.POINTER(ctypes.c_bool)]
-lib.cxios_get_expand_domain_j_periodic.restypes = None
+lib.cxios_get_expand_domain_j_periodic.restype = None
 
 lib.cxios_set_expand_domain_j_periodic.argtypes = [ExpandDomain, ctypes.c_bool]
-lib.cxios_set_expand_domain_j_periodic.restypes = None
+lib.cxios_set_expand_domain_j_periodic.restype = None
 
 lib.cxios_is_defined_expand_domain_j_periodic.argtypes = [ExpandDomain]
-lib.cxios_is_defined_expand_domain_j_periodic.restypes = ctypes.c_bool
+lib.cxios_is_defined_expand_domain_j_periodic.restype = ctypes.c_bool
 
 lib.cxios_get_expand_domain_order.argtypes = [ExpandDomain, ctypes.POINTER(ctypes.c_int)]
-lib.cxios_get_expand_domain_order.restypes = None
+lib.cxios_get_expand_domain_order.restype = None
 
 lib.cxios_set_expand_domain_order.argtypes = [ExpandDomain, ctypes.c_int]
-lib.cxios_set_expand_domain_order.restypes = None
+lib.cxios_set_expand_domain_order.restype = None
 
 lib.cxios_is_defined_expand_domain_order.argtypes = [ExpandDomain]
-lib.cxios_is_defined_expand_domain_order.restypes = ctypes.c_bool
+lib.cxios_is_defined_expand_domain_order.restype = ctypes.c_bool
 
 lib.cxios_get_expand_domain_type.argtypes = [ExpandDomain, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_get_expand_domain_type.restypes = None
+lib.cxios_get_expand_domain_type.restype = None
 
 lib.cxios_set_expand_domain_type.argtypes = [ExpandDomain, ctypes.c_char_p, ctypes.c_int]
-lib.cxios_set_expand_domain_type.restypes = None
+lib.cxios_set_expand_domain_type.restype = None
 
 lib.cxios_is_defined_expand_domain_type.argtypes = [ExpandDomain]
-lib.cxios_is_defined_expand_domain_type.restypes = ctypes.c_bool
+lib.cxios_is_defined_expand_domain_type.restype = ctypes.c_bool
 
 #_____________________________________________________________________________________________#
 #                                   #C interface functions                                    #
