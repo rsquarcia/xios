@@ -840,14 +840,6 @@ namespace xios {
        loc_bounds_lon_start=lon(0) - lonStepStart/2;
        double lonStepEnd = lon(ni_glo-1)-lon(ni_glo-2);
        loc_bounds_lon_end=lon(ni_glo-1) + lonStepEnd/2;
-       double errorBoundsLon = std::abs(360-std::abs(loc_bounds_lon_end-loc_bounds_lon_start));
-
-       // if errorBoundsLon is reasonably small (0.1 x cell size) consider it as closed in longitude
-       if (errorBoundsLon < std::abs(lonStepStart)*1e-1 || errorBoundsLon < std::abs(lonStepEnd)*1e-1 )
-       {
-         loc_bounds_lon_start= (lon(0) + lon(ni_glo-1)-360)/2 ;
-         loc_bounds_lon_end= (lon(0) +360 + lon(ni_glo-1))/2 ;
-       }
      }
      else
      {
@@ -874,44 +866,14 @@ namespace xios {
     if (std::abs(90 - std::abs(lat(0))) < NumTraits<double>::epsilon()) isNorthPole = true;
     if (std::abs(90 - std::abs(lat(nj_glo-1))) < NumTraits<double>::epsilon()) isSouthPole = true;
     
-    // lat boundaries beyond pole the assimilate it to pole
-    // lat boundarie is relativelly close to pole (0.1 x cell size) assimilate it to pole
+    // lat boundaries beyond pole the assimilate it to pole -> for interpolation only
     double loc_bounds_lat_start, loc_bounds_lat_end;
     if (nj_glo>1)
     {
       double latStepStart = lat(niValue_)-lat(0);
-      if (isNorthPole) loc_bounds_lat_start=lat(0);
-      else
-      {
-        loc_bounds_lat_start=lat(0)-latStepStart/2;
-        if (loc_bounds_lat_start >= 90 ) loc_bounds_lat_start=90 ;
-        else if (loc_bounds_lat_start <= -90 ) loc_bounds_lat_start=-90 ;
-        else if (loc_bounds_lat_start <= 90 && loc_bounds_lat_start >= lat(0))
-        {
-          if ( std::abs(90-loc_bounds_lat_start) <= 0.1*std::abs(latStepStart)) loc_bounds_lat_start=90 ;
-        }
-        else if (loc_bounds_lat_start >= -90 && loc_bounds_lat_start <= lat(0))
-        {
-          if ( std::abs(-90 - loc_bounds_lat_start) <= 0.1*std::abs(latStepStart)) loc_bounds_lat_start=-90 ;
-        }
-      }
-
+      loc_bounds_lat_start=lat(0) - latStepStart/2;
       double latStepEnd = lat(niValue_*njValue_-1)-lat(niValue_*njValue_-niValue_-1);
-      if (isSouthPole) loc_bounds_lat_end=lat(nj_glo-1);
-      else
-      {
-        loc_bounds_lat_end=lat(lat.numElements()-1)+latStepEnd/2;
-        if (loc_bounds_lat_end >= 90 ) loc_bounds_lat_end=90 ;
-        else if (loc_bounds_lat_end <= -90 ) loc_bounds_lat_end=-90 ;
-        else if (loc_bounds_lat_end <= 90 && loc_bounds_lat_end >= lat(nj_glo-1))
-        {
-          if ( std::abs(90-loc_bounds_lat_end) <= 0.1*std::abs(latStepEnd)) loc_bounds_lat_end=90 ;
-        }
-        else if (loc_bounds_lat_end >= -90 && loc_bounds_lat_end <= lat(nj_glo-1))
-        {
-          if ( std::abs(-90 - loc_bounds_lat_end) <= 0.1*std::abs(latStepEnd)) loc_bounds_lat_end=-90 ;
-        }
-      }
+      loc_bounds_lat_end=lat(niValue_*njValue_-1) + latStepEnd/2;
     }
     else
     {
