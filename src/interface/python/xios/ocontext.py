@@ -53,7 +53,7 @@ from xios.oredistribute_scalar_attr import RedistributeScalar
 class Context(Context_):
 
     def __init__(self, context_id, comm = None):
-        super().__init__(arg1 = context_id)
+        super().__init__(id = context_id)
 
         if comm is None :
             comm = _xios_instance._communicator
@@ -137,10 +137,10 @@ def dynamic_methods():
     "redistribute_scalar": RedistributeScalar
     }
     def create_method(name):
-        def method(self, arg1, arg2=None, **kwargs):
+        def method(self, id, **kwargs):
             current_context_id = swipswap_ctx(self._id)
             cls = CLASS_MAP[name]
-            res = cls(arg1, arg2)
+            res = cls(id)
             for key, value in kwargs.items():
                 if key in cls.FIELD_META:
                     setattr(cls, key, value)

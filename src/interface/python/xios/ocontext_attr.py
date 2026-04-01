@@ -26,8 +26,8 @@ class Context_(Object):
   'output_dir': {'type': str},
   }
   
-  def __init__(self, arg1 = None, arg2 : str = None, **kwargs):
-    super().__init__(arg1, arg2)
+  def __init__(self, id = None, **kwargs):
+    super().__init__(id)
     for key, value in kwargs.items():
       if key in self.FIELD_META:
         setattr(self, key, value)
@@ -48,5 +48,4 @@ class Context_(Object):
     swipswap_ctx(current_context_id)
   
   
-Context_._generate_child_methods()
 

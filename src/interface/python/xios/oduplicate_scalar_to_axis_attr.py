@@ -16,10 +16,10 @@ class DuplicateScalarToAxis(Object):
   'duplicate_scalar_to_axis_id': {'type': str},
   }
   
-  def __init__(self, arg1 = None, arg2 : str = None, **kwargs):
+  def __init__(self, id = None, **kwargs):
     self._context_id = String()
     get_current_context_id(self._context_id)
-    super().__init__(arg1, arg2)
+    super().__init__(id)
     for key, value in kwargs.items():
       if key in self.FIELD_META:
         setattr(self, key, value)
@@ -40,5 +40,4 @@ class DuplicateScalarToAxis(Object):
     swipswap_ctx(current_context_id)
   
   
-DuplicateScalarToAxis._generate_child_methods()
 
