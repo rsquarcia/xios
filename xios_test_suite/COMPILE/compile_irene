@@ -2,7 +2,7 @@
 
 #set -x 
 
-export revision=$(svn info --show-item revision .. 2>&1)
+export revision=$(git rev-parse HEAD 2>&1)
 
 python config_compile.py
 

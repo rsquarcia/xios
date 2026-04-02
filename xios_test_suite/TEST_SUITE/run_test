@@ -1,7 +1,8 @@
 #!/bin/bash
 
 export build_dir=xios_test_suite/RUN_TEST_SUITE/build_${arch}_${mode}
-export svnR=$(svn info --show-item revision ../../)
+export gitR=$(git rev-parse HEAD | cut -c1-8 2>&1)
+export svnR=$(echo "$(git log -1 $gitR --date=format:%Y%m%d_%H%M%S --format=%cd)_$(git rev-parse --abbrev-ref HEAD)_$gitR")
 if [[ -v enable_mem_track ]]; then
   echo "enable_mem_track is set to '$enable_mem_track'"
 fi
