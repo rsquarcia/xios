@@ -2,8 +2,11 @@
 
 echo "running my_run.sh"
 
-export svnR=$(svn info --show-item revision ../../)
-svnurl=$(svn info --show-item url ../../)
+export svnR=$(git rev-parse HEAD 2>&1)
+export gitR=$(git rev-parse HEAD | cut -c1-8 2>&1)
+export svnR=$(echo "$(git log -1 $gitR --date=format:%Y%m%d_%H%M%S --format=%cd)_$(git rev-parse --abbrev-ref HEAD)_$gitR")
+
+svnurl=$(git remote -v|grep fetch|awk '{print $2}')
 PWD=$(pwd)
 
 fn=report_${svnR}_${arch}_${mode}.txt
