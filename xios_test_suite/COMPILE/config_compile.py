@@ -5,6 +5,9 @@ import os
 
 user_acct=os.getenv("user_account")
 
+def run(cmd):
+    return subprocess.check_output(cmd, stderr=subprocess.STDOUT).decode().strip()
+
 def OSinfo(runthis):
 	red = lambda text: '\033[0;31m' + text + '\033[0m'
 	osstdout = subprocess.Popen(runthis, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True)
@@ -102,6 +105,15 @@ def main():
     f.write("project(generic_testcase)\n\n")
     f.write("find_package(PythonInterp REQUIRED)\n\n")
     f.write("enable_testing()\n\n")
+
+    gitR = run(["git", "rev-parse", "HEAD"])[:8]
+    date = run([
+            "git", "log", "-1", gitR,
+            "--date=format:%Y%m%d_%H%M%S",
+            "--format=%cd"
+    ])
+    branch = run(["git", "rev-parse", "--abbrev-ref", "HEAD"])
+    rev_readable = f"{date}_{branch}_{gitR}"
        
     for i in range(len(configs_arg[0])):
         for j in range(len(configs_arg[1])):
@@ -110,7 +122,7 @@ def main():
             g.write("arch "+configs_arg[0][i]+"\n")
             g.write("mode "+configs_arg[1][j]+"\n")
             g.write("machine "+machine+"\n")
-            g.write("revision "+revision+"\n")
+            g.write("revision "+rev_readable+"\n")
             g.close()
             
             f.write("add_test( NAME "+build_dir_name+'\n')

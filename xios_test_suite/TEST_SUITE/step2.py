@@ -13,7 +13,7 @@ import numpy as np
 mode=os.getenv("mode")
 arch=os.getenv("arch")
 enable_mem_track=os.getenv("enable_mem_track")
-svnr=os.getenv("svnR")
+svnr=str(os.getenv("svnR"))
 ref_location=os.getenv("ref_location")
 ref_file=os.getenv("ref_file")
 
@@ -72,13 +72,19 @@ def main():
         rev = tmp[len(tmp)-1]
         ref_list[i] = int(rev)
     ref_list.sort(reverse=True) #ref_list in descending order
+
+    ## ENV/irene.env : export ref_location=/ccc/work/cont003/gen0826/gen0826/XIOS_Unit_Tests/reference/XIOS_COUPLING
+    ## $ ls $ref_location
+    ## 2153  2172  2186  2187  2215  2243  2268  2279  2288  2298  2300
     
     ref_rev = ""
-    for ref in ref_list:
-        if int(svnr) >= ref :
-            ref_rev = str(ref)
-            print("corresponding reference = ", ref)
-            break
+    ref_rev = str(ref_list[0])
+    # NOT REALLY USED FOR NOW : TO BE RESUMED
+    #for ref in ref_list:
+    #    if int(svnr) >= ref :
+    #        ref_rev = str(ref)
+    #        print("corresponding reference = ", ref)
+    #        break
         
     if not ref_rev:
         print("no available reference found ... exit")
