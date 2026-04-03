@@ -25,7 +25,7 @@ namespace xios
             typedef std::vector<StdString> CONetCDF4Path;
 
             /// Constructeurs ///
-            CONetCDF4(const StdString& filename, bool append, bool useClassicFormat = false,
+            CONetCDF4(const StdString& filename, bool append, bool useClassicFormat = false, bool useClassicFormat4Plus = false,
             		  bool useCFConvention = true,
                       const MPI_Comm* comm = NULL, bool multifile = true,
                       const StdString& timeCounterName = "time_counter");
@@ -35,7 +35,7 @@ namespace xios
 
 
             /// Initialisation ///
-            void initialize(const StdString& filename, bool append, bool useClassicFormat, bool useCFConvention,
+            void initialize(const StdString& filename, bool append, bool useClassicFormat, bool useClassicFormat4Plus, bool useCFConvention,
                             const MPI_Comm* comm, bool multifile, const StdString& timeCounterName);
             void close(void);
             void sync(void);
@@ -108,6 +108,7 @@ namespace xios
             bool dimExist(const StdString& dimname);
 
             bool useClassicFormat; //!< If true, NetCDF4 will use the classic NetCDF3 format
+            bool useClassicFormat4Plus; //!< If true, NetCDF4 will use the classic NetCDF4 format (no grp but per-variable compression and chunking ...)
             bool useCFConvention;  //!< If true data is written in the CF convention otherwise in UGRID
 
       //----------------------------------------------------------------
