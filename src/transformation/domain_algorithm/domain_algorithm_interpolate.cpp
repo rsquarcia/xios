@@ -802,7 +802,7 @@ CATCH
  
 /*! Redefined some functions of CONetCDF4 to make use of them */
 CDomainAlgorithmInterpolate::WriteNetCdf::WriteNetCdf(const StdString& filename, const MPI_Comm comm)
-  : CNc4DataOutput(NULL, filename, false, false, true, comm, false, true) {}
+  : CNc4DataOutput(NULL, filename, false, false, false, true, comm, false, true) {}
 int CDomainAlgorithmInterpolate::WriteNetCdf::addDimensionWrite(const StdString& name, 
                                                                 const StdSize size)
 TRY
