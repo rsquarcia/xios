@@ -48,8 +48,6 @@ from xios.oreduce_scalar_to_scalar_attr import ReduceScalarToScalar
 from xios.oredistribute_scalar_attr import RedistributeScalar
 
 
-
-
 class Context(Context_):
 
     def __init__(self, context_id, comm = None):
@@ -136,6 +134,7 @@ def dynamic_methods():
     "reduce_scalar_to_scalar": ReduceScalarToScalar,
     "redistribute_scalar": RedistributeScalar
     }
+
     def create_method(name):
         def method(self, id, **kwargs):
             current_context_id = swipswap_ctx(self._id)
@@ -150,8 +149,18 @@ def dynamic_methods():
             return res
         return method
 
+    def create_is_valid(name):
+        def method(self, id):
+            current_context_id = swipswap_ctx(self._id)
+            is_valid_func = self._resolve_func(f"is_valid_{name}", f"xios.i{name}")
+            res = is_valid_func(String(id))
+            swipswap_ctx(current_context_id)
+            return res
+        return method
+
     for key in CLASS_MAP:
         setattr(Context, f'{key}', create_method(key))
+        setattr(Context, f'is_valid_{key}', create_is_valid(key))
         
 
 dynamic_methods()
