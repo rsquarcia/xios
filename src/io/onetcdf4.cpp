@@ -15,15 +15,16 @@ namespace xios
       extern CLogType logProfile ;
       /// ////////////////////// Définitions ////////////////////// ///
 
-      CONetCDF4::CONetCDF4(const StdString& filename, bool append, bool useClassicFormat,
+      CONetCDF4::CONetCDF4(const StdString& filename, bool append, bool useClassicFormat, bool useClassicFormat4Model,
 							bool useCFConvention,
                            const MPI_Comm* comm, bool multifile, const StdString& timeCounterName)
         : path()
         , wmpi(false)
         , useClassicFormat(useClassicFormat)
+        , useClassicFormat4Model(useClassicFormat4Model)
         , useCFConvention(useCFConvention)
       {
-         this->initialize(filename, append, useClassicFormat, useCFConvention, comm, multifile, timeCounterName);
+         this->initialize(filename, append, useClassicFormat, useClassicFormat4Model, useCFConvention, comm, multifile, timeCounterName);
       }
 
       //---------------------------------------------------------------
@@ -34,13 +35,16 @@ namespace xios
 
       ///--------------------------------------------------------------
 
-      void CONetCDF4::initialize(const StdString& filename, bool append, bool useClassicFormat, bool useCFConvention, 
+      void CONetCDF4::initialize(const StdString& filename, bool append, bool useClassicFormat,
+                                 bool useClassicFormat4Model, bool useCFConvention,
                                  const MPI_Comm* comm, bool multifile, const StdString& timeCounterName)
       {
          this->useClassicFormat = useClassicFormat;
+         this->useClassicFormat4Model = useClassicFormat4Model;
          this->useCFConvention = useCFConvention;
 
          int mode = useClassicFormat ? 0 : NC_NETCDF4;
+         if (useClassicFormat4Model) mode = (NC_NETCDF4 | NC_CLASSIC_MODEL);
 
          // Don't use parallel mode if there is only one process
          if (comm)
@@ -81,7 +85,7 @@ namespace xios
 
          // If the classic NetCDF format is used, we enable the "no-fill mode" globally.
          // This is done per variable for the NetCDF4 format.
-         if (useClassicFormat)
+         if ((useClassicFormat)||(useClassicFormat4Model))
             CNetCdfInterface::setFill(this->ncidp, false);
 
          this->timeCounterName = timeCounterName;
@@ -334,7 +338,7 @@ namespace xios
 
          CNetCdfInterface::defVar(grpid, name, type, dimids.size(), &dimids[0], varid);
 
-         if (defineChunking) {
+         if ( (!useClassicFormat) && (defineChunking) ) {
            int storageType = (0 == dimSize) ? NC_CONTIGUOUS : NC_CHUNKED;
            CNetCdfInterface::defVarChunking(grpid, varid, storageType, &dimsizes[0]);
            CNetCdfInterface::defVarFill(grpid, varid, true, NULL);
