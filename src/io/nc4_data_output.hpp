@@ -24,7 +24,7 @@ namespace xios
             CNc4DataOutput
                (CFile* file, const StdString & filename, bool exist);
             CNc4DataOutput
-               (CFile* file, const StdString & filename, bool exist, bool useClassicFormat, bool useClassicFormat4Plus,
+               (CFile* file, const StdString & filename, bool exist, bool useClassicFormat, bool useClassicFormat4Model,
                 bool useCFConvention,
                 MPI_Comm comm_file, bool multifile, bool isCollective = true,
                 const StdString& timeCounterName = "time_counter");
