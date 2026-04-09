@@ -539,7 +539,7 @@ namespace xios {
         bool append = !this->append.isEmpty() && this->append.getValue();
 
          bool useClassicFormat = !format.isEmpty() && format == format_attr::netcdf4_classic;
-         bool useClassicFormat4Plus = !format.isEmpty() && format == format_attr::netcdf4_classic_plus;
+         bool useClassicFormat4Model = !format.isEmpty() && format == format_attr::netcdf4_classic_model;
          bool useCFConvention = convention.isEmpty() || convention == convention_attr::CF;
 
          bool multifile = true;
@@ -583,7 +583,7 @@ namespace xios {
 
          if (isOpen) data_out->closeFile();
 
-        data_out = std::shared_ptr<CDataOutput>(new CNc4DataOutput(this, oss.str(), append, useClassicFormat, useClassicFormat4Plus,
+        data_out = std::shared_ptr<CDataOutput>(new CNc4DataOutput(this, oss.str(), append, useClassicFormat, useClassicFormat4Model,
                                                               useCFConvention,
                                                               fileComm, multifile, isCollective, time_counter_name));
         isOpen = true;
