@@ -1,4 +1,4 @@
-from ctypes import c_void_p, c_char_p, c_int, c_bool, POINTER, c_double, string_at, byref, Structure, pointer
+from ctypes import c_char_p, c_int, c_bool, POINTER, string_at, byref, pointer
 from xios.config import lib, String, Bool, typecheck
 from xios.ofile_attr import File
 from xios.ofilegroup_attr import FileGroup
@@ -13,7 +13,7 @@ from typing import Union
 lib.cxios_file_handle_create.argtypes = [POINTER(File), c_char_p, c_int]
 lib.cxios_file_handle_create.restype = None
 
-lib.cxios_filegroup_handle_create.argtypes = [POINTER(File), c_char_p, c_int]
+lib.cxios_filegroup_handle_create.argtypes = [POINTER(FileGroup), c_char_p, c_int]
 lib.cxios_filegroup_handle_create.restype = None
 
 lib.cxios_file_valid_id.argtypes = [POINTER(c_bool), c_char_p, c_int]

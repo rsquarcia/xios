@@ -157,6 +157,9 @@ class Object(CObject):
                         parent_type = cls._resolve_func(cls, parent_class_name, f"xios.o{parent}_attr")
                         if isinstance(parent_hdl, parent_type):
                             function(parent_hdl, child_hdl, child_id)
+                    child_hdl._module_name_attr = f"xios.i{child_class_name.lower()}_attr"
+                    child_hdl._class_name = child_class_name
+                    child_hdl._id = String(child_id) if child_id else "__undefined_id__"
                     return child_hdl
                 return method
             
