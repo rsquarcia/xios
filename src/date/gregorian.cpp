@@ -60,5 +60,10 @@ namespace xios
       bool CGregorianCalendar::hasLeapYear() const { return true; }
 
       ///--------------------------------------------------------------
+
+      StdString CProlepticGregorianCalendar::getType(void) const
+      { return (StdString("proleptic_gregorian")); }
+
+      ///--------------------------------------------------------------
 } // namespace xios
 

@@ -1,5 +1,6 @@
 #ifndef __XIOS_CGregorianCalendar__
 #define __XIOS_CGregorianCalendar__
+#define __XIOS_CProlepticGregorianCalendar__
 
 /// XIOS headers ///
 #include "xios_spl.hpp"
@@ -36,6 +37,15 @@ namespace xios
 
       }; // class CGregorianCalendar
 
+
+      /// ////////////////////// Déclarations ////////////////////// ///
+      class CProlepticGregorianCalendar : public CGregorianCalendar
+      {
+         public :
+            /// Accesseurs ///
+            virtual StdString getType(void) const;
+
+      }; // class CGregorianCalendar
 } // namespace xios
 
 #endif // __XIOS_CGregorianCalendar__
