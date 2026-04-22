@@ -7,7 +7,7 @@ MODULE ICALENDAR
    USE IDURATION
 
    ! enum XCalendarType
-   INTEGER(kind = C_INT), PARAMETER :: D360 = 0 , ALLLEAP = 1 , NOLEAP = 2 , JULIAN = 3 , GREGORIAN = 4
+   INTEGER(kind = C_INT), PARAMETER :: D360 = 0 , ALLLEAP = 1 , NOLEAP = 2 , JULIAN = 3 , GREGORIAN = 4, PROLEPTIC_GREGORIAN = 5
 
    INTERFACE xios(set_start_date)
       MODULE PROCEDURE xios(set_start_date_date), xios(set_start_date_dur)

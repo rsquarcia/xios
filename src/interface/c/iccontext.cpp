@@ -24,7 +24,7 @@ extern "C"
 
    // ----------------------- Redéfinition de types ----------------------------
 
-   typedef enum { D360 = 0 , ALLLEAP, NOLEAP, JULIAN, GREGORIAN } XCalendarType ;
+   typedef enum { D360 = 0 , ALLLEAP, NOLEAP, JULIAN, GREGORIAN, PROLEPTIC_GREGORIAN} XCalendarType ;
 
    typedef xios::CContext * XContextPtr;
 
