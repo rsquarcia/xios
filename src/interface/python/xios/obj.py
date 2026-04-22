@@ -51,6 +51,7 @@ class Object(CObject):
         cls = self.__class__
         if not cls._is_methods_generated:
             cls._generate_child_methods()
+            cls._generate_is_defined_methods()
             cls._is_methods_generated = True
 
 
@@ -75,7 +76,7 @@ class Object(CObject):
         is_defined = Bool(False)
         is_defined_func(self, **{name: is_defined})
         if not is_defined.value:
-            raise AttributeError(f"Attribute '{name}' is not defined for the {self._object_type} '{self._object_id}'")
+            raise AttributeError(f"Attribute '{name}' is not defined for the {self._object_type} '{self._id}'")
 
         meta = self.FIELD_META[name]
         WrappedType = convert_type(meta)
@@ -165,7 +166,18 @@ class Object(CObject):
             
             setattr(cls, f"add_{child}", make_method(child))
 
+    @classmethod
+    def _generate_is_defined_methods(cls):
+        for attr in cls.FIELD_META:
+            def make_method(attr):
+                def method(self):
+                    is_defined_func = self._resolve_func(f"is_defined_{cls._object_type}_attr", f"xios.i{cls._object_type}_attr")
+                    is_defined_res = Bool(False)
+                    is_defined_func(String(self._id), **{attr: is_defined_res})
+                    return is_defined_res.value
+                return method
 
+            setattr(cls, f"is_defined_{attr}", make_method(attr))
 
     def __str__(self):
         s = ""
