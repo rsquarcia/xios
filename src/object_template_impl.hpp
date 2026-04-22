@@ -812,20 +812,6 @@ namespace xios
       oss << "raise AttributeError(f\"Unknown attribute '{key}' for class '{self.__class__.__name__}'\")" << (iendl-=3);
       oss << iendl;
 
-
-     oss << "@property" << iendl;
-     oss << "def context_id(self):" << (iendl+=1);
-     oss << "return self._context_id" << (iendl -=1);
-     oss << iendl;
-
-    oss << "def set_attr(self, **kwargs):" << (iendl+=1);
-    oss << "current_context_id = swipswap_ctx(self._context_id)" << iendl;
-    oss << "for key, value in kwargs.items():" << (iendl+=1);
-    oss << "if key in self.FIELD_META:" << (iendl+=1);
-    oss << "setattr(self, key, value)" << (iendl-=1);
-    oss << "else:" << (iendl+=1); 
-    oss << "raise AttributeError(f'Unknown attribute {key} for class {self.__class__.__name__}')" << (iendl-=2);
-    oss << "swipswap_ctx(current_context_id)" << (iendl-=1);
     oss << iendl << (iendl-=1);
     oss << iendl;
 

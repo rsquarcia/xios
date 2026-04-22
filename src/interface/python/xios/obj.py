@@ -189,10 +189,33 @@ class Object(CObject):
                 if value is not None:
                     s += f"  {k} = {value}\n"
         return s
+    
+    def set_attr(self, **kwargs):
+        current_context_id = swipswap_ctx(self._context_id)
+        for key, value in kwargs.items():
+            if key in self.FIELD_META:
+                setattr(self, key, value)
+            else:
+                raise AttributeError(f'Unknown attribute {key} for class {self.__class__.__name__}')
+        swipswap_ctx(current_context_id)
+    
+    def get_attr(self):
+        attr_dict = {}
+        current_context_id = swipswap_ctx(self._context_id)
+        for attr in self.FIELD_META :
+            if attr != f'{self._object_type}_id':
+                value = getattr(self, attr, None)
+                attr_dict[attr] = value
+        swipswap_ctx(current_context_id)
+        return attr_dict
 
     @property
     def id(self):
         return self._id
+    
+    @property
+    def context_id(self):
+        return self._context_id
         
     @classmethod
     def help(cls):
