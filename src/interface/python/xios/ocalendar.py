@@ -275,6 +275,40 @@ class Calendar():
         get_current_date(current_date)
         swipswap_ctx(current_context_id)
         return current_date
+    
+    def get_attr(self):
+        attr_dict = {}
+        is_comment                = Bool() 
+        is_day_length             = Bool() 
+        is_leap_year_drift        = Bool() 
+        is_leap_year_drift_offset = Bool() 
+        is_leap_year_month        = Bool() 
+        is_month_lengths          = Bool() 
+        is_start_date             = Bool() 
+        is_time_origin            = Bool() 
+        is_timestep               = Bool() 
+        is_type                   = Bool() 
+        is_year_length            = Bool()
+
+        is_defined_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, is_comment, is_day_length,   
+        is_leap_year_drift, is_leap_year_drift_offset, is_leap_year_month, is_month_lengths, is_start_date, 
+        is_time_origin, is_timestep, is_type, is_year_length)
+
+
+        if is_type.value:                   attr_dict["type"]                   = self.type
+        if is_timestep.value:               attr_dict["timestep"]               = self.timestep
+        if is_start_date.value:             attr_dict["start_date"]             = self.start_date
+        if is_time_origin.value:            attr_dict["time_origin"]            = self.time_origin
+        if is_day_length.value:             attr_dict["day_length"]             = self.day_length
+        if is_month_lengths.value:          attr_dict["month_lengths"]          = self.month_lengths
+        if is_year_length.value:            attr_dict["year_length"]            = self.year_length
+        if is_leap_year_month.value:        attr_dict["leap_year_month"]        = self.leap_year_month
+        if is_leap_year_drift.value:        attr_dict["leap_year_drift"]        = self.leap_year_drift
+        if is_leap_year_drift_offset.value: attr_dict["leap_year_drift_offset"] = self.leap_year_drift_offset
+        if is_comment.value:                attr_dict["comment"]                = self.comment
+
+        return attr_dict
+
 
     def __str__(self):
         is_comment                = Bool() 
