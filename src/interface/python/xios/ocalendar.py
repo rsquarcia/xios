@@ -1,20 +1,22 @@
 from xios.config import String, Int, Bool, NpArrayInt
 from xios.icalendar_wrapper import CalendarWrapper, get_default_calendar_wrapper_handle
 from xios.icalendar_wrapper_attr import set_calendar_wrapper_attr_hdl, get_calendar_wrapper_attr_hdl, is_defined_calendar_wrapper_attr_hdl
-from xios.icalendar import get_timestep, set_timestep, get_start_date, set_start_date, set_start_date_dur, get_current_date
+from xios.icalendar import get_timestep, set_timestep, get_start_date, set_start_date, set_start_date_dur, get_current_date, is_defined_calendar
 from xios.icalendar import get_time_origin, set_time_origin, set_time_origin_dur, get_calendar_type, update_calendar, define_calendar
 from xios.iduration import Duration
 from xios.idate import Date
 from xios.obj import swipswap_ctx, current_context_id
 import numpy as np
 
-class Calendar:
+class Calendar():
 
     def __init__(self):
         self._context_id = current_context_id()
         self._calendar_wrapper_hdl = CalendarWrapper()
         get_default_calendar_wrapper_handle(self._calendar_wrapper_hdl)
-        self._is_defined = False
+
+        self._is_defined = is_defined_calendar()
+
 
     def define(self, type, timestep = None, start_date = None, time_origin = None, day_length = None,
                     month_lengths = None, year_length = None, leap_year_month = None, leap_year_drift = None,
@@ -28,6 +30,9 @@ class Calendar:
                  day_length = None, month_lengths = None, year_length = None,
                  leap_year_month = None, leap_year_drift = None,
                  leap_year_drift_offset = None, comment = None):
+        
+        set_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, comment, day_length, leap_year_drift, leap_year_drift_offset,   
+                                      leap_year_month, month_lengths, start_date, time_origin, timestep, type, year_length)
 
         if type is not None :                   self.type                   = (type)
         if timestep is not None :               self.timestep               = (timestep)
@@ -189,11 +194,9 @@ class Calendar:
     @type.setter
     def type(self, value):
         current_context_id = swipswap_ctx(self._context_id)
+        if not self._is_defined : raise RuntimeError(f"The calendar must be defined before setting the type !")
         value = String(value)
         set_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, type = value)
-        if not self._is_defined : define_calendar(value)
-        else : raise RuntimeError(f"The calendar (type) can be defined only once !")
-        self._is_defined = True
         swipswap_ctx(current_context_id)
 
     @property

@@ -9,7 +9,7 @@ class XIOS:
         self._initialized = False
         self._finalized = True
 
-    def initialize(self, client_id, local_comm=None, return_comm=None):
+    def initialize(self, client_id, local_comm=MPIComm(), return_comm=None):
 
         if return_comm is not None:
             self._communicator = return_comm
@@ -19,7 +19,7 @@ class XIOS:
         if self._initialized:
             print("xios is already initialized!")
             return
-        initialize_(client_id, return_comm=self._communicator)
+        initialize_(client_id, local_comm=local_comm, return_comm=self._communicator)
 
         self._initialized = True
         self._finalized   = False

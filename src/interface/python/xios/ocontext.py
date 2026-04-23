@@ -1,6 +1,5 @@
 from xios.odata import _xios_instance
 from xios.idata import context_initialize, close_context_definition, context_finalize, context_is_initialized
-from xios.icalendar import define_calendar, is_defined_calendar
 from xios.ocalendar import Calendar
 from xios.obj import swipswap_ctx
 from xios.config import String
@@ -70,6 +69,7 @@ class Context(Context_):
 
 
     def close_definition(self):
+        if not self._calendar._is_defined : raise RuntimeError("Cannot close definition without defining the calendar !")
         if self._finalized : raise RuntimeError("Cannot use context after it has been finalized.")
         if self._closed : raise RuntimeError("Context already closed !")
         self._closed = True
