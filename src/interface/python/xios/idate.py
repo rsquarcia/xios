@@ -59,6 +59,24 @@ class Date(Structure):
         
         else:
             raise TypeError("date arg should be an instance of xios.Date or set to None!")
+        
+    def to_second(self):
+        return date_convert_to_second(self)
+    
+    def second_of_year(self):
+        return date_get_second_of_year(self)
+    
+    def day_of_year(self):
+        return date_get_day_of_year(self)
+    
+    def fraction_of_year(self):
+        return date_get_fraction_of_year(self)
+    
+    def second_of_day(self):
+        return date_get_second_of_day(self)
+    
+    def fraction_of_day(self):
+        return date_get_fraction_of_day(self)
 
     def to_string(self):
         date_string = String()

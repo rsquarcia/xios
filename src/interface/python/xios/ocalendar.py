@@ -276,6 +276,31 @@ class Calendar():
         swipswap_ctx(current_context_id)
         return current_date
     
+    @property
+    def year(self):
+        return Duration(year = 1)
+    
+    @property
+    def month(self):
+        return Duration(month = 1)
+    
+    @property
+    def day(self):
+        return Duration(day = 1)
+    
+    @property
+    def hour(self):
+        return Duration(hour = 1)
+    
+    @property
+    def minute(self):
+        return Duration(minute = 1)
+    
+    @property
+    def second(self):
+        return Duration(second = 1)
+    
+    
     def get_attr(self):
         attr_dict = {}
         is_comment                = Bool() 
