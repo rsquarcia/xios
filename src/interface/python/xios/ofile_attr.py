@@ -54,6 +54,7 @@ class File(Object):
   'using_server2': {'type': bool},
   'uuid_format': {'type': str},
   'uuid_name': {'type': str},
+  'write_initial_condition': {'type': bool},
   'writer': {'type': str},
   }
   
