@@ -386,6 +386,15 @@ lib.cxios_set_filegroup_uuid_name.restype = None
 lib.cxios_is_defined_filegroup_uuid_name.argtypes = [FileGroup]
 lib.cxios_is_defined_filegroup_uuid_name.restype = ctypes.c_bool
 
+lib.cxios_get_filegroup_write_initial_condition.argtypes = [FileGroup, ctypes.POINTER(ctypes.c_bool)]
+lib.cxios_get_filegroup_write_initial_condition.restype = None
+
+lib.cxios_set_filegroup_write_initial_condition.argtypes = [FileGroup, ctypes.c_bool]
+lib.cxios_set_filegroup_write_initial_condition.restype = None
+
+lib.cxios_is_defined_filegroup_write_initial_condition.argtypes = [FileGroup]
+lib.cxios_is_defined_filegroup_write_initial_condition.restype = ctypes.c_bool
+
 lib.cxios_get_filegroup_writer.argtypes = [FileGroup, ctypes.c_char_p, ctypes.c_int]
 lib.cxios_get_filegroup_writer.restype = None
 
@@ -420,7 +429,7 @@ time_stamp_name : Optional[Union[str, String]] = None, time_units : Optional[Uni
 timeseries : Optional[Union[str, String]] = None, ts_prefix : Optional[Union[str, String]] = None,   
 type : Optional[Union[str, String]] = None, using_server2 : Optional[Union[Bool, bool]] = None,   
 uuid_format : Optional[Union[str, String]] = None, uuid_name : Optional[Union[str, String]] = None,   
-writer : Optional[Union[str, String]] = None):
+write_initial_condition : Optional[Union[Bool, bool]] = None, writer : Optional[Union[str, String]] = None):
 
   
   filegroup_hdl = FileGroup()
@@ -432,7 +441,7 @@ writer : Optional[Union[str, String]] = None):
    par_access, pool_gatherer, pool_reader, pool_writer, read_metadata_par, reader, record_offset,  
    split_end_offset, split_freq, split_freq_format, split_last_date, split_start_offset, sync_freq,  
    time_counter, time_counter_name, time_stamp_format, time_stamp_name, time_units, timeseries,  
-   ts_prefix, type, using_server2, uuid_format, uuid_name, writer)
+   ts_prefix, type, using_server2, uuid_format, uuid_name, write_initial_condition, writer)
   return 
 
 
@@ -458,7 +467,7 @@ time_stamp_name : Optional[Union[str, String]] = None, time_units : Optional[Uni
 timeseries : Optional[Union[str, String]] = None, ts_prefix : Optional[Union[str, String]] = None,   
 type : Optional[Union[str, String]] = None, using_server2 : Optional[Union[Bool, bool]] = None,   
 uuid_format : Optional[Union[str, String]] = None, uuid_name : Optional[Union[str, String]] = None,   
-writer : Optional[Union[str, String]] = None):
+write_initial_condition : Optional[Union[Bool, bool]] = None, writer : Optional[Union[str, String]] = None):
 
   
   set_filegroup_attr_hdl_(filegroup_hdl, append, comment, compression_level, convention, convention_str, cyclic, description,  
@@ -466,7 +475,7 @@ writer : Optional[Union[str, String]] = None):
    par_access, pool_gatherer, pool_reader, pool_writer, read_metadata_par, reader, record_offset,  
    split_end_offset, split_freq, split_freq_format, split_last_date, split_start_offset, sync_freq,  
    time_counter, time_counter_name, time_stamp_format, time_stamp_name, time_units, timeseries,  
-   ts_prefix, type, using_server2, uuid_format, uuid_name, writer)
+   ts_prefix, type, using_server2, uuid_format, uuid_name, write_initial_condition, writer)
   return 
 
 
@@ -492,7 +501,7 @@ time_stamp_name_ : Optional[Union[str, String]] = None, time_units_ : Optional[U
 timeseries_ : Optional[Union[str, String]] = None, ts_prefix_ : Optional[Union[str, String]] = None,   
 type_ : Optional[Union[str, String]] = None, using_server2_ : Optional[Union[Bool, bool]] = None,   
 uuid_format_ : Optional[Union[str, String]] = None, uuid_name_ : Optional[Union[str, String]] = None,   
-writer_ : Optional[Union[str, String]] = None):
+write_initial_condition_ : Optional[Union[Bool, bool]] = None, writer_ : Optional[Union[str, String]] = None):
 
   
   
@@ -847,6 +856,14 @@ writer_ : Optional[Union[str, String]] = None):
     
   
 
+  if write_initial_condition_ is not None: 
+  
+    write_initial_condition_ = Bool(write_initial_condition_)
+    write_initial_condition_c = write_initial_condition_._c_value
+    lib.cxios_set_filegroup_write_initial_condition(filegroup_hdl, write_initial_condition_c)
+    
+  
+
   if writer_ is not None:
   
     writer_= String(writer_)
@@ -874,7 +891,7 @@ sync_freq : Optional[Duration] = None, time_counter : Optional[String] = None, t
 time_stamp_format : Optional[String] = None, time_stamp_name : Optional[String] = None, time_units : Optional[String] = None,   
 timeseries : Optional[String] = None, ts_prefix : Optional[String] = None, type : Optional[String] = None,   
 using_server2 : Optional[Bool] = None, uuid_format : Optional[String] = None, uuid_name : Optional[String] = None,   
-writer : Optional[String] = None):
+write_initial_condition : Optional[Bool] = None, writer : Optional[String] = None):
 
   
   filegroup_hdl = FileGroup()
@@ -886,7 +903,7 @@ writer : Optional[String] = None):
    par_access, pool_gatherer, pool_reader, pool_writer, read_metadata_par, reader, record_offset,  
    split_end_offset, split_freq, split_freq_format, split_last_date, split_start_offset, sync_freq,  
    time_counter, time_counter_name, time_stamp_format, time_stamp_name, time_units, timeseries,  
-   ts_prefix, type, using_server2, uuid_format, uuid_name, writer)
+   ts_prefix, type, using_server2, uuid_format, uuid_name, write_initial_condition, writer)
   return 
 
 
@@ -906,7 +923,7 @@ sync_freq : Optional[Duration] = None, time_counter : Optional[String] = None, t
 time_stamp_format : Optional[String] = None, time_stamp_name : Optional[String] = None, time_units : Optional[String] = None,   
 timeseries : Optional[String] = None, ts_prefix : Optional[String] = None, type : Optional[String] = None,   
 using_server2 : Optional[Bool] = None, uuid_format : Optional[String] = None, uuid_name : Optional[String] = None,   
-writer : Optional[String] = None):
+write_initial_condition : Optional[Bool] = None, writer : Optional[String] = None):
 
   
   get_filegroup_attr_hdl_(filegroup_hdl, append, comment, compression_level, convention, convention_str, cyclic, description,  
@@ -914,7 +931,7 @@ writer : Optional[String] = None):
    par_access, pool_gatherer, pool_reader, pool_writer, read_metadata_par, reader, record_offset,  
    split_end_offset, split_freq, split_freq_format, split_last_date, split_start_offset, sync_freq,  
    time_counter, time_counter_name, time_stamp_format, time_stamp_name, time_units, timeseries,  
-   ts_prefix, type, using_server2, uuid_format, uuid_name, writer)
+   ts_prefix, type, using_server2, uuid_format, uuid_name, write_initial_condition, writer)
   return 
 
 
@@ -934,7 +951,7 @@ sync_freq_ : Optional[Duration] = None, time_counter_ : Optional[String] = None,
 time_stamp_format_ : Optional[String] = None, time_stamp_name_ : Optional[String] = None, time_units_ : Optional[String] = None,   
 timeseries_ : Optional[String] = None, ts_prefix_ : Optional[String] = None, type_ : Optional[String] = None,   
 using_server2_ : Optional[Bool] = None, uuid_format_ : Optional[String] = None, uuid_name_ : Optional[String] = None,   
-writer_ : Optional[String] = None):
+write_initial_condition_ : Optional[Bool] = None, writer_ : Optional[String] = None):
 
   
   
@@ -1258,6 +1275,13 @@ writer_ : Optional[String] = None):
     
   
 
+  if write_initial_condition_ is not None: 
+  
+    write_initial_condition_c = write_initial_condition_._c_value
+    lib.cxios_get_filegroup_write_initial_condition(filegroup_hdl, write_initial_condition_c)
+    
+  
+
   if writer_ is not None:
   
     writer_c = writer_._c_value
@@ -1283,7 +1307,8 @@ split_last_date : Optional[Bool] = None, split_start_offset : Optional[Bool] = N
 time_counter : Optional[Bool] = None, time_counter_name : Optional[Bool] = None, time_stamp_format : Optional[Bool] = None,   
 time_stamp_name : Optional[Bool] = None, time_units : Optional[Bool] = None, timeseries : Optional[Bool] = None,   
 ts_prefix : Optional[Bool] = None, type : Optional[Bool] = None, using_server2 : Optional[Bool] = None,   
-uuid_format : Optional[Bool] = None, uuid_name : Optional[Bool] = None, writer : Optional[Bool] = None):
+uuid_format : Optional[Bool] = None, uuid_name : Optional[Bool] = None, write_initial_condition : Optional[Bool] = None,   
+writer : Optional[Bool] = None):
 
   
   filegroup_hdl = FileGroup()
@@ -1295,7 +1320,7 @@ uuid_format : Optional[Bool] = None, uuid_name : Optional[Bool] = None, writer :
    par_access, pool_gatherer, pool_reader, pool_writer, read_metadata_par, reader, record_offset,  
    split_end_offset, split_freq, split_freq_format, split_last_date, split_start_offset, sync_freq,  
    time_counter, time_counter_name, time_stamp_format, time_stamp_name, time_units, timeseries,  
-   ts_prefix, type, using_server2, uuid_format, uuid_name, writer)
+   ts_prefix, type, using_server2, uuid_format, uuid_name, write_initial_condition, writer)
   return 
 
 
@@ -1315,7 +1340,7 @@ sync_freq : Optional[Bool] = None, time_counter : Optional[Bool] = None, time_co
 time_stamp_format : Optional[Bool] = None, time_stamp_name : Optional[Bool] = None, time_units : Optional[Bool] = None,   
 timeseries : Optional[Bool] = None, ts_prefix : Optional[Bool] = None, type : Optional[Bool] = None,   
 using_server2 : Optional[Bool] = None, uuid_format : Optional[Bool] = None, uuid_name : Optional[Bool] = None,   
-writer : Optional[Bool] = None):
+write_initial_condition : Optional[Bool] = None, writer : Optional[Bool] = None):
 
   
   is_defined_filegroup_attr_hdl_(filegroup_hdl, append, comment, compression_level, convention, convention_str, cyclic, description,  
@@ -1323,7 +1348,7 @@ writer : Optional[Bool] = None):
    par_access, pool_gatherer, pool_reader, pool_writer, read_metadata_par, reader, record_offset,  
    split_end_offset, split_freq, split_freq_format, split_last_date, split_start_offset, sync_freq,  
    time_counter, time_counter_name, time_stamp_format, time_stamp_name, time_units, timeseries,  
-   ts_prefix, type, using_server2, uuid_format, uuid_name, writer)
+   ts_prefix, type, using_server2, uuid_format, uuid_name, write_initial_condition, writer)
   return 
 
 
@@ -1343,7 +1368,7 @@ sync_freq_ : Optional[Bool] = None, time_counter_ : Optional[Bool] = None, time_
 time_stamp_format_ : Optional[Bool] = None, time_stamp_name_ : Optional[Bool] = None, time_units_ : Optional[Bool] = None,   
 timeseries_ : Optional[Bool] = None, ts_prefix_ : Optional[Bool] = None, type_ : Optional[Bool] = None,   
 using_server2_ : Optional[Bool] = None, uuid_format_ : Optional[Bool] = None, uuid_name_ : Optional[Bool] = None,   
-writer_ : Optional[Bool] = None):
+write_initial_condition_ : Optional[Bool] = None, writer_ : Optional[Bool] = None):
 
   
   
@@ -1591,6 +1616,12 @@ writer_ : Optional[Bool] = None):
   if uuid_name_  is not None:
     uuid_name_c = lib.cxios_is_defined_filegroup_uuid_name(filegroup_hdl)
     uuid_name_._c_value = ctypes.c_bool(uuid_name_c)
+    
+  
+
+  if write_initial_condition_  is not None:
+    write_initial_condition_c = lib.cxios_is_defined_filegroup_write_initial_condition(filegroup_hdl)
+    write_initial_condition_._c_value = ctypes.c_bool(write_initial_condition_c)
     
   
 

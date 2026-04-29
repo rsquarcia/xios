@@ -427,9 +427,8 @@ CONTAINS
 
       IF (PRESENT(write_initial_condition_)) THEN
         write_initial_condition__tmp = write_initial_condition_
-        CALL xios_logical_to_bool_0d(write_initial_condition__tmp)
         CALL cxios_set_filegroup_write_initial_condition &
-      (filegroup_hdl%daddr, write_initial_condition__tmp)
+      (filegroup_hdl%daddr, logical_to_bool(write_initial_condition__tmp) )
       ENDIF
 
       IF (PRESENT(writer_)) THEN
@@ -856,8 +855,7 @@ CONTAINS
       IF (PRESENT(write_initial_condition_)) THEN
         CALL cxios_get_filegroup_write_initial_condition &
       (filegroup_hdl%daddr, write_initial_condition__tmp)
-        CALL xios_bool_to_logical_0d(write_initial_condition__tmp)
-        write_initial_condition_ = write_initial_condition__tmp
+        write_initial_condition_ = bool_to_logical( write_initial_condition__tmp )
       ENDIF
 
       IF (PRESENT(writer_)) THEN
