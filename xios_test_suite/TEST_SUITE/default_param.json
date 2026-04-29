@@ -10,6 +10,7 @@
     "NumberClients": 4,
     "NumberServers": 4,
     "OneSided": "false",
-    "NonDistTran": "false"
+    "NonDistTran": "false",
+    "ClientWriteT0": ".FALSE."
   }
 ]

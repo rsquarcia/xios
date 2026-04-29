@@ -262,6 +262,7 @@ def main():
                 fh.write("&params_run\n")
                 fh.write("duration=\'"+full_config["Duration"]+"\'\n")
                 fh.write("nb_proc_atm="+str(full_config["NumberClients"])+"\n")
+                fh.write("write_t0="+str(full_config["ClientWriteT0"])+"\n")
                 fh.write("/\n")
             with open(test_folder+"/CONFIG_"+mystr+"/all_param.def", "w") as fh:
                 fh.write("&params_run\n")
