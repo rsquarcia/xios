@@ -130,6 +130,7 @@ for atest_dir in test_dirs:
                 fh.write("nb_proc_atm="+str(1)+"\n")
             else:
                 fh.write("nb_proc_atm=" + str(config_dict["NumberClients"])+"\n")
+            fh.write("write_t0="+config_dict["ClientWriteT0"]+"\n")
 
             fh.write("/\n")
 
