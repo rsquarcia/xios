@@ -1818,6 +1818,20 @@ For the **multiple_file** mode defines the minimum number of digits of
 the suffix describing the server rank which will be appended to the file
 name. The default value is **0** (no server rank suffix is added).
 
+#### write_initial_condition (optional): *bool*
+
+Fortran:
+
+```fortran
+LOGICAL :: write_initial_condition
+```
+
+Enable writing out data for the initial timestep, `T0`.
+If set true, then `xios_send_field` also needs to be called by
+the simulation code at the relevant timestep in order to write
+`T0` data into the output file. The default value is **.false.**
+(writing initial conditions is not enabled).
+
 #### output_freq (mandatory): *duration*
 
 Fortran:

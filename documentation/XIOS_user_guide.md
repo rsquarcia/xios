@@ -582,6 +582,34 @@ Note file synchronization must be used sparingly as it can have a
 disastrous impact on performance. Make sure to use a reasonably high
 synchronization frequency to avoid any issue.
 
+### Writing Data on the Zeroth Time Step
+
+By default, data cannot be written out on timestep `T0`, it is expected that
+this `T0` data is provided externally to the simulation.
+
+For many simulation scenarios, this is valid and helpful.  The `T0` data
+is generally an input to the simulation run, so writing out data for `T0`
+would result in overlapping data in time.  This is especially an issue
+where a simulation is run in many parts, with the end condition from one run
+providing the starting conditions for the following run.
+
+However, there are configurations, particularly in Numerical Weather
+Prediction, where the initial conditions for the simulation are the result
+of data assimilation steps within the simulation. The only place where the
+`T0` data is known is within the simulation run, at the time when the model
+begins time stepping.
+In these cases it is useful to be able to include the `T0` data within the
+simulation output.
+
+To support this, the file attribute `write_initial_condition` is provided,
+which can be configured on a `file` definition, via `XML` and via the `Fortran`
+interface. 
+If this is enabled, then `xios_send_field` also needs to be called by the
+simulation code at the relevant timestep in order to write `T0` data
+into the output file.
+This provides opt-in functionality to include `T0` data in the standard
+outputs.
+
 ## Fields and variables
 
 
