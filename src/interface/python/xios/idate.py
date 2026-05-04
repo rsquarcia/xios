@@ -1,6 +1,8 @@
-from ctypes import c_void_p, c_char_p, c_int, c_bool, POINTER, c_double, string_at, byref, Structure
+from ctypes import c_char_p, c_int, c_bool, c_double, string_at, Structure
 from xios.config import lib, String, typecheck, Int
 from xios.iduration import Duration
+from typing import Optional, Union
+
 
 #_____________________________________________________________________________________________#
 #                                         XIOS_TYPES                                          #
@@ -30,27 +32,51 @@ class Date(Structure):
         ("second", c_int)
     ]
 
-    def __init__(self, date=None, year=0, month=0, day=0, hour=0, minute=0, second=0, timestep=0):
+    @typecheck
+    def __init__(self, date=None, year : Optional[Union[int, Int]] = 0, month : Optional[Union[int, Int]] = 0,
+                 day : Optional[Union[int, Int]] = 0, hour : Optional[Union[int, Int]] = 0,
+                 minute : Optional[Union[int, Int]] = 0, second : Optional[Union[int, Int]] = 0, timestep : Optional[Union[int, Int]] = 0):
+        
         super().__init__()
 
         if date is None:
-            self.year     = Int(year)._c_value
-            self.month    = Int(month)._c_value
-            self.day      = Int(day)._c_value
-            self.hour     = Int(hour)._c_value
-            self.minute   = Int(minute)._c_value
-            self.second   = Int(second)._c_value
+            self.year       = Int(year)._c_value
+            self.month      = Int(month)._c_value
+            self.day        = Int(day)._c_value
+            self.hour       = Int(hour)._c_value
+            self.minute     = Int(minute)._c_value
+            self.second     = Int(second)._c_value
+            self.timestep   = Int(timestep)._c_value
 
         elif isinstance(date, Date):
-            self.year     = date.year
-            self.month    = date.month
-            self.day      = date.day
-            self.hour     = date.hour
-            self.minute   = date.minute
-            self.second   = date.second
+            self.year       = date.year
+            self.month      = date.month
+            self.day        = date.day
+            self.hour       = date.hour
+            self.minute     = date.minute
+            self.second     = date.second
+            self.timestep   = date.timestep
         
         else:
             raise TypeError("date arg should be an instance of xios.Date or set to None!")
+        
+    def to_second(self):
+        return date_convert_to_second(self)
+    
+    def second_of_year(self):
+        return date_get_second_of_year(self)
+    
+    def day_of_year(self):
+        return date_get_day_of_year(self)
+    
+    def fraction_of_year(self):
+        return date_get_fraction_of_year(self)
+    
+    def second_of_day(self):
+        return date_get_second_of_day(self)
+    
+    def fraction_of_day(self):
+        return date_get_fraction_of_day(self)
 
     def to_string(self):
         date_string = String()

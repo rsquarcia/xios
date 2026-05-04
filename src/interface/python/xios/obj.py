@@ -1,10 +1,9 @@
-from ctypes import Structure, c_void_p, string_at, pointer
 import functools
-from xios.config import lib, typecheck, String, CObject, Bool, convert_type
-from typing import Union
+from xios.config import String, CObject, Bool, convert_type
 import importlib
-from xios.icontext import get_current_context_id, set_current_context_id, set_current_context
+from xios.icontext import get_current_context_id, set_current_context_id
 import numpy as np
+import inspect
 
 
 
@@ -29,104 +28,35 @@ def current_context_id():
 
 class Object(CObject):
     FIELD_META = {}
+    _is_methods_generated = False
 
-    CHILD_META = {
-    'scalargroup': ['scalar', 'scalargroup'],
-    'axisgroup': ['axis', 'axisgroup'],
-    'domaingroup': ['domain', 'domaingroup'],
-    'file': ['fieldgroup', 'field', 'variablegroup', 'variable'],
-    'filegroup': ['file', 'filegroup'],
-    'gridgroup': ['grid', 'gridgroup'],
-    'fieldgroup': ['scalar', 'field', 'fieldgroup'],
-    'grid': ['scalar', 'axis', 'domain'],
-    'field': ['variablegroup', 'variable'],
-    'fieldgroup': ['field', 'fieldgroup'],
-    'domain': [
-    'zoom_domain', 'extract_domain', 'interpolate_domain', 'generate_rectilinear_domain',
-    'compute_connectivity_domain', 'expand_domain', 'redistribute_domain'
-    ],
-    'axis': [
-    'zoom_axis', 'interpolate_axis', 'inverse_axis', 'reduce_domain_to_axis',
-    'extract_domain_to_axis', 'redistribute_axis'
-    ],
-    'scalar': [
-    'reduce_axis_to_scalar', 'extract_axis_to_scalar', 'reduce_domain_to_scalar',
-    'redistribute_scalar'
-    ]
-}
-
-
-    def __init__(self, arg1 = None, arg2 : str = None):
-        if arg1 is None and arg2 is None : return
+    def __init__(self, id = None):
+        if id is None : return
+        self._is_methods_generated = False
         self._module_name_attr =  f"xios.i{self._object_type.lower()}_attr"
-        s = self._manage_group(self._object_type)
+        self._class_name = ''.join(word.title() for word in self._object_type.split('_'))
         if self._object_type.lower() in ['context', 'variable', 'field']:
             self._omodule_name =  f"xios.o{self._object_type.lower()}"
         else:
             self._omodule_name =  f"xios.o{self._object_type.lower()}_attr"
-        self._module_name  = f'xios.i{s.lower()}'
-        class_ins    = self._resolve_func(f"{self._oclass_name}", self._omodule_name)
+        self._module_name  = f'xios.i{self._object_type.lower()[:-5] if self._object_type.lower().endswith("group") else self._object_type.lower()}'
 
+        self._id = String(id)
+        is_valid_func =  self._resolve_func(f"is_valid_{self._object_type}", self._module_name)
+        if not is_valid_func(self._id) :
+            raise ValueError(f"The id \'{self._id}\' does not correspond to any {self._object_type}")
+        get_hdl_func = self._resolve_func(f"get_{self._object_type}_handle", self._module_name)
+        get_hdl_func(self._id, self)
 
-        if isinstance(arg1, str) and arg2 is None :
-            # case where we used the id (the object is already defined thanks to the iodef.xml)
-            object_id = arg1
-            is_valid_func =  self._resolve_func(f"is_valid_{self._object_type}", self._module_name)
-            if not is_valid_func(object_id) :
-                raise ValueError(f"The id \'{object_id}\' does not correspond to any {self._object_type}")
-            self._object_id = String(object_id)
-            get_hdl_func = self._resolve_func(f"get_{self._object_type}_handle", self._module_name)
-            get_hdl_func(self._object_id, self)
-            self._object_hdl = self
-            self._id = String(object_id)
-        elif isinstance(arg1, Object):
-            parent       = arg1
-            tree_module  = f"xios.ixml_tree"
-            s =  str(type(parent._object_hdl))
-            start = next((i for i, c in enumerate(s) if c.isupper()), None)
-            if start is not None:
-                result = s[start:-2].lower()
-            s = self._manage_group(result, True)
-            if s : s = 'to' + s
-            self._parent_type = s
-            parent_hdl   = parent._object_hdl
-            child_hdl    = class_ins()
-            self._is_id_defined = arg2 is not None
-            if self._is_id_defined : self._id = arg2
-            add_func = self._resolve_func(f"add_{self._object_type.replace('_', '')}{self._parent_type}", tree_module)
-            add_func(parent_hdl, child_hdl, arg2)
-            self._object_hdl = child_hdl
-
-
-        else:
-            raise TypeError("Wrong type argumetn passed to the constructor !")
-
-
-    def _get_classname(self, s):
-        return ''.join(word.title() for word in s.split('_'))
-    
-    def _manage_group(self, s, parent = False):
-        suff = s[-5::]
-        if suff == 'group':
-            s = self._get_classname(s[0:-5])
-            self._class_name = s+'Group'
-            self._oclass_name = s+'Group'
-            if parent : s = ""
-        else :
-            self._class_name   = self._get_classname(s)
-            self._oclass_name  = self._class_name
-            # if (self._class_name == 'Context' or self._class_name == 'Field'):
-            #      self._oclass_name = self._class_name + '_'
-        
-        return s
-
+        cls = self.__class__
+        if not cls._is_methods_generated:
+            cls._generate_child_methods()
+            cls._generate_is_defined_methods()
+            cls._is_methods_generated = True
 
 
     def _resolve_func(self, func_name: str, module: str):
-        # prefix = f"xios.i{self._object_type.lower()}
-
         mod = importlib.import_module(module)
-
         try:
             return getattr(mod, func_name)
         except AttributeError:
@@ -144,9 +74,9 @@ class Object(CObject):
 
         is_defined_func = self._resolve_func(f"is_defined_{self._object_type}_attr_hdl", self._module_name_attr)
         is_defined = Bool(False)
-        is_defined_func(self._object_hdl, **{name: is_defined})
+        is_defined_func(self, **{name: is_defined})
         if not is_defined.value:
-            raise AttributeError(f"Attribute '{name}' is not defined for the {self._object_type} '{self._object_id}'")
+            raise AttributeError(f"Attribute '{name}' is not defined for the {self._object_type} '{self._id}'")
 
         meta = self.FIELD_META[name]
         WrappedType = convert_type(meta)
@@ -154,7 +84,7 @@ class Object(CObject):
 
         getter_func = self._resolve_func(f"get_{self._object_type}_attr_hdl", self._module_name_attr)
         current_context_id = swipswap_ctx(self._context_id)
-        getter_func(self._object_hdl, **{name: wrapper})
+        getter_func(self, **{name: wrapper})
         swipswap_ctx(current_context_id)
         return wrapper.value
 
@@ -183,24 +113,72 @@ class Object(CObject):
         wrapped_value = WrappedType(value)
         setter_func = self._resolve_func(f"set_{self._object_type}_attr_hdl", self._module_name_attr)
         current_context_id = swipswap_ctx(self._context_id)
-        setter_func(self._object_hdl, **{name: wrapped_value})
+        setter_func(self, **{name: wrapped_value})
         swipswap_ctx(current_context_id)
+
 
     @classmethod
     def _generate_child_methods(cls):
-        for parent, child_types in Object.CHILD_META.items():
-            for child in child_types:
-                def make_method(parent=parent, child=child):
-                    def method(self, idt=None):
-                        class_name = cls._get_classname(cls, child)
-                        child_class = cls._resolve_func(cls, class_name, f"xios.o{child}_attr")                   
-                        child_obj = child_class(self, idt)
-                        return child_obj
-                    return method
+        tree_module_name  = f"xios.ixml_tree"
+        tree_module = importlib.import_module(tree_module_name)
+        functions = inspect.getmembers(tree_module, inspect.isfunction)
+        imported_classes = [
+            name for name, obj in inspect.getmembers(tree_module, inspect.isclass)
+            if obj.__module__ != tree_module.__name__
+        ]
+        build_functions = {}
+        for function in functions:
+            if function[0][:4] == "add_":
+                s = function[0][4:]
+                if "to" in s:
+                    child, parent = s.split("to", 1)
+                else:
+                    child, parent = s, ""
+                if parent == "":
+                    if "redistribute" not in child:
+                        if 'group' not in child : parent = child+"group"
+                        else : parent = child
+                    elif "redistribute" in child:
+                        parent = child[12:]
+                    else :
+                        raise ValueError(f"add_element function not valid for child : {child} and parent {parent}")
+                if cls._object_type == parent :
+                    build_functions.setdefault(child, []).append((parent, function[1]))
 
-                setattr(cls, f"add_{child}", make_method(parent, child))
+        
+        for child in build_functions:     
+            def make_method(child=child):
+                def method(self, child_id = None):
+                    parent_hdl = self
+                    child_class_name = next((s for s in imported_classes if s.lower() == child), None)
+                    child_class = cls._resolve_func(cls, child_class_name, f"xios")
+                    child_hdl    = child_class()
+                    for parent, function in build_functions[child]:
+                        parent_class_name = next((s for s in imported_classes if s.lower() == parent), None)
+                        parent_type = cls._resolve_func(cls, parent_class_name, f"xios.o{parent}_attr")
+                        if isinstance(parent_hdl, parent_type):
+                            function(parent_hdl, child_hdl, child_id)
+                    child_hdl._module_name_attr = f"xios.i{child_class_name.lower()}_attr"
+                    child_hdl._class_name = child_class_name
+                    child_hdl._id = String(child_id) if child_id else "__undefined_id__"
+                    return child_hdl
+                return method
+            
+            setattr(cls, f"add_{child}", make_method(child))
 
-    
+    @classmethod
+    def _generate_is_defined_methods(cls):
+        for attr in cls.FIELD_META:
+            def make_method(attr):
+                def method(self):
+                    is_defined_func = self._resolve_func(f"is_defined_{cls._object_type}_attr", f"xios.i{cls._object_type}_attr")
+                    is_defined_res = Bool(False)
+                    is_defined_func(String(self._id), **{attr: is_defined_res})
+                    return is_defined_res.value
+                return method
+
+            setattr(cls, f"is_defined_{attr}", make_method(attr))
+
     def __str__(self):
         s = ""
         s += f"{self._class_name} '{self.id}' "
@@ -211,10 +189,33 @@ class Object(CObject):
                 if value is not None:
                     s += f"  {k} = {value}\n"
         return s
+    
+    def set_attr(self, **kwargs):
+        current_context_id = swipswap_ctx(self._context_id)
+        for key, value in kwargs.items():
+            if key in self.FIELD_META:
+                setattr(self, key, value)
+            else:
+                raise AttributeError(f'Unknown attribute {key} for class {self.__class__.__name__}')
+        swipswap_ctx(current_context_id)
+    
+    def get_attr(self):
+        attr_dict = {}
+        current_context_id = swipswap_ctx(self._context_id)
+        for attr in self.FIELD_META :
+            if attr != f'{self._object_type}_id':
+                value = getattr(self, attr, None)
+                attr_dict[attr] = value
+        swipswap_ctx(current_context_id)
+        return attr_dict
 
     @property
     def id(self):
         return self._id
+    
+    @property
+    def context_id(self):
+        return self._context_id
         
     @classmethod
     def help(cls):

@@ -27,7 +27,7 @@ except OSError as e:
 
 
 ############################################################################################
-############################## XIOS PYTHON TYPES WRAPPER  #################################
+############################## XIOS PYTHON TYPES WRAPPER  ##################################
 # making class to overcome the 'non way to pass by reference an immutable object in python'#
 ############################################################################################
 
@@ -353,15 +353,19 @@ class MPIComm:
 
     
 
-def convert_type(type_dict):
-    if type_dict['type'] is np.ndarray:
-        if type_dict['array_type'] is int:
+def convert_type(type):
+    if type['type'] is np.ndarray:
+        if type['array_type'] is int:
             return NpArrayInt
-        elif type_dict['array_type'] is bool:
+        elif type['array_type'] is bool:
             return NpArrayBool
         else :
             return NpArray
-    return {int:Int, str:String, bool:Bool}[type_dict['type']]
+    type_dict = {int:Int, str:String, bool:Bool}
+    if type['type'] in type_dict :
+        return type_dict[type['type']]
+    else :
+        return type['type']
 
 class CObject(Structure):
     _fields_ = [("daddr", c_void_p)]

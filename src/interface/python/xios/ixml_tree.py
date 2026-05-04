@@ -173,12 +173,12 @@ lib.cxios_xml_tree_add_redistributescalar.restype = None
 @typecheck
 def add_scalar(parent_hdl: ScalarGroup, child_hdl: Scalar, child_id: Optional[Union[str, String]] = None):
     """
-    Add a scalar child_hdl with an optionnal child_id id to the scalarGroup parent_hdl
+    Add a scalar child_hdl with an optional child_id id to the scalarGroup parent_hdl
 
     Parameters:
         parent_hdl (ScalarGroup): The ScalarGroup parent handle
         child_hdl (Scalar):  The Scalar child handle
-        child_id (Optional[Union[str, String]]): The optionnal scalar child id
+        child_id (Optional[Union[str, String]]): The optional scalar child id
     """
     if child_id is None:
         lib.cxios_xml_tree_add_scalar(parent_hdl, pointer(child_hdl), String("NONE")._c_value, c_int(-1))

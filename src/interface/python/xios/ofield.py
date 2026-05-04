@@ -9,8 +9,8 @@ from xios.iaxis import is_valid_axis
 
 class Field(Field_):
 
-    def __init__(self, arg1 = None, arg2 : str = None):
-        super().__init__(arg1, arg2)
+    def __init__(self, id : str = None):
+        super().__init__(id)
         self._data = None
 
     def send(self, data):

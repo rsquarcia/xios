@@ -1,6 +1,5 @@
 from xios.odata import _xios_instance
 from xios.idata import context_initialize, close_context_definition, context_finalize, context_is_initialized
-from xios.icalendar import define_calendar, is_defined_calendar
 from xios.ocalendar import Calendar
 from xios.obj import swipswap_ctx
 from xios.config import String
@@ -48,12 +47,10 @@ from xios.oreduce_scalar_to_scalar_attr import ReduceScalarToScalar
 from xios.oredistribute_scalar_attr import RedistributeScalar
 
 
-
-
 class Context(Context_):
 
     def __init__(self, context_id, comm = None):
-        super().__init__(arg1 = context_id)
+        super().__init__(id = context_id)
 
         if comm is None :
             comm = _xios_instance._communicator
@@ -72,6 +69,7 @@ class Context(Context_):
 
 
     def close_definition(self):
+        if not self._calendar._is_defined : raise RuntimeError("Cannot close definition without defining the calendar !")
         if self._finalized : raise RuntimeError("Cannot use context after it has been finalized.")
         if self._closed : raise RuntimeError("Context already closed !")
         self._closed = True
@@ -136,11 +134,12 @@ def dynamic_methods():
     "reduce_scalar_to_scalar": ReduceScalarToScalar,
     "redistribute_scalar": RedistributeScalar
     }
+
     def create_method(name):
-        def method(self, arg1, arg2=None, **kwargs):
+        def method(self, id, **kwargs):
             current_context_id = swipswap_ctx(self._id)
             cls = CLASS_MAP[name]
-            res = cls(arg1, arg2)
+            res = cls(id)
             for key, value in kwargs.items():
                 if key in cls.FIELD_META:
                     setattr(cls, key, value)
@@ -150,8 +149,18 @@ def dynamic_methods():
             return res
         return method
 
+    def create_is_valid(name):
+        def method(self, id):
+            current_context_id = swipswap_ctx(self._id)
+            is_valid_func = self._resolve_func(f"is_valid_{name}", f"xios.i{name}")
+            res = is_valid_func(String(id))
+            swipswap_ctx(current_context_id)
+            return res
+        return method
+
     for key in CLASS_MAP:
         setattr(Context, f'{key}', create_method(key))
+        setattr(Context, f'is_valid_{key}', create_is_valid(key))
         
 
 dynamic_methods()

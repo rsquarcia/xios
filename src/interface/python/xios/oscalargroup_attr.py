@@ -32,29 +32,16 @@ class ScalarGroup(Object):
   'value': {'type': float},
   }
   
-  def __init__(self, arg1 = None, arg2 : str = None, **kwargs):
+  def __init__(self, id = None, **kwargs):
     self._context_id = String()
     get_current_context_id(self._context_id)
-    super().__init__(arg1, arg2)
+    super().__init__(id)
     for key, value in kwargs.items():
       if key in self.FIELD_META:
         setattr(self, key, value)
       else: 
         raise AttributeError(f"Unknown attribute '{key}' for class '{self.__class__.__name__}'")
   
-  @property
-  def context_id(self):
-    return self._context_id
-  
-  def set_attr(self, **kwargs):
-    current_context_id = swipswap_ctx(self._context_id)
-    for key, value in kwargs.items():
-      if key in self.FIELD_META:
-        setattr(self, key, value)
-      else:
-        raise AttributeError(f'Unknown attribute {key} for class {self.__class__.__name__}')
-    swipswap_ctx(current_context_id)
   
   
-ScalarGroup._generate_child_methods()
 

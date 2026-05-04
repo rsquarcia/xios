@@ -38,7 +38,8 @@ elif (rank < client_number):
     rank = comm.rank
     size_loc = client_number    
 
-    ctx.calendar.define(type = "Gregorian", timestep = xios.Duration(day = 1))
+    cal = ctx.calendar
+    cal.define(type = "Gregorian", timestep = xios.Duration(day = 1))
 
     if ni_glo%size_loc != 0 :
         print("ERROR: You must have a number of client : ", size_loc, " that devide exactly ni_glo : ", ni_glo)
@@ -74,7 +75,7 @@ elif (rank < client_number):
     if rank == 0 : print("\n")
     for ts in range(1, ts_max):
 
-        ctx.calendar.update(ts)
+        cal.update(ts)
         if rank == 0 : print("update calendar : ", ts, " and sending fields .. ")
 
         ctx.field("input_field_model").send(input_field_model_data*ts)

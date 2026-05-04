@@ -6,8 +6,8 @@ from xios.config import Bool, Double, Int, NpArray, String
 
 class Variable(Variable_):
 
-    def __init__(self, arg1 = None, arg2 : str = None):
-        super().__init__(arg1, arg2)
+    def __init__(self, id : str = None):
+        super().__init__(id)
 
     def get(self, data):
         if isinstance(data, float):
