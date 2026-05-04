@@ -39,9 +39,7 @@ test-interface-generation:   # This job runs in the test stage.
     - mv interface/*_attr.cpp interface/c_attr/
     - mv interface/*_attr.F90 interface/fortran_attr/
     - mv interface/*_attr.py interface/python/xios/
-    - git add interface/c_attr/* interface/fortran_attr/* interface/python/xios/*
     - cd .. ; pwd
-    - git diff
     - git diff --exit-code # this will generate a failure code if there are any diffs
     - echo "No source tree code changes, the interface creation results are consistent with the code."
   cache:
