@@ -712,9 +712,11 @@ CONTAINS
          ENDIF
       ENDIF
 
-      field2D=field2D+1
-      field3D=field3D+1
-      field0D=field0D+1
+      IF (ts > 0) THEN
+        field2D=field2D+1
+        field3D=field3D+1
+        field0D=field0D+1
+      ENDIF
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !              duplicated section for other_                    !
@@ -770,9 +772,11 @@ CONTAINS
          ENDIF
       ENDIF
 
-      other_field2D=other_field2D+1
-      other_field3D=other_field3D+1
-      other_field0D=other_field0D+1
+      IF (ts > 0) THEN
+        other_field2D=other_field2D+1
+        other_field3D=other_field3D+1
+        other_field0D=other_field0D+1
+      ENDIF
 
 
 !!!!!!!!!!!!!!!!!!!!!! end of duplicated section !!!!!!!!!!!!!!!!!
