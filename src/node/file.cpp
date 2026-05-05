@@ -62,9 +62,9 @@ namespace xios {
    //----------------------------------------------------------------
    /*!
    \brief Get write initial condition value
-   \return True if should smaple and output at timestep 0, False otherwise
+   \return True if should sample and output at timestep 0, False otherwise
    */
-   const bool CFile::shouldWriteInitialCondition() const
+   bool CFile::shouldWriteInitialCondition() const
    TRY
    {
      return !write_initial_condition.isEmpty() && write_initial_condition.getValue();
