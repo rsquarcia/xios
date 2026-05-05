@@ -73,7 +73,7 @@ namespace xios {
       public:
          /// Accesseurs ///
          const StdString getFileOutputName(void) const;
-         const bool shouldWriteInitialCondition() const;
+         bool shouldWriteInitialCondition() const;
          std::shared_ptr<CDataOutput> getDataOutput(void) const;
          std::shared_ptr<CDataInput> getDataInput(void) const;
          CFieldGroup* getVirtualFieldGroup(void) const;
