@@ -651,9 +651,9 @@ CONTAINS
       ts=0
     ELSE
       ts=1
+      cdate=cdate+dtime
     ENDIF
     
-    cdate=cdate+dtime
     CALL xios_close_context_definition()
     CALL xios_set_current_context(trim(model_id))
 !    CALL xios_get_handle("field3D::domain",domain_handle) 
