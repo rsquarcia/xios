@@ -8,22 +8,26 @@ class Variable(Variable_):
 
     def __init__(self, id : str = None):
         super().__init__(id)
+        self._data = None
 
-    def get(self, data):
+    @property
+    def value(self, data = 0):
         if isinstance(data, float):
-            data = Double(data)
+            data_c = Double(data)
         elif isinstance(data, int):
-            data = Int(data)
+            data_c = Int(data)
         elif isinstance(data, bool):
-            data = Bool(data)
+            data_c = Bool(data)
         elif isinstance(data, str):
-            data = String()
+            data_c = String()
         
         current_context_id = swipswap_ctx(self._context_id)
-        if getVar(self.id, data):
-            swipswap_ctx(current_context_id)
-            return data.value
+        is_valid = getVar(self._id, data_c)
         swipswap_ctx(current_context_id)
+        if is_valid :
+            return data_c.value
+        else : 
+            return None
 
     def receive(self, data):
         current_context_id = swipswap_ctx(self._context_id)
