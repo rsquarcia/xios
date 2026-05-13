@@ -15,8 +15,10 @@ PROGRAM generic_testcase
   CHARACTER(LEN=len_str)  :: start_date
   CHARACTER(LEN=len_str)  :: duration
   DOUBLE PRECISION        :: sypd
+  LOGICAL :: write_t0
   NAMELIST /params_run/    nb_proc_atm, nb_proc_surf, nb_proc_oce, & 
-                           duration, sypd, start_date, proc_distribution
+                           duration, sypd, start_date, proc_distribution, &
+                           write_t0
 
 
   TYPE tmodel_params
@@ -68,6 +70,7 @@ PROGRAM generic_testcase
   sypd=10000
   start_date="2018-01-01"
   proc_distribution="contiguous"
+  write_t0=.FALSE.
   READ (unit, nml=params_run)
   CLOSE(unit)
 !!! MPI Initialization
@@ -644,8 +647,13 @@ CONTAINS
 
 !!!!!!!!!!!!!!!!!!!!! end of duplicated section   !!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    ts=1
-    cdate=cdate+dtime
+    IF (write_t0) THEN
+      ts=0
+    ELSE
+      ts=1
+      cdate=cdate+dtime
+    ENDIF
+    
     CALL xios_close_context_definition()
     CALL xios_set_current_context(trim(model_id))
 !    CALL xios_get_handle("field3D::domain",domain_handle) 
@@ -704,9 +712,11 @@ CONTAINS
          ENDIF
       ENDIF
 
-      field2D=field2D+1
-      field3D=field3D+1
-      field0D=field0D+1
+      IF (ts > 0) THEN
+        field2D=field2D+1
+        field3D=field3D+1
+        field0D=field0D+1
+      ENDIF
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !              duplicated section for other_                    !
@@ -762,9 +772,11 @@ CONTAINS
          ENDIF
       ENDIF
 
-      other_field2D=other_field2D+1
-      other_field3D=other_field3D+1
-      other_field0D=other_field0D+1
+      IF (ts > 0) THEN
+        other_field2D=other_field2D+1
+        other_field3D=other_field3D+1
+        other_field0D=other_field0D+1
+      ENDIF
 
 
 !!!!!!!!!!!!!!!!!!!!!! end of duplicated section !!!!!!!!!!!!!!!!!

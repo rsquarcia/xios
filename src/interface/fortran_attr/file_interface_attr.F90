@@ -831,6 +831,25 @@ MODULE file_interface_attr
     END FUNCTION cxios_is_defined_file_uuid_name
 
 
+    SUBROUTINE cxios_set_file_write_initial_condition(file_hdl, write_initial_condition) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE :: file_hdl
+      LOGICAL (KIND=C_BOOL)      , VALUE :: write_initial_condition
+    END SUBROUTINE cxios_set_file_write_initial_condition
+
+    SUBROUTINE cxios_get_file_write_initial_condition(file_hdl, write_initial_condition) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE :: file_hdl
+      LOGICAL (KIND=C_BOOL)             :: write_initial_condition
+    END SUBROUTINE cxios_get_file_write_initial_condition
+
+    FUNCTION cxios_is_defined_file_write_initial_condition(file_hdl) BIND(C)
+      USE ISO_C_BINDING
+      LOGICAL(kind=C_BOOL) :: cxios_is_defined_file_write_initial_condition
+      INTEGER (kind = C_INTPTR_T), VALUE :: file_hdl
+    END FUNCTION cxios_is_defined_file_write_initial_condition
+
+
     SUBROUTINE cxios_set_file_writer(file_hdl, writer, writer_size) BIND(C)
       USE ISO_C_BINDING
       INTEGER (kind = C_INTPTR_T), VALUE :: file_hdl

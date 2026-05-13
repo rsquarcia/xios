@@ -61,6 +61,18 @@ namespace xios {
 
    //----------------------------------------------------------------
    /*!
+   \brief Get write initial condition value
+   \return True if should sample and output at timestep 0, False otherwise
+   */
+   bool CFile::shouldWriteInitialCondition() const
+   TRY
+   {
+     return !write_initial_condition.isEmpty() && write_initial_condition.getValue();
+   }
+   CATCH
+
+   //----------------------------------------------------------------
+   /*!
    \brief Get data writer object.
    Each enabled file in xml represents a physical netcdf file.
    This function allows to access the data writer object.

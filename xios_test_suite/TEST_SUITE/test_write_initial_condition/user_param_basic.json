@@ -1,0 +1,10 @@
+[
+	{
+		"Domain": ["lmdz"],
+		"UseServer2": ["false"],
+		"NumberServers": [2, 4],
+		"AxisMask": ["false"],
+		"DomMask": ["false"],
+		"ClientWriteT0": [".TRUE."]
+	}
+]

@@ -3,6 +3,7 @@
 #include "binary_arithmetic_filter.hpp"
 #include "ternary_arithmetic_filter.hpp"
 #include "field.hpp"
+#include "file.hpp"
 
 namespace xios
 {
@@ -61,7 +62,10 @@ namespace xios
     std::shared_ptr<COutputPin> outputPin;
 
     if (fieldId == "this")
-      outputPin = thisField.getSelfTemporalDataFilter(gc, thisField.freq_op.isEmpty() ? TimeStep : thisField.freq_op);
+    {
+      CFile* file = thisField.getFileOut();
+      outputPin = thisField.getSelfTemporalDataFilter(gc, thisField.freq_op.isEmpty() ? TimeStep : thisField.freq_op, !file || file->shouldWriteInitialCondition());
+    }
     else
     {
       string id ;
@@ -86,7 +90,11 @@ namespace xios
                 << "Use the keyword \"this\" if you want to reference the input data sent to this field.");
 
         bool ret=field->buildWorkflowGraph(gc);
-        if (ret) outputPin = field->getTemporalDataFilter(gc, thisField.freq_op.isEmpty() ? TimeStep : thisField.freq_op);
+        if (ret)
+        {
+          CFile* file = thisField.getFileOut();
+          outputPin = field->getTemporalDataFilter(gc, thisField.freq_op.isEmpty() ? TimeStep : thisField.freq_op, !file || file->shouldWriteInitialCondition());
+        }
       }
       else
         ERROR("shared_ptr<COutputPin> CFilterTemporalFieldExprNode::reduce(CGarbageCollector& gc, CField& thisField) const",
