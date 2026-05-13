@@ -6,6 +6,7 @@
 
 #include "mesh.hpp"
 #include "utils.hpp"
+#include "mesh_values.hpp"
 //#include <unordered_map>
 
 namespace xios {
@@ -806,7 +807,7 @@ namespace xios {
             }
             else
             {
-              face_edges(nv1,nf) = 999999;
+              face_edges(nv1,nf) = fill_value_face_edges();
             }
           }
         }
@@ -885,7 +886,7 @@ namespace xios {
           }
           else
           {
-            edge_faces(1, indexGlo - edge_start) = -999;
+            edge_faces(1, indexGlo - edge_start) = fill_value_edge_faces();
           }
         }
 
@@ -933,7 +934,7 @@ namespace xios {
                 int face1 = itFace1->second[0];
                 if (itFace1->second.size() == 1)
                 {
-                  face_faces(nv1, nf) = 999999;
+                  face_faces(nv1, nf) = fill_value_face_faces();
                 }
                 else
                 {
@@ -951,7 +952,7 @@ namespace xios {
             } // node1 != node2
             else
             {
-              face_faces(nv1, nf) = 999999;
+              face_faces(nv1, nf) = fill_value_face_faces();
             }
           }
         }
@@ -1174,7 +1175,7 @@ namespace xios {
             } // nodeIdxGlo1 != nodeIdxGlo2
             else
             {
-              face_edges(nv1,nf) = 999999;
+              face_edges(nv1,nf) = fill_value_face_edges();
             }
           }
         }
@@ -1225,8 +1226,8 @@ namespace xios {
               if (it1->second.size() == 1)
               {
                 edge_faces(0, edgeIdxGlo - edge_start) = face1;
-                edge_faces(1, edgeIdxGlo - edge_start) = -999;
-                face_faces(nv1, nf) = 999999;
+                edge_faces(1, edgeIdxGlo - edge_start) = fill_value_edge_faces();
+                face_faces(nv1, nf) = fill_value_face_faces();
               }
               else
               {
@@ -1555,7 +1556,7 @@ namespace xios {
             } // nodeIdxGlo1 != nodeIdxGlo2
             else
             {
-              face_edges(nv1,nf) = 999999;
+              face_edges(nv1,nf) = fill_value_face_edges();
             }
           }
         }
@@ -1599,8 +1600,8 @@ namespace xios {
                 if (it1->second.size() == 1)
                 {
                   edge_faces(0, edgeIdxGlo - edge_start) = face1;
-                  edge_faces(1, edgeIdxGlo - edge_start) = -999;
-                  face_faces(nv1, nf) = 999999;
+                  edge_faces(1, edgeIdxGlo - edge_start) = fill_value_edge_faces();
+                  face_faces(nv1, nf) = fill_value_face_faces();
                 }
                 else
                 {
@@ -1619,7 +1620,7 @@ namespace xios {
               }
             } // myNodeIdx1 != myNodeIdx2
             else
-              face_faces(nv1, nf) = 999999;
+              face_faces(nv1, nf) = fill_value_face_faces();
           }
         }
 
