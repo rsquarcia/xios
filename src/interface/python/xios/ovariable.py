@@ -10,8 +10,8 @@ class Variable(Variable_):
         super().__init__(id)
         self._data = None
 
-    @property
-    def value(self, data = 0):
+    def get_value(self, data=0):
+
         if isinstance(data, float):
             data_c = Double(data)
         elif isinstance(data, int):
@@ -20,14 +20,21 @@ class Variable(Variable_):
             data_c = Bool(data)
         elif isinstance(data, str):
             data_c = String()
-        
+        else :
+            raise ValueError("data type must be float, int, bool or str")
+
         current_context_id = swipswap_ctx(self._context_id)
         is_valid = getVar(self._id, data_c)
         swipswap_ctx(current_context_id)
-        if is_valid :
+
+        if is_valid:
             return data_c.value
-        else : 
+        else:
             return None
+        
+    @property
+    def value(self):
+        return self.get_value()
 
     def receive(self, data):
         current_context_id = swipswap_ctx(self._context_id)

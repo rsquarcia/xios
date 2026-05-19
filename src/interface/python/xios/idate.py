@@ -33,9 +33,9 @@ class Date(Structure):
     ]
 
     @typecheck
-    def __init__(self, date=None, year : Optional[Union[int, Int]] = 0, month : Optional[Union[int, Int]] = 0,
+    def __init__(self, date : Union[None, 'Date', str, String] = None, year : Optional[Union[int, Int]] = 0, month : Optional[Union[int, Int]] = 0,
                  day : Optional[Union[int, Int]] = 0, hour : Optional[Union[int, Int]] = 0,
-                 minute : Optional[Union[int, Int]] = 0, second : Optional[Union[int, Int]] = 0, timestep : Optional[Union[int, Int]] = 0):
+                 minute : Optional[Union[int, Int]] = 0, second : Optional[Union[int, Int]] = 0):
         
         super().__init__()
 
@@ -46,7 +46,6 @@ class Date(Structure):
             self.hour       = Int(hour)._c_value
             self.minute     = Int(minute)._c_value
             self.second     = Int(second)._c_value
-            self.timestep   = Int(timestep)._c_value
 
         elif isinstance(date, Date):
             self.year       = date.year
@@ -55,7 +54,15 @@ class Date(Structure):
             self.hour       = date.hour
             self.minute     = date.minute
             self.second     = date.second
-            self.timestep   = date.timestep
+        
+        elif isinstance(date, String) or isinstance(date, str) :
+            date = date_convert_from_string(date)
+            self.year       = date.year
+            self.month      = date.month
+            self.day        = date.day
+            self.hour       = date.hour
+            self.minute     = date.minute
+            self.second     = date.second
         
         else:
             raise TypeError("date arg should be an instance of xios.Date or set to None!")
@@ -139,7 +146,7 @@ lib.cxios_date_le.restype = c_bool
 lib.cxios_date_gt.restype = c_bool
 lib.cxios_date_ge.restype = c_bool
 lib.cxios_date_convert_from_string.restype = Date
-lib.cxios_date_convert_to_seconds.restype = Date
+lib.cxios_date_convert_to_seconds.restype = c_int
 
 lib.cxios_date_add_duration.argtypes = [Date, Duration]
 lib.cxios_date_sub_duration.argtypes = [Date, Duration]
@@ -172,7 +179,7 @@ def date_convert_to_string(date: Date, out_str: String) -> None:
     lib.cxios_date_convert_to_string(Date(date), out_str_c, len_out_str_c)
 
 @typecheck
-def date_convert_from_string(in_str: str) -> Date:
+def date_convert_from_string(in_str: str | String) -> Date:
     in_str = String(in_str)
     in_str_c = in_str._c_value
     len_in_str_c = len(string_at(in_str_c))

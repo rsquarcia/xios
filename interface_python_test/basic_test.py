@@ -5,7 +5,7 @@ import sys
 
 
 
-client_number = 2
+client_number = 1
 server_number = 1
 ts_max = 5
 ni_glo = 4
@@ -48,7 +48,7 @@ elif (rank < client_number):
     nj = nj_glo
     n = n_glo
 
-    n_fields = ctx.variable("output_field_model_number").get(0)
+    n_fields = ctx.variable("output_field_model_number").value
     TESTS = [ctx.field(f"output_field_model_{i}").comment for i in range(n_fields)]
 
     ctx.domain("domain").set_attr(
@@ -81,7 +81,8 @@ elif (rank < client_number):
         ctx.field("input_field_model").send(input_field_model_data*ts)
 
         for i in range(n_fields):
-            output_data = ctx.field(f"output_field_model_{i}").recv(output_data)
+            if field := ctx.field(f"output_field_model_{i}") :
+                if field.is_active() : output_data = field.recv(output_data)
             
 
     ctx.finalize()

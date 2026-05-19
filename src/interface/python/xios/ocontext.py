@@ -4,7 +4,7 @@ from xios.ocalendar import Calendar
 from xios.obj import swipswap_ctx
 from xios.config import String, Double, Bool, Int
 from xios.ocontext_attr import Context_
-from xios.icontext import set_current_context, set_current_context_id
+from xios.icontext import set_current_context, set_current_context_id, is_valid_context
 
 from xios.oscalar_attr import Scalar
 from xios.oscalargroup_attr import ScalarGroup
@@ -50,8 +50,11 @@ from xios.oredistribute_scalar_attr import RedistributeScalar
 class Context(Context_):
 
     def __init__(self, context_id, comm = None):
-        super().__init__(id = context_id)
 
+        if not is_valid_context(context_id):
+            raise ValueError(f"The context {context_id} does not exist ! check your iodef.xml")
+
+        super().__init__(id = context_id)
         if comm is None :
             comm = _xios_instance._communicator
         context_initialize(context_id, comm)

@@ -73,7 +73,7 @@ class Object(CObject):
         is_defined = Bool(False)
         is_defined_func(self, **{name: is_defined})
         if not is_defined.value:
-            raise AttributeError(f"Attribute '{name}' is not defined for the {self._object_type} '{self._id}'")
+            return None
 
         meta = self.FIELD_META[name]
         WrappedType = convert_type(meta)

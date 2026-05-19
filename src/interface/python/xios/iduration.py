@@ -1,8 +1,6 @@
-from ctypes import c_char_p, c_int, c_bool, c_double, string_at, Structure
-from xios.config import lib, typecheck
-from xios import config as xios
+from ctypes import c_char_p, c_int, c_double, string_at, Structure
+from xios.config import lib, typecheck, Double, String
 from typing import Union
-from typing import get_type_hints, get_args
 
 #_____________________________________________________________________________________________#
 #                                         XIOS_TYPES                                          #
@@ -21,7 +19,7 @@ class Duration(Structure):
 
     def __init__(
         self,
-        duration: Union[None, 'Duration'] = None,
+        duration: Union[None, 'Duration', str, String] = None,
         year: float = 0.0,
         month: float = 0.0,
         day: float = 0.0,
@@ -33,13 +31,13 @@ class Duration(Structure):
         super().__init__()
 
         if duration is None:
-            self.year     = xios.Double(year)._c_value
-            self.month    = xios.Double(month)._c_value
-            self.day      = xios.Double(day)._c_value
-            self.hour     = xios.Double(hour)._c_value
-            self.minute   = xios.Double(minute)._c_value
-            self.second   = xios.Double(second)._c_value
-            self.timestep = xios.Double(timestep)._c_value
+            self.year     = Double(year)._c_value
+            self.month    = Double(month)._c_value
+            self.day      = Double(day)._c_value
+            self.hour     = Double(hour)._c_value
+            self.minute   = Double(minute)._c_value
+            self.second   = Double(second)._c_value
+            self.timestep = Double(timestep)._c_value
 
         elif isinstance(duration, Duration):
             self.year     = duration.year
@@ -49,6 +47,17 @@ class Duration(Structure):
             self.minute   = duration.minute
             self.second   = duration.second
             self.timestep = duration.timestep
+
+        elif isinstance(duration, String) or isinstance(duration, str):
+            duration = duration_convert_from_string(duration)
+            self.year     = duration.year
+            self.month    = duration.month
+            self.day      = duration.day
+            self.hour     = duration.hour
+            self.minute   = duration.minute
+            self.second   = duration.second
+            self.timestep = duration.timestep
+
 
         else:
             raise TypeError("duration arg should be an instance of xios.Duration or set to None!")
@@ -101,7 +110,7 @@ lib.cxios_duration_convert_to_string.argtypes = [Duration, c_char_p, c_int]
 #__________________________________________________________________________________________________#
 
 @typecheck
-def duration_convert_to_string(dur: Duration, out_str: xios.String):
+def duration_convert_to_string(dur: Duration, out_str: String):
     dur = Duration(dur)
     out_str.value = ' ' * 256
     out_str_c = out_str._c_value
@@ -109,8 +118,8 @@ def duration_convert_to_string(dur: Duration, out_str: xios.String):
     lib.cxios_duration_convert_to_string(dur, out_str_c, len_out_str_c)
 
 @typecheck
-def duration_convert_from_string(in_str: Union[str, xios.String]) -> Duration:
-    in_str = xios.String(in_str)
+def duration_convert_from_string(in_str: Union[str, String]) -> Duration:
+    in_str = String(in_str)
     in_str_c = in_str._c_value
     len_in_str_c = len(string_at(in_str_c))
     return Duration(lib.cxios_duration_convert_from_string(in_str_c, len_in_str_c))
