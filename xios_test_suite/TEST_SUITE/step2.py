@@ -98,6 +98,10 @@ def main():
     test_folder_list = glob.glob('test_*')
 
     for test_folder in test_folder_list:
+        if test_folder == "test_write_initial_condition" :
+            # Test to be added later
+            continue
+
         report_filename=""
         # check if test concerns xios features (NetCDF), or memory consumption (mem files)
         files_list=""
@@ -121,17 +125,18 @@ def main():
 
         with open(report_filename, "a") as report:
             for config in config_list:
+                ref_config = config.replace("ClientWriteT0_.FALSE._", "")
                 folder_name = list(config.split("/"))[0]
                 config_name = list(config.split("/"))[1]
                 for checkfile in checkfiles:
-                    if os.path.exists(config+"/"+checkfile) and os.path.exists("reference/ref_"+config+"/"+checkfile):
+                    if os.path.exists(config+"/"+checkfile) and os.path.exists("reference/ref_"+ref_config+"/"+checkfile):
                         if ( enable_mem_track==None ) and ( not('.mem' in files_list) ): # NetCDF
                             #OSinfo("cdo -W diffn "+config+"/"+checkfile+" "+"reference/ref_"+config+"/"+checkfile+"  2>&1 |grep -v 'Found more than one time variable'|grep -v 'cdo diffn: Processed'|grep -v 'cdo    diffn: Processed'|grep -v 'Time variable >time_counter< not found!' > diff_"+checkfile+".txt")
                             #if os.stat("diff_"+checkfile+".txt").st_size==0: # if no diff -> set 0
                             #    report.write(folder_name+" "+folder_name+"@"+config_name+" "+folder_name+"@"+config_name+"@"+checkfile+" "+str(1)+"\n")
                             #else: # if cdo diffn returns diff -> set -1
                             #    report.write(folder_name+" "+folder_name+"@"+config_name+" "+folder_name+"@"+config_name+"@"+checkfile+" "+str(-1)+"\n")
-                            ref = Dataset( "reference/ref_"+config+"/"+checkfile )
+                            ref = Dataset( "reference/ref_"+ref_config+"/"+checkfile )
                             res = Dataset( config+"/"+checkfile )
                             validated = 1
                             np.seterr(divide='ignore', invalid='ignore')
@@ -158,7 +163,7 @@ def main():
                         
                         elif ( enable_mem_track=='--memtrack full' ) and ( '.mem' in files_list ) : # mem file
                             validated = 1
-                            ref_memory = extract_bytes( "reference/ref_"+config+"/"+checkfile )
+                            ref_memory = extract_bytes( "reference/ref_"+ref_config+"/"+checkfile )
                             res_memory = extract_bytes( config+"/"+checkfile )
                             if ( ref_memory == res_memory ) :
                                 validated = 1
@@ -168,7 +173,7 @@ def main():
 
                     elif os.path.exists(config+"/"+checkfile): # if no ref file -> set 0
                         report.write(folder_name+" "+folder_name+"@"+config_name+" "+folder_name+"@"+config_name+"@"+checkfile+" "+str(0)+"\n")
-                    elif os.path.exists("reference/ref_"+config+"/"+checkfile): # if no output file -> set -2
+                    elif os.path.exists("reference/ref_"+ref_config+"/"+checkfile): # if no output file -> set -2
                         report.write(folder_name+" "+folder_name+"@"+config_name+" "+folder_name+"@"+config_name+"@"+checkfile+" "+str(-2)+"\n")
                     else :
                         report.write(folder_name+" "+folder_name+"@"+config_name+" "+folder_name+"@"+config_name+"@"+checkfile+" "+str(-666)+"\n")
