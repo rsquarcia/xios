@@ -42,9 +42,6 @@ class Object(CObject):
         self._module_name  = f'xios.i{self._object_type.lower()[:-5] if self._object_type.lower().endswith("group") else self._object_type.lower()}'
 
         self._id = String(id)
-        is_valid_func =  self._resolve_func(f"is_valid_{self._object_type}", self._module_name)
-        if not is_valid_func(self._id) :
-            raise ValueError(f"The id \'{self._id}\' does not correspond to any {self._object_type}")
         get_hdl_func = self._resolve_func(f"get_{self._object_type}_handle", self._module_name)
         get_hdl_func(self._id, self)
 
@@ -76,7 +73,7 @@ class Object(CObject):
         is_defined = Bool(False)
         is_defined_func(self, **{name: is_defined})
         if not is_defined.value:
-            raise AttributeError(f"Attribute '{name}' is not defined for the {self._object_type} '{self._id}'")
+            return None
 
         meta = self.FIELD_META[name]
         WrappedType = convert_type(meta)

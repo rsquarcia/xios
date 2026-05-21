@@ -4,7 +4,7 @@ from xios.config  import lib, typecheck, String, Int, Bool
 from xios.odomain_attr import Domain
 from xios.oaxis_attr import Axis
 from xios.oscalar_attr import Scalar
-from xios.ofield import Field
+from xios.obj import Object as Field
 from xios.ofieldgroup_attr import FieldGroup
 
 
@@ -33,7 +33,7 @@ lib.cxios_field_valid_id.restype = None
 lib.cxios_fieldgroup_valid_id.argtypes = [POINTER(FieldGroup), c_char_p, c_int]
 lib.cxios_fieldgroup_valid_id.restype = None
 
-lib.cxios_field_is_active.argtypes = [POINTER(Field), c_bool, POINTER(c_bool)]
+lib.cxios_field_is_active.argtypes = [Field, c_bool, POINTER(c_bool)]
 lib.cxios_field_is_active.restype = None
 
 #__________________________________________________________________________________________________#
@@ -71,7 +71,7 @@ def field_get_domain_handle(field_hdl: Field, ret: Domain, idx: int = 0):
         raise TypeError("ret should be an instance of xios.Domain")
 
     idx_c = Int(idx)._c_value
-    lib.cxios_field_get_domain_handle(pointer(ret), field_hdl, idx_c)
+    lib.cxios_field_get_domain_handle(byref(ret), field_hdl, idx_c)
 
 
 @typecheck
@@ -93,7 +93,7 @@ def field_get_axis(field: Union[str, String, Field], ret: Axis, idx: int = 0):
 @typecheck
 def field_get_axis_handle(field_hdl: Field, ret: Axis, idx: int = 0):
     idx_c = Int(idx)._c_value
-    lib.cxios_field_get_axis_handle(byref(ret.daddr), byref(field_hdl.daddr), idx_c)
+    lib.cxios_field_get_axis_handle(byref(ret), field_hdl, idx_c)
 
 
 @typecheck
@@ -115,7 +115,7 @@ def field_get_scalar(field: Union[str, String, Field], ret: Scalar, idx: int = 0
 @typecheck
 def field_get_scalar_handle(field_hdl: Field, ret: Scalar, idx: int = 0):
     idx_c = Int(idx)._c_value
-    lib.cxios_field_get_scalar_handle(byref(ret.daddr), byref(field_hdl.daddr), idx_c)
+    lib.cxios_field_get_scalar_handle(byref(ret), field_hdl, idx_c)
 
 
 @typecheck
@@ -166,7 +166,7 @@ def field_is_active_hdl(field_hdl: Field, at_current_timestep_arg: bool = False)
     is_act = Bool(False)
     is_act_c = pointer(is_act._c_value)
 
-    lib.cxios_field_is_active(byref(field_hdl), at_current_timestep_arg, is_act_c)
+    lib.cxios_field_is_active(field_hdl, at_current_timestep_arg, is_act_c)
     return bool(is_act_c.contents)
 
 

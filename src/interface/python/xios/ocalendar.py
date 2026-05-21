@@ -10,6 +10,8 @@ import numpy as np
 
 class Calendar():
 
+    # __slots__ = ("_timestep", "_context_id", "_calendar_wrapper_hdl", "_is_defined") TO DO 
+
     def __init__(self):
         self._context_id = current_context_id()
         self._calendar_wrapper_hdl = CalendarWrapper()
@@ -34,17 +36,17 @@ class Calendar():
         set_calendar_wrapper_attr_hdl(self._calendar_wrapper_hdl, comment, day_length, leap_year_drift, leap_year_drift_offset,   
                                       leap_year_month, month_lengths, start_date, time_origin, timestep, type, year_length)
 
-        if type is not None :                   self.type                   = (type)
-        if timestep is not None :               self.timestep               = (timestep)
-        if start_date is not None :             self.start_date             = (start_date) 
-        if time_origin is not None :            self.time_origin            = (time_origin) 
-        if day_length is not None :             self.day_length             = (day_length) 
-        if month_lengths is not None :          self.month_lengths          = (month_lengths) 
-        if year_length is not None :            self.year_length            = (year_length) 
-        if leap_year_month is not None :        self.leap_year_month        = (leap_year_month) 
-        if leap_year_drift is not None :        self.leap_year_drift        = (leap_year_drift) 
-        if leap_year_drift_offset is not None : self.leap_year_drift_offset = (leap_year_drift_offset) 
-        if comment is not None :                self.comment                = (comment) 
+        if type is not None :                   self._type                   = (type)
+        if timestep is not None :               self._timestep               = (timestep)
+        if start_date is not None :             self._start_date             = (start_date) 
+        if time_origin is not None :            self._time_origin            = (time_origin) 
+        if day_length is not None :             self._day_length             = (day_length) 
+        if month_lengths is not None :          self._month_lengths          = (month_lengths) 
+        if year_length is not None :            self._year_length            = (year_length) 
+        if leap_year_month is not None :        self._leap_year_month        = (leap_year_month) 
+        if leap_year_drift is not None :        self._leap_year_drift        = (leap_year_drift) 
+        if leap_year_drift_offset is not None : self._leap_year_drift_offset = (leap_year_drift_offset) 
+        if comment is not None :                self._comment                = (comment) 
 
     @property
     def day_length(self):
@@ -320,17 +322,17 @@ class Calendar():
         is_time_origin, is_timestep, is_type, is_year_length)
 
 
-        if is_type.value:                   attr_dict["type"]                   = self.type
-        if is_timestep.value:               attr_dict["timestep"]               = self.timestep
-        if is_start_date.value:             attr_dict["start_date"]             = self.start_date
-        if is_time_origin.value:            attr_dict["time_origin"]            = self.time_origin
-        if is_day_length.value:             attr_dict["day_length"]             = self.day_length
-        if is_month_lengths.value:          attr_dict["month_lengths"]          = self.month_lengths
-        if is_year_length.value:            attr_dict["year_length"]            = self.year_length
-        if is_leap_year_month.value:        attr_dict["leap_year_month"]        = self.leap_year_month
-        if is_leap_year_drift.value:        attr_dict["leap_year_drift"]        = self.leap_year_drift
-        if is_leap_year_drift_offset.value: attr_dict["leap_year_drift_offset"] = self.leap_year_drift_offset
-        if is_comment.value:                attr_dict["comment"]                = self.comment
+        if is_type.value:                   attr_dict["type"]                   = self._type
+        if is_timestep.value:               attr_dict["timestep"]               = self._timestep
+        if is_start_date.value:             attr_dict["start_date"]             = self._start_date
+        if is_time_origin.value:            attr_dict["time_origin"]            = self._time_origin
+        if is_day_length.value:             attr_dict["day_length"]             = self._day_length
+        if is_month_lengths.value:          attr_dict["month_lengths"]          = self._month_lengths
+        if is_year_length.value:            attr_dict["year_length"]            = self._year_length
+        if is_leap_year_month.value:        attr_dict["leap_year_month"]        = self._leap_year_month
+        if is_leap_year_drift.value:        attr_dict["leap_year_drift"]        = self._leap_year_drift
+        if is_leap_year_drift_offset.value: attr_dict["leap_year_drift_offset"] = self._leap_year_drift_offset
+        if is_comment.value:                attr_dict["comment"]                = self._comment
 
         return attr_dict
 
@@ -355,16 +357,16 @@ class Calendar():
         s = "\n"
         s += f"\tCalendar of the context  '{self._context_id}'\n"
 
-        if is_type.value:                   s += f"\ttype                   = {self.type}\n"
-        if is_timestep.value:               s += f"\ttimestep               = {self.timestep}\n"
-        if is_start_date.value:             s += f"\tstart_date             = {self.start_date}\n"
-        if is_time_origin.value:            s += f"\ttime_origin            = {self.time_origin}\n"
-        if is_day_length.value:             s += f"\tday_length             = {self.day_length}\n"
-        if is_month_lengths.value:          s += f"\tmonth_lengths          = {self.month_lengths}\n"
-        if is_year_length.value:            s += f"\tyear_length            = {self.year_length}\n"
-        if is_leap_year_month.value:        s += f"\tleap_year_month        = {self.leap_year_month}\n"
-        if is_leap_year_drift.value:        s += f"\tleap_year_drift        = {self.leap_year_drift}\n"
-        if is_leap_year_drift_offset.value: s += f"\tleap_year_drift_offset = {self.leap_year_drift_offset}\n"
-        if is_comment.value:                s += f"\tcomment                = {self.comment}\n"
+        if is_type.value:                   s += f"\ttype                   = {self._type}\n"
+        if is_timestep.value:               s += f"\ttimestep               = {self._timestep}\n"
+        if is_start_date.value:             s += f"\tstart_date             = {self._start_date}\n"
+        if is_time_origin.value:            s += f"\ttime_origin            = {self._time_origin}\n"
+        if is_day_length.value:             s += f"\tday_length             = {self._day_length}\n"
+        if is_month_lengths.value:          s += f"\tmonth_lengths          = {self._month_lengths}\n"
+        if is_year_length.value:            s += f"\tyear_length            = {self._year_length}\n"
+        if is_leap_year_month.value:        s += f"\tleap_year_month        = {self._leap_year_month}\n"
+        if is_leap_year_drift.value:        s += f"\tleap_year_drift        = {self._leap_year_drift}\n"
+        if is_leap_year_drift_offset.value: s += f"\tleap_year_drift_offset = {self._leap_year_drift_offset}\n"
+        if is_comment.value:                s += f"\tcomment                = {self._comment}\n"
 
         return s

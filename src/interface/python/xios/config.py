@@ -140,7 +140,7 @@ class Double:
 
     @property
     def value(self):
-        return float(self._c_value.contents)
+        return float(self._c_value.value)
 
 
     def __repr__(self):

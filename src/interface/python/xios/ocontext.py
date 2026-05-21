@@ -1,10 +1,10 @@
 from xios.odata import _xios_instance
-from xios.idata import context_initialize, close_context_definition, context_finalize, context_is_initialized
+from xios.idata import context_initialize, close_context_definition, context_finalize, context_is_initialized, getVar
 from xios.ocalendar import Calendar
 from xios.obj import swipswap_ctx
-from xios.config import String
+from xios.config import String, Double, Bool, Int
 from xios.ocontext_attr import Context_
-from xios.icontext import set_current_context, set_current_context_id
+from xios.icontext import set_current_context, set_current_context_id, is_valid_context
 
 from xios.oscalar_attr import Scalar
 from xios.oscalargroup_attr import ScalarGroup
@@ -50,8 +50,11 @@ from xios.oredistribute_scalar_attr import RedistributeScalar
 class Context(Context_):
 
     def __init__(self, context_id, comm = None):
-        super().__init__(id = context_id)
 
+        if not is_valid_context(context_id):
+            raise ValueError(f"The context {context_id} does not exist ! check your iodef.xml")
+
+        super().__init__(id = context_id)
         if comm is None :
             comm = _xios_instance._communicator
         context_initialize(context_id, comm)
@@ -102,6 +105,24 @@ class Context(Context_):
     def set_current(self):
         set_current_context(String(self._id))
 
+    def getvar(self, id, data = 0):
+        if isinstance(data, float):
+            data_c = Double(data)
+        elif isinstance(data, int):
+            data_c = Int(data)
+        elif isinstance(data, bool):
+            data_c = Bool(data)
+        elif isinstance(data, str):
+            data_c = String()
+
+        current_context_id = swipswap_ctx(self._id)
+        is_valid = getVar(id, data_c)
+        swipswap_ctx(current_context_id)
+        if is_valid :
+            return data_c.value
+        else :
+            return None
+
     
 def dynamic_methods():
     CLASS_MAP = {
@@ -139,7 +160,11 @@ def dynamic_methods():
         def method(self, id, **kwargs):
             current_context_id = swipswap_ctx(self._id)
             cls = CLASS_MAP[name]
-            res = cls(id)
+            is_valid_func = self._resolve_func(f"is_valid_{name}", f"xios.i{name}")
+            if is_valid_func(String(id)):
+                res = cls(id)
+            else : 
+                return None
             for key, value in kwargs.items():
                 if key in cls.FIELD_META:
                     setattr(cls, key, value)
@@ -150,13 +175,13 @@ def dynamic_methods():
         return method
 
     def create_is_valid(name):
-        def method(self, id):
+        def is_valid(self, id):
             current_context_id = swipswap_ctx(self._id)
             is_valid_func = self._resolve_func(f"is_valid_{name}", f"xios.i{name}")
             res = is_valid_func(String(id))
             swipswap_ctx(current_context_id)
             return res
-        return method
+        return is_valid
 
     for key in CLASS_MAP:
         setattr(Context, f'{key}', create_method(key))
