@@ -138,4 +138,33 @@ Fortran, C++ & Python interface source code is generated from configurations by 
 * It is the responsibility of a developer to ensure that the code generation tool has ben run on their Merge Request and the resulting generated code checked into the branch.
 * The repository CI testing will verify that the generated code is identical to the code submitted by the developer.
 
+In order to generate interface code, it is necessary to first compile the interface tooling. 
+This is enabled by editing the `bld.cfg` [configuration file](bld.cfg#L53) in a local copy, and uncommenting the line:
+```
+bld::target generate_interfaces.exe
+```
+
+Then, compiling XIOS using `./make_xios` will also create the `generate_interfaces.exe` executable within the `bin` directory.
+
+(Please remember to revert your change to `bld.cfg`, don't commit this to your branch for any Merge Request)
+
+To run the interface generation code and locate the outputs in the correct places within the source, then:
+```
+cd src
+./../bin/generate_interfaces.exe
+mv interface/*_attr.cpp interface/c_attr/
+mv interface/*_attr.F90 interface/fortran_attr/
+mv interface/*_attr.py interface/python/xios/
+```
+
+You can then use 
+```
+git diff
+```
+to explore and verify that any changes are as you expect.
+Changes need to be commited to your development branch as your changes for any Merge Request proposal.
+
+This process is repeated within the Continuous Integration testing pipeline, which should verify that the interface code is consistent with the source for any Merge Request.
+([.gitlab-ci.yml#L18](.gitlab-ci.yml#L18) [.gitlab-ci.yml#L37](.gitlab-ci.yml#L37))
+
 </div>
