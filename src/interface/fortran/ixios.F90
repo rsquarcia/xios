@@ -5,7 +5,9 @@ MODULE XIOS
 USE icalendar, ONLY : xios(define_calendar), xios(set_timestep), xios(set_start_date), xios(set_time_origin),   &
                       xios(get_calendar_type), xios(get_timestep), xios(get_start_date), xios(get_time_origin), &
                       xios(update_calendar), xios(get_current_date),                                            &
-                      xios(get_year_length_in_seconds), xios(get_day_length_in_seconds)
+                      xios(get_year_length_in_seconds), xios(get_day_length_in_seconds),                        &
+                      xios(get_calendar_months_number), xios(get_calendar_months_lengths)
+
 
 USE icontext, ONLY : txios(context), xios(set_current_context), xios(get_current_context), xios(is_valid_context)
 
