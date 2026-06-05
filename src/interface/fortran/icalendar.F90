@@ -192,6 +192,26 @@ MODULE ICALENDAR
       CALL xios(get_time_origin_hdl)(calendar_wrapper, time_origin)
    END SUBROUTINE xios(get_time_origin)
 
+   FUNCTION xios(get_calendar_months_number)() RESULT(res)
+      IMPLICIT NONE
+      INTEGER(kind = C_INT) :: res
+
+      res = cxios_get_number_of_months()
+   END FUNCTION xios(get_calendar_months_number)
+
+   SUBROUTINE xios(get_calendar_months_lengths)(months_lengths, nmonths, year)
+      IMPLICIT NONE
+      INTEGER, INTENT(OUT)           :: months_lengths(:)
+      INTEGER, INTENT(IN)            :: nmonths
+      INTEGER, INTENT(IN),OPTIONAL   :: year
+
+      IF (PRESENT(year)) THEN
+        CALL cxios_get_months_lengths(months_lengths, nmonths, year)
+      ELSE
+        CALL cxios_get_months_lengths(months_lengths ,nmonths, 1)
+      ENDIF
+   END SUBROUTINE xios(get_calendar_months_lengths)
+
    SUBROUTINE xios(update_calendar)(step)
       IMPLICIT NONE
       INTEGER, INTENT(IN) :: step

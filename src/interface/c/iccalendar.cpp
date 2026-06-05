@@ -48,6 +48,38 @@ extern "C"
   }
   CATCH_DUMP_STACK
 
+  int cxios_get_number_of_months()
+  TRY
+  {
+    CTimer::get("XIOS").resume();
+    const std::shared_ptr<xios::CCalendar> cal = CContext::getCurrent()->getCalendar();
+    if (!cal)
+      ERROR("int cxios_get_number_of_months()",
+            << "Impossible to get the number of months: no calendar was defined.");
+    int length = cal->getYearLength();
+    CTimer::get("XIOS").suspend();
+
+    return length;
+  }
+  CATCH_DUMP_STACK
+
+  void cxios_get_months_lengths( int* months_lengths, int nmonths, int year )
+  TRY
+  {
+    CTimer::get("XIOS").resume();
+    const std::shared_ptr<xios::CCalendar> cal = CContext::getCurrent()->getCalendar();
+    if (!cal)
+      ERROR("int cxios_get_month_lenths()",
+            << "Impossible to get the length of months: no calendar was defined.");
+    for (int i=0;i<nmonths;i++)
+    {
+      months_lengths[i] = cal->getMonthLength(CDate(*cal, year, i+1, 01));
+    }
+    CTimer::get("XIOS").suspend();
+
+  }
+  CATCH_DUMP_STACK
+
   int cxios_get_year_length_in_seconds(int year)
   TRY
   {
