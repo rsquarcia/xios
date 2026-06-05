@@ -199,12 +199,17 @@ MODULE ICALENDAR
       res = cxios_get_number_of_months()
    END FUNCTION xios(get_calendar_months_number)
 
-   SUBROUTINE xios(get_calendar_months_lengths)(months_lengths, nmonths)
+   SUBROUTINE xios(get_calendar_months_lengths)(months_lengths, nmonths, year)
       IMPLICIT NONE
       INTEGER, INTENT(OUT)           :: months_lengths(:)
       INTEGER, INTENT(IN)            :: nmonths
+      INTEGER, INTENT(IN),OPTIONAL   :: year
 
-      CALL cxios_get_months_lengths(months_lengths, nmonths)
+      IF (PRESENT(year)) THEN
+        CALL cxios_get_months_lengths(months_lengths, nmonths, year)
+      ELSE
+        CALL cxios_get_months_lengths(months_lengths ,nmonths, 1)
+      ENDIF
    END SUBROUTINE xios(get_calendar_months_lengths)
 
    SUBROUTINE xios(update_calendar)(step)

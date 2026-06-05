@@ -24,10 +24,11 @@ MODULE CALENDAR_INTERFACE
          USE ISO_C_BINDING
       END FUNCTION cxios_get_number_of_months
 
-      SUBROUTINE cxios_get_months_lengths(months_lengths, nmonths) BIND(C)
+      SUBROUTINE cxios_get_months_lengths(months_lengths, nmonths, year) BIND(C)
         USE ISO_C_BINDING
         INTEGER (KIND = C_INT), DIMENSION(*) :: months_lengths
         INTEGER (kind = C_INT), VALUE        :: nmonths
+        INTEGER (kind = C_INT), VALUE        :: year
       END SUBROUTINE cxios_get_months_lengths
 
       INTEGER(kind = C_INT) FUNCTION cxios_get_day_length_in_seconds() BIND(C)

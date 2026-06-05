@@ -63,7 +63,7 @@ extern "C"
   }
   CATCH_DUMP_STACK
 
-  void cxios_get_months_lengths( int* months_lengths, int nmonths )
+  void cxios_get_months_lengths( int* months_lengths, int nmonths, int year )
   TRY
   {
     CTimer::get("XIOS").resume();
@@ -73,8 +73,7 @@ extern "C"
             << "Impossible to get the length of months: no calendar was defined.");
     for (int i=0;i<nmonths;i++)
     {
-      // could pass the year to request months_lengths for a given year (leap)
-      months_lengths[i] = cal->getMonthLength(CDate(*cal, 01, i+1, 01));
+      months_lengths[i] = cal->getMonthLength(CDate(*cal, year, i+1, 01));
     }
     CTimer::get("XIOS").suspend();
 
