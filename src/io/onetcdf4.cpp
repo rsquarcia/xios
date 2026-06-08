@@ -393,8 +393,8 @@ namespace xios
             const StdString& dimid = *it;
             CNetCdfInterface::inqDimLen(grpid, this->getDimension(dimid), size);
             if (size == NC_UNLIMITED) {
-		    size = 1;
-		    isTime = true;
+              size = 1;
+              isTime = true;
 	    }
             recordSize *= size;
             dimsizes.push_back(size);
