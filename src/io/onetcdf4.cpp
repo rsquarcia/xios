@@ -333,17 +333,25 @@ namespace xios
             const StdString& dimid = *it;
             dimids.push_back(this->getDimension(dimid));
             CNetCdfInterface::inqDimLen(grpid, this->getDimension(dimid), size);
-            if (size == NC_UNLIMITED) size = 100000;
+            if (size == NC_UNLIMITED)
+            {
+              if (!CXios::timeChunkingEnabled) size = 1;
+              else size = CXios::timeAxisChunkSize;
+            }
             dimsizes.push_back(size);
          }
 
          CNetCdfInterface::defVar(grpid, name, type, dimids.size(), &dimids[0], varid);
 
          if ( (!useClassicFormat) && (defineChunking) ) {
-           //int storageType = (0 == dimSize) ? NC_CONTIGUOUS : NC_CHUNKED;
-           int storageType = NC_CHUNKED;
+           int storageType;
+           if (!CXios::timeChunkingEnabled)
+             storageType= (0 == dimSize) ? NC_CONTIGUOUS : NC_CHUNKED;
+           else //(CXios::timeChunkingEnabled)
+             storageType = NC_CHUNKED;
            CNetCdfInterface::defVarChunking(grpid, varid, storageType, &dimsizes[0]);
-           if (!isTime) CNetCdfInterface::defVarFill(grpid, varid, true, NULL);
+           if ((!isTime)||(!CXios::timeChunkingEnabled))
+             CNetCdfInterface::defVarFill(grpid, varid, true, NULL);
          }
 
          
@@ -542,10 +550,13 @@ namespace xios
             }
             int storageType = (0 == dimSize) ? NC_CONTIGUOUS : NC_CHUNKED;
 
-            StdSize finalChunkSize = prec;
-            for (int ii=0 ; ii<dimsizes.size() ; ii++) finalChunkSize *= dimsizes[ii];
-            double finalRatio = (double)targetSize / (double)finalChunkSize;
-            if (isTime && ( finalRatio > 2.)) dimsizes[0] = (int)finalRatio;
+            if (CXios::timeChunkingEnabled)
+            {
+              StdSize finalChunkSize = prec;
+              for (int ii=0 ; ii<dimsizes.size() ; ii++) finalChunkSize *= dimsizes[ii];
+              double finalRatio = (double)targetSize / (double)finalChunkSize;
+              if (isTime && ( finalRatio > 2.)) dimsizes[0] = (int)finalRatio;
+            }
 
             CNetCdfInterface::defVarChunking(grpid, varid, storageType, &dimsizes[0]);
             CNetCdfInterface::defVarFill(grpid, varid, true, NULL);

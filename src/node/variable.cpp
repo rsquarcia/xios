@@ -93,6 +93,8 @@ namespace xios {
                                     "server2_dist_file_memory_ratio",
                                     "server_puplish_timeout",
                                     "system_stack",
+                                    "time_chuking_enabled",
+                                    "time_axis_chuking",
                                     "transport_protocol",
                                     "using_oasis",
                                     "using_oasis_old_api",
