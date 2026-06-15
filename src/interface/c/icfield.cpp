@@ -129,4 +129,36 @@ extern "C"
      CTimer::get("XIOS").suspend();
   }
   CATCH_DUMP_STACK
+
+  int cxios_field_get_domains_number(XFieldPtr field_hdl)
+  TRY
+  {
+     CTimer::get("XIOS").resume() ;
+     int domains_number = (field_hdl->getGrid()->getDomains()).size();
+     CTimer::get("XIOS").suspend();
+     return domains_number;
+  }
+  CATCH_DUMP_STACK
+
+  int cxios_field_get_axes_number(XFieldPtr field_hdl)
+  TRY
+  {
+     CTimer::get("XIOS").resume() ;
+     int axes_number = (field_hdl->getGrid()->getAxis()).size();
+     CTimer::get("XIOS").suspend();
+     return axes_number;
+  }
+  CATCH_DUMP_STACK
+
+  int cxios_field_get_scalars_number(XFieldPtr field_hdl)
+  TRY
+  {
+     CTimer::get("XIOS").resume() ;
+     int scalars_number = (field_hdl->getGrid()->getScalars()).size();
+     CTimer::get("XIOS").suspend();
+     return scalars_number;
+  }
+  CATCH_DUMP_STACK
+
+
 } // extern "C"
