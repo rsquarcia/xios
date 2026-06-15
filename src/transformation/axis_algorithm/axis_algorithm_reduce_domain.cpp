@@ -82,7 +82,9 @@ TRY
   size_t ni_glo = domainSource->ni_glo ;
 
   bool validAxis = axisDestination->checkGeometricAttributes(false) ;
-  if (validAxis && !local) 
+  // For rectilinear domain, go to else to recompute consistent attributes such as value, mask ... for distributed or non-distributed axis
+  //   done to be able compute X/Y bounds for axis from a rectilinear domain at writing time (see CMIP7 CQ)
+  if (validAxis && !local && (domainSource->type != CDomain::type_attr::rectilinear))
   {
     
     axisDestination->checkAttributes() ; 

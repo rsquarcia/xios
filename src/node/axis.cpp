@@ -362,6 +362,59 @@ namespace xios {
      attributesHash_ = distributedHash + globalHash;
      return attributesHash_;
    }
+
+   /*
+     Compute bounds of axis generated from reduce_domain_to_axis transformation for CMIP7 CQ
+   */
+   void CAxis::computeAxisBoundFile( CArray<double,1>& val, CArray<double,2>& bounds )
+   {
+     int i,j;
+     const int nvertexValue = 2;
+     bounds.resize(nvertexValue,n);
+     bool isNorthPole=false ;
+     bool isSouthPole=false ;
+     if (std::abs(90 - std::abs(val(0))) < NumTraits<double>::epsilon()) isNorthPole = true;
+     if (std::abs(90 - std::abs(val(n_glo-1))) < NumTraits<double>::epsilon()) isSouthPole = true;
+
+     // lat boundaries beyond pole the assimilate it to pole -> for interpolation only
+     double loc_bounds_val_start, loc_bounds_val_end;
+
+     if (n_glo>1)
+     {
+       double valStepStart = val(1)-val(0);
+       loc_bounds_val_start=val(0) - valStepStart/2;
+       double valStepEnd = val(n-1)-val(n-2);
+       loc_bounds_val_end=val(n-1) + valStepEnd/2;
+     }
+     else
+     {
+       if (axis_type == CAxis::axis_type_attr::X)
+       {
+         loc_bounds_val_start=-180. ;
+         loc_bounds_val_end=180.-1e-8 ;
+       }
+       else if (axis_type==CAxis::axis_type_attr::Y)
+       {
+         loc_bounds_val_start=-90. ;
+         loc_bounds_val_end=90 ;
+       }
+       else
+       {
+         ERROR("CAxis::computeAxisBoundFile(void)",
+               << "[ id = '" << getId() << "' , context = '" << context_->getId() << "' ] "
+               << "computeAxisBoundFile should be called for X/Y axis generated from a rectilinear domain")
+       }
+     }
+
+     for(j=0;j<n;++j)
+     {
+       bounds(0,j) = (0 == j) ? loc_bounds_val_start
+           : ( val(j) + val((j-1)) ) /2;
+
+       bounds(1,j) = (j == n-1) ? loc_bounds_val_end
+           : (val((j + 1))+val(j))/2;
+     }
+   }
   
    void CAxis::renameAttributesBeforeWriting(CAxis* writtenAxis)
    {

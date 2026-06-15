@@ -1273,6 +1273,13 @@ namespace xios
               if (!axis->formula_term_bounds.isEmpty())
                 SuperClassWriter::addAttribute("formula_terms", axis->formula_term_bounds.getValue(), &axisBoundsId);
             }
+            else if ( (axis->axis_type==CAxis::axis_type_attr::X) || (axis->axis_type==CAxis::axis_type_attr::Y) )
+            {
+              // add bounds for CMIP7 CQ
+              dims.push_back("axis_nbounds");
+              SuperClassWriter::addVariable(axisBoundsId, typePrec, dims, compressionLevel);
+              SuperClassWriter::addAttribute("bounds", axisBoundsId, &axisid);
+            }
           }
 
           SuperClassWriter::definition_end();
@@ -1288,6 +1295,14 @@ namespace xios
 
                 if (!axis->bounds.isEmpty())
                   SuperClassWriter::writeData(axis->bounds, axisBoundsId, isCollective, 0);
+                else if ( (axis->axis_type==CAxis::axis_type_attr::X) || (axis->axis_type==CAxis::axis_type_attr::Y) )
+                {
+                  // add bounds for CMIP7 CQ
+                  CArray<double,2> bounds( 2, axis->n );
+                  axis->computeAxisBoundFile( axis->value, bounds  );
+                  SuperClassWriter::writeData(bounds, axisBoundsId, isCollective, 0);
+                }
+
               }
               else
                 SuperClassWriter::writeData(axis->label, axisid, isCollective, 0);
@@ -1311,6 +1326,13 @@ namespace xios
 
                 if (!axis->bounds.isEmpty())
                   SuperClassWriter::writeData(axis->bounds, axisBoundsId, isCollective, 0, &startBounds, &countBounds);
+                else if ( (axis->axis_type==CAxis::axis_type_attr::X) || (axis->axis_type==CAxis::axis_type_attr::Y) )
+                {
+                  // add bounds for CMIP7 CQ
+                  CArray<double,2> bounds( 2, axis->n );
+                  axis->computeAxisBoundFile( axis->value, bounds  );
+                  SuperClassWriter::writeData(bounds, axisBoundsId, isCollective, 0, &startBounds, &countBounds);
+                }
               }
               else
               {
