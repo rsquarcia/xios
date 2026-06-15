@@ -136,6 +136,8 @@ namespace xios
          size_t attributesHash_ = 0;
          void renameAttributesBeforeWriting(CAxis* writtenAxis=NULL);
 
+         void computeAxisBoundFile( CArray<double,1>& val, CArray<double,2>& bounds );
+
          size_t getGlobalWrittenSize(void) ;
 
       //////////////////////////
