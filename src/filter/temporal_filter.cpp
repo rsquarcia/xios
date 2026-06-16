@@ -77,20 +77,23 @@ namespace xios
   
     CDataPacketPtr packet;
 
-    if (data[0]->status != CDataPacket::END_OF_STREAM)
+    const bool endOfStream = data[0]->status == CDataPacket::END_OF_STREAM;
+    const bool isInitDate = data[0]->date == initDate;
+
+    if (!endOfStream && (!isInitDate || writeInitialCondition))
     {
       if (info.isActive(logProfile)) CTimer::get("Temporal filters").resume() ;
 
-      const bool isInitialCondition = writeInitialCondition && data[0]->date == initDate;
+      const bool isInitialCondition = writeInitialCondition && isInitDate;
       bool usePacket, outputResult, copyLess;
 
-      if (isInitialCondition)
+      if (isOnceOperation)
+        usePacket = outputResult = copyLess = isFirstOperation;
+      else if (isInitialCondition)
       {
         usePacket = false;
         outputResult = copyLess = true;
       }
-      else if (isOnceOperation)
-        usePacket = outputResult = copyLess = isFirstOperation;
       else
       {
         usePacket = (data[0]->date >= nextSamplingDate);
@@ -133,7 +136,7 @@ namespace xios
 
 	      CMemChecker::logMem( "CTemporalFilter::apply" );
 
-        isFirstOperation = !isInitialCondition;
+        isFirstOperation = false;
         graphCycleCompleted = true;
      }
      if (info.isActive(logProfile)) CTimer::get("Temporal filters").suspend() ;
