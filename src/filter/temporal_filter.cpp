@@ -153,11 +153,12 @@ namespace xios
   bool CTemporalFilter::isDataExpected(const CDate& date) const
   {
 //    return isOnceOperation ? isFirstOperation : (date >= nextSamplingDate || date + samplingFreq > nextOperationDate);
-    return isOnceOperation ? isFirstOperation : (
-      (writeInitialCondition && date == initDate)
+    if (isOnceOperation)
+      return isFirstOperation && (date != initDate || writeInitialCondition);
+    else
+      return (date == initDate && writeInitialCondition)
       || date >= nextSamplingDate
-      || date > initDate + nbOperationDates*opFreq - samplingFreq + offsetMonth + offsetAllButMonth
-    );
+      || date > initDate + nbOperationDates*opFreq - samplingFreq + offsetMonth + offsetAllButMonth;
   }
 
   static func::CFunctor* createFunctor(const std::string& opId, bool ignoreMissingValue, CArray<double, 1>& tmpData)
