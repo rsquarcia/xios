@@ -1,6 +1,6 @@
 # Joint usage of OASIS3-MCT and XIOS in climate models
 
-_Arnaud Caubel (LSCE/IPSL), February 2022_
+_Arnaud Caubel (LSCE/IPSL), March 2026 update_
 
 Both OASIS3-MCT (CERFACS) and XIOS (LSCE/IPSL) are widely used in the climate modeling community, respectively to handle coupling and Input/Output in numerical models. Since the exchange protocol of these tools are based on messages within MPI communicators which can be shared by the tools, some good practices are useful to use conjointly OASIS3-MCT and XIOS within one same model ([Fig 1.](#fig-coupled-model))
 
