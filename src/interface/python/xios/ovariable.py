@@ -42,3 +42,8 @@ class Variable(Variable_):
         receive_field(self._id, data)
         swipswap_ctx(current_context_id)
         return data.arr
+    
+    def __str__(self):
+        s = super().__str__()
+        s+= f"  value = {self.value}\n"
+        return s
