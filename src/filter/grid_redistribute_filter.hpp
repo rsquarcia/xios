@@ -20,7 +20,7 @@ namespace xios
       /*!
         Overriding this function to process transformations with auxillary inputs
       */
-      CDataPacketPtr virtual apply(std::vector<CDataPacketPtr> data) ;
+      std::vector<CDataPacketPtr> virtual apply(std::vector<CDataPacketPtr> data) ;
     
     private:
 

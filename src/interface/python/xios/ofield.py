@@ -5,7 +5,6 @@ from xios.obj import swipswap_ctx
 from xios.oaxis_attr import Axis
 from xios.odomain_attr import Domain
 from xios.oscalar_attr import Scalar
-from xios.idomain import is_valid_domain
 from xios.ifield import field_is_active, field_get_axis, field_get_domain, field_get_scalar
 from xios.ifield import field_get_domains_number, field_get_axes_number, field_get_scalars_number
 import numpy as np

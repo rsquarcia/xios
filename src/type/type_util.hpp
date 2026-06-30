@@ -12,6 +12,8 @@ namespace xios
     class CGridGroup;
     class CAxis;
     class CAxisGroup;
+    class CFunction;
+    class CFunctionGroup;
     class CFile;
     class CFileGroup;
     class CCouplerIn;
@@ -106,6 +108,8 @@ namespace xios
   macro(CGridGroup)
   macro(CAxis)
   macro(CAxisGroup)
+  macro(CFunction)
+  macro(CFunctionGroup)
   macro(CFile)
   macro(CFileGroup)
   macro(CCouplerIn)

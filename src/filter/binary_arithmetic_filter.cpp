@@ -58,8 +58,9 @@ namespace xios
     return std::make_pair(building_graph, unique_filter_id);
   }
 
-  CDataPacketPtr CScalarFieldArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
+  std::vector<CDataPacketPtr> CScalarFieldArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
   {
+    std::vector<CDataPacketPtr> packets;
     CDataPacketPtr packet(new CDataPacket);
     packet->date = data[0]->date;
     packet->timestamp = data[0]->timestamp;
@@ -77,7 +78,8 @@ namespace xios
     if (packet->status == CDataPacket::NO_ERROR)
       packet->data.reference(op(value, data[0]->data));
 
-    return packet;
+    packets.push_back(packet);
+    return packets;
   }
 
   CFieldScalarArithmeticFilter::CFieldScalarArithmeticFilter(CGarbageCollector& gc, const std::string& op, double value)
@@ -135,8 +137,9 @@ namespace xios
     return std::make_pair(building_graph, unique_filter_id);
   }
 
-  CDataPacketPtr CFieldScalarArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
+  std::vector<CDataPacketPtr> CFieldScalarArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
   {
+    std::vector<CDataPacketPtr> packets;
     CDataPacketPtr packet(new CDataPacket);
     packet->date = data[0]->date;
     packet->timestamp = data[0]->timestamp;
@@ -154,7 +157,8 @@ namespace xios
     if (packet->status == CDataPacket::NO_ERROR)
       packet->data.reference(op(data[0]->data, value));
 
-    return packet;
+    packets.push_back(packet);
+    return packets;
   }
 
   CFieldFieldArithmeticFilter::CFieldFieldArithmeticFilter(CGarbageCollector& gc, const std::string& op)
@@ -226,8 +230,9 @@ namespace xios
   }
 
 
-  CDataPacketPtr CFieldFieldArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
+  std::vector<CDataPacketPtr> CFieldFieldArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
   {
+    std::vector<CDataPacketPtr> packets;
     CDataPacketPtr packet(new CDataPacket);
     packet->date = data[0]->date;
     packet->timestamp = data[0]->timestamp;
@@ -251,6 +256,7 @@ namespace xios
       packet->data.reference(op(data[0]->data, data[1]->data));
     }
 
-    return packet;
+    packets.push_back(packet);
+    return packets;
   }
 } // namespace xios

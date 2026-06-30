@@ -9,6 +9,7 @@
 #include "timer.hpp"
 #include "tracer.hpp"
 #include <limits> 
+#include <vector> 
 #include "workflow_graph.hpp"
 
 namespace xios
@@ -63,7 +64,7 @@ namespace xios
       this->graphPackage->filterId = CWorkflowGraph::getNodeSize();
       CWorkflowGraph::addNode(getContext(), "Client from Server Source filter", 1, false, 0, packet);
     }
-    onOutputReady(packet);
+    onOutputReady(std::vector<CDataPacketPtr>{packet});
 
   }
  
@@ -91,7 +92,7 @@ namespace xios
       packet->date = tsDataRequested;
       packet->timestamp = packet->date ;
       packet->status = CDataPacket::END_OF_STREAM;
-      onOutputReady(packet);
+      onOutputReady(std::vector<CDataPacketPtr>{packet});
     }
 
     wasDataRequestedFromServer_ = true;

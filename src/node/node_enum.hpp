@@ -19,6 +19,7 @@ namespace xios
          eGrid,gGrid,
          eVariable,gVariable,
          eContext,gContext,
+         eFunction, gFunction,
          eCalendarWrapper,
          eTransformation,
          eInverseAxis,

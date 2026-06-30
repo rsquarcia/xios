@@ -41,7 +41,7 @@ namespace xios
       bool isDataLate(void) ;
       bool isEOF() {return isEOF_ ;}
       bool sendReadDataRequest(const CDate& tsDataRequested) ;
-      CDataPacketPtr virtual apply(std::vector<CDataPacketPtr> data);
+      std::vector<CDataPacketPtr> virtual apply(std::vector<CDataPacketPtr> data);
       bool sendReadDataRequestIfNeeded(void) ;
       void checkForLateData(void) ;
 

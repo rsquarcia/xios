@@ -24,6 +24,9 @@
 #include "grid_redistribute_filter.hpp"
 #include "tracer.hpp"
 #include "graph_package.hpp"
+#include "filter_manager.hpp"
+#include "embedded_filter.hpp"
+#include "filter_graph_types.hpp"
 #include <boost_extract.hpp>
 
 namespace xios
@@ -422,7 +425,7 @@ namespace xios
     if (modelToClientSourceFilter_) 
       return atCurrentTimestep ? modelToClientSourceFilter_->isDataExpected(context_->getCalendar()->getCurrentDate()) : true;
     else if (clientToModelStoreFilter_)  return true;
-    else if (instantDataFilter)
+    else if (instantDataFilter_)
       ERROR("bool CField::isActive(bool atCurrentTimestep)",
             << "Impossible to check if field [ id = " << getId() << " ] is active as it cannot be used to receive nor send data.");
 
@@ -680,12 +683,23 @@ namespace xios
 
     // Check if we have an expression to parse
     std::shared_ptr<COutputPin> filterExpr ;
+    argoutIdx_ = 0;
     if (hasExpression())
     {
-      std::unique_ptr<IFilterExprNode> expr(parseExpr(getExpression() + '\0'));
-      filterExpr = expr->reduce(gc, *this);
-      
-      
+      CFilterManager& filterManager = context_->getFilterManager();
+      std::vector<IFilterExprNode*>* rawExprs= parseExpr(getExpression() + '\0');
+      // Field expressoin must have only one output while function expr may be of the form "out0,,,outn"
+      std::unique_ptr<IFilterExprNode> expr((*rawExprs)[0]);
+      delete rawExprs;
+
+      SReducedNode node = expr->reduce(gc, *this); 
+      filterExpr = node.outputPin;
+
+      if (node.type == SReducedNode::Filter)
+      {
+        SArg arg = expr.get()->getArg();  
+        argoutIdx_ = filterManager.getFilterArgoutIdx(node.nodeId, arg);
+      }
       if (!filterExpr) return false ; // workflow graph cannot be built at this stage
     }
     
@@ -705,14 +719,14 @@ namespace xios
       {
         grid->solveElementsRefInheritance() ;
         std::pair<std::shared_ptr<CFilter>, std::shared_ptr<CFilter> > filters = grid->buildTransformationGraph(gc, false,  gridSrc, detectMissingValues, defaultValue, newGrid, buildGraph_, this) ;
-        lastFilter->connectOutput(filters.first, 0);
+        lastFilter->connectOutput(filters.first, 0, argoutIdx_);
         lastFilter = filters.second;
         gridSrc = newGrid ;
       }
 
       grid_=newGrid ;
       grid_ref=grid_->getId() ; // for server 
-      instantDataFilter = lastFilter ;
+      instantDataFilter_  = lastFilter ;
       
       // connect the input Filter to the reference
       getDirectFieldReference()->getInstantDataFilter()->connectOutput(inputFilter,0);
@@ -734,7 +748,7 @@ namespace xios
            lastFilter=filterExpr ;
          }
       }
-      
+      instantDataFilter_ = lastFilter ;
       if (hasFileIn()) // input file, attemp to read the grid from file
       {
          // must be checked
@@ -751,13 +765,11 @@ namespace xios
          grid_->checkElementsAttributes(true) ; // need to recheck
 //         grid_->solveDomainAxisBaseRef();
          // probably in future tag grid incomplete if coming from a reading
-         instantDataFilter=lastFilter ;
       }  
       else if (hasCouplerIn())
       {
         grid_->solveElementsRefInheritance() ;
         grid_->checkElementsAttributes() ;
-        instantDataFilter=lastFilter ;
       }
       else
       {
@@ -770,7 +782,6 @@ namespace xios
         grid_ = newGrid ;
         grid_ref=grid_->getId() ; // for server 
         grid_->checkElementsAttributes() ;
-        instantDataFilter=lastFilter ;
       }
     }
     
@@ -861,7 +872,7 @@ namespace xios
   {
     // insert temporal filter before sending to files
     clientToServerStoreFilter_ = std::shared_ptr<CClientToServerStoreFilter>(new CClientToServerStoreFilter(gc, this, client_));
-    instantDataFilter->connectOutput(clientToServerStoreFilter_, 0);
+    instantDataFilter_->connectOutput(clientToServerStoreFilter_, 0);
     const bool buildGraph_ = !build_workflow_graph.isEmpty() && build_workflow_graph == true ;
     if(buildGraph_) 
     {
@@ -952,7 +963,7 @@ namespace xios
   void CField::connectToFileWriter(CGarbageCollector& gc)
   {
     fileWriterStoreFilter_ = std::shared_ptr<CFileWriterStoreFilter>(new CFileWriterStoreFilter(gc, this));
-    instantDataFilter->connectOutput(fileWriterStoreFilter_, 0);
+    instantDataFilter_->connectOutput(fileWriterStoreFilter_, 0);
     const bool buildGraph_ = !build_workflow_graph.isEmpty() && build_workflow_graph == true ;
     if(buildGraph_)
     {
@@ -985,7 +996,7 @@ namespace xios
   void CField::connectToModelOutput(CGarbageCollector& gc)
   {
     clientToModelStoreFilter_ = std::shared_ptr<CClientToModelStoreFilter>(new CClientToModelStoreFilter(gc, this));
-    instantDataFilter->connectOutput(clientToModelStoreFilter_, 0);
+    instantDataFilter_->connectOutput(clientToModelStoreFilter_, 0);
     const bool buildGraph_ = !build_workflow_graph.isEmpty() && build_workflow_graph == true ;
     if(buildGraph_)
     {
@@ -1000,7 +1011,7 @@ namespace xios
   void CField::connectToServerToClient(CGarbageCollector& gc)
   {
     serverToClientStoreFilter_ = std::shared_ptr<CServerToClientStoreFilter>(new CServerToClientStoreFilter(gc, this, client_));
-    instantDataFilter->connectOutput(serverToClientStoreFilter_, 0);
+    instantDataFilter_->connectOutput(serverToClientStoreFilter_, 0, argoutIdx_);
     const bool buildGraph_ = !build_workflow_graph.isEmpty() && build_workflow_graph == true ;
     if(buildGraph_)
     {
@@ -1122,12 +1133,12 @@ namespace xios
    * \param outFreq the operation frequency, i.e. the frequency at which the output data will be computed
    * \return the output pin corresponding to the requested temporal filter
    */
-  std::shared_ptr<COutputPin> CField::getTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq, const bool writeInitialCondition)
+  std::shared_ptr<CFilter> CField::getTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq, const bool writeInitialCondition)
   TRY
   {
-    std::map<CDuration, std::shared_ptr<COutputPin> >::iterator it = temporalDataFilters.find(outFreq);
+    std::map<CDuration, std::shared_ptr<CFilter> >::iterator it = temporalDataFilters_.find(outFreq);
 
-    if (it == temporalDataFilters.end())
+    if (it == temporalDataFilters_.end())
     {
       if (operation.isEmpty())
         ERROR("void CField::getTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq, const bool writeInitialCondition)",
@@ -1141,17 +1152,17 @@ namespace xios
                                                                           writeInitialCondition, freq_op, freq_offset, outFreq,
                                                                           detectMissingValues));
 
-      instantDataFilter->connectOutput(temporalFilter, 0);
+      instantDataFilter_->connectOutput(temporalFilter, 0);
       const bool buildGraph_ = !build_workflow_graph.isEmpty() && build_workflow_graph == true ;
       if(buildGraph_) 
       {
-        info(100)<<"=== Workflow Graph === field "<<this->getId()<<" calls a getTemporalDataFilter  ============== "<<instantDataFilter << " _ "<<temporalFilter<<std::endl;
+        info(100)<<"=== Workflow Graph === field "<<this->getId()<<" calls a getTemporalDataFilter  ============== "<<instantDataFilter_ << " _ "<<temporalFilter<<std::endl;
         temporalFilter->graphPackage = new CGraphPackage;
         temporalFilter->graphEnabled = true;
         temporalFilter->graphPackage->inFields.push_back(this);
       }
 
-      it = temporalDataFilters.insert(std::make_pair(outFreq, temporalFilter)).first;
+      it = temporalDataFilters_.insert(std::make_pair(outFreq, temporalFilter)).first;
     }
 
     return it->second;
@@ -1167,10 +1178,10 @@ namespace xios
     * \return the output pin corresponding to the requested temporal filter
     */
 
-  std::shared_ptr<COutputPin> CField::getSelfTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq, const bool writeInitialCondition)
+  std::shared_ptr<CFilter> CField::getSelfTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq, const bool writeInitialCondition)
   TRY
   {
-    if (instantDataFilter || !hasExpression())
+    if (instantDataFilter_ || !hasExpression())
       ERROR("COutputPin* CField::getSelfTemporalDataFilter(CGarbageCollector& gc)",
             "Impossible to add a self reference to a field which has already been parsed or which does not have an expression.");
     

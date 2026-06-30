@@ -8,10 +8,10 @@ namespace xios
     : CFilter(gc, 1, this)
   { /* Nothing to do */ }
 
-  CDataPacketPtr CPassThroughFilter::apply(std::vector<CDataPacketPtr> data)
+  std::vector<CDataPacketPtr> CPassThroughFilter::apply(std::vector<CDataPacketPtr> data)
   {
     buildWorkflowGraph(data);
-    return data[0];
+    return data;
   }
 
   void CPassThroughFilter::buildWorkflowGraph(std::vector<CDataPacketPtr> data)

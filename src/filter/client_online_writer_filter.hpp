@@ -29,7 +29,7 @@ namespace xios
        * \param field associated to the filter
        */
       CClientOnlineWriterFilter(CGarbageCollector& gc, CField* field);
-      CDataPacketPtr apply(std::vector<CDataPacketPtr> data) ;
+      std::vector<CDataPacketPtr> apply(std::vector<CDataPacketPtr> data) ;
      private:
 
       std::shared_ptr<CGridRedistributeFilter> redistributeFilter_ ;

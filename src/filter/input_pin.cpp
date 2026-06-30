@@ -27,6 +27,10 @@ namespace xios
       it = inputs.insert(std::make_pair(packet->timestamp, InputBuffer(slotsCount))).first;
       gc.registerObject(this, packet->timestamp);
     }
+    if (it->second.packets[inputSlot])
+        ERROR("void CInputPin::setInput(size_t inputSlot, CDataPacketPtr packet)",
+              "The inputSlot " << inputSlot << " has already been filled ! ")
+
     it->second.slotsFilled++;
     it->second.packets[inputSlot] = packet;
 
@@ -39,16 +43,16 @@ namespace xios
     }
   }
 
-  void CInputPin::setInputTrigger(size_t inputSlot, COutputPin* trigger)
+  void CInputPin::setInputTrigger(size_t inputSlot, size_t outputSlot, COutputPin* trigger)
   {
     if (inputSlot >= slotsCount)
       ERROR("void CInputPin::setInputTrigger(size_t inputSlot, COutputPin* trigger)",
             "The input slot " << inputSlot << " does not exist.");
-    if (triggers[inputSlot])
+    if (triggers[inputSlot].first && triggers[inputSlot].second == outputSlot)
       ERROR("void CInputPin::setInputTrigger(size_t inputSlot, COutputPin* trigger)",
-            "The trigger for input slot " << inputSlot << " has already been set.");
+            "The trigger for input slot <-> output slot : " << inputSlot << " <-> " << outputSlot << " has already been set.");
 
-    triggers[inputSlot] = trigger;
+    triggers[inputSlot] = std::make_pair(trigger, outputSlot);
     hasTriggers = true;
   }
 
@@ -61,8 +65,8 @@ namespace xios
 
       for (size_t s = 0; s < slotsCount; s++)
       {
-        if (triggers[s] && (nothingReceived || !it->second.packets[s]))
-          triggers[s]->trigger(timestamp);
+        if (triggers[s].first && (nothingReceived || !it->second.packets[s]))
+          triggers[s].first->trigger(timestamp);
       }
     }
   }
@@ -76,4 +80,14 @@ namespace xios
   {
     inputs.erase(inputs.begin(), inputs.lower_bound(timestamp));
   }
+
+  void CInputPin::resizeInputSlots(size_t newSlotsCount)
+  {
+  if (!inputs.empty())
+      ERROR("  void CInputPin::resizeSlots(size_t newSlotsCount)",
+          "Cannot resize, some data have been already received!");    
+  triggers.resize(newSlotsCount); // The slot is set after
+  slotsCount = newSlotsCount;
+  }
+
 } // namespace xios

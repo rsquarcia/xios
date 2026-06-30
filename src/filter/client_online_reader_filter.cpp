@@ -42,7 +42,7 @@ namespace xios
     CFilter::connectOutput(inputPin,inputSlot) ;
   }
 
-  CDataPacketPtr CClientOnlineReaderFilter::apply(std::vector<CDataPacketPtr> data)
+  std::vector<CDataPacketPtr> CClientOnlineReaderFilter::apply(std::vector<CDataPacketPtr> data)
   {
     const CDate& currentDate = getContext()->getCalendar()->getCurrentDate();
     
@@ -54,7 +54,7 @@ namespace xios
       isEOF_=true ;
       dateEOF_ = data[0]->date ;
     }
-    return data[0];
+    return data;
   }
 
   bool CClientOnlineReaderFilter::sendReadDataRequest(const CDate& tsDataRequested)

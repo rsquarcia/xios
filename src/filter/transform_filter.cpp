@@ -11,8 +11,9 @@ namespace xios
 
   }
 
-  CDataPacketPtr CTransformFilter::apply(std::vector<CDataPacketPtr> data)
+  std::vector<CDataPacketPtr> CTransformFilter::apply(std::vector<CDataPacketPtr> data)
   {
+    std::vector<CDataPacketPtr> packets;
     // for now, no auxilliairy field
     CDataPacketPtr packet(new CDataPacket);
     packet->date = data[0]->date;
@@ -31,7 +32,8 @@ namespace xios
       }
       else algorithm_->apply(data[0]->data, packet->data);
     }
-    return packet;
+    packets.push_back(packet);
+    return packets;
   }
 
   void CTransformFilter::buildWorkflowGraph(std::vector<CDataPacketPtr> data, CDataPacketPtr packet, shared_ptr<CGridAlgorithm> algorithm)

@@ -33,7 +33,7 @@ namespace xios
        * \param inputSlot the input slot number
        * \param trigger the corresponding trigger
        */
-      void virtual setInputTrigger(size_t inputSlot, COutputPin* trigger);
+      void virtual setInputTrigger(size_t inputSlot, size_t outputSlot, COutputPin* trigger);
 
       /*!
        * Receives a data packet from an upstream filter on
@@ -80,6 +80,14 @@ namespace xios
        */
       void virtual invalidate(Time timestamp);
 
+      /*!
+       * Rsize dynamically the inputSlot size
+       *
+       * \param newSlotsCount the newSlotsCount used for resizing
+       */
+      void resizeInputSlots(size_t newSlotsCount);
+
+
     protected:
       /*!
        * Function triggered when all slots have been filled for a specific timestamp.
@@ -118,7 +126,7 @@ namespace xios
       std::map<Time, InputBuffer> inputs;
 
       //! Store the triggers corresponding to the input slots
-      std::vector<COutputPin*> triggers;
+      std::vector<std::pair<COutputPin*, size_t>> triggers;
 
       //! Whether some triggers have been set
       bool hasTriggers;

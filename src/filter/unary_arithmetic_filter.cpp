@@ -59,8 +59,9 @@ namespace xios
   }
 
 
-  CDataPacketPtr CUnaryArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
+  std::vector<CDataPacketPtr> CUnaryArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
   {
+    std::vector<CDataPacketPtr> packets;
     CDataPacketPtr packet(new CDataPacket);
     packet->date = data[0]->date;
     packet->timestamp = data[0]->timestamp;
@@ -78,6 +79,7 @@ namespace xios
     if (packet->status == CDataPacket::NO_ERROR)
       packet->data.reference(op(data[0]->data));
 
-    return packet;
+    packets.push_back(packet);
+    return packets;
   }
 } // namespace xios

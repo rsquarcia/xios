@@ -34,7 +34,7 @@ namespace xios
        * \param data a vector of packets corresponding to each slot (one in this case)
        * \return the result of the ternary operation
        */
-      CDataPacketPtr virtual apply(std::vector<CDataPacketPtr> data);
+      std::vector<CDataPacketPtr> virtual apply(std::vector<CDataPacketPtr> data);
   }; // class CScalarScalarFieldArithmeticFilter
 
  
@@ -65,7 +65,7 @@ namespace xios
        * \param data a vector of packets corresponding to each slot (one in this case)
        * \return the result of the ternary operation
        */
-      CDataPacketPtr virtual apply(std::vector<CDataPacketPtr> data);
+      std::vector<CDataPacketPtr> virtual apply(std::vector<CDataPacketPtr> data);
   }; // class CScalarScalarFieldArithmeticFilter
 
   /*!
@@ -93,7 +93,7 @@ namespace xios
        * \param data a vector of packets corresponding to each slot (one in this case)
        * \return the result of the ternary operation
        */
-      CDataPacketPtr virtual apply(std::vector<CDataPacketPtr> data);
+      std::vector<CDataPacketPtr> virtual apply(std::vector<CDataPacketPtr> data);
   }; // class CScalarScalarFieldArithmeticFilter
 
 
@@ -125,7 +125,7 @@ namespace xios
        * \param data a vector of packets corresponding to each slot (one in this case)
        * \return the result of the ternary operation
        */
-      CDataPacketPtr virtual apply(std::vector<CDataPacketPtr> data);
+      std::vector<CDataPacketPtr> virtual apply(std::vector<CDataPacketPtr> data);
   }; // class CFieldScalarScalarArithmeticFilter
 
 
@@ -154,7 +154,7 @@ namespace xios
        * \param data a vector of packets corresponding to each slot (one in this case)
        * \return the result of the ternary operation
        */
-      CDataPacketPtr virtual apply(std::vector<CDataPacketPtr> data);
+      std::vector<CDataPacketPtr> virtual apply(std::vector<CDataPacketPtr> data);
   }; // class CFieldScalarFieldArithmeticFilter
 
 
@@ -183,7 +183,7 @@ namespace xios
        * \param data a vector of packets corresponding to each slot (one in this case)
        * \return the result of the ternary operation
        */
-      CDataPacketPtr virtual apply(std::vector<CDataPacketPtr> data);
+      std::vector<CDataPacketPtr> virtual apply(std::vector<CDataPacketPtr> data);
   }; // class CFieldFielScalardArithmeticFilter
 
 
@@ -210,7 +210,7 @@ namespace xios
        * \param data a vector of packets corresponding to each slot (one in this case)
        * \return the result of the ternary operation
        */
-      CDataPacketPtr virtual apply(std::vector<CDataPacketPtr> data);
+      std::vector<CDataPacketPtr> virtual apply(std::vector<CDataPacketPtr> data);
   }; // class CFieldFielFieldArithmeticFilter
 
 

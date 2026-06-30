@@ -4,7 +4,7 @@
 #include <string>
 namespace xios
 {
-  IFilterExprNode* parseExpr(const std::string& strExpr);
+  std::vector<IFilterExprNode*>* parseExpr(const std::string& strExpr);
 }
 
 #endif

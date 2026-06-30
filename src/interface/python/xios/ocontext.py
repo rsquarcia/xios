@@ -20,6 +20,8 @@ from xios.ovariable import Variable
 from xios.ovariablegroup_attr import VariableGroup
 from xios.ofile_attr import File
 from xios.ofilegroup_attr import FileGroup
+from xios.ofunction_attr import Function
+from xios.ofunctiongroup_attr import FunctionGroup
 
 from xios.ozoom_domain_attr import ZoomDomain
 from xios.oextract_domain_attr import ExtractDomain
@@ -133,6 +135,7 @@ def dynamic_methods():
     "field": Field, "fieldgroup": FieldGroup,
     "variable": Variable, "variablegroup": VariableGroup,
     "file": File, "filegroup": FileGroup,
+    "function": Function, "functiongroup": FunctionGroup,
 
     "zoom_domain" : ZoomDomain, "extract_domain": ExtractDomain,
     "interpolate_domain": InterpolateDomain,

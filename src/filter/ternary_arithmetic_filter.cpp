@@ -9,8 +9,9 @@ namespace xios
     , value2(value2)
   { /* Nothing to do */ };
 
-  CDataPacketPtr CScalarScalarFieldArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
+  std::vector<CDataPacketPtr> CScalarScalarFieldArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
   {
+    std::vector<CDataPacketPtr> packets;
     CDataPacketPtr packet(new CDataPacket);
     packet->date = data[0]->date;
     packet->timestamp = data[0]->timestamp;
@@ -19,7 +20,8 @@ namespace xios
     if (packet->status == CDataPacket::NO_ERROR)
       packet->data.reference(op(value1,value2, data[0]->data));
 
-    return packet;
+    packets.push_back(packet);
+    return packets;
   }
 
   CScalarFieldScalarArithmeticFilter::CScalarFieldScalarArithmeticFilter(CGarbageCollector& gc, const std::string& op, double value1, double value2)
@@ -29,8 +31,9 @@ namespace xios
     , value2(value2)
   { /* Nothing to do */ };
 
-  CDataPacketPtr CScalarFieldScalarArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
+  std::vector<CDataPacketPtr> CScalarFieldScalarArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
   {
+    std::vector<CDataPacketPtr> packets;
     CDataPacketPtr packet(new CDataPacket);
     packet->date = data[0]->date;
     packet->timestamp = data[0]->timestamp;
@@ -39,7 +42,8 @@ namespace xios
     if (packet->status == CDataPacket::NO_ERROR)
       packet->data.reference(op(value1, data[0]->data,value2));
 
-    return packet;
+    packets.push_back(packet);
+    return packets;
   }
 
   CScalarFieldFieldArithmeticFilter::CScalarFieldFieldArithmeticFilter(CGarbageCollector& gc, const std::string& op, double value)
@@ -48,8 +52,9 @@ namespace xios
     , value(value)
   { /* Nothing to do */ };
 
-  CDataPacketPtr CScalarFieldFieldArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
+  vector<CDataPacketPtr> CScalarFieldFieldArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
   {
+    std::vector<CDataPacketPtr> packets;
     CDataPacketPtr packet(new CDataPacket);
     packet->date = data[0]->date;
     packet->timestamp = data[0]->timestamp;
@@ -64,7 +69,8 @@ namespace xios
       packet->status = CDataPacket::NO_ERROR;
       packet->data.reference(op(value, data[0]->data, data[1]->data));
     }
-    return packet;
+    packets.push_back(packet);
+    return packets;
 
   }
 
@@ -76,8 +82,9 @@ namespace xios
     , value2(value2)
   { /* Nothing to do */ };
 
-  CDataPacketPtr CFieldScalarScalarArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
+  std::vector<CDataPacketPtr> CFieldScalarScalarArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
   {
+    std::vector<CDataPacketPtr> packets;
     CDataPacketPtr packet(new CDataPacket);
     packet->date = data[0]->date;
     packet->timestamp = data[0]->timestamp;
@@ -85,8 +92,8 @@ namespace xios
 
     if (packet->status == CDataPacket::NO_ERROR)
       packet->data.reference(op(data[0]->data, value1, value2));
-
-    return packet;
+    packets.push_back(packet);
+    return packets;
   }
 
 
@@ -96,8 +103,9 @@ namespace xios
     , value(value)
   { /* Nothing to do */ };
 
-  CDataPacketPtr CFieldScalarFieldArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
+  std::vector<CDataPacketPtr> CFieldScalarFieldArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
   {
+    std::vector<CDataPacketPtr> packets;
     CDataPacketPtr packet(new CDataPacket);
     packet->date = data[0]->date;
     packet->timestamp = data[0]->timestamp;
@@ -112,7 +120,8 @@ namespace xios
       packet->status = CDataPacket::NO_ERROR;
       packet->data.reference(op(data[0]->data, value, data[1]->data));
     }
-    return packet;
+    packets.push_back(packet);
+    return packets;
   }
   
    CFieldFieldScalarArithmeticFilter::CFieldFieldScalarArithmeticFilter(CGarbageCollector& gc, const std::string& op, double value)
@@ -121,8 +130,9 @@ namespace xios
     , value(value)
   { /* Nothing to do */ };
 
-  CDataPacketPtr CFieldFieldScalarArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
+  std::vector<CDataPacketPtr> CFieldFieldScalarArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
   {
+    std::vector<CDataPacketPtr> packets;
     CDataPacketPtr packet(new CDataPacket);
     packet->date = data[0]->date;
     packet->timestamp = data[0]->timestamp;
@@ -137,7 +147,8 @@ namespace xios
       packet->status = CDataPacket::NO_ERROR;
       packet->data.reference(op(data[0]->data, data[1]->data, value));
     }
-    return packet;
+    packets.push_back(packet);
+    return packets;
   } 
   
  
@@ -146,8 +157,9 @@ namespace xios
     , op(operatorExpr.getOpFieldFieldField(op))
   { /* Nothing to do */ };
 
-  CDataPacketPtr CFieldFieldFieldArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
+  std::vector<CDataPacketPtr> CFieldFieldFieldArithmeticFilter::apply(std::vector<CDataPacketPtr> data)
   {
+    std::vector<CDataPacketPtr> packets;
     CDataPacketPtr packet(new CDataPacket);
     packet->date = data[0]->date;
     packet->timestamp = data[0]->timestamp;
@@ -164,7 +176,8 @@ namespace xios
       packet->status = CDataPacket::NO_ERROR;
       packet->data.reference(op(data[0]->data, data[1]->data, data[2]->data));
     }
-    return packet;
+    packets.push_back(packet);
+    return packets;
   } 
   
 } // namespace xios
