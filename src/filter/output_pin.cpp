@@ -123,8 +123,8 @@ bool COutputPin::mustAutoTrigger() const
       if (innerIt->first->isDataExpected(date))
         return true;
       }
-    return false;
     }
+    return false;
   }
 
   void COutputPin::invalidate(Time timestamp)

@@ -71,6 +71,9 @@ namespace xios
     if (arg.type == SArg::None)       return internalSlotsMap_.at(0);
     if (arg.type == SArg::Positional) return internalSlotsMap_.at(arg.index);
     if (arg.type == SArg::Named)      return internalSlotsMap_.at(function_.getArgoutIdx(arg.name));
+    ERROR("size_t CEmbeddedFilter::getFunctionArgoutIdx(SArg& arg)",
+          "Undefined arg type : " << arg.type);
+    return 0;
   }
 
   CField* CEmbeddedFilter::getFieldIn(const std::string& arginId)

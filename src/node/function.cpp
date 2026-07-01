@@ -163,6 +163,9 @@ namespace xios
       case SArg::Type::Positional: return arg.index;
       case SArg::Type::Named: return getArgoutIdx(arg.name);
     }
+    ERROR("size_t CFunction::getArgoutIdx(const SArg& arg)",
+          "Undefined arg type : " << arg.type);
+    return 0;
   }
   CATCH_DUMP_ATTR
   
