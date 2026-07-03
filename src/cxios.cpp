@@ -131,8 +131,8 @@ namespace xios
     maxBufferSize = getin<int>("max_buffer_size", std::numeric_limits<int>::max());
 
     defaultChunkingSizeTarget = getin<double>("default_chunking_blocksize", 20. );
-    timeChunkingEnabled = getin<bool>("time_chuking_enabled", false );
-    timeAxisChunkSize = getin<int>("time_axis_chuking", 100000 );
+    timeChunkingEnabled = getin<bool>("time_chunking_enabled", false );
+    timeAxisChunkSize = getin<int>("time_axis_chunking", 100000 );
     defaultBoundsSuffix = getin<string>("default_bounds_suffix", defaultBoundsSuffix );
     defaultBoundsSuffix = "_" + defaultBoundsSuffix;
 
