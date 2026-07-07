@@ -301,7 +301,6 @@ namespace xios
 
         embeddedFilterBuilder = std::make_shared<CSuperFilter>(gc, *function);
         filter = embeddedFilterBuilder; 
-        nodeId = filterManager.computeOrGetNodeId(opId_, inputPoints, parentId);
         filterManager.addFilter(nodeId, filter);
         embeddedFilterBuilder->addInputPoints(inputPoints);
         int argoutIdx = embeddedFilterBuilder->isFirstOccurence(arg_);
@@ -389,11 +388,10 @@ namespace xios
             ERROR("  std::shared_ptr<COutputPin> CFilterOpExprNode::reduce(CGarbageCollector& gc, CField& thisField, Hash& hash, CField** fieldIn, CEmbeddedFilter* embeddedFilter) const",
                     "Argument combination not supported for built-in XIOS Functions");
         }
-        nodeId = filterManager.computeOrGetNodeId(opId_, inputPoints, parentId);
         filterManager.addFilter(nodeId, filter);
       }
       res.nodeId = nodeId;
-      // cout << "Currently reducing filter : " << filterManager.toString(nodeId) << " with nodeId : " << nodeId << endl;;
+      // cout << "Currently reducing filter : " << filterManager.toString(nodeId) << " with nodeId : " << nodeId << endl;
 
       int k = 0;
      
@@ -441,6 +439,7 @@ namespace xios
       filter->graphPackage->inFields.push_back(&thisField);
     }
     
+    res.nodeId = nodeId;
     res.outputPin = filter;
     return res;
   }
