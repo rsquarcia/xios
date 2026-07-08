@@ -2175,7 +2175,7 @@ options:
     used by default since it allows more asynchronism and thus better
     performance at the cost of being quite memory hungry.
 
--   **minimum\_buffer\_size** (type: **int**) defines the minimum buffer
+-   **min\_buffer\_size** (type: **int**) defines the minimum buffer
     size in bytes (8192 by default). This value will be used by XIOS
     only for buffers whose detected size is smaller than the user
     defined minimum size.
@@ -2185,5 +2185,5 @@ options:
     factor ($1.0$ by default). For each allocated buffers, the used size
     is defined as
     $$
-    {\scriptstyle \text{used_size}\;=\;\min\left(\text{minimum_buffer_size},\;\text{detected_size}\;\times\;\text{buffer_size_factor}\right)}
+    {\scriptstyle \text{used_size}\;=\;\min\left(\text{min_buffer_size},\;\text{detected_size}\;\times\;\text{buffer_size_factor}\right)}
     $$
