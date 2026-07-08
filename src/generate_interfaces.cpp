@@ -32,6 +32,8 @@ int main (int argc, char ** argv, char ** UNUSED (env))
   CGridGroup gridgroup(context);
   CFile file(context);
   CFileGroup filegroup(context);
+  CFunction function(context);
+  CFunctionGroup functiongroup(context);
   CInterpolateDomain interpolate_domain(context);
   CZoomDomain zoom_domain(context);
   CGenerateRectilinearDomain generate_rectilinear_domain(context);
@@ -345,6 +347,46 @@ int main (int argc, char ** argv, char ** UNUSED (env))
   filegroup.generateObjPythonInterface(file_);
   file_.close();
 
+  file_.open((path+"function_interface_attr.F90").c_str());
+  function.generateFortran2003Interface(file_);
+  file_.close();
+
+  file_.open((path+"icfunction_attr.cpp").c_str());
+  function.generateCInterface(file_);
+  file_.close();
+
+  file_.open((path+"ifunction_attr.F90").c_str());
+  function.generateFortranInterface(file_);
+  file_.close();
+
+  file_.open((path+"ifunction_attr.py").c_str());
+  function.generatePythonInterface(file_);
+  file_.close();
+
+  file_.open((path+"ofunction_attr.py").c_str());
+  function.generateObjPythonInterface(file_);
+  file_.close();
+
+  file_.open((path+"functiongroup_interface_attr.F90").c_str());
+  functiongroup.generateFortran2003Interface(file_);
+  file_.close();
+
+  file_.open((path+"icfunctiongroup_attr.cpp").c_str());
+  functiongroup.generateCInterface(file_);
+  file_.close();
+
+  file_.open((path+"ifunctiongroup_attr.F90").c_str());
+  functiongroup.generateFortranInterface(file_);
+  file_.close();
+
+  file_.open((path+"ifunctiongroup_attr.py").c_str());
+  functiongroup.generatePythonInterface(file_);
+  file_.close();
+
+  file_.open((path+"ofunctiongroup_attr.py").c_str());
+  functiongroup.generateObjPythonInterface(file_);
+  file_.close();
+
   file_.open((path+"calendar_wrapper_interface_attr.F90").c_str());
   calendar_wrapper.generateFortran2003Interface(file_);
   file_.close();
@@ -365,6 +407,45 @@ int main (int argc, char ** argv, char ** UNUSED (env))
   calendar_wrapper.generateObjPythonInterface(file_);
   file_.close();
 
+  file_.open((path+"function_interface_attr.F90").c_str());
+  function.generateFortran2003Interface(file_);
+  file_.close();
+
+  file_.open((path+"icfunction_attr.cpp").c_str());
+  function.generateCInterface(file_);
+  file_.close();
+
+  file_.open((path+"ifunction_attr.F90").c_str());
+  function.generateFortranInterface(file_);
+  file_.close();
+
+  file_.open((path+"ifunction_attr.py").c_str());
+  function.generatePythonInterface(file_);
+  file_.close();
+
+  file_.open((path+"ofunction_attr.py").c_str());
+  function.generateObjPythonInterface(file_);
+  file_.close();
+
+  file_.open((path+"functiongroup_interface_attr.F90").c_str());
+  functiongroup.generateFortran2003Interface(file_);
+  file_.close();
+
+  file_.open((path+"icfunctiongroup_attr.cpp").c_str());
+  functiongroup.generateCInterface(file_);
+  file_.close();
+
+  file_.open((path+"ifunctiongroup_attr.F90").c_str());
+  functiongroup.generateFortranInterface(file_);
+  file_.close();
+
+  file_.open((path+"ifunctiongroup_attr.py").c_str());
+  functiongroup.generatePythonInterface(file_);
+  file_.close();
+
+  file_.open((path+"ofunctiongroup_attr.py").c_str());
+  functiongroup.generateObjPythonInterface(file_);
+  file_.close();
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -71,8 +71,9 @@ namespace xios
 
   }
   
-  CDataPacketPtr CTemporalFilter::apply(std::vector<CDataPacketPtr> data)
+  std::vector<CDataPacketPtr> CTemporalFilter::apply(std::vector<CDataPacketPtr> data)
   {
+    std::vector<CDataPacketPtr> packets;
     buildWorkflowGraph(data);
   
     CDataPacketPtr packet;
@@ -141,8 +142,9 @@ namespace xios
      }
      if (info.isActive(logProfile)) CTimer::get("Temporal filters").suspend() ;
     }
-
-    return packet;
+    if (packet)
+      packets.push_back(packet);
+    return packets;
   }
 
   bool CTemporalFilter::mustAutoTrigger() const

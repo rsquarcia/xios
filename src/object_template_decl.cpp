@@ -14,6 +14,7 @@ namespace xios
   template class CObjectTemplate<CDomain>;
   template class CObjectTemplate<CGrid>;
   template class CObjectTemplate<CAxis>;
+  template class CObjectTemplate<CFunction>;
   template class CObjectTemplate<CVariable>;
   template class CObjectTemplate<CInverseAxis>;
   template class CObjectTransformTemplate<CInverseAxis>;
@@ -74,6 +75,7 @@ namespace xios
   template class CObjectTemplate<CDomainGroup>;
   template class CObjectTemplate<CGridGroup>;
   template class CObjectTemplate<CAxisGroup>;
+  template class CObjectTemplate<CFunctionGroup>;
   template class CObjectTemplate<CVariableGroup>;
   template class CObjectTemplate<CInverseAxisGroup>;
   template class CObjectTemplate<CZoomAxisGroup>;

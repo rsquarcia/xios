@@ -129,6 +129,9 @@ class Date(Structure):
     def __ge__(self, date):
         return date_ge(self, date)
     
+    @property
+    def day_of_year(self):
+        return date_get_day_of_year(self)
 
 #_____________________________________________________________________________________________#
 #                                    #C functions definitions                                 #

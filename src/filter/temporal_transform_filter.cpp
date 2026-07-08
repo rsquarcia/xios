@@ -36,8 +36,9 @@ namespace xios
 
   }
   
-  CDataPacketPtr CTemporalTransformFilter::apply(std::vector<CDataPacketPtr> data)
+  std::vector<CDataPacketPtr> CTemporalTransformFilter::apply(std::vector<CDataPacketPtr> data)
   {
+    std::vector<CDataPacketPtr> packets;
     if (data[0]->status == CDataPacket::NO_ERROR)
     {
       buildWorkflowGraph(data);
@@ -65,9 +66,14 @@ namespace xios
         tmpData_.clear() ;
         record_=0 ;
         graphCycleCompleted = true;
-        return packet ;
+        if (packet)
+          packets.push_back(packet);
+        return packets ;
       }
-      else return nullptr ;
+      else
+      {
+        return packets ;
+      }
     }
     else // error
     {
@@ -75,7 +81,8 @@ namespace xios
       packet->date = data[0]->date;
       packet->timestamp = data[0]->timestamp;
       packet->status = data[0]->status;
-      return packet ;
+      packets.push_back(packet);
+      return packets ;
     }    
   }
 }

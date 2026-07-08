@@ -1,19 +1,21 @@
 %option noyywrap
 %{
-
 extern "C"
 {
   int yylex(void);
 }
-#undef  YY_INPUT
-#define YY_INPUT(b, r, s) readInputForLexer(b, &r, s)
+#undef YY_INPUT
+#define YY_INPUT(b, r, s) \
+    { \
+        size_t num_bytes_read = r; \
+        int result = readInputForLexer(b, &num_bytes_read, s); \
+        r = num_bytes_read; \
+        result; \
+    }
 #include <string>
-
 int readInputForLexer(char* buffer, size_t* numBytesRead, size_t maxBytesToRead);
-
 #include "filter_expr_node.hpp"
 #include "yacc_parser.hpp"
-
 %}
 
 white    [ \t]+
@@ -26,9 +28,25 @@ id       [a-zA-Z][a-zA-Z0-9_]*
 average  @{id}
 var      \${id}
 
+%x BRACKET
+
 %%
 
 {white}   { /* We ignore white characters */ }
+
+
+<BRACKET>{integer} {
+                      yylval.str = new std::string(yytext);
+                      return INDEX;
+                    }    
+
+
+<BRACKET>{id} {
+                      yylval.str = new std::string(yytext);
+                      return ARGID;
+                    }    
+
+<BRACKET>{white}   { /* ignore */ }
 
 {real}    {
             yylval.str = new std::string(yytext);
@@ -48,7 +66,9 @@ var      \${id}
 {id}      {
             yylval.str = new std::string(yytext);
             return ID;
-          }                   
+          }          
+
+     
                  
 
 "+"  return PLUS;
@@ -69,5 +89,10 @@ var      \${id}
 ":" return COLON;
 "("  return LEFT_PARENTHESIS;
 ")"  return RIGHT_PARENTHESIS;
+"," return COMMA;
+
+"[" { BEGIN(BRACKET); return LEFT_BRACKET; }
+<BRACKET>"]" { BEGIN(INITIAL); return RIGHT_BRACKET; }
+
 
 "\0" return END;

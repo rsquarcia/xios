@@ -3,29 +3,50 @@
 
 #include <string>
 #include <memory>
-#include "scalar_expr_node.hpp"
+#include <vector>
+
+#include "filter_graph_types.hpp"
 
 namespace xios
 {
   class COutputPin;
   class CGarbageCollector;
   class CField;
+  class CFunction;
+  class IScalarExprNode;
+  class CSuperFilter;
 
-  /*!
-   * Interface implemented by all the nodes of a tree representing an expression
-   * which can be transformed into a filter graph representation.
-   */
-  struct IFilterExprNode 
-  {
-    /*!
-     * Builds a filter graph corresponding to the expression tree.
-     *
-     * \param gc the garbage collector to associated with the filter graph
-     * \param thisField the field to which the expression is attached
-     * \return the output pin of the filter producing the result of the expression 
+
+    /*! 
+     * Interface implemented by all nodes of an expression tree that can be
+     * transformed into a filter-graph representation.
      */
-    virtual std::shared_ptr<COutputPin> reduce(CGarbageCollector& gc, CField& thisField) const = 0;
-    virtual ~IFilterExprNode() {};
+    struct IFilterExprNode 
+    {
+      /*! 
+       \brief Reduce the expression node into its compact filter-graph representation.
+       \param [in] gc The garbage collector used to register any created graph resources.
+       \param [in] thisField The field to which the expression is attached; used to propagate grid/context info.
+       \param [in] parentFilter If non-null, indicates this reduction is inside a super-filter and allows
+                                setting internal connections for that super-filter.
+       \return An SReducedNode describing the reduced node (type, value/id, node id, etc.).
+      */
+      virtual SReducedNode reduce(CGarbageCollector& gc, CField& thisField, NodeId parentId = -1) const = 0;
+      virtual SArg getArg() const { return SArg(); };
+      virtual ~IFilterExprNode() {};
+    };
+
+  struct IExprNode 
+  {
+    enum Kind{ Scalar, Field } kind;
+    IScalarExprNode* scalar;
+    IFilterExprNode* field;
+
+    IExprNode(IScalarExprNode* s)
+      : kind(Scalar), scalar(s), field(nullptr) {}
+
+    IExprNode(IFilterExprNode* f)
+      : kind(Field), scalar(nullptr), field(f) {}
   };
 
   /*!
@@ -35,14 +56,13 @@ namespace xios
   {
     public:
       /*!
-       * Constructs an expression node corresponding
-       * to the field whose id is provided.
-       *
-       * \param fieldId the identifier of the field
+       * Constructs an expression node representing a reference to a field.
+       * \param [in] fieldId Identifier of the referenced field.
        */
       CFilterFieldExprNode(const std::string& fieldId);
 
-      virtual std::shared_ptr<COutputPin> reduce(CGarbageCollector& gc, CField& thisField) const;
+      virtual SReducedNode reduce(CGarbageCollector& gc, CField& thisField, NodeId parentId = -1) const;
+      std::string& getfieldId();
 
     private:
       std::string fieldId; //!< The identifier of the field
@@ -56,323 +76,48 @@ namespace xios
   {
     public:
       /*!
-       * Constructs an expression node corresponding
-       * to the field whose id is provided.
-       *
-       * \param fieldId the identifier of the field
+       * Constructs an expression node representing a temporal reference to a field (e.g. an aggregated or
+       * time-shifted value).
+       * \param [in] fieldId Identifier of the referenced field.
        */
       CFilterTemporalFieldExprNode(const std::string& fieldId);
 
-      virtual std::shared_ptr<COutputPin> reduce(CGarbageCollector& gc, CField& thisField) const;
+      virtual SReducedNode reduce(CGarbageCollector& gc, CField& thisField, NodeId parentId = -1) const;
+
 
     private:
       std::string fieldId; //!< The identifier of the field
   };
 
   /*!
-   * Expression node corresponding to a unary operation on a field.
+   * Expression node corresponding to a n-ary operation on scalar(s)/field(s)
    */
-  class CFilterUnaryOpExprNode : public IFilterExprNode
+  class CFilterOpExprNode : public IFilterExprNode
   {
     public:
       /*!
-       * Constructs an expression node corresponding to the specified unary operation
-       * applied to the provided child node.
-       * Note that the child node will be destroyed automatically when the parent node
-       * is destroyed.
-       *
-       * \param opId the identifier of the operator
-       * \param child the child node to which the operator is applied
+       * Constructs an expression node representing an n-ary operation.
+       * The operation is identified by `opId` and is applied to the provided child nodes.
+       * Child nodes may be scalars or field expressions.
+       * \param [in] opId Identifier of the operation to apply.
+       * \param [in] argsList Initializer list of child nodes (scalar or field) to which the operation is applied.
+       * \param [in] arg Optional argument descriptor (positional or named) for this operation.
        */
-      CFilterUnaryOpExprNode(const std::string& opId, IFilterExprNode* child);
-
-      virtual std::shared_ptr<COutputPin> reduce(CGarbageCollector& gc, CField& thisField) const;
-
-    private:
-      std::string opId; //!< The identifier of the field
-      std::unique_ptr<IFilterExprNode> child; //!< The child node to which the operator is applied
-  };
-
-  /*!
-   * Expression node corresponding to a binary operation on a scalar and a field.
-   */
-  class CFilterScalarFieldOpExprNode : public IFilterExprNode
-  {
-    public:
+      CFilterOpExprNode(const std::string& opId, std::initializer_list<IExprNode> argsList, const SArg& arg = SArg());
       /*!
-       * Constructs an expression node corresponding to the specified binary operation
-       * applied to the provided scalar and field child nodes.
-       * Note that the child nodes will be destroyed automatically when the parent node
-       * is destroyed.
-       *
-       * \param child1 the scalar child node to which the operator is applied
-       * \param opId the identifier of the operator
-       * \param child2 the field child node to which the operator is applied
+       * Alternate constructor taking an explicit vector of child nodes.
        */
-      CFilterScalarFieldOpExprNode(IScalarExprNode* child1, const std::string& opId, IFilterExprNode* child2);
+      CFilterOpExprNode(const std::string& opId, const std::vector<IExprNode> argsVect, const SArg& arg = SArg());
 
-      virtual std::shared_ptr<COutputPin> reduce(CGarbageCollector& gc, CField& thisField) const;
-
-    private:
-      std::string opId; //!< The identifier of the field
-      std::unique_ptr<IScalarExprNode> child1; //!< The scalar child node to which the operator is applied
-      std::unique_ptr<IFilterExprNode> child2; //!< The field child node to which the operator is applied
-  };
-
-  /*!
-   * Expression node corresponding to a binary operation on a field and a scalar.
-   */
-  class CFilterFieldScalarOpExprNode : public IFilterExprNode
-  {
-    public:
-      /*!
-       * Constructs an expression node corresponding to the specified binary operation
-       * applied to the provided field and scalar child nodes.
-       * Note that the child nodes will be destroyed automatically when the parent node
-       * is destroyed.
-       *
-       * \param child1 the field child node to which the operator is applied
-       * \param opId the identifier of the operator
-       * \param child2 the scalar child node to which the operator is applied
-       */
-      CFilterFieldScalarOpExprNode(IFilterExprNode* child1, const std::string& opId, IScalarExprNode* child2);
-
-      virtual std::shared_ptr<COutputPin> reduce(CGarbageCollector& gc, CField& thisField) const;
+      virtual SReducedNode reduce(CGarbageCollector& gc, CField& thisField, NodeId parentId = -1) const;
+      SArg getArg() const override { return arg_; }
 
     private:
-      std::string opId; //!< The identifier of the field
-      std::unique_ptr<IFilterExprNode> child1; //!< The field child node to which the operator is applied
-      std::unique_ptr<IScalarExprNode> child2; //!< The scalar child node to which the operator is applied
+      std::string opId_;                 //!< The identifier of the operation
+      std::vector<IExprNode> args_;      //!< Vector of child nodes to which the operator is applied
+      SArg arg_;                         //!< Optional argument descriptor (positional or named)
+
   };
-
-  /*!
-   * Expression node corresponding to a binary operation on two fields.
-   */
-  class CFilterFieldFieldOpExprNode : public IFilterExprNode
-  {
-    public:
-      /*!
-       * Constructs an expression node corresponding to the specified binary operation
-       * applied to the provided field child nodes.
-       * Note that the child nodes will be destroyed automatically when the parent node
-       * is destroyed.
-       *
-       * \param opId the identifier of the operator
-       * \param child1, child2 the field child nodes to which the operator is applied
-       */
-      CFilterFieldFieldOpExprNode(IFilterExprNode* child1, const std::string& opId, IFilterExprNode* child2);
-
-      virtual std::shared_ptr<COutputPin> reduce(CGarbageCollector& gc, CField& thisField) const;
-
-    private:
-      std::string opId; //!< The identifier of the field
-      std::unique_ptr<IFilterExprNode> child1, child2; //!< The field child nodes to which the operator is applied
-  };
-
-
-
- /*!
-   * Expression node corresponding to a ternary operation on a scalar-scalar-field.
-   */
-  class CFilterScalarScalarFieldOpExprNode : public IFilterExprNode
-  {
-    public:
-      /*!
-       * Constructs an expression node corresponding to the specified ternary operation
-       * applied to the provided fields and scalars child nodes.
-       * Note that the child nodes will be destroyed automatically when the parent node
-       * is destroyed.
-       *
-       * \param child1 the scalar child node to which the operator is applied
-       * \param opId the identifier of the operator
-       * \param child2 the scalar child node to which the operator is applied
-       * \param child3 the field child node to which the operator is applied
-      */
-      CFilterScalarScalarFieldOpExprNode(IScalarExprNode* child1, const std::string& opId, IScalarExprNode* child2, IFilterExprNode* child3);
-
-      virtual std::shared_ptr<COutputPin> reduce(CGarbageCollector& gc, CField& thisField) const;
-
-    private:
-      std::string opId; //!< The identifier of the field
-      std::unique_ptr<IScalarExprNode> child1; //!< The scalar child node to which the operator is applied
-      std::unique_ptr<IScalarExprNode> child2; //!< The scalar child node to which the operator is applied
-      std::unique_ptr<IFilterExprNode> child3; //!< The field child node to which the operator is applied
-  };
-
-
-  /*!
-   * Expression node corresponding to a ternary operation on a scalar-field-scalar.
-   */
-  class CFilterScalarFieldScalarOpExprNode : public IFilterExprNode
-  {
-    public:
-      /*!
-       * Constructs an expression node corresponding to the specified ternary operation
-       * applied to the provided fields and scalars child nodes.
-       * Note that the child nodes will be destroyed automatically when the parent node
-       * is destroyed.
-       *
-       * \param child1 the scalar child node to which the operator is applied
-       * \param opId the identifier of the operator
-       * \param child2 the field child node to which the operator is applied
-       * \param child3 the scalar child node to which the operator is applied
-      */
-      CFilterScalarFieldScalarOpExprNode(IScalarExprNode* child1, const std::string& opId, IFilterExprNode* child2, IScalarExprNode* child3);
-
-      virtual std::shared_ptr<COutputPin> reduce(CGarbageCollector& gc, CField& thisField) const;
-
-    private:
-      std::string opId; //!< The identifier of the field
-      std::unique_ptr<IScalarExprNode> child1; //!< The scalar child node to which the operator is applied
-      std::unique_ptr<IFilterExprNode> child2; //!< The field child node to which the operator is applied
-      std::unique_ptr<IScalarExprNode> child3; //!< The scalar child node to which the operator is applied
-  };
-
-
-  /*!
-   * Expression node corresponding to a ternary operation on a scalar-field-field.
-   */
-  class CFilterScalarFieldFieldOpExprNode : public IFilterExprNode
-  {
-    public:
-      /*!
-       * Constructs an expression node corresponding to the specified ternary operation
-       * applied to the provided fields and scalars child nodes.
-       * Note that the child nodes will be destroyed automatically when the parent node
-       * is destroyed.
-       *
-       * \param child1 the scalar child node to which the operator is applied
-       * \param opId the identifier of the operator
-       * \param child2 the field child node to which the operator is applied
-       * \param child3 the field child node to which the operator is applied
-      */
-      CFilterScalarFieldFieldOpExprNode(IScalarExprNode* child1, const std::string& opId, IFilterExprNode* child2, IFilterExprNode* child3);
-
-      virtual std::shared_ptr<COutputPin> reduce(CGarbageCollector& gc, CField& thisField) const;
-
-    private:
-      std::string opId; //!< The identifier of the field
-      std::unique_ptr<IScalarExprNode> child1; //!< The scalar child node to which the operator is applied
-      std::unique_ptr<IFilterExprNode> child2; //!< The field child node to which the operator is applied
-      std::unique_ptr<IFilterExprNode> child3; //!< The field child node to which the operator is applied
-  };
-
-
-
-/*!
-   * Expression node corresponding to a ternary operation on a field-scalar-scalar.
-   */
-  class CFilterFieldScalarScalarOpExprNode : public IFilterExprNode
-  {
-    public:
-      /*!
-       * Constructs an expression node corresponding to the specified ternary operation
-       * applied to the provided fields and scalars child nodes.
-       * Note that the child nodes will be destroyed automatically when the parent node
-       * is destroyed.
-       *
-       * \param child1 the field child node to which the operator is applied
-       * \param opId the identifier of the operator
-       * \param child2 the scalar child node to which the operator is applied
-       * \param child3 the scalar child node to which the operator is applied
-      */
-      CFilterFieldScalarScalarOpExprNode(IFilterExprNode* child1, const std::string& opId, IScalarExprNode* child2, IScalarExprNode* child3);
-
-      virtual std::shared_ptr<COutputPin> reduce(CGarbageCollector& gc, CField& thisField) const;
-
-    private:
-      std::string opId; //!< The identifier of the field
-      std::unique_ptr<IFilterExprNode> child1; //!< The field child node to which the operator is applied
-      std::unique_ptr<IScalarExprNode> child2; //!< The scalar child node to which the operator is applied
-      std::unique_ptr<IScalarExprNode> child3; //!< The scalar child node to which the operator is applied
-  };
-
-
-/*!
-   * Expression node corresponding to a ternary operation on a field-scalar-field.
-   */
-  class CFilterFieldScalarFieldOpExprNode : public IFilterExprNode
-  {
-    public:
-      /*!
-       * Constructs an expression node corresponding to the specified ternary operation
-       * applied to the provided fields and scalars child nodes.
-       * Note that the child nodes will be destroyed automatically when the parent node
-       * is destroyed.
-       *
-       * \param child1 the field child node to which the operator is applied
-       * \param opId the identifier of the operator
-       * \param child2 the scalar child node to which the operator is applied
-       * \param child3 the field child node to which the operator is applied
-      */
-      CFilterFieldScalarFieldOpExprNode(IFilterExprNode* child1, const std::string& opId, IScalarExprNode* child2, IFilterExprNode* child3);
-
-      virtual std::shared_ptr<COutputPin> reduce(CGarbageCollector& gc, CField& thisField) const;
-
-    private:
-      std::string opId; //!< The identifier of the field
-      std::unique_ptr<IFilterExprNode> child1; //!< The field child node to which the operator is applied
-      std::unique_ptr<IScalarExprNode> child2; //!< The scalar child node to which the operator is applied
-      std::unique_ptr<IFilterExprNode> child3; //!< The field child node to which the operator is applied
-  };
-
-  /*!
-   * Expression node corresponding to a ternary operation on a field-field-scalar.
-   */
-  class CFilterFieldFieldScalarOpExprNode : public IFilterExprNode
-  {
-    public:
-      /*!
-       * Constructs an expression node corresponding to the specified ternary operation
-       * applied to the provided fields and scalars child nodes.
-       * Note that the child nodes will be destroyed automatically when the parent node
-       * is destroyed.
-       *
-       * \param child1 the field child node to which the operator is applied
-       * \param opId the identifier of the operator
-       * \param child2 the field child node to which the operator is applied
-       * \param child3 the scalar child node to which the operator is applied
-      */
-      CFilterFieldFieldScalarOpExprNode(IFilterExprNode* child1, const std::string& opId, IFilterExprNode* child2, IScalarExprNode* child3);
-
-      virtual std::shared_ptr<COutputPin> reduce(CGarbageCollector& gc, CField& thisField) const;
-
-    private:
-      std::string opId; //!< The identifier of the field
-      std::unique_ptr<IFilterExprNode> child1; //!< The field child node to which the operator is applied
-      std::unique_ptr<IFilterExprNode> child2; //!< The field child node to which the operator is applied
-      std::unique_ptr<IScalarExprNode> child3; //!< The scalar child node to which the operator is applied
-  };
-
-
-  /*!
-   * Expression node corresponding to a ternary operation on a field-field-field.
-   */
-  class CFilterFieldFieldFieldOpExprNode : public IFilterExprNode
-  {
-    public:
-      /*!
-       * Constructs an expression node corresponding to the specified ternary operation
-       * applied to the provided fields and scalars child nodes.
-       * Note that the child nodes will be destroyed automatically when the parent node
-       * is destroyed.
-       *
-       * \param child1 the field child node to which the operator is applied
-       * \param opId the identifier of the operator
-       * \param child2 the field child node to which the operator is applied
-       * \param child3 the field child node to which the operator is applied
-      */
-      CFilterFieldFieldFieldOpExprNode(IFilterExprNode* child1, const std::string& opId, IFilterExprNode* child2, IFilterExprNode* child3);
-
-      virtual std::shared_ptr<COutputPin> reduce(CGarbageCollector& gc, CField& thisField) const;
-
-    private:
-      std::string opId; //!< The identifier of the field
-      std::unique_ptr<IFilterExprNode> child1; //!< The field child node to which the operator is applied
-      std::unique_ptr<IFilterExprNode> child2; //!< The field child node to which the operator is applied
-      std::unique_ptr<IFilterExprNode> child3; //!< The field child node to which the operator is applied
-  };
-
 
 
 }

@@ -1,8 +1,13 @@
 #include "scalar_expr_node.hpp"
+#include "filter_expr_node.hpp"
 #include "type.hpp"
 #include "variable.hpp"
 #include "operator_expr.hpp"
+#include "function.hpp"
 #include "context.hpp"
+#include "super_filter.hpp"
+#include "function.hpp"
+#include "filter_graph_types.hpp"
 
 namespace xios
 {
@@ -10,79 +15,104 @@ namespace xios
     : strVal(strVal)
   { /* Nothing to do */ }
 
-  double CScalarValExprNode::reduce(CContext* context) const
+  SReducedNode CScalarValExprNode::reduce(CContext* context, NodeId parentId) const
   {
     CType<double> val;
+    SReducedNode res;
     val.fromString(strVal);
-    return val;
+    res.type = SReducedNode::Scalar;
+    res.value = val;
+    return res;
   }
 
   CScalarVarExprNode::CScalarVarExprNode(const std::string& varId)
     : varId(varId)
   { /* Nothing to do */ }
 
-  double CScalarVarExprNode::reduce(CContext* context) const
+  const std::string& CScalarVarExprNode::getVarId() const
   {
+    return varId;
+  }
+
+  SReducedNode CScalarVarExprNode::reduce(CContext* context, NodeId parentId) const
+  {
+    SReducedNode res;
+    res.type = SReducedNode::Scalar;
     // $missing_value will be replaced with NaN
     if (varId == "missing_value")
     {
-      return std::numeric_limits<double>::quiet_NaN();
+      res.value = std::numeric_limits<double>::quiet_NaN();
+      return res;
     }
     else
     {
+      if (parentId != -1)
+      {
+        CFilterManager& filterManager = context->getFilterManager();
+        std::shared_ptr<CSuperFilter> parentFilter  = filterManager.getSuperFilter(parentId);
+        SInputPoint inputPoint = parentFilter->getInputPointFromArgId(varId);
+        res.value = inputPoint.node.value;
+        return res;
+      }
+      
       if (!CVariable::has(context, varId)) 
         ERROR("double CScalarVarExprNode::reduce() const", << "The variable " << varId << " does not exist.");
-
-      return CVariable::get(context, varId)->getData<double>();
+      
+      res.value = CVariable::get(context, varId)->getData<double>();
+      return res;
     }
   }
 
-  CScalarUnaryOpExprNode::CScalarUnaryOpExprNode(const std::string& opId, IScalarExprNode* child)
+  CScalarOpExprNode::CScalarOpExprNode(const std::string& opId, std::initializer_list<IScalarExprNode*> argsList)
     : opId(opId)
-    , child(child)
   {
-    if (!child)
-      ERROR("CScalarUnaryOpExprNode::CScalarUnaryOpExprNode(const std::string& opId, IScalarExprNode* child)",
-            "Impossible to create the new expression node, an invalid child node was provided.");
+    args.assign(argsList.begin(), argsList.end());
   }
 
-  double CScalarUnaryOpExprNode::reduce(CContext* context) const
+   CScalarOpExprNode::CScalarOpExprNode(const std::string& opId, const std::vector<IScalarExprNode*> argsVect)
+      : opId(opId)
+      , args(argsVect)
+    {}
+
+  SReducedNode CScalarOpExprNode::reduce(CContext* context, NodeId parentId) const
   {
-    COperatorExpr::functionScalar op = operatorExpr.getOpScalar(opId);
-    return op(child->reduce(context));
+    // User-defined function
+    SReducedNode res;
+    res.type = SReducedNode::Scalar;
+    CFunction* fun = nullptr;
+    if (CFunction::has(context, opId)) fun = CFunction::get(context, opId);
+    
+    if (fun)
+    {
+      //Assume there are no filed in the function expression
+      ERROR("double CScalarOpExprNode::reduce() const",
+            "Not implemented yet :(");
+    }else{
+      int argNumber = args.size();
+
+      switch (argNumber)
+      {
+        case 1: {
+          auto op = operatorExpr.getOpScalar(opId);
+          res.value =  op((args[0]->reduce(context)).value);
+          return res;
+        }
+        case 2: {
+          auto op = operatorExpr.getOpScalarScalar(opId);
+          res.value =  op((args[0]->reduce(context)).value, (args[1]->reduce(context)).value);
+          return res;
+        }
+        case 3: {
+          auto op = operatorExpr.getOpScalarScalarScalar(opId);
+          res.value =  op((args[0]->reduce(context)).value, (args[1]->reduce(context)).value, (args[2]->reduce(context)).value);
+          return res;
+        }
+        default:
+          ERROR("double CScalarOpExprNode::reduce() const",
+                << "Unsupported number of args for operator " << opId);
+      }
+    }
   }
 
-  CScalarBinaryOpExprNode::CScalarBinaryOpExprNode(IScalarExprNode* child1, const std::string& opId, IScalarExprNode* child2)
-    : child1(child1)
-    , opId(opId)
-    , child2(child2)
-  {
-    if (!child1 || !child2)
-      ERROR("CScalarBinaryOpExprNode::CScalarBinaryOpExprNode(IScalarExprNode* child1, const std::string& opId, IScalarExprNode* child2)",
-            "Impossible to create the new expression node, an invalid child node was provided.");
-  }
-
-  double CScalarBinaryOpExprNode::reduce(CContext* context) const
-  {
-    COperatorExpr::functionScalarScalar op = operatorExpr.getOpScalarScalar(opId);
-    return op(child1->reduce(context), child2->reduce(context));
-  }
-
-
-  CScalarTernaryOpExprNode::CScalarTernaryOpExprNode(IScalarExprNode* child1, const std::string& opId, IScalarExprNode* child2, IScalarExprNode* child3)
-    : child1(child1)
-    , opId(opId)
-    , child2(child2)
-    , child3(child3)
-  {
-    if (!child1 || !child2 || !child3)
-      ERROR("CScalarTernaryOpExprNode::CScalarTernaryOpExprNode(IScalarExprNode* child1, const std::string& opId, IScalarExprNode* child2, IScalarExprNode* child3)",
-            "Impossible to create the new expression node, an invalid child node was provided.");
-  }
-
-  double CScalarTernaryOpExprNode::reduce(CContext* context) const
-  {
-    COperatorExpr::functionScalarScalarScalar op = operatorExpr.getOpScalarScalarScalar(opId);
-    return op(child1->reduce(context), child2->reduce(context), child3->reduce(context));
-  }
 }
+

@@ -3,6 +3,8 @@
 
 #include <string>
 #include <memory>
+#include <vector>
+#include "filter_graph_types.hpp"
 
 namespace xios
 {
@@ -11,6 +13,8 @@ namespace xios
    * which can be reduced to a scalar value.
    */
   class CContext ;
+  class CSuperFilter ;
+
   struct IScalarExprNode 
   {
     /*!
@@ -18,7 +22,7 @@ namespace xios
      *
      * \return the output pin of the filter producing the result of the expression 
      */
-    virtual double reduce(CContext* context) const = 0;
+    virtual SReducedNode reduce(CContext* context, NodeId parentId = -1) const = 0;
     virtual ~IScalarExprNode() {};
   };
 
@@ -35,7 +39,7 @@ namespace xios
        */
       CScalarValExprNode(const std::string& strVal);
 
-      double reduce(CContext* context) const;
+      virtual SReducedNode reduce(CContext* context, NodeId parentId = -1) const;
 
     private:
       std::string strVal; //!< The string representation of the scalar value
@@ -50,25 +54,26 @@ namespace xios
       /*!
        * Constructs an expression node corresponding
        * to the scalar variable whose id is provided.
-       *
+       * also used for scalar used as function arguments
        * \param varId the identifier of the scalar variable
        */
       CScalarVarExprNode(const std::string& varId);
 
-      double reduce(CContext* context) const;
+      virtual SReducedNode reduce(CContext* context, NodeId parentId = -1) const;
+      const std::string& getVarId() const;
 
     private:
       std::string varId; //!< The identifier of the field
   };
 
   /*!
-   * Expression node corresponding to a unary operation on a scalar.
+   * Expression node corresponding to an operation on a scalar.
    */
-  class CScalarUnaryOpExprNode : public IScalarExprNode
+  class CScalarOpExprNode : public IScalarExprNode
   {
     public:
       /*!
-       * Constructs an expression node corresponding to the specified unary operation
+       * Constructs an expression node corresponding to the specified operation
        * applied to the provided scalar node.
        * Note that the child node will be destroyed automatically when the parent node
        * is destroyed.
@@ -76,59 +81,15 @@ namespace xios
        * \param opId the identifier of the operator
        * \param child the scalar child node to which the operator is applied
        */
-      CScalarUnaryOpExprNode(const std::string& opId, IScalarExprNode* child);
+      CScalarOpExprNode(const std::string& opId, std::initializer_list<IScalarExprNode*> argsList);
+      CScalarOpExprNode(const std::string& opId, const std::vector<IScalarExprNode*> argsVect);
 
-      double reduce(CContext* context) const;
-
-    private:
-      std::string opId; //!< The identifier of the field
-      std::unique_ptr<IScalarExprNode> child; //!< The scalar child node to which the operator is applied
-  };
-
-  /*!
-   * Expression node corresponding to a binary operation on two scalars.
-   */
-  class CScalarBinaryOpExprNode : public IScalarExprNode
-  {
-    public:
-      /*!
-       * Constructs an expression node corresponding to the specified binary operation
-       * applied to the provided scalar child nodes.
-       * Note that the child nodes will be destroyed automatically when the parent node
-       * is destroyed.
-       *
-       * \param opId the identifier of the operator
-       * \param child1, child2 the scalar child nodes to which the operator is applied
-       */
-      CScalarBinaryOpExprNode(IScalarExprNode* child1, const std::string& opId, IScalarExprNode* child2);
-
-      double reduce(CContext* context) const;
+      virtual SReducedNode reduce(CContext* context, NodeId parentId = -1) const;
 
     private:
       std::string opId; //!< The identifier of the field
-      std::unique_ptr<IScalarExprNode> child1, child2; //!< The scalar child nodes to which the operator is applied
-  };
-
-    class CScalarTernaryOpExprNode : public IScalarExprNode
-  {
-    public:
-      /*!
-       * Constructs an expression node corresponding to the specified ternary operation
-       * applied to the provided scalar child nodes.
-       * Note that the child nodes will be destroyed automatically when the parent node
-       * is destroyed.
-       *
-       * \param opId the identifier of the operator
-       * \param child1, child2 , child3 the scalar child nodes to which the operator is applied
-       */
-      CScalarTernaryOpExprNode(IScalarExprNode* child1, const std::string& opId, IScalarExprNode* child2, IScalarExprNode* child3);
-
-      double reduce(CContext* context) const;
-
-    private:
-      std::string opId; //!< The identifier of the field
-      std::unique_ptr<IScalarExprNode> child1, child2, child3; //!< The scalar child nodes to which the operator is applied
+      std::vector<IScalarExprNode*> args; //!< The  child vector node to which the operator is applied
   };
 }
 
-#endif // __XIOS_SCALAR_EXPR_NODE_HPP__
+#endif //__XIOS_SCALAR_EXPR_NODE_HPP__

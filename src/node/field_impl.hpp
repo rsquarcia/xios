@@ -29,7 +29,7 @@ namespace xios {
         modelToClientSourceFilter_->streamData(context_->getCalendar()->getCurrentDate(), _data);
       }
     }
-    else if (instantDataFilter)
+    else if (instantDataFilter_)
       ERROR("void CField::setData(const CArray<double, N>& _data)",
             << "Impossible to receive data from the model for a field [ id = " << getId() << " ] with a reference or an arithmetic operation.");
   }

@@ -30,7 +30,7 @@ namespace xios
        * \param inputPin the input pin to connect
        * \param inputSlot the input slot number
        */
-      void virtual connectOutput(std::shared_ptr<CInputPin> inputPin, size_t inputSlot);
+      void virtual connectOutput(std::shared_ptr<CInputPin> inputPin, size_t inputSlot, size_t outputSlot = 0);
 
       /*!
        * Triggers the output of any buffered packet for the specified timestamp.
@@ -66,6 +66,13 @@ namespace xios
        * \param timestamp the timestamp used for invalidation
        */
       void virtual invalidate(Time timestamp);
+
+       /*!
+       * Get the slotsCount
+       *
+       */
+      size_t getSlotsCount();
+
       CGraphPackage *graphPackage;
       bool graphEnabled;
 
@@ -75,12 +82,14 @@ namespace xios
        *
        * \param packet the packet ready for output
        */
-      void onOutputReady(CDataPacketPtr packet);
+      void onOutputReady(std::vector<CDataPacketPtr> packet);
 
       /*!
        * Informs the downstream pins that this output pin should be triggered.
        */
       void setOutputTriggers();
+
+      void resizeOutputSlots(size_t newSlotsCount);
 
     private:
       /*!
@@ -88,18 +97,20 @@ namespace xios
        *
        * \param packet the packet to output
        */
-      void deliverOuput(CDataPacketPtr packet);
+      void deliverOutput(CDataPacketPtr packet, size_t outputSlot);
 
       CGarbageCollector& gc; //!< The garbage collector associated to the output pin
+
+      size_t slotsCount; //!< The number of slots
 
       //!< Whether the ouput should be triggered manually
       bool manualTrigger;
 
-      //!< The list of connected filters and the corresponding slot numbers
-      std::vector<std::pair<std::shared_ptr<CInputPin>, size_t> > outputs;
+      //!< The list of connected filters for each outputSlot and the corresponding slot numbers
+      std::vector<std::vector<std::pair<std::shared_ptr<CInputPin>, size_t> > > outputs;
 
       //! Output buffer, store the packets until the output is triggered
-      std::map<Time, CDataPacketPtr> outputPackets;
+      std::map<Time, std::vector<CDataPacketPtr>> outputPackets;
   }; // class COutputPin
 } // namespace xios
 

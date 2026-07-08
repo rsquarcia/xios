@@ -5,9 +5,11 @@
 #include "output_pin.hpp"
 #include "pin.hpp"
 #include "filter_engine.hpp"
+#include "filter_expr_node.hpp"
 
 namespace xios
 {
+  class CField;
   /*!
    * A generic filter with an input pin and an output pin.
    * A filter can delegate the internal work to an engine
@@ -32,7 +34,7 @@ namespace xios
        * \param inputSlot the input slot number
        * \param trigger the corresponding trigger
        */
-      void virtual setInputTrigger(size_t inputSlot, COutputPin* trigger);
+      void virtual setInputTrigger(size_t inputSlot, size_t outputSlot, COutputPin* trigger) override;
 
       /*!
        * Triggers the filter for the specified timestamp.
@@ -61,6 +63,10 @@ namespace xios
        * \param date the date associated to the data
        */
       bool virtual isDataExpected(const CDate& date) const;
+
+      /*!
+       * Return the context.
+       */
 
       CContext* getContext(void) { return CInputPin::getContext();}
 

@@ -25,9 +25,9 @@ CClientOnlineWriterFilter::CClientOnlineWriterFilter(CGarbageCollector& gc, CFie
     connectOutput(redistributeFilter_,0) ;
   }
   
-  CDataPacketPtr CClientOnlineWriterFilter::apply(std::vector<CDataPacketPtr> data)
+  std::vector<CDataPacketPtr> CClientOnlineWriterFilter::apply(std::vector<CDataPacketPtr> data)
   {
-    return data[0];
+    return data;
   }
 
 }

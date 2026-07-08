@@ -1,8 +1,9 @@
-/* A Bison parser, made by GNU Bison 3.0.2.  */
+/* A Bison parser, made by GNU Bison 3.7.4.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2013 Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2020 Free Software Foundation,
+   Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -30,6 +31,10 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
+/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+   especially those whose name start with YY_ or yy_.  They are
+   private implementation details that can be changed or removed.  */
+
 #ifndef YY_YY_YACC_PARSER_HPP_INCLUDED
 # define YY_YY_YACC_PARSER_HPP_INCLUDED
 /* Debug traces.  */
@@ -40,48 +45,62 @@
 extern int yydebug;
 #endif
 
-/* Token type.  */
+/* Token kinds.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
   enum yytokentype
   {
-    NUMBER = 258,
-    VAR = 259,
-    ID = 260,
-    AVERAGE = 261,
-    PLUS = 262,
-    MINUS = 263,
-    TIMES = 264,
-    DIVIDE = 265,
-    POWER = 266,
-    EQ = 267,
-    LT = 268,
-    GT = 269,
-    LE = 270,
-    GE = 271,
-    NE = 272,
-    LEFT_PARENTHESIS = 273,
-    RIGHT_PARENTHESIS = 274,
-    QUESTION_MARK = 275,
-    COLON = 276,
-    END = 277,
-    NEG = 278
+    YYEMPTY = -2,
+    YYEOF = 0,                     /* "end of file"  */
+    YYerror = 256,                 /* error  */
+    YYUNDEF = 257,                 /* "invalid token"  */
+    NUMBER = 258,                  /* NUMBER  */
+    INDEX = 259,                   /* INDEX  */
+    ARGID = 260,                   /* ARGID  */
+    VAR = 261,                     /* VAR  */
+    ID = 262,                      /* ID  */
+    AVERAGE = 263,                 /* AVERAGE  */
+    PLUS = 264,                    /* PLUS  */
+    MINUS = 265,                   /* MINUS  */
+    TIMES = 266,                   /* TIMES  */
+    DIVIDE = 267,                  /* DIVIDE  */
+    POWER = 268,                   /* POWER  */
+    EQ = 269,                      /* EQ  */
+    LT = 270,                      /* LT  */
+    GT = 271,                      /* GT  */
+    LE = 272,                      /* LE  */
+    GE = 273,                      /* GE  */
+    NE = 274,                      /* NE  */
+    LEFT_PARENTHESIS = 275,        /* LEFT_PARENTHESIS  */
+    RIGHT_PARENTHESIS = 276,       /* RIGHT_PARENTHESIS  */
+    LEFT_BRACKET = 277,            /* LEFT_BRACKET  */
+    RIGHT_BRACKET = 278,           /* RIGHT_BRACKET  */
+    COMMA = 279,                   /* COMMA  */
+    QUESTION_MARK = 280,           /* QUESTION_MARK  */
+    COLON = 281,                   /* COLON  */
+    END = 282,                     /* END  */
+    NEG = 283                      /* NEG  */
   };
+  typedef enum yytokentype yytoken_kind_t;
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 35 "yacc_parser.yacc" /* yacc.c:1909  */
+#line 36 "yacc_parser.yacc"
 
-  std::string* str;                /* symbol table index */
+  std::string* str;
   xios::IScalarExprNode* scalarNode;
   xios::IFilterExprNode* filterNode;
+  std::vector<xios::IExprNode>* filterNodeList;                      
+  std::vector<xios::IFilterExprNode*>* exprList;   
+  xios::SArg* arg;
 
-#line 84 "yacc_parser.hpp" /* yacc.c:1909  */
+#line 101 "yacc_parser.hpp"
+
 };
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

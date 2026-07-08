@@ -34,6 +34,7 @@
 #include "services.hpp"
 #include "contexts_manager.hpp"
 #include "thread_manager.hpp"
+#include "filter_manager.hpp"
 #include <chrono>
 #include <random>
 
@@ -2550,7 +2551,10 @@ void CContext::removeAllContexts(void)
    }
    CATCH_DUMP_ATTR
 
-
+  CFilterManager& CContext::getFilterManager()
+  {
+    return filterManager_;
+  }
 
 
   /*!
