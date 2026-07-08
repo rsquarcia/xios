@@ -71,26 +71,30 @@ namespace xios
 
   }
   
-  CDataPacketPtr CTemporalFilter::apply(std::vector<CDataPacketPtr> data)
+  std::vector<CDataPacketPtr> CTemporalFilter::apply(std::vector<CDataPacketPtr> data)
   {
+    std::vector<CDataPacketPtr> packets;
     buildWorkflowGraph(data);
   
     CDataPacketPtr packet;
 
-    if (data[0]->status != CDataPacket::END_OF_STREAM)
+    const bool endOfStream = data[0]->status == CDataPacket::END_OF_STREAM;
+    const bool isInitDate = data[0]->date == initDate;
+
+    if (!endOfStream && (!isInitDate || writeInitialCondition))
     {
       if (info.isActive(logProfile)) CTimer::get("Temporal filters").resume() ;
 
-      const bool isInitialCondition = writeInitialCondition && data[0]->date == initDate;
+      const bool isInitialCondition = writeInitialCondition && isInitDate;
       bool usePacket, outputResult, copyLess;
 
-      if (isInitialCondition)
+      if (isOnceOperation)
+        usePacket = outputResult = copyLess = isFirstOperation;
+      else if (isInitialCondition)
       {
         usePacket = false;
         outputResult = copyLess = true;
       }
-      else if (isOnceOperation)
-        usePacket = outputResult = copyLess = isFirstOperation;
       else
       {
         usePacket = (data[0]->date >= nextSamplingDate);
@@ -133,13 +137,14 @@ namespace xios
 
 	      CMemChecker::logMem( "CTemporalFilter::apply" );
 
-        isFirstOperation = !isInitialCondition;
+        isFirstOperation = false;
         graphCycleCompleted = true;
      }
      if (info.isActive(logProfile)) CTimer::get("Temporal filters").suspend() ;
     }
-
-    return packet;
+    if (packet)
+      packets.push_back(packet);
+    return packets;
   }
 
   bool CTemporalFilter::mustAutoTrigger() const
@@ -150,7 +155,12 @@ namespace xios
   bool CTemporalFilter::isDataExpected(const CDate& date) const
   {
 //    return isOnceOperation ? isFirstOperation : (date >= nextSamplingDate || date + samplingFreq > nextOperationDate);
-    return isOnceOperation ? isFirstOperation : (date >= nextSamplingDate || date > initDate + nbOperationDates*opFreq - samplingFreq + offsetMonth + offsetAllButMonth);
+    if (isOnceOperation)
+      return isFirstOperation && (date != initDate || writeInitialCondition);
+    else
+      return (date == initDate && writeInitialCondition)
+      || date >= nextSamplingDate
+      || date > initDate + nbOperationDates*opFreq - samplingFreq + offsetMonth + offsetAllButMonth;
   }
 
   static func::CFunctor* createFunctor(const std::string& opId, bool ignoreMissingValue, CArray<double, 1>& tmpData)

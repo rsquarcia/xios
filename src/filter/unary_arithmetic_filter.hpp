@@ -32,7 +32,7 @@ namespace xios
        * \param data a vector of packets corresponding to each slot (one in this case)
        * \return the result of the unary operation
        */
-      CDataPacketPtr virtual apply(std::vector<CDataPacketPtr> data);
+      std::vector<CDataPacketPtr> virtual apply(std::vector<CDataPacketPtr> data);
       std::pair<int, int> virtual buildGraph(std::vector<CDataPacketPtr> data);
   }; // class CUnaryArithmeticFilter
 } // namespace xios

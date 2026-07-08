@@ -34,6 +34,7 @@
 #include "services.hpp"
 #include "contexts_manager.hpp"
 #include "thread_manager.hpp"
+#include "filter_manager.hpp"
 #include <chrono>
 #include <random>
 
@@ -966,16 +967,19 @@ void CContext::removeAllContexts(void)
           info(100)<<"DEBUG: context "<<getId()<<" release client writer ok"<<endl ;
         }
         
-
-        if (readerClientOut_.size()!=0)
+        for(int n=0; n<readerClientOut_.size() ; n++)
         {
-          client=readerClientOut_[0] ;
-          server=readerServerOut_[0] ;
+          client=readerClientOut_[n] ;
+          server=readerServerOut_[n] ;
 
           info(100)<<"DEBUG: context "<<getId()<<" Send client finalize to reader"<<endl ;
           client->finalize();
           info(100)<<"DEBUG: context "<<getId()<<" Client finalize sent to reader"<<endl ;
-          while (client->havePendingRequests()) client->eventLoop();
+          while (client->havePendingRequests())
+          {
+            client->eventLoop();
+            server->eventLoop();
+          }
           info(100)<<"DEBUG: context "<<getId()<<" no pending request on reader ok"<<endl ;
           bool notifiedFinalized=false ;
          do
@@ -2547,7 +2551,10 @@ void CContext::removeAllContexts(void)
    }
    CATCH_DUMP_ATTR
 
-
+  CFilterManager& CContext::getFilterManager()
+  {
+    return filterManager_;
+  }
 
 
   /*!

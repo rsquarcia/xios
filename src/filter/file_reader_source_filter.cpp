@@ -7,6 +7,7 @@
 #include "file.hpp"
 #include "context.hpp"
 #include "workflow_graph.hpp"
+#include <vector>
 
 namespace xios
 {
@@ -54,7 +55,7 @@ namespace xios
     }
     if (info.isActive(logProfile)) CTimer::get("Reader workflow data entry").suspend();
            
-    onOutputReady(packet);
+    onOutputReady(std::vector<CDataPacketPtr>{packet});
   }
 
   void CFileReaderSourceFilter::initialize()

@@ -20,7 +20,7 @@ namespace xios
       /*!
         Overriding this function to process transformations with auxillary inputs
       */
-      CDataPacketPtr virtual apply(std::vector<CDataPacketPtr> data) ;
+      std::vector<CDataPacketPtr> virtual apply(std::vector<CDataPacketPtr> data) ;
       void buildWorkflowGraph(std::vector<CDataPacketPtr> data, CDataPacketPtr packet, shared_ptr<CGridAlgorithm> algorithm);
       
 //      void apply(const CArray<double, 1>& dataSrc, CArray<double,1>& dataDest);

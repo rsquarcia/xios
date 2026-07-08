@@ -28,7 +28,7 @@ namespace xios
        * \param data a vector of packets corresponding to each slot
        * \return the untouched source data packet
        */
-      CDataPacketPtr virtual apply(std::vector<CDataPacketPtr> data);
+      std::vector<CDataPacketPtr> virtual apply(std::vector<CDataPacketPtr> data);
       void buildWorkflowGraph(std::vector<CDataPacketPtr> data);
   
   }; // class CPassThroughFilter

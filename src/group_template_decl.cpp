@@ -14,6 +14,7 @@ namespace xios
   macro(Domain)
   macro(Grid)
   macro(Axis)
+  macro(Function)
   macro(Variable)
   macro(InverseAxis)
   macro(ZoomAxis)

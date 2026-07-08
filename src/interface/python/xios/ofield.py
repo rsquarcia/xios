@@ -5,8 +5,8 @@ from xios.obj import swipswap_ctx
 from xios.oaxis_attr import Axis
 from xios.odomain_attr import Domain
 from xios.oscalar_attr import Scalar
-from xios.idomain import is_valid_domain
 from xios.ifield import field_is_active, field_get_axis, field_get_domain, field_get_scalar
+from xios.ifield import field_get_domains_number, field_get_axes_number, field_get_scalars_number
 import numpy as np
 
 class Field(Field_):
@@ -104,8 +104,10 @@ class DomainAccessor:
     def __init__(self, field_hdl, field_id):
         self._field_hdl = field_hdl
         self.field_id = field_id
+        self._domains_number = field_get_domains_number(field_id)
 
     def _get_domain(self, idx):
+        if idx >= self._domains_number : return None
         self._domain_hdl = Domain()
         field_get_domain(self._field_hdl, self._domain_hdl, idx)
         self._domain_hdl._module_name_attr = f"xios.idomain_attr"
@@ -130,8 +132,10 @@ class AxisAccessor:
     def __init__(self, field_hdl, field_id):
         self._field_hdl = field_hdl
         self.field_id = field_id
+        self._axes_number = field_get_axes_number(field_id)
 
     def _get_axis(self, idx):
+        if idx >= self._axes_number : return None
         self._axis_hdl = Axis()
         field_get_axis(self._field_hdl, self._axis_hdl, idx)
         self._axis_hdl._module_name_attr = f"xios.iaxis_attr"
@@ -156,8 +160,10 @@ class ScalarAccessor:
     def __init__(self, field_hdl, field_id):
         self._field_hdl = field_hdl
         self.field_id = field_id
+        self._scalars_number = field_get_scalars_number(field_id)
 
     def _get_scalar(self, idx):
+        if idx >= self._scalars_number : return None
         self._scalar_hdl = Scalar()
         field_get_scalar(self._field_hdl, self._scalar_hdl, idx)
         self._scalar_hdl._module_name_attr = f"xios.iscalar_attr"

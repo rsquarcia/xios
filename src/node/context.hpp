@@ -14,6 +14,7 @@
 #include "services_manager.hpp"
 #include "server_context.hpp"
 #include "event_scheduler.hpp"
+#include "filter_manager.hpp"
 #include "file.hpp"
 
 namespace xios
@@ -29,6 +30,7 @@ namespace xios
    class CFile;
    class CCouplerIn ;
    class CCouplerOut ;
+   class CFilterManager ;
    ///--------------------------------------------------------------
 
    // Declare/Define CFileAttribute
@@ -401,8 +403,13 @@ namespace xios
         void unlockContext(void) {lockedContext_=false; }
         bool isLockedContext(void) { return lockedContext_;}
       public: // Some function maybe removed in the near future
+        CFilterManager& getFilterManager();
         // virtual void toBinary  (StdOStream & os) const;
         // virtual void fromBinary(StdIStream & is);
+      private :
+        // A filterManager to not duplicate redundant filter
+        CFilterManager filterManager_{*this};
+
    }; // class CContext
 
    ///--------------------------------------------------------------

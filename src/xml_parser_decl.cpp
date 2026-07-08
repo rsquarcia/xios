@@ -20,6 +20,7 @@ namespace xios
     macro( CouplerIn )
     macro( CouplerOut )
     macro( Variable )
+    macro( Function )
     macro( InverseAxis )
     macro( ZoomAxis )
     macro( InterpolateAxis )

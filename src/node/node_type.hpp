@@ -5,6 +5,7 @@
 #include "domain.hpp"
 #include "field.hpp"
 #include "file.hpp"
+#include "function.hpp"
 #include "coupler_in.hpp"
 #include "coupler_out.hpp"
 #include "grid.hpp"

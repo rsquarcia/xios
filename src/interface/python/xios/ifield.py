@@ -27,6 +27,15 @@ lib.cxios_field_get_axis_handle.restype = None
 lib.cxios_field_get_scalar_handle.argtypes = [POINTER(Scalar), Field, c_int]
 lib.cxios_field_get_scalar_handle.restype = None
 
+lib.cxios_field_get_domains_number.argtypes = [Field]
+lib.cxios_field_get_domains_number.restype = c_int
+
+lib.cxios_field_get_axes_number.argtypes = [Field]
+lib.cxios_field_get_axes_number.restype = c_int
+
+lib.cxios_field_get_scalars_number.argtypes = [Field]
+lib.cxios_field_get_scalars_number.restype = c_int
+
 lib.cxios_field_valid_id.argtypes = [POINTER(c_bool), c_char_p, c_int]
 lib.cxios_field_valid_id.restype = None
 
@@ -127,6 +136,29 @@ def field_id_get_scalar_handle(field_id: Union[str, String], ret: Scalar, idx: i
     get_field_handle(field_id, field_hdl)
     field_get_scalar_handle(field_hdl, ret, idx.value)
 
+@typecheck
+def field_get_domains_number(field_id: Union[str, String]):
+    field_id = String(field_id)
+    field_hdl = Field()
+
+    get_field_handle(field_id, field_hdl)
+    return lib.cxios_field_get_domains_number(field_hdl)
+
+@typecheck
+def field_get_axes_number(field_id: Union[str, String]):
+    field_id = String(field_id)
+    field_hdl = Field()
+
+    get_field_handle(field_id, field_hdl)
+    return lib.cxios_field_get_axes_number(field_hdl)
+
+@typecheck
+def field_get_scalars_number(field_id: Union[str, String]):
+    field_id = String(field_id)
+    field_hdl = Field()
+
+    get_field_handle(field_id, field_hdl)
+    return lib.cxios_field_get_scalars_number(field_hdl)
 
 @typecheck
 def is_valid_field(idt: Union[str, String]) -> bool:

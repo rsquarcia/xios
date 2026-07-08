@@ -21,7 +21,7 @@ namespace xios
        * \param data a vector of packets corresponding to each slot
        * \return a new data packet or null if the engine is accumulating data
        */
-       CDataPacketPtr virtual apply(std::vector<CDataPacketPtr> data) = 0;
+       std::vector<CDataPacketPtr> virtual apply(std::vector<CDataPacketPtr> data) = 0;
   }; // class IFilterEngine
 } // namespace xios
 

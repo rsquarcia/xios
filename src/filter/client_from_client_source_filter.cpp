@@ -5,6 +5,7 @@
 #include "context.hpp"
 #include "grid.hpp"
 #include <limits> 
+#include <vector> 
 #include "workflow_graph.hpp"
 
 namespace xios
@@ -45,7 +46,7 @@ namespace xios
       this->graphPackage->filterId = CWorkflowGraph::getNodeSize();
       CWorkflowGraph::addNode(getContext(), "Client to Client Source filter", 1, false, 0, packet);
     }
-    onOutputReady(packet);
+    onOutputReady(std::vector<CDataPacketPtr>{packet});
   }
 
   bool CClientFromClientSourceFilter::isDataLate(void)

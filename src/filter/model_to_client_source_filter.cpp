@@ -3,6 +3,7 @@
 #include "exception.hpp"
 #include "calendar_util.hpp"
 #include <limits> 
+#include <vector> 
 #include "workflow_graph.hpp"
 #include "mem_checker.hpp"
 #include "timer.hpp"
@@ -54,7 +55,7 @@ namespace xios
     
     buildWorkflowGraph(packet);
     if (info.isActive(logProfile)) CTimer::get("Client workflow").resume();
-    onOutputReady(packet);
+    onOutputReady(std::vector<CDataPacketPtr>{packet});
     if (info.isActive(logProfile)) CTimer::get("Client workflow").suspend();
   }
   

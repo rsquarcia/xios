@@ -4,6 +4,7 @@
 #include "calendar_util.hpp"
 #include "context.hpp"
 #include "workflow_graph.hpp"
+#include <vector>
 
 namespace xios
 {
@@ -38,7 +39,7 @@ namespace xios
       CWorkflowGraph::addNode(getContext(), "Server from Client Source filter", 1, false, 0, packet);
     }
     if (info.isActive(logProfile)) CTimer::get("Server workflow").resume();
-    onOutputReady(packet);
+    onOutputReady(std::vector<CDataPacketPtr>{packet});
     if (info.isActive(logProfile)) CTimer::get("Server workflow").suspend();
   }
 

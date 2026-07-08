@@ -160,8 +160,16 @@ lib.cxios_date_convert_from_string.argtypes = [c_char_p, c_int]
 lib.cxios_date_convert_to_string.argtypes = [Date, c_char_p, c_int]
 lib.cxios_date_convert_to_seconds.argtypes = [Date]
 
+lib.cxios_date_get_second_of_year.argtypes = [Date]
+lib.cxios_date_get_second_of_year.restype = c_double
 lib.cxios_date_get_day_of_year.argtypes = [Date]
 lib.cxios_date_get_day_of_year.restype = c_double
+lib.cxios_date_get_fraction_of_year.argtypes = [Date]
+lib.cxios_date_get_fraction_of_year.restype = c_double
+lib.cxios_date_get_second_of_day.argtypes = [Date]
+lib.cxios_date_get_second_of_day.restype = c_double
+lib.cxios_date_get_fraction_of_day.argtypes = [Date]
+lib.cxios_date_get_fraction_of_day.restype = c_double
 
 #__________________________________________________________________________________________________#
 #                                      INTERFACE FUNCTIONS                                         #

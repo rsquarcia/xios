@@ -1,6 +1,8 @@
 #include "filter.hpp"
 #include "timer.hpp"
 
+#include <vector>
+
 namespace xios
 {
   extern CLogType logProfile ;
@@ -14,19 +16,19 @@ namespace xios
   void CFilter::onInputReady(std::vector<CDataPacketPtr> data)
   {
     if (info.isActive(logProfile)) CTimer::get("Applying filters").resume() ;
-    CDataPacketPtr outputPacket = engine->apply(data);
+    std::vector<CDataPacketPtr> outputPacket = engine->apply(data);
     if (info.isActive(logProfile)) CTimer::get("Applying filters").suspend() ;
-    if (outputPacket)
+    if (!outputPacket.empty())
       onOutputReady(outputPacket);
   }
 
-  void CFilter::setInputTrigger(size_t inputSlot, COutputPin* trigger)
+  void CFilter::setInputTrigger(size_t inputSlot, size_t outputSlot, COutputPin* trigger)
   {
     // Was the filter already triggerable? If not, we need to inform
     // all downstream filters.
     bool wasTriggerable = canBeTriggered();
 
-    CInputPin::setInputTrigger(inputSlot, trigger);
+    CInputPin::setInputTrigger(inputSlot, outputSlot, trigger);
 
     if (!wasTriggerable)
       setOutputTriggers();

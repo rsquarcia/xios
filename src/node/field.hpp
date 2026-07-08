@@ -52,6 +52,7 @@ namespace xios
    class CDomain ;
    class CAxis ;
    class CScalar ;
+   class CFunction ;
    class CContext ;
 
    class CGarbageCollector;
@@ -103,8 +104,8 @@ namespace xios
          /// Constructeurs ///
          CField(CContext* context);
          explicit CField(CContext* context, const StdString& id);
-         CField(const CField& field);       // Not implemented yet.
-         CField(const CField* const field); // Not implemented yet.
+         // CField(const CField& field);       // Not implemented yet.
+         // CField(const CField* const field); // Not implemented yet.
 
          /// Accesseurs ///
 
@@ -169,8 +170,8 @@ namespace xios
          
          
          std::shared_ptr<COutputPin> getSelfReference(CGarbageCollector& gc);
-         std::shared_ptr<COutputPin> getTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq, const bool writeInitialCondition);
-         std::shared_ptr<COutputPin> getSelfTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq, const bool writeInitialCondition);
+         std::shared_ptr<CFilter> getTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq, const bool writeInitialCondition);
+         std::shared_ptr<CFilter> getSelfTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq, const bool writeInitialCondition);
 
 //         virtual void fromBinary(StdIStream& is);
 
@@ -331,7 +332,11 @@ namespace xios
 
 
          DECLARE_REF_FUNC(Field,field)
-        
+         
+      private:
+         size_t argoutIdx_ = 0 ; // index of the field in the function arguments if any function is applied to the field
+      
+         
       private:
          CContextClient* client_;
       public:
@@ -366,14 +371,14 @@ namespace xios
          std::shared_ptr<CTemporalFilter> selfTemporalDataFilter ;
          
          //! The output pin of the filter providing the instant data for the field
-         std::shared_ptr<COutputPin> instantDataFilter;
+         std::shared_ptr<COutputPin> instantDataFilter_;
       public:
-          std::shared_ptr<COutputPin> getInstantDataFilter(void) { return instantDataFilter;}
+          std::shared_ptr<COutputPin> getInstantDataFilter(void) { return instantDataFilter_;}
 
       private:
 
-         //! The output pin of the filters providing the result of the field's temporal operation
-         std::map<CDuration, std::shared_ptr<COutputPin>, DurationFakeLessComparator> temporalDataFilters;
+         //! The filters providing the result of the field's temporal operation
+         std::map<CDuration, std::shared_ptr<CFilter>, DurationFakeLessComparator> temporalDataFilters_;
          
          //! The output pin of the filter providing the instant data for self references
          std::shared_ptr<COutputPin> selfReferenceFilter; // probably redondant with inputFilter
