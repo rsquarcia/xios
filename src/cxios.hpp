@@ -64,6 +64,8 @@ namespace xios
      static StdSize maxBufferSize; //!< Maximum buffer size
      static bool isOptPerformance; //!< Check if buffer size is for performance (as large as possible)
      static double defaultChunkingSizeTarget; //!< Max size of a NetCDF chunk, in Mo
+     static bool timeChunkingEnabled; //!< Enable time axis NetCDF chunking, and time chunking of small fields
+     static int timeAxisChunkSize; //!< Size of the chunk associated to time axis and its bounds (not UNLIMITED)
      static string defaultBoundsSuffix; //!< Suffix for boundaries in NetCDF files, applied on time axis for now
      static CRegistry* globalRegistry ; //!< global registry which is wrote by the root process of the servers
      static double recvFieldTimeout; //!< Time to wait for data before issuing an error when receiving a field

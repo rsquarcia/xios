@@ -327,21 +327,31 @@ namespace xios
 
          std::vector<StdString>::const_iterator it = dim.begin(), end = dim.end();
 
+	 bool isTime =  (size == NC_UNLIMITED);
          for (int idx = 0; it != end; it++, ++idx)
          {
             const StdString& dimid = *it;
             dimids.push_back(this->getDimension(dimid));
             CNetCdfInterface::inqDimLen(grpid, this->getDimension(dimid), size);
-            if (size == NC_UNLIMITED) size = 1;
+            if (size == NC_UNLIMITED)
+            {
+              if (!CXios::timeChunkingEnabled) size = 1;
+              else size = CXios::timeAxisChunkSize;
+            }
             dimsizes.push_back(size);
          }
 
          CNetCdfInterface::defVar(grpid, name, type, dimids.size(), &dimids[0], varid);
 
          if ( (!useClassicFormat) && (defineChunking) ) {
-           int storageType = (0 == dimSize) ? NC_CONTIGUOUS : NC_CHUNKED;
+           int storageType;
+           if (!CXios::timeChunkingEnabled)
+             storageType= (0 == dimSize) ? NC_CONTIGUOUS : NC_CHUNKED;
+           else //(CXios::timeChunkingEnabled)
+             storageType = NC_CHUNKED;
            CNetCdfInterface::defVarChunking(grpid, varid, storageType, &dimsizes[0]);
-           CNetCdfInterface::defVarFill(grpid, varid, true, NULL);
+           if ((!isTime)||(!CXios::timeChunkingEnabled))
+             CNetCdfInterface::defVarFill(grpid, varid, true, NULL);
          }
 
          
@@ -377,11 +387,15 @@ namespace xios
 
          std::vector<StdString>::const_iterator it = dim.begin(), end = dim.end();
 
+	 bool isTime = false;
          for (int idx = 0; it != end; it++, ++idx)
          {
             const StdString& dimid = *it;
             CNetCdfInterface::inqDimLen(grpid, this->getDimension(dimid), size);
-            if (size == NC_UNLIMITED) size = 1;
+            if (size == NC_UNLIMITED) {
+              size = 1;
+              isTime = true;
+	    }
             recordSize *= size;
             dimsizes.push_back(size);
          }
@@ -535,6 +549,15 @@ namespace xios
 	      }
             }
             int storageType = (0 == dimSize) ? NC_CONTIGUOUS : NC_CHUNKED;
+
+            if (CXios::timeChunkingEnabled)
+            {
+              StdSize finalChunkSize = prec;
+              for (int ii=0 ; ii<dimsizes.size() ; ii++) finalChunkSize *= dimsizes[ii];
+              double finalRatio = (double)targetSize / (double)finalChunkSize;
+              if (isTime && ( finalRatio > 2.)) dimsizes[0] = (int)finalRatio;
+            }
+
             CNetCdfInterface::defVarChunking(grpid, varid, storageType, &dimsizes[0]);
             CNetCdfInterface::defVarFill(grpid, varid, true, NULL);
          }

@@ -53,6 +53,8 @@ namespace xios
   bool CXios::printLogs2Files;
   bool CXios::isOptPerformance = true;
   double CXios::defaultChunkingSizeTarget = 20.;
+  bool CXios::timeChunkingEnabled = false ;
+  int CXios::timeAxisChunkSize = 100000;
   string CXios::defaultBoundsSuffix = "bounds";
   CRegistry* CXios::globalRegistry = 0;
   double CXios::recvFieldTimeout = 300.0;
@@ -129,6 +131,8 @@ namespace xios
     maxBufferSize = getin<int>("max_buffer_size", std::numeric_limits<int>::max());
 
     defaultChunkingSizeTarget = getin<double>("default_chunking_blocksize", 20. );
+    timeChunkingEnabled = getin<bool>("time_chunking_enabled", false );
+    timeAxisChunkSize = getin<int>("time_axis_chunking", 100000 );
     defaultBoundsSuffix = getin<string>("default_bounds_suffix", defaultBoundsSuffix );
     defaultBoundsSuffix = "_" + defaultBoundsSuffix;
 
