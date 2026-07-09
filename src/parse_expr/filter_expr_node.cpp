@@ -4,6 +4,8 @@
 #include "binary_arithmetic_filter.hpp"
 #include "ternary_arithmetic_filter.hpp"
 #include "embedded_filter.hpp"
+#include "python_filter.hpp"
+#include "python_super_filter.hpp"
 #include "field.hpp"
 #include "file.hpp"
 #include "function.hpp"
@@ -120,7 +122,6 @@ namespace xios
                       // CFilterTemporalFieldExprNode //
                       //////////////////////////////////
 
-
   CFilterTemporalFieldExprNode::CFilterTemporalFieldExprNode(const std::string& fieldId)
     : fieldId(fieldId)
   { /* Nothing to do */ }
@@ -148,7 +149,7 @@ namespace xios
       if (std::find(argNames.begin(), argNames.end(), id) != argNames.end()) 
       {
         SInputPoint inputPoint = parentFilter->getInputPointFromArgId(id);
-        parentFilter->setInternalConnections(gc, inputPoint);
+        parentFilter->setInternalConnections(gc, inputPoint); 
         if (inputPoint.node.type != SReducedNode::Field)
           ERROR("SReducedNode CFilterTemporalFieldExprNode::reduce(CGarbageCollector& gc, CField& thisField, NodeId parentId) const",
                 "A temporal filter must be aplly on a field !")
@@ -291,21 +292,22 @@ namespace xios
       // If the opId match a user defined function id
       if (function)
       {
-        if (argsNumber != function->getNumArgin())
-        {
-          ERROR("  std::shared_ptr<COutputPin> CFilterOpExprNode::reduce(CGarbageCollector& gc, CField& thisField, Hash& hash, CField** fieldIn, CEmbeddedFilter* embeddedFilter) const",
-                " The number of argin : " << argsNumber << " for the function " << function->getId() << " does not match the number of argin passed in the function : " << function->getNumArgin());
-        }         
-        // We add all arg hash to the EmbeddedFilter map 
-        // Assure their availabilty for the arguemnt during reduce
+        const bool hasPython = !function->getPySrc().empty();
+        const std::string& offload = function->getOffload();
+        const bool isOffloaded = function->isOffloaded();
 
-        embeddedFilterBuilder = std::make_shared<CSuperFilter>(gc, *function);
+        if (!hasPython)                          embeddedFilterBuilder = std::make_shared<CSuperFilter>(gc, *function);
+        else if (offload.empty() || isOffloaded) embeddedFilterBuilder = std::make_shared<CPythonSuperFilter>(gc, *function);
+        else                                     embeddedFilterBuilder = std::make_shared<COffloadPythonSuperFilter>(gc, *function);
+
+  
         filter = embeddedFilterBuilder; 
         filterManager.addFilter(nodeId, filter);
         embeddedFilterBuilder->addInputPoints(inputPoints);
         int argoutIdx = embeddedFilterBuilder->isFirstOccurence(arg_);
         SInputPoint superSinputPoint = embeddedFilterBuilder->reduceFunction(gc, thisField, nodeId, argoutIdx);
         embeddedFilterBuilder->connectInternalInputPin(superSinputPoint, argoutIdx);
+        function->setEnabled();
       }
       else
       {
@@ -391,7 +393,7 @@ namespace xios
         filterManager.addFilter(nodeId, filter);
       }
       res.nodeId = nodeId;
-      // cout << "Currently reducing filter : " << filterManager.toString(nodeId) << " with nodeId : " << nodeId << endl;
+      // cout << "Currently reducing filter : " << filterManager.toString(nodeId) << " with parent : " << filterManager.toString(parentId) << endl;;
 
       int k = 0;
      
@@ -418,6 +420,8 @@ namespace xios
     }
     else
     {
+      // In case of multiple output superPythonFilter, we need to
+      // construct dynamically the internal connection and fields
       if (auto embeddedFilter = std::dynamic_pointer_cast<CEmbeddedFilter>(filter)) 
       {
         if (args_.size() == 0) res.fieldIn = embeddedFilter->getFieldIn();
@@ -443,5 +447,4 @@ namespace xios
     res.outputPin = filter;
     return res;
   }
-
 }

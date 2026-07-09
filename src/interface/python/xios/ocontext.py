@@ -51,15 +51,14 @@ from xios.oredistribute_scalar_attr import RedistributeScalar
 
 class Context(Context_):
 
-    def __init__(self, context_id, comm = None):
-
-        if not is_valid_context(context_id):
-            raise ValueError(f"The context {context_id} does not exist ! check your iodef.xml")
-
+    def __init__(self, context_id, comm = None, is_service = False):
         super().__init__(id = context_id)
-        if comm is None :
-            comm = _xios_instance._communicator
-        context_initialize(context_id, comm)
+
+        if not context_is_initialized(context_id) and not is_service:
+            if comm is None :                
+                comm = _xios_instance._communicator
+            context_initialize(context_id, comm)
+
         self._initialized = True
         self._finalized   = False
         self._closed      = False

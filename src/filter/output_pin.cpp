@@ -22,8 +22,8 @@ namespace xios
     if (outputSlot>=outputs.size())
       ERROR("void COutputPin::connectOutput(CInputPin* inputPin, size_t inputSlot)",
             "The outputSlot " << outputSlot << " is greater that the output vector size : " << outputs.size());
-    outputs[outputSlot].push_back(std::make_pair(inputPin, inputSlot));
 
+    outputs[outputSlot].push_back(std::make_pair(inputPin, inputSlot));
 
     if (canBeTriggered())
       inputPin->setInputTrigger(inputSlot, outputSlot, this);
@@ -44,18 +44,21 @@ namespace xios
     else
     {
       for (size_t i = 0; i < packets.size(); ++i)
-      {
         if (packets[i])
           deliverOutput(packets[i], i);
-      }
     }
   }
 
   void COutputPin::deliverOutput(CDataPacketPtr packet, size_t outputSlot = 0)
   {
+
     if (!packet)
       ERROR("void COutputPin::deliverOutput(CDataPacketPtr packet, size_t outputSlot)",
             "The packet cannot be null.");
+
+    if (outputs.size() <= outputSlot)
+      ERROR("void COutputPin::deliverOutput(CDataPacketPtr packet, size_t outputSlot = 0)",
+            "The slot n°" << outputSlot << " is not available !");
 
     for (const auto& connection : outputs[outputSlot])
     {
@@ -138,11 +141,11 @@ bool COutputPin::mustAutoTrigger() const
       ERROR("  void COutputPin::resizeOutputSlots(size_t newSlotsCount)",
           "Cannot resize, some data have been already received!");    
   outputs.resize(newSlotsCount);
-  slotsCount = newSlotsCount;
+  slotsCount_ = newSlotsCount;
   }
 
   size_t COutputPin::getSlotsCount()
   {
-    return slotsCount;
+    return slotsCount_;
   }
 } // namespace xios

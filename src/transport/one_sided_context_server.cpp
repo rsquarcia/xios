@@ -303,6 +303,8 @@ namespace xios
     else if (event.classId==CFile::GetType()) CFile::dispatchEvent(context_, event);
     else if (event.classId==CFileGroup::GetType()) CFileGroup::dispatchEvent(context_, event);
     else if (event.classId==CVariable::GetType()) CVariable::dispatchEvent(context_, event);
+    else if (event.classId==CFunction::GetType()) CFunction::dispatchEvent(context_, event);
+    else if (event.classId==CFunctionGroup::GetType()) CFunctionGroup::dispatchEvent(context_, event);
     else
     {
       ERROR("void COneSidedContextServer::dispatchEvent(CEventServer& event)",<<" Bad event class Id"<<endl);

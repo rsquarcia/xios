@@ -1,8 +1,8 @@
 MODULE FUNCTION_INTERFACE
    USE, INTRINSIC :: ISO_C_BINDING
-   
+     
    INTERFACE ! Ne pas appeler directement/Interface FORTRAN 2003 <-> C99
-   
+     
       SUBROUTINE cxios_function_handle_create(ret, idt, idt_size) BIND(C)
          USE ISO_C_BINDING
          INTEGER  (kind = C_INTPTR_T)               :: ret
@@ -18,5 +18,5 @@ MODULE FUNCTION_INTERFACE
       END SUBROUTINE cxios_function_valid_id
 
    END INTERFACE
-   
+     
 END MODULE FUNCTION_INTERFACE

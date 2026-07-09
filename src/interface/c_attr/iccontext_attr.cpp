@@ -64,6 +64,32 @@ extern "C"
   }
 
 
+  void cxios_set_context_default_offload(context_Ptr context_hdl, const char * default_offload, int default_offload_size)
+  {
+    std::string default_offload_str;
+    if (!cstr2string(default_offload, default_offload_size, default_offload_str)) return;
+    CTimer::get("XIOS").resume();
+    context_hdl->default_offload.setValue(default_offload_str);
+    CTimer::get("XIOS").suspend();
+  }
+
+  void cxios_get_context_default_offload(context_Ptr context_hdl, char * default_offload, int default_offload_size)
+  {
+    CTimer::get("XIOS").resume();
+    if (!string_copy(context_hdl->default_offload.getInheritedValue(), default_offload, default_offload_size))
+      ERROR("void cxios_get_context_default_offload(context_Ptr context_hdl, char * default_offload, int default_offload_size)", << "Input string is too short");
+    CTimer::get("XIOS").suspend();
+  }
+
+  bool cxios_is_defined_context_default_offload(context_Ptr context_hdl)
+  {
+     CTimer::get("XIOS").resume();
+     bool isDefined = context_hdl->default_offload.hasInheritedValue();
+     CTimer::get("XIOS").suspend();
+     return isDefined;
+  }
+
+
   void cxios_set_context_default_pool(context_Ptr context_hdl, const char * default_pool, int default_pool_size)
   {
     std::string default_pool_str;
@@ -111,6 +137,32 @@ extern "C"
   {
      CTimer::get("XIOS").resume();
      bool isDefined = context_hdl->default_pool_gatherer.hasInheritedValue();
+     CTimer::get("XIOS").suspend();
+     return isDefined;
+  }
+
+
+  void cxios_set_context_default_pool_offload(context_Ptr context_hdl, const char * default_pool_offload, int default_pool_offload_size)
+  {
+    std::string default_pool_offload_str;
+    if (!cstr2string(default_pool_offload, default_pool_offload_size, default_pool_offload_str)) return;
+    CTimer::get("XIOS").resume();
+    context_hdl->default_pool_offload.setValue(default_pool_offload_str);
+    CTimer::get("XIOS").suspend();
+  }
+
+  void cxios_get_context_default_pool_offload(context_Ptr context_hdl, char * default_pool_offload, int default_pool_offload_size)
+  {
+    CTimer::get("XIOS").resume();
+    if (!string_copy(context_hdl->default_pool_offload.getInheritedValue(), default_pool_offload, default_pool_offload_size))
+      ERROR("void cxios_get_context_default_pool_offload(context_Ptr context_hdl, char * default_pool_offload, int default_pool_offload_size)", << "Input string is too short");
+    CTimer::get("XIOS").suspend();
+  }
+
+  bool cxios_is_defined_context_default_pool_offload(context_Ptr context_hdl)
+  {
+     CTimer::get("XIOS").resume();
+     bool isDefined = context_hdl->default_pool_offload.hasInheritedValue();
      CTimer::get("XIOS").suspend();
      return isDefined;
   }

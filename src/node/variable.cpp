@@ -144,6 +144,32 @@ namespace xios {
       return (oss.str());
    }
 
+   void CVariable::setContextClient(CContextClient* contextClient)
+   TRY
+   {
+      CContext* context = context_;
+      client_ = contextClient;
+   }
+  CATCH_DUMP_ATTR
+
+  CContextClient* CVariable::getContextClient()
+   TRY
+   {
+      return client_;
+   }
+  CATCH_DUMP_ATTR
+
+  void CVariable::sendValueToOffloadServer()
+  {
+    getOffloadFunction()->sendFunctionToServer();
+    context_->sendContextToFileServer(client_);
+    getOffloadFunction()->sendAddVariable(getId(), client_);
+    name = getName() ;
+    this->sendAllAttributesToServer(client_);
+    sendValue(client_);
+  }
+
+
    /*
    *\brief Sending value of a variable with its id from client to server
    *
@@ -151,6 +177,7 @@ namespace xios {
 
    void CVariable::sendValue(CContextClient* client)
    {
+     
      CEventClient event(this->getType(),EVENT_ID_VARIABLE_VALUE) ;
      if (client->isServerLeader())
      {

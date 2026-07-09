@@ -261,9 +261,6 @@ from .ifield import field_id_get_axis_handle
 from .ifield import field_get_scalar
 from .ifield import field_get_scalar_handle
 from .ifield import field_id_get_scalar_handle
-from .ifield import field_get_domains_number
-from .ifield import field_get_axes_number
-from .ifield import field_get_scalars_number
 from .ifield import is_valid_field
 from .ifield import is_valid_fieldgroup
 from .ifield import field_is_active

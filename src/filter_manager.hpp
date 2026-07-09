@@ -13,14 +13,7 @@ namespace xios
 {
   class CFilter;
   class CContext;
-
-  ///--------------------------------------------------------------
-  /*!
-   \class CFilterManager
-    This class manages the filters. At filter creation, it compute a hash based on the filter operator and its input filters. 
-    If a filter with the same hash already exists, it returns a pointer to this filter instead of creating a new one. 
-    This allows to reuse filters and avoid creating duplicated filters in the graph.
-   */
+  class CSuperFilter;
 
   using Hash = std::string;
 

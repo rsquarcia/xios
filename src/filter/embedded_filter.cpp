@@ -107,6 +107,9 @@ namespace xios
 
   void CEmbeddedFilter::addInputPoints(std::vector<SInputPoint> inputPoints)
   {
+    if (inputPoints.size() != function_.getNumArgin())
+      ERROR("void CEmbeddedFilter::addInputPoints(std::vector<SInputPoint> inputPoints)",
+            "For the function : " << function_.getId() << ", the number of argin are " << function_.getNumArgin() << " but " << inputPoints.size() << " argument(s) are passed in a call !");
     for (size_t i = 0; i<inputPoints.size(); ++i)
       arginMap_[function_.getArgin()[i]] = inputPoints[i];
   }
@@ -134,7 +137,5 @@ namespace xios
     ERROR("std::string CSuperFilter::getFieldId(size_t pinIdx)",
           "pin is not present in the map");
   }
-
-
 
 }

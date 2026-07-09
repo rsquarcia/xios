@@ -21,6 +21,8 @@
 #include "model_to_client_source_filter.hpp"
 #include "client_from_client_source_filter.hpp"
 #include "client_from_server_source_filter.hpp"
+#include "client_from_offload_server_source_filter.hpp"
+#include "offload_python_super_filter.hpp"
 #include "client_to_model_store_filter.hpp"
 #include "server_to_client_store_filter.hpp"
 #include "server_from_client_source_filter.hpp"
@@ -117,6 +119,9 @@ namespace xios
          CScalar* getAssociatedScalar(const std::string& scalarId, bool noError=false) const;
 
          func::CFunctor::ETimeType getOperationTimeType() const;
+         std::vector<CFunction*> functions_;
+         const std::vector<CFunction*>& getAllFunctions() const { return functions_; }
+
 
       public:
          template <int N> void getData(CArray<double, N>& _data) const;
@@ -151,6 +156,7 @@ namespace xios
          void sendGridComponentOfEnabledFields();
 
          void sendFieldToFileServer(void) ;
+         void sendFieldToOffloadServer(void) ;
       
       public:
          void sendFieldToCouplerOut(void) ;
@@ -227,6 +233,8 @@ namespace xios
 
         const string& getExpression(void);
         bool hasExpression(void) const;
+        void setExpression(const string& expression);
+        void setOffloadExpression(const string& expression);
 
         bool hasGridMask(void) const;
         
@@ -242,6 +250,16 @@ namespace xios
         void connectToServerToClient(CGarbageCollector& gc) ;
         void connectToOnlineWriter(CGarbageCollector& gc) ;
         void connectToOnlineReader(CGarbageCollector& gc) ;
+        void connectToOffloadServer(CGarbageCollector& gc);
+        void connectToOffloadServerOutput(CGarbageCollector& gc);
+
+        void connectInEmbededFilter(CGarbageCollector& gc,
+                                   std::shared_ptr<COutputPin> outputPin,
+                                   size_t slotIdx);
+       
+        void connectOutEmbededFilter(CGarbageCollector& gc,
+                                   std::shared_ptr<CInputPin> inputPin,
+                                   size_t slotIdx);
 
         void setContextClientDataBufferSize(map<CContextClient*,map<int,size_t>>& bufferSize, 
                                         map<CContextClient*,map<int,size_t>>& maxEventSize, 
@@ -295,6 +313,11 @@ namespace xios
          void setFileOut(CFile* fileOut) { fileOut_ = fileOut ;}
          void unsetFileOut(void) { fileOut_ = nullptr ;}
 
+         CFunction* offloadFunction_ = nullptr;
+         CFunction* getOffloadFunction(void) { return offloadFunction_ ;}
+         bool hasOffloadFunction(void) { return offloadFunction_ ;}
+         void setOffloadFunction(CFunction* function) { offloadFunction_ = function ;}
+
          CCouplerIn* couplerIn_ = nullptr ; //<!pointer to input related coupler
          bool hasCouplerIn(void) const { return couplerIn_==nullptr ? false : true ;}
          CCouplerIn* getCouplerIn(void) {return couplerIn_;}
@@ -322,6 +345,7 @@ namespace xios
          bool mustAutoTrigger;
 
          string content;
+         string offloadContent;
 
          std::vector<StdString> domAxisScalarIds_;
          bool useCompressedOutput;
@@ -333,9 +357,6 @@ namespace xios
 
          DECLARE_REF_FUNC(Field,field)
          
-      private:
-         size_t argoutIdx_ = 0 ; // index of the field in the function arguments if any function is applied to the field
-      
          
       private:
          CContextClient* client_;
@@ -353,6 +374,7 @@ namespace xios
        private: 
          //! define if the field is part of the active workflow. It will be tagged to true when CField::buildWorkflowGraph is successfull 
          bool workflowEnabled_ = false ;
+         size_t argoutIdx_; //<! the index of the output of the filter graph for offload server
        public: 
          /*! workflowEnabled_ public accessor
           * \return Value of workflowEnabled_ */
@@ -363,6 +385,7 @@ namespace xios
      
          //! The type of operation attached to the field
          func::CFunctor::ETimeType operationTimeType;
+         
 
          //! The output pin of the input filter of the field
          std::shared_ptr<CPassThroughFilter> inputFilter;
@@ -374,6 +397,8 @@ namespace xios
          std::shared_ptr<COutputPin> instantDataFilter_;
       public:
           std::shared_ptr<COutputPin> getInstantDataFilter(void) { return instantDataFilter_;}
+          void setPythonSuperFilter(std::shared_ptr<COffloadPythonSuperFilter> offloadPythonSuperFilter) { offloadPythonSuperFilter_ = offloadPythonSuperFilter;}
+          std::shared_ptr<COffloadPythonSuperFilter> getOffloadPythonSuperFilter(void) { return offloadPythonSuperFilter_;}
 
       private:
 
@@ -398,6 +423,12 @@ namespace xios
 
          //! The source filter for data provided by server to enter the current client workflow (reading mode)
          std::shared_ptr<CClientFromServerSourceFilter> clientFromServerSourceFilter_;
+
+         //! The pythonSuperFilter in case of internalPythonSuperFilter fields
+         std::shared_ptr<COffloadPythonSuperFilter> offloadPythonSuperFilter_;
+         
+         //! The source filter for data provided by server to enter the current client workflow (offload mode)
+         std::shared_ptr<CClientFromOffloadServerSourceFilter> clientFromOffloadServerSourceFilter_;
          
          //! The source filter for data read from file on server side 
          std::shared_ptr<CFileReaderSourceFilter> fileReaderSourceFilter_;

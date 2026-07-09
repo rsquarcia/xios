@@ -19,19 +19,10 @@ namespace xios{
   {    
     public:
 
-        /*!
-       * Constructs the filter associated to the function function
-       * and a garbage collector.
-       *
-       * \param gc the associated garbage collector
-       * \param function the associated function
-       */
+      // Constructor 
       CSuperFilter(CGarbageCollector& gc, CFunction& function);
 
       // Destructor
-      /**
-       * Destructor for `CSuperFilter`.
-       */
       ~CSuperFilter();
 
       /**
@@ -49,13 +40,6 @@ namespace xios{
 
   
       // Connection methods
-      /**
-       * Check whether the output slot at `slotIdx` must be connected
-       * internally (inside the super filter) rather than externally.
-       *
-       * @param slotIdx the slot index to check
-       * @return non-zero if it must be internally connected, zero otherwise
-       */
       int mustBeInternalyConnected(size_t slotIdx);
 
       /**
@@ -75,12 +59,7 @@ namespace xios{
        * @param idx the index of the internal connection to push
        */
       void fillInternalConnectionStack(size_t idx);
-
-      /**
-       * Pop the most recent internal connection scope from the stack.
-       */
       void popInternalConnections();
-
 
       /**
        * Return the list of argument identifiers (argin) of the

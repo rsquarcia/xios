@@ -66,15 +66,11 @@ namespace xios
        * \param timestamp the timestamp used for invalidation
        */
       void virtual invalidate(Time timestamp);
-
-       /*!
-       * Get the slotsCount
-       *
-       */
-      size_t getSlotsCount();
-
       CGraphPackage *graphPackage;
       bool graphEnabled;
+
+      size_t getSlotsCount();
+
 
     protected:
       /*!
@@ -89,7 +85,13 @@ namespace xios
        */
       void setOutputTriggers();
 
+      /*!
+       * Resize the slotCount
+       *
+       * \param new slotCount
+       */
       void resizeOutputSlots(size_t newSlotsCount);
+
 
     private:
       /*!
@@ -101,7 +103,8 @@ namespace xios
 
       CGarbageCollector& gc; //!< The garbage collector associated to the output pin
 
-      size_t slotsCount; //!< The number of slots
+      size_t slotsCount_; //!< The number of slots
+
 
       //!< Whether the ouput should be triggered manually
       bool manualTrigger;

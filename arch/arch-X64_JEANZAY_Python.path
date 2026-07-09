@@ -1,0 +1,19 @@
+NETCDF_INCDIR=""
+NETCDF_LIBDIR=""
+NETCDF_LIB="-lnetcdff -lnetcdf"
+
+MPI_INCDIR=""
+MPI_LIBDIR=""
+MPI_LIB=""
+
+HDF5_INCDIR=""
+HDF5_LIBDIR=""
+HDF5_LIB=""
+
+OASIS_INCDIR="-I$PWD/../../oasis3-mct/BLD/build/lib/psmile.MPI1"
+OASIS_LIBDIR="-L$PWD/../../oasis3-mct/BLD/lib"
+OASIS_LIB="-lpsmile.MPI1 -lscrip -lmct -lmpeu"
+
+PYTHON_INCDIR="-I/gpfslocalsup/pub/anaconda-py3/2021.05/envs/python3.8.8/include/python3.8"
+NUMPY_INCDIR="-I/gpfslocalsup/pub/anaconda-py3/2021.05/envs/python3.8.8/lib/python3.8/site-packages/numpy/core/include"
+PYTHON_LIB="-L/gpfslocalsup/pub/anaconda-py3/2021.05/envs/python3.8.8/lib -Wl,-rpath -Wl,/gpfslocalsup/pub/anaconda-py3/2021.05/envs/python3.8.8/lib -lpython3.8"

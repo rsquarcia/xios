@@ -171,6 +171,84 @@ extern "C"
   }
 
 
+  void cxios_set_function_offload(function_Ptr function_hdl, const char * offload, int offload_size)
+  {
+    std::string offload_str;
+    if (!cstr2string(offload, offload_size, offload_str)) return;
+    CTimer::get("XIOS").resume();
+    function_hdl->offload.setValue(offload_str);
+    CTimer::get("XIOS").suspend();
+  }
+
+  void cxios_get_function_offload(function_Ptr function_hdl, char * offload, int offload_size)
+  {
+    CTimer::get("XIOS").resume();
+    if (!string_copy(function_hdl->offload.getInheritedValue(), offload, offload_size))
+      ERROR("void cxios_get_function_offload(function_Ptr function_hdl, char * offload, int offload_size)", << "Input string is too short");
+    CTimer::get("XIOS").suspend();
+  }
+
+  bool cxios_is_defined_function_offload(function_Ptr function_hdl)
+  {
+     CTimer::get("XIOS").resume();
+     bool isDefined = function_hdl->offload.hasInheritedValue();
+     CTimer::get("XIOS").suspend();
+     return isDefined;
+  }
+
+
+  void cxios_set_function_pool_offload(function_Ptr function_hdl, const char * pool_offload, int pool_offload_size)
+  {
+    std::string pool_offload_str;
+    if (!cstr2string(pool_offload, pool_offload_size, pool_offload_str)) return;
+    CTimer::get("XIOS").resume();
+    function_hdl->pool_offload.setValue(pool_offload_str);
+    CTimer::get("XIOS").suspend();
+  }
+
+  void cxios_get_function_pool_offload(function_Ptr function_hdl, char * pool_offload, int pool_offload_size)
+  {
+    CTimer::get("XIOS").resume();
+    if (!string_copy(function_hdl->pool_offload.getInheritedValue(), pool_offload, pool_offload_size))
+      ERROR("void cxios_get_function_pool_offload(function_Ptr function_hdl, char * pool_offload, int pool_offload_size)", << "Input string is too short");
+    CTimer::get("XIOS").suspend();
+  }
+
+  bool cxios_is_defined_function_pool_offload(function_Ptr function_hdl)
+  {
+     CTimer::get("XIOS").resume();
+     bool isDefined = function_hdl->pool_offload.hasInheritedValue();
+     CTimer::get("XIOS").suspend();
+     return isDefined;
+  }
+
+
+  void cxios_set_function_pysrc(function_Ptr function_hdl, const char * pysrc, int pysrc_size)
+  {
+    std::string pysrc_str;
+    if (!cstr2string(pysrc, pysrc_size, pysrc_str)) return;
+    CTimer::get("XIOS").resume();
+    function_hdl->pysrc.setValue(pysrc_str);
+    CTimer::get("XIOS").suspend();
+  }
+
+  void cxios_get_function_pysrc(function_Ptr function_hdl, char * pysrc, int pysrc_size)
+  {
+    CTimer::get("XIOS").resume();
+    if (!string_copy(function_hdl->pysrc.getInheritedValue(), pysrc, pysrc_size))
+      ERROR("void cxios_get_function_pysrc(function_Ptr function_hdl, char * pysrc, int pysrc_size)", << "Input string is too short");
+    CTimer::get("XIOS").suspend();
+  }
+
+  bool cxios_is_defined_function_pysrc(function_Ptr function_hdl)
+  {
+     CTimer::get("XIOS").resume();
+     bool isDefined = function_hdl->pysrc.hasInheritedValue();
+     CTimer::get("XIOS").suspend();
+     return isDefined;
+  }
+
+
   void cxios_set_function_standard_name(function_Ptr function_hdl, const char * standard_name, int standard_name_size)
   {
     std::string standard_name_str;
