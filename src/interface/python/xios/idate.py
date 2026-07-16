@@ -187,7 +187,7 @@ def date_convert_to_string(date: Date, out_str: String) -> None:
     lib.cxios_date_convert_to_string(Date(date), out_str_c, len_out_str_c)
 
 @typecheck
-def date_convert_from_string(in_str: str | String) -> Date:
+def date_convert_from_string(in_str: Union[str, String]) -> Date:
     in_str = String(in_str)
     in_str_c = in_str._c_value
     len_in_str_c = len(string_at(in_str_c))
