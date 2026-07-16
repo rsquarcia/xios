@@ -197,6 +197,44 @@ extern "C"
   }
 
 
+  void cxios_set_function_offset(function_Ptr function_hdl, cxios_duration offset_c)
+  {
+    CTimer::get("XIOS").resume();
+    function_hdl->offset.allocate();
+    CDuration& offset = function_hdl->offset.get();
+    offset.year = offset_c.year;
+    offset.month = offset_c.month;
+    offset.day = offset_c.day;
+    offset.hour = offset_c.hour;
+    offset.minute = offset_c.minute;
+    offset.second = offset_c.second;
+    offset.timestep = offset_c.timestep;
+    CTimer::get("XIOS").suspend();
+  }
+
+  void cxios_get_function_offset(function_Ptr function_hdl, cxios_duration* offset_c)
+  {
+    CTimer::get("XIOS").resume();
+    CDuration offset = function_hdl->offset.getInheritedValue();
+    offset_c->year = offset.year;
+    offset_c->month = offset.month;
+    offset_c->day = offset.day;
+    offset_c->hour = offset.hour;
+    offset_c->minute = offset.minute;
+    offset_c->second = offset.second;
+    offset_c->timestep = offset.timestep;
+    CTimer::get("XIOS").suspend();
+  }
+
+  bool cxios_is_defined_function_offset(function_Ptr function_hdl)
+  {
+     CTimer::get("XIOS").resume();
+     bool isDefined = function_hdl->offset.hasInheritedValue();
+     CTimer::get("XIOS").suspend();
+     return isDefined;
+  }
+
+
   void cxios_set_function_pool_offload(function_Ptr function_hdl, const char * pool_offload, int pool_offload_size)
   {
     std::string pool_offload_str;

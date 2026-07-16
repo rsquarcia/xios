@@ -156,6 +156,27 @@ MODULE function_interface_attr
     END FUNCTION cxios_is_defined_function_offload
 
 
+    SUBROUTINE cxios_set_function_offset(function_hdl, offset) BIND(C)
+      USE ISO_C_BINDING
+      USE IDURATION
+      INTEGER (kind = C_INTPTR_T), VALUE :: function_hdl
+      TYPE(txios(duration)), VALUE :: offset
+    END SUBROUTINE cxios_set_function_offset
+
+    SUBROUTINE cxios_get_function_offset(function_hdl, offset) BIND(C)
+      USE ISO_C_BINDING
+      USE IDURATION
+      INTEGER (kind = C_INTPTR_T), VALUE :: function_hdl
+      TYPE(txios(duration)) :: offset
+    END SUBROUTINE cxios_get_function_offset
+
+    FUNCTION cxios_is_defined_function_offset(function_hdl) BIND(C)
+      USE ISO_C_BINDING
+      LOGICAL(kind=C_BOOL) :: cxios_is_defined_function_offset
+      INTEGER (kind = C_INTPTR_T), VALUE :: function_hdl
+    END FUNCTION cxios_is_defined_function_offset
+
+
     SUBROUTINE cxios_set_function_pool_offload(function_hdl, pool_offload, pool_offload_size) BIND(C)
       USE ISO_C_BINDING
       INTEGER (kind = C_INTPTR_T), VALUE :: function_hdl

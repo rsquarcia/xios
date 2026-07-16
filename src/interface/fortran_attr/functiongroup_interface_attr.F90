@@ -177,6 +177,27 @@ MODULE functiongroup_interface_attr
     END FUNCTION cxios_is_defined_functiongroup_offload
 
 
+    SUBROUTINE cxios_set_functiongroup_offset(functiongroup_hdl, offset) BIND(C)
+      USE ISO_C_BINDING
+      USE IDURATION
+      INTEGER (kind = C_INTPTR_T), VALUE :: functiongroup_hdl
+      TYPE(txios(duration)), VALUE :: offset
+    END SUBROUTINE cxios_set_functiongroup_offset
+
+    SUBROUTINE cxios_get_functiongroup_offset(functiongroup_hdl, offset) BIND(C)
+      USE ISO_C_BINDING
+      USE IDURATION
+      INTEGER (kind = C_INTPTR_T), VALUE :: functiongroup_hdl
+      TYPE(txios(duration)) :: offset
+    END SUBROUTINE cxios_get_functiongroup_offset
+
+    FUNCTION cxios_is_defined_functiongroup_offset(functiongroup_hdl) BIND(C)
+      USE ISO_C_BINDING
+      LOGICAL(kind=C_BOOL) :: cxios_is_defined_functiongroup_offset
+      INTEGER (kind = C_INTPTR_T), VALUE :: functiongroup_hdl
+    END FUNCTION cxios_is_defined_functiongroup_offset
+
+
     SUBROUTINE cxios_set_functiongroup_pool_offload(functiongroup_hdl, pool_offload, pool_offload_size) BIND(C)
       USE ISO_C_BINDING
       INTEGER (kind = C_INTPTR_T), VALUE :: functiongroup_hdl

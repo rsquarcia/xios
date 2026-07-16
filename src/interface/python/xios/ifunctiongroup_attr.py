@@ -89,6 +89,15 @@ lib.cxios_set_functiongroup_offload.restype = None
 lib.cxios_is_defined_functiongroup_offload.argtypes = [FunctionGroup]
 lib.cxios_is_defined_functiongroup_offload.restype = ctypes.c_bool
 
+lib.cxios_get_functiongroup_offset.argtypes = [FunctionGroup, ctypes.POINTER(Duration)]
+lib.cxios_get_functiongroup_offset.restype = None
+
+lib.cxios_set_functiongroup_offset.argtypes = [FunctionGroup, Duration]
+lib.cxios_set_functiongroup_offset.restype = None
+
+lib.cxios_is_defined_functiongroup_offset.argtypes = [FunctionGroup]
+lib.cxios_is_defined_functiongroup_offset.restype = ctypes.c_bool
+
 lib.cxios_get_functiongroup_pool_offload.argtypes = [FunctionGroup, ctypes.c_char_p, ctypes.c_int]
 lib.cxios_get_functiongroup_pool_offload.restype = None
 
@@ -125,16 +134,16 @@ def set_functiongroup_attr(functiongroup_id : Union[String, str], argin : Option
 comment : Optional[Union[str, String]] = None, expr : Optional[Union[str, String]] = None,   
 group_ref : Optional[Union[str, String]] = None, long_name : Optional[Union[str, String]] = None,   
 name : Optional[Union[str, String]] = None, offload : Optional[Union[str, String]] = None,   
-pool_offload : Optional[Union[str, String]] = None, pysrc : Optional[Union[str, String]] = None,   
-standard_name : Optional[Union[str, String]] = None):
+offset : Optional[Union[Duration, Duration]] = None, pool_offload : Optional[Union[str, String]] = None,   
+pysrc : Optional[Union[str, String]] = None, standard_name : Optional[Union[str, String]] = None):
 
   
   functiongroup_hdl = FunctionGroup()
   
 
   get_functiongroup_handle(functiongroup_id, functiongroup_hdl)
-  set_functiongroup_attr_hdl_(functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, pool_offload,  
-   pysrc, standard_name)
+  set_functiongroup_attr_hdl_(functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, offset,  
+   pool_offload, pysrc, standard_name)
   return 
 
 
@@ -144,12 +153,12 @@ def set_functiongroup_attr_hdl(functiongroup_hdl : FunctionGroup, argin : Option
 comment : Optional[Union[str, String]] = None, expr : Optional[Union[str, String]] = None,   
 group_ref : Optional[Union[str, String]] = None, long_name : Optional[Union[str, String]] = None,   
 name : Optional[Union[str, String]] = None, offload : Optional[Union[str, String]] = None,   
-pool_offload : Optional[Union[str, String]] = None, pysrc : Optional[Union[str, String]] = None,   
-standard_name : Optional[Union[str, String]] = None):
+offset : Optional[Union[Duration, Duration]] = None, pool_offload : Optional[Union[str, String]] = None,   
+pysrc : Optional[Union[str, String]] = None, standard_name : Optional[Union[str, String]] = None):
 
   
-  set_functiongroup_attr_hdl_(functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, pool_offload,  
-   pysrc, standard_name)
+  set_functiongroup_attr_hdl_(functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, offset,  
+   pool_offload, pysrc, standard_name)
   return 
 
 
@@ -159,8 +168,8 @@ def set_functiongroup_attr_hdl_(functiongroup_hdl : FunctionGroup, argin_ : Opti
 comment_ : Optional[Union[str, String]] = None, expr_ : Optional[Union[str, String]] = None,   
 group_ref_ : Optional[Union[str, String]] = None, long_name_ : Optional[Union[str, String]] = None,   
 name_ : Optional[Union[str, String]] = None, offload_ : Optional[Union[str, String]] = None,   
-pool_offload_ : Optional[Union[str, String]] = None, pysrc_ : Optional[Union[str, String]] = None,   
-standard_name_ : Optional[Union[str, String]] = None):
+offset_ : Optional[Union[Duration, Duration]] = None, pool_offload_ : Optional[Union[str, String]] = None,   
+pysrc_ : Optional[Union[str, String]] = None, standard_name_ : Optional[Union[str, String]] = None):
 
   
   
@@ -237,6 +246,13 @@ standard_name_ : Optional[Union[str, String]] = None):
     
   
 
+  if offset_ is not None: 
+  
+    offset_c = offset_
+    lib.cxios_set_functiongroup_offset(functiongroup_hdl, offset_c)
+    
+  
+
   if pool_offload_ is not None:
   
     pool_offload_= String(pool_offload_)
@@ -271,15 +287,16 @@ standard_name_ : Optional[Union[str, String]] = None):
 def get_functiongroup_attr(functiongroup_id : Union[String, str], argin : Optional[String] = None, argout : Optional[String] = None,   
 comment : Optional[String] = None, expr : Optional[String] = None, group_ref : Optional[String] = None,   
 long_name : Optional[String] = None, name : Optional[String] = None, offload : Optional[String] = None,   
-pool_offload : Optional[String] = None, pysrc : Optional[String] = None, standard_name : Optional[String] = None):
+offset : Optional[Duration] = None, pool_offload : Optional[String] = None, pysrc : Optional[String] = None,   
+standard_name : Optional[String] = None):
 
   
   functiongroup_hdl = FunctionGroup()
   
 
   get_functiongroup_handle(functiongroup_id, functiongroup_hdl)
-  get_functiongroup_attr_hdl_(functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, pool_offload,  
-   pysrc, standard_name)
+  get_functiongroup_attr_hdl_(functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, offset,  
+   pool_offload, pysrc, standard_name)
   return 
 
 
@@ -288,11 +305,12 @@ pool_offload : Optional[String] = None, pysrc : Optional[String] = None, standar
 def get_functiongroup_attr_hdl(functiongroup_hdl : FunctionGroup, argin : Optional[String] = None, argout : Optional[String] = None,   
 comment : Optional[String] = None, expr : Optional[String] = None, group_ref : Optional[String] = None,   
 long_name : Optional[String] = None, name : Optional[String] = None, offload : Optional[String] = None,   
-pool_offload : Optional[String] = None, pysrc : Optional[String] = None, standard_name : Optional[String] = None):
+offset : Optional[Duration] = None, pool_offload : Optional[String] = None, pysrc : Optional[String] = None,   
+standard_name : Optional[String] = None):
 
   
-  get_functiongroup_attr_hdl_(functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, pool_offload,  
-   pysrc, standard_name)
+  get_functiongroup_attr_hdl_(functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, offset,  
+   pool_offload, pysrc, standard_name)
   return 
 
 
@@ -301,7 +319,8 @@ pool_offload : Optional[String] = None, pysrc : Optional[String] = None, standar
 def get_functiongroup_attr_hdl_(functiongroup_hdl : FunctionGroup, argin_ : Optional[String] = None, argout_ : Optional[String] = None,   
 comment_ : Optional[String] = None, expr_ : Optional[String] = None, group_ref_ : Optional[String] = None,   
 long_name_ : Optional[String] = None, name_ : Optional[String] = None, offload_ : Optional[String] = None,   
-pool_offload_ : Optional[String] = None, pysrc_ : Optional[String] = None, standard_name_ : Optional[String] = None):
+offset_ : Optional[Duration] = None, pool_offload_ : Optional[String] = None, pysrc_ : Optional[String] = None,   
+standard_name_ : Optional[String] = None):
 
   
   
@@ -370,6 +389,14 @@ pool_offload_ : Optional[String] = None, pysrc_ : Optional[String] = None, stand
     
   
 
+  if offset_ is not None: 
+  
+    offset_c = ctypes.pointer(offset_)
+    # DATE ?
+    lib.cxios_get_functiongroup_offset(functiongroup_hdl, offset_c)
+    
+  
+
   if pool_offload_ is not None:
   
     pool_offload_c = pool_offload_._c_value
@@ -401,15 +428,16 @@ pool_offload_ : Optional[String] = None, pysrc_ : Optional[String] = None, stand
 def is_defined_functiongroup_attr(functiongroup_id : String, argin : Optional[Bool] = None, argout : Optional[Bool] = None,   
 comment : Optional[Bool] = None, expr : Optional[Bool] = None, group_ref : Optional[Bool] = None,   
 long_name : Optional[Bool] = None, name : Optional[Bool] = None, offload : Optional[Bool] = None,   
-pool_offload : Optional[Bool] = None, pysrc : Optional[Bool] = None, standard_name : Optional[Bool] = None):
+offset : Optional[Bool] = None, pool_offload : Optional[Bool] = None, pysrc : Optional[Bool] = None,   
+standard_name : Optional[Bool] = None):
 
   
   functiongroup_hdl = FunctionGroup()
   
 
   get_functiongroup_handle(functiongroup_id, functiongroup_hdl)
-  is_defined_functiongroup_attr_hdl_(functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, pool_offload,  
-   pysrc, standard_name)
+  is_defined_functiongroup_attr_hdl_(functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, offset,  
+   pool_offload, pysrc, standard_name)
   return 
 
 
@@ -418,11 +446,12 @@ pool_offload : Optional[Bool] = None, pysrc : Optional[Bool] = None, standard_na
 def is_defined_functiongroup_attr_hdl(functiongroup_hdl : FunctionGroup, argin : Optional[Bool] = None, argout : Optional[Bool] = None,   
 comment : Optional[Bool] = None, expr : Optional[Bool] = None, group_ref : Optional[Bool] = None,   
 long_name : Optional[Bool] = None, name : Optional[Bool] = None, offload : Optional[Bool] = None,   
-pool_offload : Optional[Bool] = None, pysrc : Optional[Bool] = None, standard_name : Optional[Bool] = None):
+offset : Optional[Bool] = None, pool_offload : Optional[Bool] = None, pysrc : Optional[Bool] = None,   
+standard_name : Optional[Bool] = None):
 
   
-  is_defined_functiongroup_attr_hdl_(functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, pool_offload,  
-   pysrc, standard_name)
+  is_defined_functiongroup_attr_hdl_(functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, offset,  
+   pool_offload, pysrc, standard_name)
   return 
 
 
@@ -431,7 +460,8 @@ pool_offload : Optional[Bool] = None, pysrc : Optional[Bool] = None, standard_na
 def is_defined_functiongroup_attr_hdl_(functiongroup_hdl : FunctionGroup, argin_ : Optional[Bool] = None, argout_ : Optional[Bool] = None,   
 comment_ : Optional[Bool] = None, expr_ : Optional[Bool] = None, group_ref_ : Optional[Bool] = None,   
 long_name_ : Optional[Bool] = None, name_ : Optional[Bool] = None, offload_ : Optional[Bool] = None,   
-pool_offload_ : Optional[Bool] = None, pysrc_ : Optional[Bool] = None, standard_name_ : Optional[Bool] = None):
+offset_ : Optional[Bool] = None, pool_offload_ : Optional[Bool] = None, pysrc_ : Optional[Bool] = None,   
+standard_name_ : Optional[Bool] = None):
 
   
   
@@ -481,6 +511,12 @@ pool_offload_ : Optional[Bool] = None, pysrc_ : Optional[Bool] = None, standard_
   if offload_  is not None:
     offload_c = lib.cxios_is_defined_functiongroup_offload(functiongroup_hdl)
     offload_._c_value = ctypes.c_bool(offload_c)
+    
+  
+
+  if offset_  is not None:
+    offset_c = lib.cxios_is_defined_functiongroup_offset(functiongroup_hdl)
+    offset_._c_value = ctypes.c_bool(offset_c)
     
   
 

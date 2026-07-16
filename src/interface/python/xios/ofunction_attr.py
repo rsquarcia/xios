@@ -21,6 +21,7 @@ class Function(Object):
   'long_name': {'type': str},
   'name': {'type': str},
   'offload': {'type': str},
+  'offset': {'type': Duration},
   'pool_offload': {'type': str},
   'pysrc': {'type': str},
   'standard_name': {'type': str},
