@@ -2521,7 +2521,9 @@ void CContext::removeAllContexts(void)
       std::vector<CField*> offloadFieldOuts = offloadFunction->getOffloadFieldOuts();
       for (auto offloadFieldOut : offloadFieldOuts)
         if (offloadFieldOut->getOffloadPythonSuperFilter() && offloadFieldOut->getOffloadPythonSuperFilter()->isExpectingOffloadData())
+        {
           offloadFieldOut->triggerLateField();
+        }
     }
    }
    CATCH_DUMP_ATTR

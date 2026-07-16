@@ -588,6 +588,17 @@ namespace xios
     return offload_ == "already_offload";
   } 
 
+  /*!
+  \brief Get the offset attribute, it is 0 if not set
+  \return The offset attribute of the function
+  */
+  CDuration CFunction::getOffset()
+  {
+    if (!offset.isEmpty())
+      return offset;
+    return CDuration();
+  }
+
   const std::vector<CFunction::SArgIn>& CFunction::getArgs(NodeId nodeId) const
   {
     auto it = filterArginsMap_.find(nodeId);
@@ -610,6 +621,8 @@ namespace xios
   {
     return type == Variable;
   }
+
+
 
 
 

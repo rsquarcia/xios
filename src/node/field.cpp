@@ -341,8 +341,7 @@ namespace xios
     }
     else if (offloadPythonSuperFilter_)
     {
-      if (offloadPythonSuperFilter_->getExpectDataAtTimeStep() == context_->getCalendar()->getCurrentDate())
-        checkForLateDataFromServer() ;
+      checkForLateDataFromServer() ;
     }
     if (info.isActive(logProfile)) CTimer::get("Check late data (read)").suspend();
   }

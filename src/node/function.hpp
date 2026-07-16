@@ -6,6 +6,7 @@
 #include "filter_graph_types.hpp"
 #include "declare_group.hpp"
 #include "attribute_array.hpp"
+#include "date.hpp"
 
 
 namespace xios
@@ -87,6 +88,8 @@ namespace xios
       CContextClient* getContextClient();
       std::vector<CField*> getOffloadFieldOuts();
 
+      CDuration getOffset();
+
 
 
       // Setters
@@ -161,6 +164,7 @@ namespace xios
       bool isOffloaded_;                                         // True if this function is offloaded
       std::vector<CField*> offloadFieldOuts_;                    // Vector of outgoing fields that will be sent to server for offload
       bool enabled_;                                             // True only if this function is used in the workflow
+      CDuration offset_;                                         // Offset on the reception
 
       std::map<NodeId, std::vector<SArgIn>> filterArginsMap_;      
 

@@ -2,6 +2,7 @@
 #define __XIOS_COffloadPythonSuperFilter
 
 #include <algorithm>
+#include <queue>
 
 #include "filter.hpp"
 #include "filter_engine.hpp"
@@ -81,12 +82,6 @@ namespace xios{
       bool isExpectingOffloadData();
 
       /*!
-       * Method to get the timestamp of the expected offloaded data.
-       * \return the timestamp of the expected offloaded data
-       */
-      Time getExpectDataAtTimeStep();
-
-      /*!
        * Method to register the reception of offloaded data.
        * It increments the counter of received offloaded data.
        */
@@ -106,8 +101,7 @@ namespace xios{
     private:
 
       std::shared_ptr<CPythonFilter> pythonFilter_; // PythonFilter associated to this pythonSuperFilter
-      bool isExpectingOffloadedData_ = false;       // True if this filter is supposed to be trigger 
-      Time expectDataAtTimeStep_;                   // Time when data are expected to be received
+      std::queue<Time> expectedData_;               // FIFO to handle asynchronism and keep track of waiting timestamps
       int nbReceivedOffloadedData_= 0 ;             // Counter to ensure all the lateData arrived     
 
   };

@@ -114,19 +114,15 @@ namespace xios
 
   std::vector<CDataPacketPtr> COffloadPythonSuperFilter::apply(std::vector<CDataPacketPtr> data)
   {
-    isExpectingOffloadedData_ = true;
-    expectDataAtTimeStep_ = data[0]->timestamp;
+    CDate initDate = getContext()->getCalendar()->getInitDate();
+    Time offset = initDate + function_.getOffset();
+    expectedData_.push(data[0]->timestamp + offset);
     return data;
   }
 
   bool COffloadPythonSuperFilter::isExpectingOffloadData()
   {
-    return isExpectingOffloadedData_;
-  }
-
-  Time COffloadPythonSuperFilter::getExpectDataAtTimeStep()
-  {
-    return expectDataAtTimeStep_;
+    return !expectedData_.empty();  
   }
 
   void COffloadPythonSuperFilter::receivedOffloadedData()
@@ -139,7 +135,7 @@ namespace xios
   {
     CContext* context = getContext();
 
-    if (isExpectingOffloadedData_ && expectDataAtTimeStep_ == Time(context->getCalendar()->getCurrentDate()))
+    if (expectedData_.front() == Time(context->getCalendar()->getCurrentDate()))
     {
       CTimer timer("COffloadPythonSuperFilter::checkForLateData");
       timer.resume();
@@ -156,8 +152,8 @@ namespace xios
       timer.resume();
       traceOn() ;
       timer.suspend() ;
-      isExpectingOffloadedData_ = false;
-      trigger(expectDataAtTimeStep_);
+      trigger(expectedData_.front());
+      expectedData_.pop();
     }
     
   }
