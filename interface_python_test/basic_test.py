@@ -70,7 +70,7 @@ elif (rank < client_number):
 
     if rank == 0 : print("\nSending and applying filter through XIOS : \n")
     for i in range(n_fields):
-        if rank == 0 : print(f"\t{ctx.field(f"output_field_model_{i}").id} -> {TESTS[i]}")
+        if rank == 0 : print(f'\t{ctx.field(f"output_field_model_{i}").id} -> {TESTS[i]}')
 
     if rank == 0 : print("\n")
     for ts in range(1, ts_max):
