@@ -337,7 +337,7 @@ namespace xios
     }
 
     return packets;
-}
+  }
 
   int CPythonManager::initializePythonFilter(CFunction& function, NodeId nodeId, const std::string& contextId)
   {
