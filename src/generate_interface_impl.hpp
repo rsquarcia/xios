@@ -1363,7 +1363,7 @@ void CInterface::AttributeObjPythonInterfaceBody<CArray<std::string, 1>>(std::os
     oss << "CHARACTER(len=*) , OPTIONAL, INTENT(IN) :: " << name << "("<<EXTENT<<")"; \
   }\
 \
-  template <>\ 
+  template <>\
   void CInterface::AttributeFortranInterfaceGetDeclaration<CArray<StdString,T> >(ostream& oss, const string& className, const string& name)\
   {\
     oss << "CHARACTER(len=*) , OPTIONAL, INTENT(OUT) :: " << name << "("<<EXTENT<<")"; \
