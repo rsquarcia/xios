@@ -44,7 +44,7 @@ namespace xios{
        * @param arg the curent required argout 
        * @return A SinputPoint 
        */
-      SInputPoint reduceFunction(CGarbageCollector& gc, CField& fieldOut, NodeId nodeId, int argoutIdx) override;
+      SInputPoint reduceFunction(CGarbageCollector& gc, CField& fieldOut, NodeId nodeId, size_t argoutIdx) override;
     
 
       /*!

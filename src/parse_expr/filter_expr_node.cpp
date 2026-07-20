@@ -304,7 +304,7 @@ namespace xios
         filter = embeddedFilterBuilder; 
         filterManager.addFilter(nodeId, filter);
         embeddedFilterBuilder->addInputPoints(inputPoints);
-        int argoutIdx = embeddedFilterBuilder->isFirstOccurence(arg_);
+        size_t argoutIdx = static_cast<size_t>(embeddedFilterBuilder->isFirstOccurence(arg_));
         SInputPoint superSinputPoint = embeddedFilterBuilder->reduceFunction(gc, thisField, nodeId, argoutIdx);
         embeddedFilterBuilder->connectInternalInputPin(superSinputPoint, argoutIdx);
         function->setEnabled();
@@ -428,7 +428,8 @@ namespace xios
         int idxIsFirst = embeddedFilter->isFirstOccurence(arg_);
         if (idxIsFirst != -1)
         {
-          SInputPoint inputPoint = embeddedFilter->reduceFunction(gc, thisField, nodeId, idxIsFirst);
+          size_t argoutIdx = static_cast<size_t>(idxIsFirst);
+          SInputPoint inputPoint = embeddedFilter->reduceFunction(gc, thisField, nodeId, argoutIdx);
           embeddedFilter->connectInternalInputPin(inputPoint, idxIsFirst);
         }
       }

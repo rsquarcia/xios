@@ -99,7 +99,7 @@ namespace xios{
        * @param argoutIdx the idx of the argout of the embeddedFilter we are reducing
        */
 
-      virtual SInputPoint reduceFunction(CGarbageCollector& gc, CField& fieldOut, NodeId nodeId, int argoutIdx) = 0;
+      virtual SInputPoint reduceFunction(CGarbageCollector& gc, CField& fieldOut, NodeId nodeId, size_t argoutIdx) = 0;
 
        /**
        * Add an entry into the arginMap_ at the position corresponding

@@ -31,7 +31,7 @@ namespace xios
   CPythonSuperFilter::~CPythonSuperFilter() = default;
 
 
-  SInputPoint CPythonSuperFilter::reduceFunction(CGarbageCollector& gc, CField& fieldOut, NodeId nodeId, int argoutIdx)
+  SInputPoint CPythonSuperFilter::reduceFunction(CGarbageCollector& gc, CField& fieldOut, NodeId nodeId, size_t argoutIdx)
   {
     pythonFilter_ = std::make_shared<CPythonFilter>(gc, function_, nodeId);
     size_t internalIdx = internalSlotsMap_.size();

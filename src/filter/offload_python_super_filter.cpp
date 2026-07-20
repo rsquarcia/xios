@@ -59,7 +59,7 @@ namespace xios
 
 
 
-  SInputPoint COffloadPythonSuperFilter::reduceFunction(CGarbageCollector& gc, CField& fieldOut, NodeId nodeId, int argoutIdx) 
+  SInputPoint COffloadPythonSuperFilter::reduceFunction(CGarbageCollector& gc, CField& fieldOut, NodeId nodeId, size_t argoutIdx) 
   {
     size_t internalIdx = internalSlotsMap_.size();
     resizeOutputSlots(internalIdx+1);
