@@ -95,6 +95,21 @@ for atest_dir in test_dirs:
             new_config = copy.copy(dparams)
             new_config.update(config)
             config_list.append(new_config)
+    if (os.environ.get('XIOS_RUN_ADVANCED', 'False').lower() in ('true', '1', 't') and
+        os.path.exists(os.path.join(atest_dir, 'user_param_advanced.json'))):
+        # Environment variable level control to enable running advanced configurations.
+        with open(os.path.join(atest_dir, 'user_param_advanced.json'), 'r') as uparam:
+            tmp_config_list = []
+            config_dict = json.load(uparam)
+            for i in range(len(config_dict)):
+                # expand test case config, into one dict per multi-item
+                # e.g. if there are two values for NClients, make 2 list items
+                tmp_config_list.extend(list(product_dict(**config_dict[i])))
+            for config in tmp_config_list:
+                # ensure default params are used, unless overridden by test params
+                new_config = copy.copy(dparams)
+                new_config.update(config)
+                config_list.append(new_config)
 
     tindex = 0
     for config_dict in config_list:
