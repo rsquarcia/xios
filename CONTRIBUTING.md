@@ -51,6 +51,40 @@ all of the intermediate `Merge Request` reviews.
 This work flow can significantly help to manage larger and more invasive changes to the code base.
 For many development activities then it is not required and the simple work flow is fine.
 
+## Testing
+
+The `xios_test_suite` is available for general use by developers and reviewers to test the code base and change branches.
+
+### Continuous Integration
+
+This repository will run Continuous Integration (CI) testing in a Gitlab runner, for Merge Requests and on merger.
+(This uses the `xios_test_suite/pyTestingFramework.py` to generate and run test cases).
+
+The CI testing provides some protection for the code base, but this testing is often not sufficient for full confidence in testing a change.
+
+CI only provides small virtual machines, so all tests that are run can only use up to two processes, commonly
+one client process (`generic-testcase.exe`) and one server process (`xios_server.exe`).
+This carries risk that parallel coding patterns may not be fully exercised by these test configurations.
+
+### Developer Testing
+
+It is recommended that all developers run `xios_test_suite/pyTestingFramework.py`, ensuring that the
+environment variable `GITHUB_ACTION_LIMIT_RANKS` is not set.  This will ensure that parallelism configurations,
+such as 4 client 2 server, are run.
+
+It is also useful to consider running the advanced test configurations, by setting the Environment variable
+`XIOS_RUN_ADVANCED` to `1` or `true`.  This expands the test matrix, including more features, such a two level servers.
+
+Proposed Merge Requests will benefit greatly from reporting the results of running these tests on the developer's platform.
+A simple statement in the MR on which tests were run, summarising success and highlighting test changes implemented to deliver success (if any) is recommended. 
+
+### Adding tests
+
+New feature development and significant bug fixing changes should consider adding test cases to the `xios_test_suite` as part of
+the change proposal.
+It will assist the review process if the Merge Request describes new tests added and whether they will run, or run in part,
+within the CI processes.
+
 ## Issue tracking
 
 ### Merge Request
