@@ -8,6 +8,7 @@ build_dir="./"
 build_suffixed="false"
 use_extern_blitz="false"
 use_memtrack="false"
+use_python="false"
 job="1"
 netcdf_lib="netcdf4_par"
 compil_mode="prod"
@@ -59,6 +60,7 @@ while (($# > 0))
          "--build_dir")  build_dir=$2     ; shift ; shift ;;
          "--build_suffixed")  build_suffixed="true" ; shift  ;;
          "--use_extern_blitz")  use_extern_blitz="true" ; shift  ;;
+         "--use_python")  use_python="true" ; shift  ;;
          "--doc")   doc="true"          ; shift ;;
          "--job")   job=$2              ; shift ; shift ;;
          "--netcdf_lib")   netcdf_lib=$2 ; shift ; shift ;;
@@ -122,6 +124,9 @@ then
   rm -f ${install_dir}/arch.fcm
   rm -f ${install_dir}/arch.env
 
+
+
+
   if test -f $arch_path/arch-${arch}.path
   then
     ln -s $arch_path/arch-${arch}.path ${install_dir}/arch.path
@@ -147,12 +152,14 @@ then
   else
     ln -s .void_file ${install_dir}/arch.env
   fi
+
   source ${install_dir}/arch.env
   source ${install_dir}/arch.path
 else
       echo "Please choose a target achitecture --> list all available architecture using make_xios --avail!"
       exit 1
 fi
+
 
 # Vérification de la présence d'un mode de compilation.
 
@@ -309,6 +316,11 @@ else
    export BLITZ_LIB=""
 fi
 
+if [[ "$use_python" == "true" ]]
+   then
+       XIOS_CPPKEY="$XIOS_CPPKEY USE_PYTHON"
+fi
+
 
 if [[ "$use_memtrack" == "true" ]]
    then
@@ -326,10 +338,10 @@ if [[ "$use_memtrack" == "true" ]]
     fi
 fi 
 
-XIOS_CINCDIR="$NETCDF_INCDIR $HDF5_INCDIR $MPI_INCDIR $BOOST_INCDIR $BLITZ_INCDIR"
-XIOS_FINCDIR="$NETCDF_INCDIR $XIOS_FINCDIR $MPI_INCDIR $BOOST_INCDIR $BLITZ_INCDIR"
+XIOS_CINCDIR="$NETCDF_INCDIR $HDF5_INCDIR $MPI_INCDIR $BOOST_INCDIR $BLITZ_INCDIR $PYTHON_INCDIR $NUMPY_INCDIR"
+XIOS_FINCDIR="$NETCDF_INCDIR $XIOS_FINCDIR $MPI_INCDIR $BOOST_INCDIR $BLITZ_INCDIR $PYTHON_INCDIR $NUMPY_INCDIR"
 
-XIOS_LIB="$XIOS_LIB $NETCDF_LIBDIR $HDF5_LIBDIR $MPI_LIBDIR $NETCDF_LIB $HDF5_LIB $MPI_LIB"
+XIOS_LIB="$XIOS_LIB $NETCDF_LIBDIR $HDF5_LIBDIR $MPI_LIBDIR $PYTHON_LIBDIR $NETCDF_LIB $HDF5_LIB $MPI_LIB $PYTHON_LIB"
 
 rm -f ${install_dir}/config.fcm
 echo "%COMPIL_CFLAGS $COMPIL_CFLAGS" >> ${install_dir}/config.fcm

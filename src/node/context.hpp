@@ -16,6 +16,8 @@
 #include "event_scheduler.hpp"
 #include "filter_manager.hpp"
 #include "file.hpp"
+#include "filter_manager.hpp"
+#include "function.hpp"
 
 namespace xios
 {
@@ -28,9 +30,9 @@ namespace xios
    class CContextAttributes;
    class CContext;
    class CFile;
+   class CFunction;
    class CCouplerIn ;
    class CCouplerOut ;
-   class CFilterManager ;
    ///--------------------------------------------------------------
 
    // Declare/Define CFileAttribute
@@ -100,6 +102,7 @@ namespace xios
          /// Accesseurs ///
          std::shared_ptr<CCalendar>      getCalendar(void) const;
 
+
       public :
          // Initialize server or client
          void init(CServerContext* parentServerContext, MPI_Comm intraComm, int serviceType);
@@ -131,6 +134,10 @@ namespace xios
          std::vector<CField*> findAllEnabledFieldsInFileIn(const std::vector<CFile*>& activeFiles);
          std::vector<CField*> findAllEnabledFieldsCouplerOut(const std::vector<CCouplerOut*>& activeCouplerOut);
          std::vector<CField*> findAllEnabledFieldsCouplerIn(const std::vector<CCouplerIn*>& activeCouplerIn);
+         std::vector<CField*> findAllEnabledFieldsOffloadOut();
+         std::vector<CField*> findAllEnabledFieldsOffloadIn();
+         std::vector<CVariable*> findAllEnabledScalarsOffloadIn();
+         void addOffloadFieldsToEndWorkflowFields(std::vector<CField*>& endWorkflowFields) ;
          // void findAllEnabledFields(void);
          // void findAllEnabledFieldsInReadModeFiles(void);
          void readAttributesOfEnabledFieldsInReadModeFiles();
@@ -141,6 +148,7 @@ namespace xios
          void createCouplerInterCommunicator(void) ;
          void findEnabledWriteModeFiles(void);
          void findEnabledReadModeFiles(void);
+         void findOffloadFunctions(bool isServerOffload);
          void closeAllFile(void);
          void updateCalendar(int step);
          void createFileHeader(void);
@@ -161,6 +169,10 @@ namespace xios
          void distributeFileOverBandwith(const std::vector<CFile*>& files, const string& poolId, const string& serviceId) ; //!< Distribute files overs servers to balance the I/O bandwith
          void distributeFileOverMemoryBandwith(const std::vector<CFile*>& files, const string& poolId, const string& serviceId) ; //!< Distribute files overs servers to minimize the memory consumption
          
+         void distributeFunctions() ;
+         void distributeFunctionsOnSameService(const vector<CFunction*>& functions, const string& poolId, const string& serviceId) ;
+         void distributeFunctionOverOne(const vector<CFunction*>& functions, const string& poolId, const string& serviceId) ; //!< Distribute functions over one single offload server (no distribution)
+
        public:
          // Send context close definition
          void sendCloseDefinition(CContextClient* client) ;
@@ -266,10 +278,11 @@ namespace xios
          virtual bool hasChild(void) const;
 
          bool isProcessingEvent(void) {return isProcessingEvent_;}
-         void setProcessingEvent(void) {isProcessingEvent_=true ;}
-         void unsetProcessingEvent(void) {isProcessingEvent_=false ;}
+         bool setProcessingEvent(void) {isProcessingEvent_=true ;}
+         bool unsetProcessingEvent(void) {isProcessingEvent_=false ;}
          
          void addCouplingChanel(const std::string& contextId, bool out) ;
+
 
       public :
          // Calendar of context
@@ -281,7 +294,8 @@ namespace xios
          std::vector<CFile*> enabledReadModeFiles;
          // List of all enabled files in write mode
          std::vector<CFile*> enabledWriteModeFiles;
-
+         // List of all enabled functions
+         std::vector<CFunction*> offloadFunctions_;
          std::vector<CCouplerIn*> enabledCouplerIn;
          std::vector<CCouplerOut*> enabledCouplerOut;
 
@@ -291,6 +305,7 @@ namespace xios
          std::vector<CField*> fieldsWithReadAccess_;
          std::vector<CField*> couplerInFields_;
          std::vector<CField*> fileInFields_;
+
 
 
          // Context root
@@ -303,8 +318,9 @@ namespace xios
          bool hasServer;
       public:
         void registerFileToWrite(CFile* file) { filesToWrite_.insert(file); } // Add a file that need to be write for example to create headers
+        CFilterManager& getFilterManager();
       private:  
-        std::set<CFile*,FilePtrCompare> filesToWrite_ ;  
+        std::set<CFile*,FilePtrCompare> filesToWrite_ ;
 
       private:
         CContextClient* onlineContextClient_=nullptr ;
@@ -312,9 +328,11 @@ namespace xios
         std::string defaultPoolWriterId_ ;
         std::string defaultPoolReaderId_ ;
         std::string defaultPoolGathererId_ ;
+        std::string defaultPoolOffloadId_ ;
         std::string defaultWriterId_ ;
         std::string defaultReaderId_ ;
         std::string defaultGathererId_ ;
+        std::string defaultOffloadId_ ;
         bool defaultUsingServer2_ ;
         void setDefaultServices(void) ;
 
@@ -330,6 +348,11 @@ namespace xios
         std::vector<CContextServer*> readerServerOut_ ;
         std::vector<CContextClient*> readerClientIn_ ;
         std::vector<CContextServer*> readerServerIn_ ;
+        
+        std::vector<CContextClient*> offloadClientOut_ ;
+        std::vector<CContextServer*> offloadServerOut_ ;
+        std::vector<CContextClient*> offloadClientIn_ ;
+        std::vector<CContextServer*> offloadServerIn_ ;
 
 
         std::map<std::string, CContextClient*> clients_ ;
@@ -403,7 +426,6 @@ namespace xios
         void unlockContext(void) {lockedContext_=false; }
         bool isLockedContext(void) { return lockedContext_;}
       public: // Some function maybe removed in the near future
-        CFilterManager& getFilterManager();
         // virtual void toBinary  (StdOStream & os) const;
         // virtual void fromBinary(StdIStream & is);
       private :

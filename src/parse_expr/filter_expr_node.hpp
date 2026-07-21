@@ -56,8 +56,10 @@ namespace xios
   {
     public:
       /*!
-       * Constructs an expression node representing a reference to a field.
-       * \param [in] fieldId Identifier of the referenced field.
+       * Constructs an expr node corresponding
+       * to the field whose id is provided.
+       *
+       * \param fieldId the identifier of the field
        */
       CFilterFieldExprNode(const std::string& fieldId);
 
@@ -76,9 +78,10 @@ namespace xios
   {
     public:
       /*!
-       * Constructs an expression node representing a temporal reference to a field (e.g. an aggregated or
-       * time-shifted value).
-       * \param [in] fieldId Identifier of the referenced field.
+       * Constructs an expr node corresponding
+       * to the field whose id is provided.
+       *
+       * \param fieldId the identifier of the field
        */
       CFilterTemporalFieldExprNode(const std::string& fieldId);
 
@@ -96,12 +99,13 @@ namespace xios
   {
     public:
       /*!
-       * Constructs an expression node representing an n-ary operation.
-       * The operation is identified by `opId` and is applied to the provided child nodes.
-       * Child nodes may be scalars or field expressions.
-       * \param [in] opId Identifier of the operation to apply.
-       * \param [in] argsList Initializer list of child nodes (scalar or field) to which the operation is applied.
-       * \param [in] arg Optional argument descriptor (positional or named) for this operation.
+       * Constructs an expr node corresponding to the specified operation
+       * applied to the provided scalar and field child nodes.
+       * Note that the child nodes will be destroyed automatically when the parent node
+       * is destroyed.
+       *
+       * \param opId the identifier of the operator
+       * \param args the child vector node to which the operator is applied
        */
       CFilterOpExprNode(const std::string& opId, std::initializer_list<IExprNode> argsList, const SArg& arg = SArg());
       /*!
@@ -113,8 +117,8 @@ namespace xios
       SArg getArg() const override { return arg_; }
 
     private:
-      std::string opId_;                 //!< The identifier of the operation
-      std::vector<IExprNode> args_;      //!< Vector of child nodes to which the operator is applied
+      std::string opId_; //!< The identifier of the field
+      std::vector<IExprNode> args_; //!< The  child vector node to which the operator is applied
       SArg arg_;                         //!< Optional argument descriptor (positional or named)
 
   };

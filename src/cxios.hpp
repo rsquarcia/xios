@@ -83,6 +83,7 @@ namespace xios
      static const string defaultGathererId ;
      static const string defaultWriterId ;
      static const string defaultReaderId ;
+     static const string defaultOffloadId ;
      static const string defaultServicesId ;
 
      static CRegistryManager* registryManager_ ;

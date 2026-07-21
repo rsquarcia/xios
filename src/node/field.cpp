@@ -19,6 +19,7 @@
 #include "lex_parser.hpp"
 #include "temporal_filter.hpp"
 #include "server_from_client_source_filter.hpp"
+#include "offload_python_super_filter.hpp"
 #include "client_online_reader_filter.hpp"
 #include "file_reader_source_filter.hpp"
 #include "grid_redistribute_filter.hpp"
@@ -274,7 +275,8 @@ namespace xios
   void CField::receiveReadDataReady(CEventServer& event)
   TRY
   {
-    clientFromServerSourceFilter_->streamData(event) ;    
+    if (hasOffloadFunction()) clientFromOffloadServerSourceFilter_->streamData(event) ;   
+    else clientFromServerSourceFilter_->streamData(event) ;    
   }
   CATCH_DUMP_ATTR
 
@@ -314,6 +316,7 @@ namespace xios
   void CField::checkForLateDataFromServer(void)
   TRY
   {
+    if (clientFromOffloadServerSourceFilter_) return offloadPythonSuperFilter_->checkForLateData() ;
     if (clientFromServerSourceFilter_) return clientFromServerSourceFilter_->checkForLateData() ;
     else if (clientOnlineReaderFilter_) return clientOnlineReaderFilter_->checkForLateData() ;
     else ERROR("void CField::checkForLateDataFromServer(void)", << "uninitialized source filter");
@@ -335,6 +338,10 @@ namespace xios
     {
       checkForLateDataFromCoupler() ;
       clientFromClientSourceFilter_->trigger(context_->getCalendar()->getCurrentDate()) ;
+    }
+    else if (offloadPythonSuperFilter_)
+    {
+      checkForLateDataFromServer() ;
     }
     if (info.isActive(logProfile)) CTimer::get("Check late data (read)").suspend();
   }
@@ -631,11 +638,13 @@ namespace xios
 
     if (!functor)
       ERROR("void CField::solveServerOperation(void)",
-            << "\"" << operation << "\" is not a valid operation.");
+             << "\"" << operation << "\" is not a valid operation.");
 
     operationTimeType = functor->timeType();
+
   }
   CATCH_DUMP_ATTR
+
 
  //----------------------------------------------------------------
 
@@ -697,7 +706,7 @@ namespace xios
 
       if (node.type == SReducedNode::Filter)
       {
-        SArg arg = expr.get()->getArg();  
+        SArg arg = expr.get()->getArg();
         argoutIdx_ = filterManager.getFilterArgoutIdx(node.nodeId, arg);
       }
       if (!filterExpr) return false ; // workflow graph cannot be built at this stage
@@ -821,6 +830,20 @@ namespace xios
     }
   } 
 
+  void CField::connectToOffloadServer(CGarbageCollector& gc)
+  {
+    clientToServerStoreFilter_ = std::shared_ptr<CClientToServerStoreFilter>(new CClientToServerStoreFilter(gc, this, client_));
+    instantDataFilter_->connectOutput(clientToServerStoreFilter_, 0);
+    const bool buildGraph_ = !build_workflow_graph.isEmpty() && build_workflow_graph == true ;
+    if(buildGraph_) 
+    {
+      clientToServerStoreFilter_->graphPackage = new CGraphPackage;
+      clientToServerStoreFilter_->graphEnabled = true;
+      clientToServerStoreFilter_->graphPackage->inFields.push_back(this);
+    }
+  }
+  
+
 /*
   void CField::connectToOnlineWriter(CGarbageCollector& gc)
   {
@@ -938,6 +961,22 @@ namespace xios
   } 
 
   /*!
+   * Connect field to a source filter to receive data from a server (on client side).
+   */
+  void CField::connectToOffloadServerOutput(CGarbageCollector& gc)
+  {
+    clientFromOffloadServerSourceFilter_ = std::shared_ptr<CClientFromOffloadServerSourceFilter>(new CClientFromOffloadServerSourceFilter(gc,this)) ;
+    clientFromOffloadServerSourceFilter_ -> connectOutput(inputFilter,0) ;
+    const bool buildGraph_ = !build_workflow_graph.isEmpty() && build_workflow_graph == true ;
+    if(buildGraph_)
+    {
+      clientFromOffloadServerSourceFilter_->graphPackage = new CGraphPackage;
+      clientFromOffloadServerSourceFilter_->graphEnabled = true;
+      clientFromOffloadServerSourceFilter_->graphPackage->inFields.push_back(this);
+    }
+  } 
+
+  /*!
    * Connect field to a source filter to receive data from coupler (on client side).
    */
    void CField::connectToCouplerIn(CGarbageCollector& gc)
@@ -1021,6 +1060,41 @@ namespace xios
     }
   }
 
+  void CField::connectInEmbededFilter(CGarbageCollector& gc,
+                                      std::shared_ptr<COutputPin> outputPin,
+                                      size_t slotIdx)
+  {
+    inputFilter = std::make_shared<CPassThroughFilter>(gc);
+    instantDataFilter_ = inputFilter;
+
+    outputPin->connectOutput(inputFilter, 0, slotIdx);
+
+    const bool buildGraph_ = !build_workflow_graph.isEmpty() && build_workflow_graph == true ;
+    if(buildGraph_)
+    {
+      inputFilter->graphPackage = new CGraphPackage;
+      inputFilter->graphEnabled = true;
+      inputFilter->graphPackage->inFields.push_back(this);
+    }
+  }
+
+  void CField::connectOutEmbededFilter(CGarbageCollector& gc,
+                                      std::shared_ptr<CInputPin> inputPin,
+                                      size_t slotIdx)
+  {
+    inputFilter = std::make_shared<CPassThroughFilter>(gc);
+    instantDataFilter_  = inputFilter;
+    instantDataFilter_->connectOutput(inputPin, slotIdx);
+
+    const bool buildGraph_ = !build_workflow_graph.isEmpty() && build_workflow_graph == true ;
+    if(buildGraph_)
+    {
+      inputFilter->graphPackage = new CGraphPackage;
+      inputFilter->graphEnabled = true;
+      inputFilter->graphPackage->inFields.push_back(this);
+    }
+  }
+
   /*!
    * Transform the grid_path attribut into vector of grid.
    * \return the vector CGrid* containing the list of grid path for tranformation
@@ -1061,10 +1135,10 @@ namespace xios
   
   
   /*!
-   * Returns the filter needed to handle a self reference in the field's expression.
+   * Returns the filter needed to handle a self reference in the field's expr.
    * If the needed filter does not exist, it is created, otherwise it is reused.
    * This method should only be called when building the filter graph corresponding
-   * to the field's expression.
+   * to the field's expr.
    *
    * \param gc the garbage collector to use
    * \return the output pin corresponding to a self reference
@@ -1074,9 +1148,9 @@ namespace xios
   std::shared_ptr<COutputPin> CField::getSelfReference(CGarbageCollector& gc)
   TRY
   {
-    if (instantDataFilter || !hasExpression())
+    if (instantDataFilter || !hasExpr())
       ERROR("COutputPin* CField::getSelfReference(CGarbageCollector& gc)",
-            "Impossible to add a self reference to a field which has already been parsed or which does not have an expression.");
+            "Impossible to add a self reference to a field which has already been parsed or which does not have an expr.");
 
     if (!selfReferenceFilter)
     {
@@ -1226,9 +1300,9 @@ namespace xios
   std::shared_ptr<COutputPin> CField::getSelfTemporalDataFilter(CGarbageCollector& gc, CDuration outFreq)
   TRY
   {
-    if (instantDataFilter || !hasExpression())
+    if (instantDataFilter || !hasExpr())
       ERROR("COutputPin* CField::getSelfTemporalDataFilter(CGarbageCollector& gc)",
-            "Impossible to add a self reference to a field which has already been parsed or which does not have an expression.");
+            "Impossible to add a self reference to a field which has already been parsed or which does not have an expr.");
 
     if (!selfReferenceFilter) getSelfReference(gc) ;
 
@@ -1550,6 +1624,18 @@ namespace xios
     this->sendAddAllVariables(client_);
   }
 
+  void CField::sendFieldToOffloadServer(void)
+  {
+    getOffloadFunction()->sendFunctionToServer();
+    context_->sendContextToFileServer(client_);
+    getOffloadFunction()->sendAddField(getId(), client_);
+    sentGrid_ = grid_-> duplicateSentGrid() ;
+    sentGrid_->sendGridToFileServer(client_, true);
+    name = getFieldOutputName() ;
+    this->sendAllAttributesToServer(client_);
+    this->sendAddAllVariables(client_);
+  }
+
   void CField::sendFieldToCouplerOut(void)
   {
     if (sendFieldToCouplerOut_done_) return ;
@@ -1731,12 +1817,20 @@ namespace xios
   CATCH_DUMP_ATTR
 
   /*!
-   * Returns string arithmetic expression associated to the field.
+   * Returns string arithmetic expr associated to the field.
    * \return if content is defined return content string, otherwise, if "expr" attribute is defined, return expr string.
    */
   const string& CField::getExpression(void)
   TRY
   {
+    if (!offload_expr.isEmpty() && offloadContent.empty())
+    {
+      offloadContent = offload_expr;
+      offload_expr.reset();
+    }
+
+    if (!offloadContent.empty()) return offloadContent;
+
     if (!expr.isEmpty() && content.empty())
     {
       content = expr;
@@ -1750,9 +1844,27 @@ namespace xios
   bool CField::hasExpression(void) const
   TRY
   {
-    return (!expr.isEmpty() || !content.empty());
+    return (!expr.isEmpty() || !content.empty()) || (!offload_expr.isEmpty() || !offloadContent.empty());
   }
   CATCH
+  
+  void CField::setExpression(const string& expression)
+  TRY
+  {
+    content = expression;
+    expr.reset();
+    expr = expression;
+  }
+  CATCH_DUMP_ATTR 
+
+  void CField::setOffloadExpression(const string& expression)
+  TRY
+  {
+    offloadContent = expression;
+    offload_expr.reset();
+    offload_expr = expression;
+  }
+  CATCH_DUMP_ATTR 
 
   bool CField::hasGridMask(void) const
   TRY

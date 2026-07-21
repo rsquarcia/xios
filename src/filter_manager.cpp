@@ -11,12 +11,6 @@
 namespace xios
 {
 
-  ///---------------------------------------------------------------
-  /*!
-   * \fn CFilterManager::CFilterManager(CContext& context)
-   * Constructor for the CFilterManager class. Initializes the filter manager with a reference to the XIOS context.
-   * \param [in] context Reference to the XIOS context.
-   */
   // Constructor
   CFilterManager::CFilterManager(CContext& context)
     : context_(context)
@@ -64,27 +58,11 @@ namespace xios
     return id;
   }
 
-  ///---------------------------------------------------------------
-  /*!
-   * \fn void CFilterManager::addFilter(NodeId id, std::shared_ptr<CFilter> filter)
-   * Registers a filter instance in the filter manager's internal map, associating it with a unique node identifier.
-   * This method allows the filter manager to maintain and retrieve filter objects by their computed node IDs.
-   * \param [in] id The unique node identifier for the filter (typically obtained from computeOrGetNodeId()).
-   * \param [in] filter A shared pointer to the filter object to be registered.
-   */
   void CFilterManager::addFilter(NodeId id, std::shared_ptr<CFilter> filter)
   {
     filterMap_[id] = filter;
   }
 
-  ///---------------------------------------------------------------
-  /*!
-   * \fn std::shared_ptr<CFilter> CFilterManager::getFilter(NodeId id)
-   * Retrieves a filter object from the filter manager by its node identifier.
-   * Returns a null shared pointer if no filter with the given node ID is found.
-   * \param [in] id The unique node identifier of the filter to retrieve.
-   * \return A shared pointer to the filter object, or nullptr if the filter is not found.
-   */
   std::shared_ptr<CFilter> CFilterManager::getFilter(NodeId id)
   {
     auto it = filterMap_.find(id);
@@ -99,21 +77,19 @@ namespace xios
   /*!
    * \fn size_t CFilterManager::getFilterArgoutIdx(NodeId id, SArg& arg)
    * Retrieves the argoutIdx of the filter associated to nodeId
-   * it returns 0 expect for embededFilter (filter related to a function)
+   * it returns 0 expect for embeddedFilter (filter related to a function)
    * \param [in] id The unique node identifier of the filter to retrieve.
    * \param [in] arg The representation of the argout (idx or name)
    * \return The argout idx
    */
   size_t CFilterManager::getFilterArgoutIdx(NodeId id, SArg& arg)
   {
-    if (arg.type == SArg::None)
-      return 0;
+    std::shared_ptr<CFilter> filter = getFilter(id);
+    std::shared_ptr<CEmbeddedFilter> embeddedFilter = std::dynamic_pointer_cast<CEmbeddedFilter>(filter);
+    if (embeddedFilter)
+        return embeddedFilter->getFunctionArgoutIdx(arg);
     else
-    {
-      std::shared_ptr<CFilter> filter = getFilter(id);
-      std::shared_ptr<CEmbeddedFilter> embeddedFilter = std::dynamic_pointer_cast<CEmbeddedFilter>(filter);
-      return embeddedFilter->getFunctionArgoutIdx(arg);
-    }
+      return 0;
   }
 
   ///---------------------------------------------------------------
@@ -156,28 +132,16 @@ namespace xios
     return nullptr;
   }
 
-  ///---------------------------------------------------------------
-  /*!
-   * \fn std::string CFilterManager::toString(NodeId id) const
-   * Generates a human-readable string representation of a filter identified by its node ID.
-   * The output format is "operation(input1, input2, ...)" where each input is recursively formatted based on its type
-   * (scalar value for Scalar nodes, field ID for Field nodes, or nested filter representation for Filter nodes).
-   * This function is primarily intended for debugging and diagnostic purposes.
-   * \note This function performs a recursive conversion for nested filters and will trigger an error if the node ID
-   *       is not found in the filter manager.
-   * \param [in] id The unique node identifier of the filter to convert to a string.
-   * \return A string representation of the filter operation and its inputs.
-   */
   // Only for debug uses 
   std::string CFilterManager::toString(NodeId id) const
   {
+    if (id == -1) return "None"; 
     const FilterKey* key = getKey(id);
     if (!key)
       return "not_reusable";
     std::ostringstream oss;
     oss << key->op << "(";
 
-    // Format each input point based on its node type
     for (size_t i = 0; i < key->inputs.size(); ++i)
     {
       if (i) oss << ", ";
@@ -185,17 +149,14 @@ namespace xios
       switch (input.node.type)
       {
         case SReducedNode::Scalar:
-          // Output scalar value directly
           oss << input.node.value;
           break;
 
         case SReducedNode::Field:
-          // Output field identifier
           oss << input.node.fieldId;
           break;
 
         case SReducedNode::Filter:
-          // Recursively format nested filter, with output index if non-zero
           oss << toString(input.node.nodeId);
           oss << "[" << input.outIdx << "]";
           break;
@@ -206,8 +167,4 @@ namespace xios
     return oss.str();
   }
 
-  ///---------------------------------------------------------------
-  // End of CFilterManager class implementation
-  ///---------------------------------------------------------------
-  
 }

@@ -70,6 +70,7 @@ namespace xios
     if (type.getValue() == type_attr::writer) serviceType=CServicesManager::WRITER ;
     else if (type.getValue() == type_attr::reader) serviceType=CServicesManager::READER ;
     else if (type.getValue() == type_attr::gatherer) serviceType=CServicesManager::GATHERER ;
+    else if (type.getValue() == type_attr::offload) serviceType=CServicesManager::OFFLOAD ;
 
     string serviceId ;
     if (!name.isEmpty()) serviceId=name ;

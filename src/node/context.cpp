@@ -35,6 +35,7 @@
 #include "contexts_manager.hpp"
 #include "thread_manager.hpp"
 #include "filter_manager.hpp"
+#include "python_manager.hpp"
 #include <chrono>
 #include <random>
 
@@ -76,6 +77,12 @@ namespace xios
 
      for(auto& client : readerClientIn_) delete client ;
      for(auto& server : readerServerIn_) delete server ;
+     
+     for(auto& client : offloadClientOut_) delete client ;
+     for(auto& server : offloadServerOut_) delete server ;
+
+     for(auto& client : offloadClientIn_) delete client ;
+     for(auto& server : offloadServerIn_) delete server ;
 
 
      if (registryIn!=nullptr) delete registryIn ;
@@ -599,18 +606,23 @@ void CContext::removeAllContexts(void)
     
     server = CContextServer::getNew(this,intraComm_, interCommServer); // check if we need to dupl. intraComm_ ?
     client = CContextClient::getNew(this,intraCommClient,interCommClient);
-    client->setAssociatedServer(server) ;  
-    server->setAssociatedClient(client) ;
+    client->setAssociatedServer(server);  
+    server->setAssociatedClient(client);
     
     if (serviceType_ == CServicesManager::GATHERER || serviceType_ == CServicesManager::WRITER)
-    {  
-      writerServerIn_.push_back(server) ; 
-      writerClientIn_.push_back(client) ; 
+    {
+      writerServerIn_.push_back(server); 
+      writerClientIn_.push_back(client); 
     }
     else if (serviceType_ == CServicesManager::READER)
     {
-      readerServerIn_.push_back(server) ; 
-      readerClientIn_.push_back(client) ; 
+      readerServerIn_.push_back(server); 
+      readerClientIn_.push_back(client); 
+    }
+    else if (serviceType_ == CServicesManager::OFFLOAD)
+    {
+      offloadServerIn_.push_back(server);
+      offloadClientIn_.push_back(client);
     }
   }
   CATCH_DUMP_ATTR
@@ -682,6 +694,10 @@ void CContext::removeAllContexts(void)
       createServerInterComm(CXios::defaultPoolId, CXios::defaultReaderId, clientServers) ;
       readerClientOut_.push_back(clientServers[0].second.first) ; 
       readerServerOut_.push_back(clientServers[0].second.second) ;
+      
+      createServerInterComm(CXios::defaultPoolId, CXios::defaultOffloadId, clientServers) ;
+      offloadClientOut_.push_back(clientServers[0].second.first) ; 
+      offloadServerOut_.push_back(clientServers[0].second.second) ;
 
 
     }
@@ -720,6 +736,7 @@ void CContext::removeAllContexts(void)
         if (serviceType==CServicesManager::WRITER) { writerClientOut_.push_back(clientServer.first)      ; writerServerOut_.push_back(clientServer.second) ; }
         else if (serviceType==CServicesManager::READER) { readerClientOut_.push_back(clientServer.first) ; readerServerOut_.push_back(clientServer.second) ; }
         else if (serviceType==CServicesManager::GATHERER) { writerClientOut_.push_back(clientServer.first) ; writerServerOut_.push_back(clientServer.second) ; }
+        else if (serviceType==CServicesManager::OFFLOAD) { offloadClientOut_.push_back(clientServer.first) ; offloadServerOut_.push_back(clientServer.second) ; }
       }
       serversMap_.insert(make_pair(make_pair(poolId,serviceId),clientServers)) ;
     }
@@ -826,6 +843,10 @@ void CContext::removeAllContexts(void)
       for(auto server : readerServerOut_) finished &= server->eventLoop(enableEventsProcessing);
       for(auto client : readerClientIn_) client->eventLoop();
       for(auto server : readerServerIn_) finished &= server->eventLoop(enableEventsProcessing);
+      for(auto client : offloadClientOut_) client->eventLoop();
+      for(auto server : offloadServerOut_) finished &= server->eventLoop(enableEventsProcessing);
+      for(auto client : offloadClientIn_) client->eventLoop();
+      for(auto server : offloadServerIn_) finished &= server->eventLoop(enableEventsProcessing);
       for(auto couplerOut : couplerOutClient_) couplerOut.second->eventLoop();
       for(auto couplerIn : couplerInClient_) couplerIn.second->eventLoop();
       //for(auto couplerOut : couplerOutServer_) couplerOut.second->eventLoop(enableEventsProcessing);
@@ -966,6 +987,45 @@ void CContext::removeAllContexts(void)
           client->releaseBuffers();
           info(100)<<"DEBUG: context "<<getId()<<" release client writer ok"<<endl ;
         }
+
+        for(int n=0; n<offloadClientOut_.size() ; n++)
+        {
+          client=offloadClientOut_[n] ;
+          server=offloadServerOut_[n] ;
+
+          info(100)<<"DEBUG: context "<<getId()<<" Send client finalize to offload"<<endl ;
+          client->finalize();
+          info(100)<<"DEBUG: context "<<getId()<<" Client finalize sent to offload"<<endl ;
+
+          ////
+          while (client->havePendingRequests()) client->eventLoop();
+          info(100)<<"DEBUG: context "<<getId()<<" no pending request on offload ok"<<endl ;
+          bool notifiedFinalized=false ;
+          do
+          {
+              client->eventLoop();
+              server-> eventLoop();
+              notifiedFinalized = client->isNotifiedFinalized() ;
+          }   while (!notifiedFinalized) ;
+          bool pendingEvent=true;
+          do
+          {
+              server-> eventLoop();
+              pendingEvent = server->hasPendingEvent() ;
+          }   while (pendingEvent) ;
+          ////
+
+          bool bufferReleased;
+          do
+          {
+            client->eventLoop();
+            bufferReleased = !client->havePendingRequests();
+          } while (!bufferReleased);
+
+          server->releaseBuffers();
+          client->releaseBuffers();
+          info(100)<<"DEBUG: context "<<getId()<<" release client offload ok"<<endl ;
+        }
         
         for(int n=0; n<readerClientOut_.size() ; n++)
         {
@@ -982,18 +1042,18 @@ void CContext::removeAllContexts(void)
           }
           info(100)<<"DEBUG: context "<<getId()<<" no pending request on reader ok"<<endl ;
           bool notifiedFinalized=false ;
-         do
-         {
-            client->eventLoop();
-            server-> eventLoop();
-            notifiedFinalized = client->isNotifiedFinalized() ;
-         }   while (!notifiedFinalized) ;
-         bool pendingEvent=true;
-         do
-         {
-            server-> eventLoop();
-            pendingEvent = server->hasPendingEvent() ;
-         }   while (pendingEvent) ;
+          do
+          {
+              client->eventLoop();
+              server-> eventLoop();
+              notifiedFinalized = client->isNotifiedFinalized() ;
+          }   while (!notifiedFinalized) ;
+          bool pendingEvent=true;
+          do
+          {
+              server-> eventLoop();
+              pendingEvent = server->hasPendingEvent() ;
+          }   while (pendingEvent) ;
 
           server->releaseBuffers();
           client->releaseBuffers();
@@ -1044,6 +1104,13 @@ void CContext::removeAllContexts(void)
         readerClientIn_[0]->releaseBuffers();
         readerServerIn_[0]->releaseBuffers();
       }
+      else if (serviceType_==CServicesManager::OFFLOAD)
+      {
+        closeAllFile();
+        CPythonManager::instance().finalize();
+        offloadClientIn_[0]->releaseBuffers();
+        offloadServerIn_[0]->releaseBuffers();
+      }
 
       freeComms() ;
         
@@ -1068,12 +1135,14 @@ void CContext::removeAllContexts(void)
    {
      if (!CXios::isUsingServer())
      {
-       defaultPoolWriterId_ = CXios::defaultPoolId ;
-       defaultPoolReaderId_ = CXios::defaultPoolId ;
+       defaultPoolWriterId_   = CXios::defaultPoolId ;
+       defaultPoolReaderId_   = CXios::defaultPoolId ;
        defaultPoolGathererId_ = CXios::defaultPoolId ;
-       defaultWriterId_ = "attached" ;
-       defaultReaderId_ = "attached" ;
-       defaultGathererId_ =  "attached" ;
+       defaultPoolOffloadId_  = CXios::defaultPoolId ;
+       defaultWriterId_   = "attached" ;
+       defaultReaderId_   = "attached" ;
+       defaultGathererId_ = "attached" ;
+       defaultOffloadId_  = "attached" ;
        defaultUsingServer2_ = false;
      }
      else
@@ -1081,18 +1150,22 @@ void CContext::removeAllContexts(void)
        defaultPoolWriterId_ = CXios::defaultPoolId ;
        defaultPoolReaderId_ = CXios::defaultPoolId ;
        defaultPoolGathererId_ = CXios::defaultPoolId ;
+       defaultPoolOffloadId_ = CXios::defaultPoolId ;
        defaultWriterId_ = CXios::defaultWriterId ;
        defaultReaderId_ = CXios::defaultReaderId ;
        defaultGathererId_ = CXios::defaultGathererId ;
+       defaultOffloadId_ = CXios::defaultOffloadId ;
        defaultUsingServer2_ = CXios::usingServer2 ;
      
-       if (!default_pool.isEmpty())  defaultPoolWriterId_ = defaultPoolReaderId_= defaultPoolGathererId_= default_pool ;
+       if (!default_pool.isEmpty())  defaultPoolWriterId_ = defaultPoolReaderId_= defaultPoolGathererId_= defaultPoolOffloadId_ = default_pool ;
        if (!default_pool_writer.isEmpty()) defaultPoolWriterId_ = default_pool_writer ;
        if (!default_pool_reader.isEmpty()) defaultPoolReaderId_ = default_pool_reader ;
        if (!default_pool_gatherer.isEmpty()) defaultPoolGathererId_ = default_pool_gatherer ;
+       if (!default_pool_offload.isEmpty()) defaultPoolOffloadId_ = default_pool_offload ;
        if (!default_writer.isEmpty()) defaultWriterId_ = default_writer ;
        if (!default_reader.isEmpty()) defaultReaderId_ = default_reader ;
        if (!default_gatherer.isEmpty()) defaultGathererId_ = default_gatherer ;
+       if (!default_offload.isEmpty()) defaultOffloadId_ = default_offload ;
        if (!default_using_server2.isEmpty()) defaultUsingServer2_ = default_using_server2 ;
      }
    }
@@ -1149,24 +1222,29 @@ void CContext::removeAllContexts(void)
 
     //Initialisation du vecteur 'enabledFiles' contenant la liste des fichiers à sortir.
     findEnabledFiles();
-
+    
     // Solve inheritance for field to know if enabled or not.
     for (auto field : CField::getAll(context_)) field->solveRefInheritance();
 
     findEnabledWriteModeFiles();
     findEnabledReadModeFiles();
+    findOffloadFunctions(serviceType_==CServicesManager::OFFLOAD);
     findEnabledCouplerIn();
     findEnabledCouplerOut();
     createCouplerInterCommunicator() ;
 
     // Find all enabled fields of each file      
-    vector<CField*>&& fileOutField = findAllEnabledFieldsInFileOut(this->enabledWriteModeFiles);
-    vector<CField*>&& fileInField = findAllEnabledFieldsInFileIn(this->enabledReadModeFiles);
-    vector<CField*>&& couplerOutField = findAllEnabledFieldsCouplerOut(this->enabledCouplerOut);
-    vector<CField*>&& couplerInField = findAllEnabledFieldsCouplerIn(this->enabledCouplerIn);
+    vector<CField*>&& fileOutField     = findAllEnabledFieldsInFileOut(this->enabledWriteModeFiles);
+    vector<CField*>&& fileInField      = findAllEnabledFieldsInFileIn(this->enabledReadModeFiles);
+    vector<CField*>&& couplerOutField  = findAllEnabledFieldsCouplerOut(this->enabledCouplerOut);
+    vector<CField*>&& couplerInField   = findAllEnabledFieldsCouplerIn(this->enabledCouplerIn);
+    vector<CField*>&& offloadOutFields = findAllEnabledFieldsOffloadOut();  // exiting   point for offload
+    vector<CField*>&& offloadInFields  = findAllEnabledFieldsOffloadIn();   // enterring point for offload
+    vector<CVariable*>&& offloadInScalars = findAllEnabledScalarsOffloadIn();   // enterring point for offload
     findFieldsWithReadAccess();
     vector<CField*>& fieldWithReadAccess = fieldsWithReadAccess_ ;
-    vector<CField*> fieldModelIn ; // fields potentially from model
+    vector<CField*> fieldModelIn ; // fields potentially from model to server
+    vector<CField*> fieldModelOut; // fields potentially from server to model
 
     // define if files are on clientSied or serverSide 
     if (serviceType_==CServicesManager::CLIENT)
@@ -1191,19 +1269,45 @@ void CContext::removeAllContexts(void)
     endWorkflowFields.insert(endWorkflowFields.end(),fileOutField.begin(), fileOutField.end()) ;
     endWorkflowFields.insert(endWorkflowFields.end(),couplerOutField.begin(), couplerOutField.end()) ;
     endWorkflowFields.insert(endWorkflowFields.end(),fieldWithReadAccess.begin(), fieldWithReadAccess.end()) ;
+    if (serviceType_==CServicesManager::OFFLOAD) addOffloadFieldsToEndWorkflowFields(endWorkflowFields);
 
     bool workflowGraphIsCompleted ;
     
     bool first=true ;
+
    
+    std::set<CField*> registeredEndpoints;
+
     do
     {
-      workflowGraphIsCompleted=true; 
-      for(auto endWorkflowField : endWorkflowFields) 
+     workflowGraphIsCompleted = true;
+
+      for (auto field : endWorkflowFields)
+        workflowGraphIsCompleted &= field->buildWorkflowGraph(garbageCollector);
+
+      // We add new fields dynamically
+      offloadOutFields = findAllEnabledFieldsOffloadOut();
+      offloadInFields  = findAllEnabledFieldsOffloadIn();
+      offloadInScalars = findAllEnabledScalarsOffloadIn();
+
+      for (auto field : offloadInFields)
       {
-        workflowGraphIsCompleted &= endWorkflowField->buildWorkflowGraph(garbageCollector) ;
+        if (registeredEndpoints.insert(field).second)
+        {
+          endWorkflowFields.push_back(field);
+          // workflowGraphIsCompleted = false;
+        }
       }
-   
+
+      for (auto field : offloadOutFields)
+      {
+        if (registeredEndpoints.insert(field).second)
+        {
+          endWorkflowFields.push_back(field);
+          // workflowGraphIsCompleted = false;
+        }
+      }
+      
       for(auto couplerIn : enabledCouplerIn) couplerIn->assignContext() ;
       for(auto field : couplerInField) field->makeGridAliasForCoupling();
       for(auto field : couplerInField) this->sendCouplerInReady(field->getContextClient()) ;
@@ -1242,9 +1346,12 @@ void CContext::removeAllContexts(void)
     // get all field coming potentially from model
     for (auto field : CField::getAll(context_) ) if (field->getModelIn()) fieldModelIn.push_back(field) ;
 
+    for (auto field : CField::getAll(context_) ) if (field->getModelOut()) fieldModelOut.push_back(field)  ;
     // Distribute files between secondary servers according to the data size => assign a context to a file and then to fields
 
     if (serviceType_==CServicesManager::CLIENT || serviceType_==CServicesManager::GATHERER) distributeFiles(this->enabledWriteModeFiles) ;
+    if (serviceType_==CServicesManager::CLIENT || serviceType_==CServicesManager::GATHERER) distributeFunctions() ;
+
     /*
     if (serviceType_==CServicesManager::CLIENT )
     {   
@@ -1265,7 +1372,8 @@ void CContext::removeAllContexts(void)
     }
 
     // server side, assign context where to send file data read
-    if (serviceType_==CServicesManager::READER) for(auto file : this->enabledReadModeFiles) file->setContextClient(readerClientIn_[0]) ;
+    if (serviceType_==CServicesManager::READER)  for(auto file : this->enabledReadModeFiles) file->setContextClient(readerClientIn_[0]) ;
+    if (serviceType_==CServicesManager::OFFLOAD)  for(auto field : fieldModelOut) field->setContextClient(offloadClientIn_[0]) ;
    
 
     // workflow startpoint => data from server on client side
@@ -1292,8 +1400,27 @@ void CContext::removeAllContexts(void)
         if (field->getContextClient()->getType() == CContextClient::online)  field->connectToOnlineWriter(garbageCollector) ;
         else  field->connectToFileServer(garbageCollector) ; // connect the field to server filter
       }
+
+      for (auto field : offloadInFields)
+        if (field->getContextClient()->getType() != CContextClient::online) field->connectToOffloadServer(garbageCollector) ; // connect the field to server filter
+
       for(auto field : fileOutField) 
         if (field->getContextClient()->getType() != CContextClient::online) field->sendFieldToFileServer() ;
+
+      for(auto field : offloadInFields)
+      {
+        if (field->getContextClient()->getType() != CContextClient::online) field->sendFieldToOffloadServer() ;
+      }
+
+      for(auto field : offloadOutFields)
+      {
+        if (field->getContextClient()->getType() != CContextClient::online) field->sendFieldToOffloadServer() ;
+      }
+
+      for (auto scalar : offloadInScalars)
+      {
+        if (scalar->getContextClient()->getType() != CContextClient::online) scalar->sendValueToOffloadServer() ;
+      }
     }
 
     // workflow endpoint => write to file
@@ -1303,10 +1430,21 @@ void CContext::removeAllContexts(void)
       {
         field->connectToFileWriter(garbageCollector) ; // connect the field to server filter
       }
+    }   
+
+    // workflow endpoint => sent to model on client side
+    if (serviceType_==CServicesManager::CLIENT)
+    {
+      for(auto field : fieldWithReadAccess) field->connectToModelOutput(garbageCollector) ;
     }
+
+    if (serviceType_==CServicesManager::CLIENT)
+      for (auto field : offloadOutFields) 
+        field->connectToOffloadServerOutput(garbageCollector);
+
     
     // workflow endpoint => Send data from server to client
-    if (serviceType_==CServicesManager::READER || serviceType_==CServicesManager::GATHERER)
+    if (serviceType_==CServicesManager::READER || serviceType_==CServicesManager::GATHERER )
     {
       for(auto field : fileInField) 
       {
@@ -1315,10 +1453,13 @@ void CContext::removeAllContexts(void)
       }
     }
 
-    // workflow endpoint => sent to model on client side
-    if (serviceType_==CServicesManager::CLIENT)
+    if ( serviceType_==CServicesManager::OFFLOAD)
     {
-      for(auto field : fieldWithReadAccess) field->connectToModelOutput(garbageCollector) ;
+      for (auto field : fieldModelOut) 
+      {
+        if (field->getContextClient()->getType() == CContextClient::online) field->connectToServerToClient(garbageCollector);
+        else field->connectToServerToClient(garbageCollector) ;
+      }
     }
 
 
@@ -1333,13 +1474,8 @@ void CContext::removeAllContexts(void)
     }
     
     // workflow startpoint => data from client on server side
-    if (serviceType_==CServicesManager::WRITER || serviceType_==CServicesManager::GATHERER)
-    {
-      for(auto field : fieldModelIn) 
-      {
-        field->connectToClientInput(garbageCollector) ; // connect the field to server filter
-      }
-    }
+    if (serviceType_==CServicesManager::WRITER || serviceType_==CServicesManager::GATHERER || serviceType_==CServicesManager::OFFLOAD)
+      for(auto field : fieldModelIn) field->connectToClientInput(garbageCollector) ; // connect the field to server filter
 
     
     for(auto field : couplerInField) 
@@ -1370,7 +1506,10 @@ void CContext::removeAllContexts(void)
         if (field->getContextClient()->getType()!=CContextClient::online)  slaves[clientsId_[field->getContextClient()]] = field->getContextClient() ; 
       for(auto field : fileInField) 
         if (field->getContextClient()->getType()!=CContextClient::online)  slaves[clientsId_[field->getContextClient()]] = field->getContextClient() ; 
+      for(auto field : offloadInFields) 
+        if (field->getContextClient()->getType()!=CContextClient::online)  slaves[clientsId_[field->getContextClient()]] = field->getContextClient() ;
     }
+
     else if (serviceType_==CServicesManager::GATHERER) 
       for(auto field : fileOutField) slaves[clientsId_[field->getContextClient()]] = field->getContextClient() ;
     for(auto& slave : slaves) slaveServers_.push_back(slave.second) ;   
@@ -1402,6 +1541,8 @@ void CContext::removeAllContexts(void)
     for(auto field : fileOutField) field->evaluateBufferSize(fieldBufferEvaluation, CXios::isOptPerformance) ; // output to server
     for(auto field : couplerOutField) field->evaluateBufferSize(fieldBufferEvaluation, CXios::isOptPerformance) ; // output to coupler
     for(auto field : fileInField) field->evaluateBufferSize(fieldBufferEvaluation, CXios::isOptPerformance) ; // server to client (for io servers)
+    for(auto field : offloadOutFields) field->evaluateBufferSize(fieldBufferEvaluation, CXios::isOptPerformance) ; // output to offload server
+    for(auto field : offloadInFields) field->evaluateBufferSize(fieldBufferEvaluation, CXios::isOptPerformance) ; // output to offload server
     
     // fix size for each context client
     for(auto& it : fieldBufferEvaluation) it.first->setBufferSize(it.second) ;
@@ -1468,6 +1609,47 @@ void CContext::removeAllContexts(void)
      return fields ;
    }
    CATCH_DUMP_ATTR
+
+   vector<CVariable*> CContext::findAllEnabledScalarsOffloadIn()
+   TRY
+   {
+    vector<CVariable*> offloadScalarIns;
+    for (auto function : offloadFunctions_)
+    {
+      vector<CVariable*> scalars = function->getFilterVariables();
+      offloadScalarIns.insert(offloadScalarIns.end(), scalars.begin(), scalars.end());
+    }
+    return offloadScalarIns;
+   }
+   CATCH_DUMP_ATTR
+
+   vector<CField*> CContext::findAllEnabledFieldsOffloadIn()
+   TRY
+   {
+    vector<CField*> offloadFieldIns;
+    for (auto function : offloadFunctions_)
+    {
+      vector<CField*> fields = function->getFilterFields();
+      offloadFieldIns.insert(offloadFieldIns.end(), fields.begin(), fields.end());
+    }
+    return offloadFieldIns;
+   }
+   CATCH_DUMP_ATTR
+   
+   
+   vector<CField*> CContext::findAllEnabledFieldsOffloadOut()
+   TRY
+   {
+    vector<CField*> offloadFieldOuts;
+    for (auto function : offloadFunctions_)
+    {
+      vector<CField*> fields = function->getOffloadFieldOuts();
+      offloadFieldOuts.insert(offloadFieldOuts.end(), fields.begin(), fields.end());
+    }
+    return offloadFieldOuts;
+   }
+   CATCH_DUMP_ATTR
+   
 
  /*!
   * Send context attribute and calendar to file server, it must be done once by context file server
@@ -1543,6 +1725,8 @@ void CContext::removeAllContexts(void)
       const vector<CCouplerIn*> allCouplerIn=CCouplerIn::getAll(context_);
       const vector<CCouplerOut*> allCouplerOut=CCouplerOut::getAll(context_);
       const vector<CGrid*> allGrids= CGrid::getAll(context_);
+    
+      
 
       if (serviceType_==CServicesManager::CLIENT)
       {
@@ -1621,6 +1805,23 @@ void CContext::removeAllContexts(void)
 
    }
    CATCH_DUMP_ATTR
+   
+   void CContext::findOffloadFunctions(bool isOffloadServer)
+   TRY
+   {
+    const std::vector<CFunction*> allFunctions = CFunction::getAll(context_);
+    for (size_t i = 0; i < allFunctions.size(); i++)
+    {
+      if (allFunctions[i]->isOffload())
+      {
+        offloadFunctions_.push_back(allFunctions[i]) ;
+        // At parse time we know wether we are on server or not.
+        if (isOffloadServer)
+          allFunctions[i]->setIsOffloaded();
+      }
+    }
+   }
+   CATCH_DUMP_ATTR
 
    void CContext::findEnabledCouplerIn(void)
    TRY
@@ -1674,6 +1875,23 @@ void CContext::removeAllContexts(void)
    }
    CATCH_DUMP_ATTR
 
+   void CContext::distributeFunctions()
+   TRY
+   {
+      map< pair<string,string>, vector<CFunction*>> functionMaps ;
+      for(auto function : offloadFunctions_)
+      { 
+        if (function->isEnabled())
+        {
+          string poolOffloadId ;
+          string offloadId  ;
+          function->getOffloadServicesId(defaultPoolOffloadId_, defaultOffloadId_, poolOffloadId, offloadId) ;
+          functionMaps[make_pair(poolOffloadId,offloadId)].push_back(function) ;
+        }
+      }
+      for(auto& it : functionMaps) distributeFunctionsOnSameService(it.second, it.first.first, it.first.second) ;
+   }
+   CATCH_DUMP_ATTR
 
    void CContext::distributeFilesOnSameService(const vector<CFile*>& files, const string& poolId, const string& serviceId)
    TRY
@@ -1690,10 +1908,28 @@ void CContext::removeAllContexts(void)
    }
    CATCH_DUMP_ATTR
 
+   void CContext::distributeFunctionsOnSameService(const vector<CFunction*>& functions, const string& poolId, const string& serviceId)
+   TRY
+   {
+     auto offloads = getContextClient(poolId, serviceId) ;
+     int  nbPools = offloads.size() ;
+     if (nbPools == 1) distributeFunctionOverOne(functions, poolId, serviceId) ;
+     else ERROR("CContext::distributeFunctionsOnSameService",
+                << "Function distribution over multiple offload services is not implemented yet.") ;
+   }
+   CATCH_DUMP_ATTR
+
    void CContext::distributeFileOverOne(const vector<CFile*>& files, const string& poolId, const string& serviceId)
    TRY
    {
      for(auto& file : files) file->setContextClient(poolId, serviceId,0) ;
+   }
+   CATCH_DUMP_ATTR
+
+   void CContext::distributeFunctionOverOne(const vector<CFunction*>& functions, const string& poolId, const string& serviceId)
+   TRY
+   {
+     for(auto& function : functions) function->setContextClient(poolId, serviceId,0) ;
    }
    CATCH_DUMP_ATTR
 
@@ -2280,6 +2516,15 @@ void CContext::removeAllContexts(void)
    {
     for(auto& field : fileInFields_) field->triggerLateField() ;
     for(auto& field : couplerInFields_) field->triggerLateField() ;
+    for (auto offloadFunction : offloadFunctions_)
+    {
+      std::vector<CField*> offloadFieldOuts = offloadFunction->getOffloadFieldOuts();
+      for (auto offloadFieldOut : offloadFieldOuts)
+        if (offloadFieldOut->getOffloadPythonSuperFilter() && offloadFieldOut->getOffloadPythonSuperFilter()->isExpectingOffloadData())
+        {
+          offloadFieldOut->triggerLateField();
+        }
+    }
    }
    CATCH_DUMP_ATTR
 
@@ -2343,14 +2588,10 @@ void CContext::removeAllContexts(void)
    CContext* CContext::getCurrent(void)
    TRY
    {
-     if (CObjectFactory::GetCurrentContextId()!="")
-     {
-       return CObjectFactory::GetObject<CContext>(CObjectFactory::GetCurrentContextId(), CObjectFactory::GetCurrentContextId()).get();
-     }
-     else
-     {
-       return nullptr;
-     }
+   if (CObjectFactory::GetCurrentContextId()!="")
+     return CObjectFactory::GetObject<CContext>(CObjectFactory::GetCurrentContextId(), CObjectFactory::GetCurrentContextId()).get();
+   else
+     return nullptr;
    }
    CATCH
 
@@ -2582,4 +2823,16 @@ void CContext::removeAllContexts(void)
     return str;
   }
 
+  void CContext::addOffloadFieldsToEndWorkflowFields(std::vector<CField*>& endWorkflowFields)
+  {
+    std::vector<CField*> allFields = CField::getAll(context_);
+    std::string substr = "_offload";
+    for (auto& field : allFields)
+    {
+      if (field->getId().find(substr) != std::string::npos)
+      {
+        endWorkflowFields.push_back(field);
+      }
+    }   
+  }
 } // namespace xios

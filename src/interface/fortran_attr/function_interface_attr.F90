@@ -135,6 +135,90 @@ MODULE function_interface_attr
     END FUNCTION cxios_is_defined_function_name
 
 
+    SUBROUTINE cxios_set_function_offload(function_hdl, offload, offload_size) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE :: function_hdl
+      CHARACTER(kind = C_CHAR)    , DIMENSION(*) :: offload
+      INTEGER  (kind = C_INT)     , VALUE        :: offload_size
+    END SUBROUTINE cxios_set_function_offload
+
+    SUBROUTINE cxios_get_function_offload(function_hdl, offload, offload_size) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE :: function_hdl
+      CHARACTER(kind = C_CHAR)    , DIMENSION(*) :: offload
+      INTEGER  (kind = C_INT)     , VALUE        :: offload_size
+    END SUBROUTINE cxios_get_function_offload
+
+    FUNCTION cxios_is_defined_function_offload(function_hdl) BIND(C)
+      USE ISO_C_BINDING
+      LOGICAL(kind=C_BOOL) :: cxios_is_defined_function_offload
+      INTEGER (kind = C_INTPTR_T), VALUE :: function_hdl
+    END FUNCTION cxios_is_defined_function_offload
+
+
+    SUBROUTINE cxios_set_function_offset(function_hdl, offset) BIND(C)
+      USE ISO_C_BINDING
+      USE IDURATION
+      INTEGER (kind = C_INTPTR_T), VALUE :: function_hdl
+      TYPE(txios(duration)), VALUE :: offset
+    END SUBROUTINE cxios_set_function_offset
+
+    SUBROUTINE cxios_get_function_offset(function_hdl, offset) BIND(C)
+      USE ISO_C_BINDING
+      USE IDURATION
+      INTEGER (kind = C_INTPTR_T), VALUE :: function_hdl
+      TYPE(txios(duration)) :: offset
+    END SUBROUTINE cxios_get_function_offset
+
+    FUNCTION cxios_is_defined_function_offset(function_hdl) BIND(C)
+      USE ISO_C_BINDING
+      LOGICAL(kind=C_BOOL) :: cxios_is_defined_function_offset
+      INTEGER (kind = C_INTPTR_T), VALUE :: function_hdl
+    END FUNCTION cxios_is_defined_function_offset
+
+
+    SUBROUTINE cxios_set_function_pool_offload(function_hdl, pool_offload, pool_offload_size) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE :: function_hdl
+      CHARACTER(kind = C_CHAR)    , DIMENSION(*) :: pool_offload
+      INTEGER  (kind = C_INT)     , VALUE        :: pool_offload_size
+    END SUBROUTINE cxios_set_function_pool_offload
+
+    SUBROUTINE cxios_get_function_pool_offload(function_hdl, pool_offload, pool_offload_size) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE :: function_hdl
+      CHARACTER(kind = C_CHAR)    , DIMENSION(*) :: pool_offload
+      INTEGER  (kind = C_INT)     , VALUE        :: pool_offload_size
+    END SUBROUTINE cxios_get_function_pool_offload
+
+    FUNCTION cxios_is_defined_function_pool_offload(function_hdl) BIND(C)
+      USE ISO_C_BINDING
+      LOGICAL(kind=C_BOOL) :: cxios_is_defined_function_pool_offload
+      INTEGER (kind = C_INTPTR_T), VALUE :: function_hdl
+    END FUNCTION cxios_is_defined_function_pool_offload
+
+
+    SUBROUTINE cxios_set_function_pysrc(function_hdl, pysrc, pysrc_size) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE :: function_hdl
+      CHARACTER(kind = C_CHAR)    , DIMENSION(*) :: pysrc
+      INTEGER  (kind = C_INT)     , VALUE        :: pysrc_size
+    END SUBROUTINE cxios_set_function_pysrc
+
+    SUBROUTINE cxios_get_function_pysrc(function_hdl, pysrc, pysrc_size) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE :: function_hdl
+      CHARACTER(kind = C_CHAR)    , DIMENSION(*) :: pysrc
+      INTEGER  (kind = C_INT)     , VALUE        :: pysrc_size
+    END SUBROUTINE cxios_get_function_pysrc
+
+    FUNCTION cxios_is_defined_function_pysrc(function_hdl) BIND(C)
+      USE ISO_C_BINDING
+      LOGICAL(kind=C_BOOL) :: cxios_is_defined_function_pysrc
+      INTEGER (kind = C_INTPTR_T), VALUE :: function_hdl
+    END FUNCTION cxios_is_defined_function_pysrc
+
+
     SUBROUTINE cxios_set_function_standard_name(function_hdl, standard_name, standard_name_size) BIND(C)
       USE ISO_C_BINDING
       INTEGER (kind = C_INTPTR_T), VALUE :: function_hdl

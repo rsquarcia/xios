@@ -1,4 +1,4 @@
-#include "super_filter.hpp"
+  #include "super_filter.hpp"
 #include "timer.hpp"
 #include "function.hpp"
 #include "field.hpp"
@@ -24,15 +24,15 @@ namespace xios
 
   // Reduce the vector of call tree from function_ into a vector of (outputPin, outputIdx) where outputIdx is the outputPin slot idx 
   // corresponding to the required output
-  SInputPoint CSuperFilter::reduceFunction(CGarbageCollector& gc, CField& fieldOut, NodeId nodeId, int argoutIdx)
+  SInputPoint CSuperFilter::reduceFunction(CGarbageCollector& gc, CField& fieldOut, NodeId nodeId, size_t argoutIdx)
   {
     CFilterManager& filterManager = getContext()->getFilterManager();
     size_t internalIdx = internalSlotsMap_.size();
-    std::shared_ptr<IFilterExprNode> expr(function_.getTreeFromExpr()[argoutIdx]);
     // We get the vector of expression (multiple output expression), lazy parsing
-    if (argoutIdx >= function_.getNumArgout() || argoutIdx == -1)
+    if (argoutIdx >= function_.getNumArgout())
        ERROR("SInputPoint CSuperFilter::reduceFunction(CGarbageCollector& gc, CField& fieldOut, NodeId nodeId, int argoutIdx)",
             " The argoutIdx " << argoutIdx << " is out of bound ! There are only " << function_.getNumArgout() << " outputs available for the function " << function_.getId());
+    std::shared_ptr<IFilterExprNode> expr(function_.getTreeFromExpr()[argoutIdx]);
 
     // We update the embeddedFilter pinSlot numbers
     resizeOutputSlots(internalIdx+1);

@@ -54,7 +54,7 @@ namespace xios
       /*!
        * Constructs an expression node corresponding
        * to the scalar variable whose id is provided.
-       * also used for scalar used as function arguments
+       *
        * \param varId the identifier of the scalar variable
        */
       CScalarVarExprNode(const std::string& varId);

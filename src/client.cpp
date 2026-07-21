@@ -459,6 +459,7 @@ namespace xios
       getPoolRessource()->createNewServiceOnto(id+"_"+CXios::defaultWriterId, CServicesManager::WRITER, id) ;
 //      getPoolRessource()->createService(contextComm, eventScheduler, id+"_"+CXios::defaultReaderId, 0, CServicesManager::READER, 1) ;
       getPoolRessource()->createNewServiceOnto(id+"_"+CXios::defaultReaderId, CServicesManager::READER, id) ;
+      getPoolRessource()->createNewServiceOnto(id+"_"+CXios::defaultOffloadId, CServicesManager::OFFLOAD, id) ;
 
       if (commRank==0) while (!CXios::getServicesManager()->hasService(getPoolRessource()->getId(), id, 0)) { CXios::getDaemonsManager()->eventLoop();}
 

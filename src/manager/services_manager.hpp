@@ -18,13 +18,15 @@ namespace xios
   {
 
     public: 
+    
     static const int CLIENT=0 ;
     static const int GATHERER=1 ;
     static const int WRITER=2 ;
     static const int READER=3 ;
-    static const int IO_SERVER=4 ;
-    static const int OUT_SERVER=5 ;
-    static const int ALL_SERVICES=6 ;
+    static const int OFFLOAD=4 ;
+    static const int IO_SERVER=5 ;
+    static const int OUT_SERVER=6 ;
+    static const int ALL_SERVICES=7 ;
 
     private:
     const int NOTIFY_NOTHING=0 ;

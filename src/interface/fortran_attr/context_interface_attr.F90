@@ -49,6 +49,27 @@ MODULE context_interface_attr
     END FUNCTION cxios_is_defined_context_default_gatherer
 
 
+    SUBROUTINE cxios_set_context_default_offload(context_hdl, default_offload, default_offload_size) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE :: context_hdl
+      CHARACTER(kind = C_CHAR)    , DIMENSION(*) :: default_offload
+      INTEGER  (kind = C_INT)     , VALUE        :: default_offload_size
+    END SUBROUTINE cxios_set_context_default_offload
+
+    SUBROUTINE cxios_get_context_default_offload(context_hdl, default_offload, default_offload_size) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE :: context_hdl
+      CHARACTER(kind = C_CHAR)    , DIMENSION(*) :: default_offload
+      INTEGER  (kind = C_INT)     , VALUE        :: default_offload_size
+    END SUBROUTINE cxios_get_context_default_offload
+
+    FUNCTION cxios_is_defined_context_default_offload(context_hdl) BIND(C)
+      USE ISO_C_BINDING
+      LOGICAL(kind=C_BOOL) :: cxios_is_defined_context_default_offload
+      INTEGER (kind = C_INTPTR_T), VALUE :: context_hdl
+    END FUNCTION cxios_is_defined_context_default_offload
+
+
     SUBROUTINE cxios_set_context_default_pool(context_hdl, default_pool, default_pool_size) BIND(C)
       USE ISO_C_BINDING
       INTEGER (kind = C_INTPTR_T), VALUE :: context_hdl
@@ -89,6 +110,27 @@ MODULE context_interface_attr
       LOGICAL(kind=C_BOOL) :: cxios_is_defined_context_default_pool_gatherer
       INTEGER (kind = C_INTPTR_T), VALUE :: context_hdl
     END FUNCTION cxios_is_defined_context_default_pool_gatherer
+
+
+    SUBROUTINE cxios_set_context_default_pool_offload(context_hdl, default_pool_offload, default_pool_offload_size) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE :: context_hdl
+      CHARACTER(kind = C_CHAR)    , DIMENSION(*) :: default_pool_offload
+      INTEGER  (kind = C_INT)     , VALUE        :: default_pool_offload_size
+    END SUBROUTINE cxios_set_context_default_pool_offload
+
+    SUBROUTINE cxios_get_context_default_pool_offload(context_hdl, default_pool_offload, default_pool_offload_size) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE :: context_hdl
+      CHARACTER(kind = C_CHAR)    , DIMENSION(*) :: default_pool_offload
+      INTEGER  (kind = C_INT)     , VALUE        :: default_pool_offload_size
+    END SUBROUTINE cxios_get_context_default_pool_offload
+
+    FUNCTION cxios_is_defined_context_default_pool_offload(context_hdl) BIND(C)
+      USE ISO_C_BINDING
+      LOGICAL(kind=C_BOOL) :: cxios_is_defined_context_default_pool_offload
+      INTEGER (kind = C_INTPTR_T), VALUE :: context_hdl
+    END FUNCTION cxios_is_defined_context_default_pool_offload
 
 
     SUBROUTINE cxios_set_context_default_pool_reader(context_hdl, default_pool_reader, default_pool_reader_size) BIND(C)

@@ -89,6 +89,7 @@ namespace xios
       event.setFirst() ;
       while(!event.isEmpty())
       {
+
         int rank=event.getRank() ;
         auto itBuffer=buffers_.find(rank) ;
         if (itBuffer==buffers_.end()) 

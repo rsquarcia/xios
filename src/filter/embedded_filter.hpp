@@ -47,7 +47,7 @@ namespace xios{
        * \param inputPoint the inputPoint which is used to be connected
        * \param argoutIdx
        */
-      void connectInternalInputPin(SInputPoint inputPoint, int argoutIdx);
+      virtual void connectInternalInputPin(SInputPoint inputPoint, int argoutIdx);
 
       /*!
        * connect directly an internalOutputPin to an internalInputPin
@@ -91,15 +91,15 @@ namespace xios{
 
       /**
        * virtual method that return the inputPoint corresponding to the last
-       * one of the filters inside the embededFilter (just before the internalInputPin)
+       * one of the filters inside the embeddedFilter (just before the internalInputPin)
        *
        * @param gc the garbage collector
        * @param fieldOut the field of wich the filter result is 
-       * @param nodeId the embededFilter id
+       * @param nodeId the embeddedFilter id
        * @param argoutIdx the idx of the argout of the embeddedFilter we are reducing
        */
 
-      virtual SInputPoint reduceFunction(CGarbageCollector& gc, CField& fieldOut, NodeId nodeId, int argoutIdx) = 0;
+      virtual SInputPoint reduceFunction(CGarbageCollector& gc, CField& fieldOut, NodeId nodeId, size_t argoutIdx) = 0;
 
        /**
        * Add an entry into the arginMap_ at the position corresponding

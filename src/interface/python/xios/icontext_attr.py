@@ -35,6 +35,15 @@ lib.cxios_set_context_default_gatherer.restype = None
 lib.cxios_is_defined_context_default_gatherer.argtypes = [Context]
 lib.cxios_is_defined_context_default_gatherer.restype = ctypes.c_bool
 
+lib.cxios_get_context_default_offload.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
+lib.cxios_get_context_default_offload.restype = None
+
+lib.cxios_set_context_default_offload.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
+lib.cxios_set_context_default_offload.restype = None
+
+lib.cxios_is_defined_context_default_offload.argtypes = [Context]
+lib.cxios_is_defined_context_default_offload.restype = ctypes.c_bool
+
 lib.cxios_get_context_default_pool.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
 lib.cxios_get_context_default_pool.restype = None
 
@@ -52,6 +61,15 @@ lib.cxios_set_context_default_pool_gatherer.restype = None
 
 lib.cxios_is_defined_context_default_pool_gatherer.argtypes = [Context]
 lib.cxios_is_defined_context_default_pool_gatherer.restype = ctypes.c_bool
+
+lib.cxios_get_context_default_pool_offload.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
+lib.cxios_get_context_default_pool_offload.restype = None
+
+lib.cxios_set_context_default_pool_offload.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
+lib.cxios_set_context_default_pool_offload.restype = None
+
+lib.cxios_is_defined_context_default_pool_offload.argtypes = [Context]
+lib.cxios_is_defined_context_default_pool_offload.restype = ctypes.c_bool
 
 lib.cxios_get_context_default_pool_reader.argtypes = [Context, ctypes.c_char_p, ctypes.c_int]
 lib.cxios_get_context_default_pool_reader.restype = None
@@ -113,7 +131,8 @@ lib.cxios_is_defined_context_output_dir.restype = ctypes.c_bool
 
 @typecheck
 def set_context_attr(context_id : Union[String, str], attached_mode : Optional[Union[Bool, bool]] = None, default_gatherer : Optional[Union[str, String]] = None,   
-default_pool : Optional[Union[str, String]] = None, default_pool_gatherer : Optional[Union[str, String]] = None,   
+default_offload : Optional[Union[str, String]] = None, default_pool : Optional[Union[str, String]] = None,   
+default_pool_gatherer : Optional[Union[str, String]] = None, default_pool_offload : Optional[Union[str, String]] = None,   
 default_pool_reader : Optional[Union[str, String]] = None, default_pool_writer : Optional[Union[str, String]] = None,   
 default_reader : Optional[Union[str, String]] = None, default_using_server2 : Optional[Union[Bool, bool]] = None,   
 default_writer : Optional[Union[str, String]] = None, output_dir : Optional[Union[str, String]] = None):
@@ -123,29 +142,33 @@ default_writer : Optional[Union[str, String]] = None, output_dir : Optional[Unio
   
 
   get_context_handle(context_id, context_hdl)
-  set_context_attr_hdl_(context_hdl, attached_mode, default_gatherer, default_pool, default_pool_gatherer, default_pool_reader,  
-   default_pool_writer, default_reader, default_using_server2, default_writer, output_dir)
+  set_context_attr_hdl_(context_hdl, attached_mode, default_gatherer, default_offload, default_pool, default_pool_gatherer,  
+   default_pool_offload, default_pool_reader, default_pool_writer, default_reader, default_using_server2,  
+   default_writer, output_dir)
   return 
 
 
 
 @typecheck
 def set_context_attr_hdl(context_hdl : Context, attached_mode : Optional[Union[Bool, bool]] = None, default_gatherer : Optional[Union[str, String]] = None,   
-default_pool : Optional[Union[str, String]] = None, default_pool_gatherer : Optional[Union[str, String]] = None,   
+default_offload : Optional[Union[str, String]] = None, default_pool : Optional[Union[str, String]] = None,   
+default_pool_gatherer : Optional[Union[str, String]] = None, default_pool_offload : Optional[Union[str, String]] = None,   
 default_pool_reader : Optional[Union[str, String]] = None, default_pool_writer : Optional[Union[str, String]] = None,   
 default_reader : Optional[Union[str, String]] = None, default_using_server2 : Optional[Union[Bool, bool]] = None,   
 default_writer : Optional[Union[str, String]] = None, output_dir : Optional[Union[str, String]] = None):
 
   
-  set_context_attr_hdl_(context_hdl, attached_mode, default_gatherer, default_pool, default_pool_gatherer, default_pool_reader,  
-   default_pool_writer, default_reader, default_using_server2, default_writer, output_dir)
+  set_context_attr_hdl_(context_hdl, attached_mode, default_gatherer, default_offload, default_pool, default_pool_gatherer,  
+   default_pool_offload, default_pool_reader, default_pool_writer, default_reader, default_using_server2,  
+   default_writer, output_dir)
   return 
 
 
 
 @typecheck
 def set_context_attr_hdl_(context_hdl : Context, attached_mode_ : Optional[Union[Bool, bool]] = None, default_gatherer_ : Optional[Union[str, String]] = None,   
-default_pool_ : Optional[Union[str, String]] = None, default_pool_gatherer_ : Optional[Union[str, String]] = None,   
+default_offload_ : Optional[Union[str, String]] = None, default_pool_ : Optional[Union[str, String]] = None,   
+default_pool_gatherer_ : Optional[Union[str, String]] = None, default_pool_offload_ : Optional[Union[str, String]] = None,   
 default_pool_reader_ : Optional[Union[str, String]] = None, default_pool_writer_ : Optional[Union[str, String]] = None,   
 default_reader_ : Optional[Union[str, String]] = None, default_using_server2_ : Optional[Union[Bool, bool]] = None,   
 default_writer_ : Optional[Union[str, String]] = None, output_dir_ : Optional[Union[str, String]] = None):
@@ -170,6 +193,15 @@ default_writer_ : Optional[Union[str, String]] = None, output_dir_ : Optional[Un
     
   
 
+  if default_offload_ is not None:
+  
+    default_offload_= String(default_offload_)
+    default_offload_c = default_offload_._c_value
+    len_default_offload_c = len(ctypes.string_at(default_offload_c))
+    lib.cxios_set_context_default_offload(context_hdl, default_offload_c, len_default_offload_c)
+    
+  
+
   if default_pool_ is not None:
   
     default_pool_= String(default_pool_)
@@ -185,6 +217,15 @@ default_writer_ : Optional[Union[str, String]] = None, output_dir_ : Optional[Un
     default_pool_gatherer_c = default_pool_gatherer_._c_value
     len_default_pool_gatherer_c = len(ctypes.string_at(default_pool_gatherer_c))
     lib.cxios_set_context_default_pool_gatherer(context_hdl, default_pool_gatherer_c, len_default_pool_gatherer_c)
+    
+  
+
+  if default_pool_offload_ is not None:
+  
+    default_pool_offload_= String(default_pool_offload_)
+    default_pool_offload_c = default_pool_offload_._c_value
+    len_default_pool_offload_c = len(ctypes.string_at(default_pool_offload_c))
+    lib.cxios_set_context_default_pool_offload(context_hdl, default_pool_offload_c, len_default_pool_offload_c)
     
   
 
@@ -246,7 +287,8 @@ default_writer_ : Optional[Union[str, String]] = None, output_dir_ : Optional[Un
 
 @typecheck
 def get_context_attr(context_id : Union[String, str], attached_mode : Optional[Bool] = None, default_gatherer : Optional[String] = None,   
-default_pool : Optional[String] = None, default_pool_gatherer : Optional[String] = None, default_pool_reader : Optional[String] = None,   
+default_offload : Optional[String] = None, default_pool : Optional[String] = None, default_pool_gatherer : Optional[String] = None,   
+default_pool_offload : Optional[String] = None, default_pool_reader : Optional[String] = None,   
 default_pool_writer : Optional[String] = None, default_reader : Optional[String] = None, default_using_server2 : Optional[Bool] = None,   
 default_writer : Optional[String] = None, output_dir : Optional[String] = None):
 
@@ -255,31 +297,35 @@ default_writer : Optional[String] = None, output_dir : Optional[String] = None):
   
 
   get_context_handle(context_id, context_hdl)
-  get_context_attr_hdl_(context_hdl, attached_mode, default_gatherer, default_pool, default_pool_gatherer, default_pool_reader,  
-   default_pool_writer, default_reader, default_using_server2, default_writer, output_dir)
+  get_context_attr_hdl_(context_hdl, attached_mode, default_gatherer, default_offload, default_pool, default_pool_gatherer,  
+   default_pool_offload, default_pool_reader, default_pool_writer, default_reader, default_using_server2,  
+   default_writer, output_dir)
   return 
 
 
 
 @typecheck
 def get_context_attr_hdl(context_hdl : Context, attached_mode : Optional[Bool] = None, default_gatherer : Optional[String] = None,   
-default_pool : Optional[String] = None, default_pool_gatherer : Optional[String] = None, default_pool_reader : Optional[String] = None,   
+default_offload : Optional[String] = None, default_pool : Optional[String] = None, default_pool_gatherer : Optional[String] = None,   
+default_pool_offload : Optional[String] = None, default_pool_reader : Optional[String] = None,   
 default_pool_writer : Optional[String] = None, default_reader : Optional[String] = None, default_using_server2 : Optional[Bool] = None,   
 default_writer : Optional[String] = None, output_dir : Optional[String] = None):
 
   
-  get_context_attr_hdl_(context_hdl, attached_mode, default_gatherer, default_pool, default_pool_gatherer, default_pool_reader,  
-   default_pool_writer, default_reader, default_using_server2, default_writer, output_dir)
+  get_context_attr_hdl_(context_hdl, attached_mode, default_gatherer, default_offload, default_pool, default_pool_gatherer,  
+   default_pool_offload, default_pool_reader, default_pool_writer, default_reader, default_using_server2,  
+   default_writer, output_dir)
   return 
 
 
 
 @typecheck
 def get_context_attr_hdl_(context_hdl : Context, attached_mode_ : Optional[Bool] = None, default_gatherer_ : Optional[String] = None,   
-default_pool_ : Optional[String] = None, default_pool_gatherer_ : Optional[String] = None,   
-default_pool_reader_ : Optional[String] = None, default_pool_writer_ : Optional[String] = None,   
-default_reader_ : Optional[String] = None, default_using_server2_ : Optional[Bool] = None,   
-default_writer_ : Optional[String] = None, output_dir_ : Optional[String] = None):
+default_offload_ : Optional[String] = None, default_pool_ : Optional[String] = None, default_pool_gatherer_ : Optional[String] = None,   
+default_pool_offload_ : Optional[String] = None, default_pool_reader_ : Optional[String] = None,   
+default_pool_writer_ : Optional[String] = None, default_reader_ : Optional[String] = None,   
+default_using_server2_ : Optional[Bool] = None, default_writer_ : Optional[String] = None,   
+output_dir_ : Optional[String] = None):
 
   
   
@@ -299,6 +345,14 @@ default_writer_ : Optional[String] = None, output_dir_ : Optional[String] = None
     
   
 
+  if default_offload_ is not None:
+  
+    default_offload_c = default_offload_._c_value
+    len_default_offload_c = len(ctypes.string_at(default_offload_c))
+    lib.cxios_get_context_default_offload(context_hdl, default_offload_c, len_default_offload_c)
+    
+  
+
   if default_pool_ is not None:
   
     default_pool_c = default_pool_._c_value
@@ -312,6 +366,14 @@ default_writer_ : Optional[String] = None, output_dir_ : Optional[String] = None
     default_pool_gatherer_c = default_pool_gatherer_._c_value
     len_default_pool_gatherer_c = len(ctypes.string_at(default_pool_gatherer_c))
     lib.cxios_get_context_default_pool_gatherer(context_hdl, default_pool_gatherer_c, len_default_pool_gatherer_c)
+    
+  
+
+  if default_pool_offload_ is not None:
+  
+    default_pool_offload_c = default_pool_offload_._c_value
+    len_default_pool_offload_c = len(ctypes.string_at(default_pool_offload_c))
+    lib.cxios_get_context_default_pool_offload(context_hdl, default_pool_offload_c, len_default_pool_offload_c)
     
   
 
@@ -367,7 +429,8 @@ default_writer_ : Optional[String] = None, output_dir_ : Optional[String] = None
 
 @typecheck
 def is_defined_context_attr(context_id : String, attached_mode : Optional[Bool] = None, default_gatherer : Optional[Bool] = None,   
-default_pool : Optional[Bool] = None, default_pool_gatherer : Optional[Bool] = None, default_pool_reader : Optional[Bool] = None,   
+default_offload : Optional[Bool] = None, default_pool : Optional[Bool] = None, default_pool_gatherer : Optional[Bool] = None,   
+default_pool_offload : Optional[Bool] = None, default_pool_reader : Optional[Bool] = None,   
 default_pool_writer : Optional[Bool] = None, default_reader : Optional[Bool] = None, default_using_server2 : Optional[Bool] = None,   
 default_writer : Optional[Bool] = None, output_dir : Optional[Bool] = None):
 
@@ -376,28 +439,32 @@ default_writer : Optional[Bool] = None, output_dir : Optional[Bool] = None):
   
 
   get_context_handle(context_id, context_hdl)
-  is_defined_context_attr_hdl_(context_hdl, attached_mode, default_gatherer, default_pool, default_pool_gatherer, default_pool_reader,  
-   default_pool_writer, default_reader, default_using_server2, default_writer, output_dir)
+  is_defined_context_attr_hdl_(context_hdl, attached_mode, default_gatherer, default_offload, default_pool, default_pool_gatherer,  
+   default_pool_offload, default_pool_reader, default_pool_writer, default_reader, default_using_server2,  
+   default_writer, output_dir)
   return 
 
 
 
 @typecheck
 def is_defined_context_attr_hdl(context_hdl : Context, attached_mode : Optional[Bool] = None, default_gatherer : Optional[Bool] = None,   
-default_pool : Optional[Bool] = None, default_pool_gatherer : Optional[Bool] = None, default_pool_reader : Optional[Bool] = None,   
+default_offload : Optional[Bool] = None, default_pool : Optional[Bool] = None, default_pool_gatherer : Optional[Bool] = None,   
+default_pool_offload : Optional[Bool] = None, default_pool_reader : Optional[Bool] = None,   
 default_pool_writer : Optional[Bool] = None, default_reader : Optional[Bool] = None, default_using_server2 : Optional[Bool] = None,   
 default_writer : Optional[Bool] = None, output_dir : Optional[Bool] = None):
 
   
-  is_defined_context_attr_hdl_(context_hdl, attached_mode, default_gatherer, default_pool, default_pool_gatherer, default_pool_reader,  
-   default_pool_writer, default_reader, default_using_server2, default_writer, output_dir)
+  is_defined_context_attr_hdl_(context_hdl, attached_mode, default_gatherer, default_offload, default_pool, default_pool_gatherer,  
+   default_pool_offload, default_pool_reader, default_pool_writer, default_reader, default_using_server2,  
+   default_writer, output_dir)
   return 
 
 
 
 @typecheck
 def is_defined_context_attr_hdl_(context_hdl : Context, attached_mode_ : Optional[Bool] = None, default_gatherer_ : Optional[Bool] = None,   
-default_pool_ : Optional[Bool] = None, default_pool_gatherer_ : Optional[Bool] = None, default_pool_reader_ : Optional[Bool] = None,   
+default_offload_ : Optional[Bool] = None, default_pool_ : Optional[Bool] = None, default_pool_gatherer_ : Optional[Bool] = None,   
+default_pool_offload_ : Optional[Bool] = None, default_pool_reader_ : Optional[Bool] = None,   
 default_pool_writer_ : Optional[Bool] = None, default_reader_ : Optional[Bool] = None, default_using_server2_ : Optional[Bool] = None,   
 default_writer_ : Optional[Bool] = None, output_dir_ : Optional[Bool] = None):
 
@@ -416,6 +483,12 @@ default_writer_ : Optional[Bool] = None, output_dir_ : Optional[Bool] = None):
     
   
 
+  if default_offload_  is not None:
+    default_offload_c = lib.cxios_is_defined_context_default_offload(context_hdl)
+    default_offload_._c_value = ctypes.c_bool(default_offload_c)
+    
+  
+
   if default_pool_  is not None:
     default_pool_c = lib.cxios_is_defined_context_default_pool(context_hdl)
     default_pool_._c_value = ctypes.c_bool(default_pool_c)
@@ -425,6 +498,12 @@ default_writer_ : Optional[Bool] = None, output_dir_ : Optional[Bool] = None):
   if default_pool_gatherer_  is not None:
     default_pool_gatherer_c = lib.cxios_is_defined_context_default_pool_gatherer(context_hdl)
     default_pool_gatherer_._c_value = ctypes.c_bool(default_pool_gatherer_c)
+    
+  
+
+  if default_pool_offload_  is not None:
+    default_pool_offload_c = lib.cxios_is_defined_context_default_pool_offload(context_hdl)
+    default_pool_offload_._c_value = ctypes.c_bool(default_pool_offload_c)
     
   
 

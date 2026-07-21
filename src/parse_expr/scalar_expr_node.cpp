@@ -1,5 +1,4 @@
 #include "scalar_expr_node.hpp"
-#include "filter_expr_node.hpp"
 #include "type.hpp"
 #include "variable.hpp"
 #include "operator_expr.hpp"

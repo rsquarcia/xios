@@ -18,6 +18,7 @@ namespace xios
       class CVariableAttributes;
       class CVariable;
       class CContext;
+      class CFunction;
       ///--------------------------------------------------------------
 
       // Declare/Define CVarAttribute
@@ -70,6 +71,11 @@ namespace xios
 
             void setContent(const StdString& content);
 
+            CFunction* offloadFunction_ = nullptr;
+            CFunction* getOffloadFunction(void) { return offloadFunction_ ;}
+            bool hasOffloadFunction(void) { return offloadFunction_ ;}
+            void setOffloadFunction(CFunction* function) { offloadFunction_ = function ;}
+
 
             template <typename T> inline T getData(void) const;
             template <typename T> inline void setData(T data);
@@ -81,9 +87,13 @@ namespace xios
 
             //! Sending a request to set up variable data
             void sendValue(CContextClient* client);
+            void sendValueToOffloadServer();
 
             static void recvValue(CContext* context, CEventServer& event) ;
             void recvValue(CBufferIn& buffer) ;
+
+            void setContextClient(CContextClient* client);
+            CContextClient* getContextClient();
 
          public :
 
@@ -96,6 +106,7 @@ namespace xios
 
             static void checkInDictionary(StdString id);
             StdString content;
+            CContextClient* client_;
 
       }; // class CVar
 

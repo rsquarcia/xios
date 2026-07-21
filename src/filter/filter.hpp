@@ -5,7 +5,7 @@
 #include "output_pin.hpp"
 #include "pin.hpp"
 #include "filter_engine.hpp"
-#include "filter_expr_node.hpp"
+#include "filter_graph_types.hpp"
 
 namespace xios
 {

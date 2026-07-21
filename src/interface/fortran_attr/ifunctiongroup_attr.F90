@@ -12,8 +12,8 @@ MODULE ifunctiongroup_attr
 CONTAINS
 
   SUBROUTINE xios(set_functiongroup_attr)  &
-    ( functiongroup_id, argin, argout, comment, expr, group_ref, long_name, name, standard_name  &
-     )
+    ( functiongroup_id, argin, argout, comment, expr, group_ref, long_name, name, offload, offset  &
+    , pool_offload, pysrc, standard_name )
 
     IMPLICIT NONE
       TYPE(txios(functiongroup))  :: functiongroup_hdl
@@ -25,19 +25,23 @@ CONTAINS
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: group_ref
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: long_name
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: name
+      CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: offload
+      TYPE(txios(duration))  , OPTIONAL, INTENT(IN) :: offset
+      CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: pool_offload
+      CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: pysrc
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: standard_name
 
       CALL xios(get_functiongroup_handle) &
       (functiongroup_id,functiongroup_hdl)
       CALL xios(set_functiongroup_attr_hdl_)   &
-      ( functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, standard_name  &
-       )
+      ( functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, offset  &
+      , pool_offload, pysrc, standard_name )
 
   END SUBROUTINE xios(set_functiongroup_attr)
 
   SUBROUTINE xios(set_functiongroup_attr_hdl)  &
-    ( functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, standard_name  &
-     )
+    ( functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, offset  &
+    , pool_offload, pysrc, standard_name )
 
     IMPLICIT NONE
       TYPE(txios(functiongroup)) , INTENT(IN) :: functiongroup_hdl
@@ -48,17 +52,21 @@ CONTAINS
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: group_ref
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: long_name
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: name
+      CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: offload
+      TYPE(txios(duration))  , OPTIONAL, INTENT(IN) :: offset
+      CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: pool_offload
+      CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: pysrc
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: standard_name
 
       CALL xios(set_functiongroup_attr_hdl_)  &
-      ( functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, standard_name  &
-       )
+      ( functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, offset  &
+      , pool_offload, pysrc, standard_name )
 
   END SUBROUTINE xios(set_functiongroup_attr_hdl)
 
   SUBROUTINE xios(set_functiongroup_attr_hdl_)   &
-    ( functiongroup_hdl, argin_, argout_, comment_, expr_, group_ref_, long_name_, name_, standard_name_  &
-     )
+    ( functiongroup_hdl, argin_, argout_, comment_, expr_, group_ref_, long_name_, name_, offload_  &
+    , offset_, pool_offload_, pysrc_, standard_name_ )
 
     IMPLICIT NONE
       TYPE(txios(functiongroup)) , INTENT(IN) :: functiongroup_hdl
@@ -69,6 +77,10 @@ CONTAINS
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: group_ref_
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: long_name_
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: name_
+      CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: offload_
+      TYPE(txios(duration))  , OPTIONAL, INTENT(IN) :: offset_
+      CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: pool_offload_
+      CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: pysrc_
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: standard_name_
 
       IF (PRESENT(argin_)) THEN
@@ -106,6 +118,26 @@ CONTAINS
       (functiongroup_hdl%daddr, name_, len(name_))
       ENDIF
 
+      IF (PRESENT(offload_)) THEN
+        CALL cxios_set_functiongroup_offload &
+      (functiongroup_hdl%daddr, offload_, len(offload_))
+      ENDIF
+
+      IF (PRESENT(offset_)) THEN
+        CALL cxios_set_functiongroup_offset &
+      (functiongroup_hdl%daddr, offset_)
+      ENDIF
+
+      IF (PRESENT(pool_offload_)) THEN
+        CALL cxios_set_functiongroup_pool_offload &
+      (functiongroup_hdl%daddr, pool_offload_, len(pool_offload_))
+      ENDIF
+
+      IF (PRESENT(pysrc_)) THEN
+        CALL cxios_set_functiongroup_pysrc &
+      (functiongroup_hdl%daddr, pysrc_, len(pysrc_))
+      ENDIF
+
       IF (PRESENT(standard_name_)) THEN
         CALL cxios_set_functiongroup_standard_name &
       (functiongroup_hdl%daddr, standard_name_, len(standard_name_))
@@ -114,8 +146,8 @@ CONTAINS
   END SUBROUTINE xios(set_functiongroup_attr_hdl_)
 
   SUBROUTINE xios(get_functiongroup_attr)  &
-    ( functiongroup_id, argin, argout, comment, expr, group_ref, long_name, name, standard_name  &
-     )
+    ( functiongroup_id, argin, argout, comment, expr, group_ref, long_name, name, offload, offset  &
+    , pool_offload, pysrc, standard_name )
 
     IMPLICIT NONE
       TYPE(txios(functiongroup))  :: functiongroup_hdl
@@ -127,19 +159,23 @@ CONTAINS
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: group_ref
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: long_name
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: name
+      CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: offload
+      TYPE(txios(duration))  , OPTIONAL, INTENT(OUT) :: offset
+      CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: pool_offload
+      CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: pysrc
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: standard_name
 
       CALL xios(get_functiongroup_handle) &
       (functiongroup_id,functiongroup_hdl)
       CALL xios(get_functiongroup_attr_hdl_)   &
-      ( functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, standard_name  &
-       )
+      ( functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, offset  &
+      , pool_offload, pysrc, standard_name )
 
   END SUBROUTINE xios(get_functiongroup_attr)
 
   SUBROUTINE xios(get_functiongroup_attr_hdl)  &
-    ( functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, standard_name  &
-     )
+    ( functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, offset  &
+    , pool_offload, pysrc, standard_name )
 
     IMPLICIT NONE
       TYPE(txios(functiongroup)) , INTENT(IN) :: functiongroup_hdl
@@ -150,17 +186,21 @@ CONTAINS
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: group_ref
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: long_name
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: name
+      CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: offload
+      TYPE(txios(duration))  , OPTIONAL, INTENT(OUT) :: offset
+      CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: pool_offload
+      CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: pysrc
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: standard_name
 
       CALL xios(get_functiongroup_attr_hdl_)  &
-      ( functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, standard_name  &
-       )
+      ( functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, offset  &
+      , pool_offload, pysrc, standard_name )
 
   END SUBROUTINE xios(get_functiongroup_attr_hdl)
 
   SUBROUTINE xios(get_functiongroup_attr_hdl_)   &
-    ( functiongroup_hdl, argin_, argout_, comment_, expr_, group_ref_, long_name_, name_, standard_name_  &
-     )
+    ( functiongroup_hdl, argin_, argout_, comment_, expr_, group_ref_, long_name_, name_, offload_  &
+    , offset_, pool_offload_, pysrc_, standard_name_ )
 
     IMPLICIT NONE
       TYPE(txios(functiongroup)) , INTENT(IN) :: functiongroup_hdl
@@ -171,6 +211,10 @@ CONTAINS
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: group_ref_
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: long_name_
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: name_
+      CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: offload_
+      TYPE(txios(duration))  , OPTIONAL, INTENT(OUT) :: offset_
+      CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: pool_offload_
+      CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: pysrc_
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: standard_name_
 
       IF (PRESENT(argin_)) THEN
@@ -208,6 +252,26 @@ CONTAINS
       (functiongroup_hdl%daddr, name_, len(name_))
       ENDIF
 
+      IF (PRESENT(offload_)) THEN
+        CALL cxios_get_functiongroup_offload &
+      (functiongroup_hdl%daddr, offload_, len(offload_))
+      ENDIF
+
+      IF (PRESENT(offset_)) THEN
+        CALL cxios_get_functiongroup_offset &
+      (functiongroup_hdl%daddr, offset_)
+      ENDIF
+
+      IF (PRESENT(pool_offload_)) THEN
+        CALL cxios_get_functiongroup_pool_offload &
+      (functiongroup_hdl%daddr, pool_offload_, len(pool_offload_))
+      ENDIF
+
+      IF (PRESENT(pysrc_)) THEN
+        CALL cxios_get_functiongroup_pysrc &
+      (functiongroup_hdl%daddr, pysrc_, len(pysrc_))
+      ENDIF
+
       IF (PRESENT(standard_name_)) THEN
         CALL cxios_get_functiongroup_standard_name &
       (functiongroup_hdl%daddr, standard_name_, len(standard_name_))
@@ -216,8 +280,8 @@ CONTAINS
   END SUBROUTINE xios(get_functiongroup_attr_hdl_)
 
   SUBROUTINE xios(is_defined_functiongroup_attr)  &
-    ( functiongroup_id, argin, argout, comment, expr, group_ref, long_name, name, standard_name  &
-     )
+    ( functiongroup_id, argin, argout, comment, expr, group_ref, long_name, name, offload, offset  &
+    , pool_offload, pysrc, standard_name )
 
     IMPLICIT NONE
       TYPE(txios(functiongroup))  :: functiongroup_hdl
@@ -236,20 +300,28 @@ CONTAINS
       LOGICAL(KIND=C_BOOL) :: long_name_tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: name
       LOGICAL(KIND=C_BOOL) :: name_tmp
+      LOGICAL, OPTIONAL, INTENT(OUT) :: offload
+      LOGICAL(KIND=C_BOOL) :: offload_tmp
+      LOGICAL, OPTIONAL, INTENT(OUT) :: offset
+      LOGICAL(KIND=C_BOOL) :: offset_tmp
+      LOGICAL, OPTIONAL, INTENT(OUT) :: pool_offload
+      LOGICAL(KIND=C_BOOL) :: pool_offload_tmp
+      LOGICAL, OPTIONAL, INTENT(OUT) :: pysrc
+      LOGICAL(KIND=C_BOOL) :: pysrc_tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: standard_name
       LOGICAL(KIND=C_BOOL) :: standard_name_tmp
 
       CALL xios(get_functiongroup_handle) &
       (functiongroup_id,functiongroup_hdl)
       CALL xios(is_defined_functiongroup_attr_hdl_)   &
-      ( functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, standard_name  &
-       )
+      ( functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, offset  &
+      , pool_offload, pysrc, standard_name )
 
   END SUBROUTINE xios(is_defined_functiongroup_attr)
 
   SUBROUTINE xios(is_defined_functiongroup_attr_hdl)  &
-    ( functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, standard_name  &
-     )
+    ( functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, offset  &
+    , pool_offload, pysrc, standard_name )
 
     IMPLICIT NONE
       TYPE(txios(functiongroup)) , INTENT(IN) :: functiongroup_hdl
@@ -267,18 +339,26 @@ CONTAINS
       LOGICAL(KIND=C_BOOL) :: long_name_tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: name
       LOGICAL(KIND=C_BOOL) :: name_tmp
+      LOGICAL, OPTIONAL, INTENT(OUT) :: offload
+      LOGICAL(KIND=C_BOOL) :: offload_tmp
+      LOGICAL, OPTIONAL, INTENT(OUT) :: offset
+      LOGICAL(KIND=C_BOOL) :: offset_tmp
+      LOGICAL, OPTIONAL, INTENT(OUT) :: pool_offload
+      LOGICAL(KIND=C_BOOL) :: pool_offload_tmp
+      LOGICAL, OPTIONAL, INTENT(OUT) :: pysrc
+      LOGICAL(KIND=C_BOOL) :: pysrc_tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: standard_name
       LOGICAL(KIND=C_BOOL) :: standard_name_tmp
 
       CALL xios(is_defined_functiongroup_attr_hdl_)  &
-      ( functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, standard_name  &
-       )
+      ( functiongroup_hdl, argin, argout, comment, expr, group_ref, long_name, name, offload, offset  &
+      , pool_offload, pysrc, standard_name )
 
   END SUBROUTINE xios(is_defined_functiongroup_attr_hdl)
 
   SUBROUTINE xios(is_defined_functiongroup_attr_hdl_)   &
-    ( functiongroup_hdl, argin_, argout_, comment_, expr_, group_ref_, long_name_, name_, standard_name_  &
-     )
+    ( functiongroup_hdl, argin_, argout_, comment_, expr_, group_ref_, long_name_, name_, offload_  &
+    , offset_, pool_offload_, pysrc_, standard_name_ )
 
     IMPLICIT NONE
       TYPE(txios(functiongroup)) , INTENT(IN) :: functiongroup_hdl
@@ -296,6 +376,14 @@ CONTAINS
       LOGICAL(KIND=C_BOOL) :: long_name__tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: name_
       LOGICAL(KIND=C_BOOL) :: name__tmp
+      LOGICAL, OPTIONAL, INTENT(OUT) :: offload_
+      LOGICAL(KIND=C_BOOL) :: offload__tmp
+      LOGICAL, OPTIONAL, INTENT(OUT) :: offset_
+      LOGICAL(KIND=C_BOOL) :: offset__tmp
+      LOGICAL, OPTIONAL, INTENT(OUT) :: pool_offload_
+      LOGICAL(KIND=C_BOOL) :: pool_offload__tmp
+      LOGICAL, OPTIONAL, INTENT(OUT) :: pysrc_
+      LOGICAL(KIND=C_BOOL) :: pysrc__tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: standard_name_
       LOGICAL(KIND=C_BOOL) :: standard_name__tmp
 
@@ -339,6 +427,30 @@ CONTAINS
         name__tmp = cxios_is_defined_functiongroup_name &
       (functiongroup_hdl%daddr)
         name_ = name__tmp
+      ENDIF
+
+      IF (PRESENT(offload_)) THEN
+        offload__tmp = cxios_is_defined_functiongroup_offload &
+      (functiongroup_hdl%daddr)
+        offload_ = offload__tmp
+      ENDIF
+
+      IF (PRESENT(offset_)) THEN
+        offset__tmp = cxios_is_defined_functiongroup_offset &
+      (functiongroup_hdl%daddr)
+        offset_ = offset__tmp
+      ENDIF
+
+      IF (PRESENT(pool_offload_)) THEN
+        pool_offload__tmp = cxios_is_defined_functiongroup_pool_offload &
+      (functiongroup_hdl%daddr)
+        pool_offload_ = pool_offload__tmp
+      ENDIF
+
+      IF (PRESENT(pysrc_)) THEN
+        pysrc__tmp = cxios_is_defined_functiongroup_pysrc &
+      (functiongroup_hdl%daddr)
+        pysrc_ = pysrc__tmp
       ENDIF
 
       IF (PRESENT(standard_name_)) THEN

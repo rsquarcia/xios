@@ -70,6 +70,13 @@ USE iscalar_attr, ONLY : xios(set_scalar_attr_hdl), xios(get_scalar_attr_hdl), x
 
 USE iscalargroup_attr, ONLY : xios(set_scalargroup_attr_hdl), xios(get_scalargroup_attr_hdl), xios(is_defined_scalargroup_attr_hdl)
 
+USE ifunction, ONLY : xios(get_function_handle), xios(get_functiongroup_handle)
+
+USE ifunction_attr, ONLY : xios(set_function_attr_hdl), xios(get_function_attr_hdl), xios(is_defined_function_attr_hdl)
+
+USE ifunctiongroup_attr, ONLY : xios(set_functiongroup_attr_hdl), xios(get_functiongroup_attr_hdl), &
+                                xios(is_defined_functiongroup_attr_hdl)
+
 !-------------------------------------------------------------------------------
 !!! Transformation INTERFACES
 !-------------------------------------------------------------------------------
@@ -213,7 +220,7 @@ INTERFACE xios(set_attr)
                    xios(set_extract_axis_to_scalar_attr_hdl), xios(set_expand_domain_attr_hdl),              &
                    xios(set_extract_domain_attr_hdl), xios(set_extract_axis_attr_hdl),                       &       
                    xios(set_redistribute_domain_attr_hdl), xios(set_redistribute_axis_attr_hdl),           &      
-                   xios(set_redistribute_scalar_attr_hdl)
+                   xios(set_redistribute_scalar_attr_hdl), xios(set_function_attr_hdl)
                    
 END INTERFACE xios(set_attr)
 
@@ -233,7 +240,7 @@ INTERFACE xios(get_attr)
                    xios(get_extract_axis_to_scalar_attr_hdl), xios(get_expand_domain_attr_hdl),              &
                    xios(get_extract_domain_attr_hdl), xios(get_extract_axis_attr_hdl),                        &
                    xios(get_redistribute_domain_attr_hdl), xios(get_redistribute_axis_attr_hdl),           &      
-                   xios(get_redistribute_scalar_attr_hdl)
+                   xios(get_redistribute_scalar_attr_hdl), xios(get_function_attr_hdl)
 END INTERFACE xios(get_attr)
 
 INTERFACE xios(is_defined_attr)
@@ -252,7 +259,7 @@ INTERFACE xios(is_defined_attr)
                    xios(is_defined_expand_domain_attr_hdl), xios(is_defined_extract_domain_attr_hdl),                             &
                    xios(is_defined_extract_axis_attr_hdl),                                                                         &
                    xios(is_defined_redistribute_domain_attr_hdl), xios(is_defined_redistribute_axis_attr_hdl),           &      
-                   xios(is_defined_redistribute_scalar_attr_hdl)
+                   xios(is_defined_redistribute_scalar_attr_hdl), xios(is_defined_function_attr_hdl)
 END INTERFACE xios(is_defined_attr)
 
 INTERFACE xios(get_handle)
@@ -270,7 +277,7 @@ INTERFACE xios(get_handle)
                    xios(get_extract_axis_to_scalar_handle), xios(get_expand_domain_handle),                          &
                    xios(get_extract_domain_handle), xios(get_extract_axis_handle),                                    &
                    xios(get_redistribute_domain_handle), xios(get_redistribute_axis_handle),           &      
-                   xios(get_redistribute_scalar_handle)
+                   xios(get_redistribute_scalar_handle), xios(get_function_handle)
 END INTERFACE xios(get_handle)
 
 INTERFACE xios(add_child)

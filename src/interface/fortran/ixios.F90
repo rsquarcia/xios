@@ -5,7 +5,7 @@ MODULE XIOS
 USE icalendar, ONLY : xios(define_calendar), xios(set_timestep), xios(set_start_date), xios(set_time_origin),   &
                       xios(get_calendar_type), xios(get_timestep), xios(get_start_date), xios(get_time_origin), &
                       xios(update_calendar), xios(get_current_date),                                            &
-                      xios(get_year_length_in_seconds), xios(get_day_length_in_seconds),                        &
+                      xios(get_year_length_in_seconds), xios(get_day_length_in_seconds),                         &
                       xios(get_calendar_months_number), xios(get_calendar_months_lengths)
 
 
@@ -76,6 +76,12 @@ USE iscalar, ONLY : txios(scalar), txios(scalargroup), xios(is_valid_scalar), xi
 USE iscalar_attr, ONLY : xios(set_scalar_attr), xios(get_scalar_attr), xios(is_defined_scalar_attr)
 
 USE iscalargroup_attr, ONLY : xios(set_scalargroup_attr), xios(get_scalargroup_attr), xios(is_defined_scalargroup_attr)
+
+USE ifunction, ONLY : txios(function), txios(functiongroup), xios(is_valid_function), xios(is_valid_functiongroup)
+
+USE ifunction_attr, ONLY : xios(set_function_attr), xios(get_function_attr), xios(is_defined_function_attr)
+
+USE ifunctiongroup_attr, ONLY : xios(set_functiongroup_attr), xios(get_functiongroup_attr), xios(is_defined_functiongroup_attr)
 
 !-------------------------------------------------------------------------------
 !!! Transformation INTERFACES
