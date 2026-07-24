@@ -1,7 +1,7 @@
 #ifndef __XIOS_CPythonManager
 #define __XIOS_CPythonManager
 
-#include <python.hpp>
+#include "python.hpp"
 #include "exception.hpp"
 #include "data_packet.hpp"
 #include "function.hpp"
