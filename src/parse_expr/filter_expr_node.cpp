@@ -409,6 +409,7 @@ namespace xios
           {
             int outIdx = parentFilter->mustBeInternalyConnected(i);
             if (outIdx!=-1) parentFilter->connectInternalOutputPin(filter, k, outIdx);
+            else childReductions[i].outputPin->connectOutput(filter, k, inputPoints[i].outIdx);
           }
           else
             childReductions[i].outputPin->connectOutput(filter, k, inputPoints[i].outIdx);
