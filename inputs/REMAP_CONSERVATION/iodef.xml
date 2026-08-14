@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<simulation>
+
+  <context id="test">
+
+    <calendar type="Gregorian" start_date="2000-01-01 00:00:00" time_origin="2000-01-01 00:00:00"/>
+
+    <domain_definition>
+
+      <!-- Reduced sources. Rows carry different numbers of cells, so the two
+           owners of a shared latitude boundary see different breakpoint
+           populations. type="gaussian" sets hasPole, i.e. pole = (0,0,1), which
+           is what makes the row boundaries small circles. Geometry comes from
+           the Fortran program. -->
+      <domain id="src_reduced"           type="gaussian"/>
+      <!-- same geometry, north row boundaries shifted by one ulp in sin(lat) -->
+      <domain id="src_reduced_perturbed" type="gaussian"/>
+      <!-- same geometry as src_reduced, plus a source mask -->
+      <domain id="src_reduced_masked"    type="gaussian"/>
+
+      <!-- Conservative order 1 without renormalisation: a constant source field
+           must be reproduced exactly, so any deviation from 1 in the output is a
+           closure defect. One destination instance per source, because the
+           transformation is declared on the destination. -->
+      <domain id="dst_regular_a" ni_glo="72" nj_glo="36" type="rectilinear">
+        <generate_rectilinear_domain/>
+        <interpolate_domain order="1" renormalize="false"/>
+      </domain>
+      <domain id="dst_regular_b" ni_glo="72" nj_glo="36" type="rectilinear">
+        <generate_rectilinear_domain/>
+        <interpolate_domain order="1" renormalize="false"/>
+      </domain>
+      <domain id="dst_regular_c" ni_glo="72" nj_glo="36" type="rectilinear">
+        <generate_rectilinear_domain/>
+        <interpolate_domain order="1" renormalize="false"/>
+      </domain>
+
+      <!-- Reduced destination: exercises the target side of the correction.
+           Row closure alone cannot see a target-side defect, so the program
+           checks the global overlap identity for this one. -->
+      <domain id="dst_reduced" type="gaussian">
+        <interpolate_domain order="1" renormalize="false"/>
+      </domain>
+
+    </domain_definition>
+
+    <grid_definition>
+      <grid id="grid_src">           <domain domain_ref="src_reduced"/>           </grid>
+      <grid id="grid_src_perturbed"> <domain domain_ref="src_reduced_perturbed"/> </grid>
+      <grid id="grid_src_masked">    <domain domain_ref="src_reduced_masked"/>    </grid>
+      <grid id="grid_dst_a">         <domain domain_ref="dst_regular_a"/>         </grid>
+      <grid id="grid_dst_b">         <domain domain_ref="dst_regular_b"/>         </grid>
+      <grid id="grid_dst_c">         <domain domain_ref="dst_regular_c"/>         </grid>
+      <grid id="grid_dst_reduced">   <domain domain_ref="dst_reduced"/>           </grid>
+    </grid_definition>
+
+    <field_definition prec="8" operation="instant" freq_op="1ts">
+      <field id="src_const"           grid_ref="grid_src"/>
+      <field id="src_const_perturbed" grid_ref="grid_src_perturbed"/>
+      <field id="src_const_masked"    grid_ref="grid_src_masked"/>
+
+      <field id="const_reduced_to_regular"   field_ref="src_const"           grid_ref="grid_dst_a"/>
+      <field id="const_perturbed_to_regular" field_ref="src_const_perturbed" grid_ref="grid_dst_b"/>
+      <field id="const_masked_to_regular"    field_ref="src_const_masked"    grid_ref="grid_dst_c"/>
+      <field id="const_reduced_to_reduced"   field_ref="src_const"           grid_ref="grid_dst_reduced"/>
+    </field_definition>
+
+    <file_definition type="one_file" output_freq="1ts" enabled=".TRUE.">
+      <file id="remap_conservation" name="remap_conservation">
+        <field field_ref="const_reduced_to_regular"   name="const_reduced_to_regular"/>
+        <field field_ref="const_perturbed_to_regular" name="const_perturbed_to_regular"/>
+        <field field_ref="const_masked_to_regular"    name="const_masked_to_regular"/>
+      </file>
+      <file id="remap_conservation_reduced" name="remap_conservation_reduced">
+        <field field_ref="const_reduced_to_reduced"   name="const_reduced_to_reduced"/>
+      </file>
+    </file_definition>
+
+  </context>
+
+  <context id="xios">
+    <variable_definition>
+      <variable_group id="parameters">
+        <variable id="using_server" type="bool">false</variable>
+        <variable id="info_level"   type="int">0</variable>
+        <variable id="print_file"   type="bool">false</variable>
+      </variable_group>
+    </variable_definition>
+  </context>
+
+</simulation>
