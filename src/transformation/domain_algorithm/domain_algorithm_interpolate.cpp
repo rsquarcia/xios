@@ -382,8 +382,10 @@ TRY
   double* ptAreaDstUnmasked = NULL ;
   if (hasDstArea) ptAreaDstUnmasked=areaDstUnmasked.dataFirst() ;
 
-  mapper.setSourceMesh(boundsLonSrcUnmasked.dataFirst(), boundsLatSrcUnmasked.dataFirst(), ptAreaSrcUnmasked, nVertexSrc, nSrcLocalUnmasked, &srcPole[0], globalSrcUnmasked);
-  mapper.setTargetMesh(boundsLonDestUnmasked.dataFirst(), boundsLatDestUnmasked.dataFirst(), ptAreaDstUnmasked, nVertexDest, nDstLocalUnmasked, &dstPole[0], globalDstUnmasked);
+  mapper.setSourceMesh(boundsLonSrcUnmasked.dataFirst(), boundsLatSrcUnmasked.dataFirst(), ptAreaSrcUnmasked, nVertexSrc, nSrcLocalUnmasked, &srcPole[0], globalSrcUnmasked,
+                       boundsLonSrc.dataFirst(), boundsLatSrc.dataFirst(), nSrcLocal);
+  mapper.setTargetMesh(boundsLonDestUnmasked.dataFirst(), boundsLatDestUnmasked.dataFirst(), ptAreaDstUnmasked, nVertexDest, nDstLocalUnmasked, &dstPole[0], globalDstUnmasked,
+                       boundsLonDest.dataFirst(), boundsLatDest.dataFirst(), nDstLocal);
 
   std::vector<double> timings = mapper.computeWeights(orderInterp,renormalize,quantity);
 

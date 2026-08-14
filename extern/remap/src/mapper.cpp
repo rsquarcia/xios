@@ -9,6 +9,7 @@
 #include "errhandle.hpp"
 #include "mpi_routing.hpp"
 #include "gridRemap.hpp"
+#include "shared_boundary.hpp"
 
 #include <fstream>
 #include "client.hpp"
@@ -34,7 +35,8 @@ void cptOffsetsFromLengths(const int *lengths, int *offsets, int sz)
 }
 
 
-void Mapper::setSourceMesh(const double* boundsLon, const double* boundsLat, const double* area, int nVertex, int nbCells, const double* pole, const long int* globalId)
+void Mapper::setSourceMesh(const double* boundsLon, const double* boundsLat, const double* area, int nVertex, int nbCells, const double* pole, const long int* globalId,
+                           const double* fullBoundsLon, const double* fullBoundsLat, int fullNbCells)
 {
   srcGrid.pole = Coord(pole[0], pole[1], pole[2]);
 
@@ -64,7 +66,13 @@ void Mapper::setSourceMesh(const double* boundsLon, const double* boundsLat, con
     elt.src_id.ind = i;
     elt.src_id.globalId = sourceGlobalId[i];
     sourceElements.push_back(elt);
-    sourceMesh.push_back(make_shared<Node>(elt.x, cptRadius(elt), &sourceElements.back()));
+  }
+
+  conformSharedLatitudeBoundaries(sourceElements, communicator, srcGrid.pole, fullBoundsLon, fullBoundsLat, nVertex, fullNbCells);
+
+  for (int i = 0; i < nbCells; i++)
+  {
+    sourceMesh.push_back(make_shared<Node>(sourceElements[i].x, cptRadius(sourceElements[i]), &sourceElements[i]));
     cptEltGeom(sourceElements[i], Coord(pole[0], pole[1], pole[2]));
     if (area!=NULL) sourceElements[i].given_area=area[i] ;
     else sourceElements[i].given_area=sourceElements[i].area ;
@@ -72,7 +80,8 @@ void Mapper::setSourceMesh(const double* boundsLon, const double* boundsLat, con
 
 }
 
-void Mapper::setTargetMesh(const double* boundsLon, const double* boundsLat, const double* area, int nVertex, int nbCells, const double* pole, const long int* globalId)
+void Mapper::setTargetMesh(const double* boundsLon, const double* boundsLat, const double* area, int nVertex, int nbCells, const double* pole, const long int* globalId,
+                           const double* fullBoundsLon, const double* fullBoundsLat, int fullNbCells)
 {
   tgtGrid.pole = Coord(pole[0], pole[1], pole[2]);
 
@@ -99,7 +108,13 @@ void Mapper::setTargetMesh(const double* boundsLon, const double* boundsLat, con
     int offs = i*nVertex;
     Elt elt(boundsLon + offs, boundsLat + offs, nVertex);
     targetElements.push_back(elt);
-    targetMesh.push_back(make_shared<Node>(elt.x, cptRadius(elt), &sourceElements.back()));
+  }
+
+  conformSharedLatitudeBoundaries(targetElements, communicator, tgtGrid.pole, fullBoundsLon, fullBoundsLat, nVertex, fullNbCells);
+
+  for (int i = 0; i < nbCells; i++)
+  {
+    targetMesh.push_back(make_shared<Node>(targetElements[i].x, cptRadius(targetElements[i]), &sourceElements.back()));
     cptEltGeom(targetElements[i], Coord(pole[0], pole[1], pole[2]));
     if (area!=NULL) targetElements[i].given_area=area[i] ;
     else targetElements[i].given_area=targetElements[i].area ;

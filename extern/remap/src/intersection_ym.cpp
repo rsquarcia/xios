@@ -267,8 +267,16 @@ void createGreatCirclePolygon(const Elt& element, const Coord& pole, vector<Coor
     if (z != 0.0)
     {
 
-      xa=element.vertex[i] ;
-      xb=element.vertex[(i+1)%nv] ;
+      Coord va=element.vertex[i] ;
+      Coord vb=element.vertex[(i+1)%nv] ;
+
+      bool forward = (va.x < vb.x) ||
+                     (va.x == vb.x && va.y < vb.y) ||
+                     (va.x == vb.x && va.y == vb.y && va.z <= vb.z) ;
+      Coord p0 = forward ? va : vb ;
+      Coord p1 = forward ? vb : va ;
+      xa=p0 ;
+      xb=p1 ;
       iterations=0 ;
 
 // compare max distance (at mid-point) between small circle and great circle
@@ -288,13 +296,22 @@ void createGreatCirclePolygon(const Elt& element, const Coord& pole, vector<Coor
       iterations = 1 << (iterations-1) ;
 
 // small circle divided in "iterations" great circle arc
-      Coord delta=(element.vertex[(i+1)%nv]-element.vertex[i])*(1./iterations);
-      x=xa ;
-      for(int j=0; j<iterations ; j++)
+      coordinates.push_back(va) ;
+      if (forward)
       {
-        //xc+(x-xc)*r/norm(x-xc)
-        coordinates.push_back(xc+(x-xc)*(r/norm(x-xc))) ;
-        x=x+delta ;
+        for(int j=1; j<iterations ; j++)
+        {
+          x=p0+(p1-p0)*((double)j/iterations) ;
+          coordinates.push_back(xc+(x-xc)*(r/norm(x-xc))) ;
+        }
+      }
+      else
+      {
+        for(int j=iterations-1; j>0 ; j--)
+        {
+          x=p0+(p1-p0)*((double)j/iterations) ;
+          coordinates.push_back(xc+(x-xc)*(r/norm(x-xc))) ;
+        }
       }
     }
     else coordinates.push_back(element.vertex[i]) ;

@@ -22,8 +22,10 @@ public:
        ~Mapper();
        void setVerbosity(verbosity v) {verbose=v ;}
 
-       void setSourceMesh(const double* boundsLon, const double* boundsLat, const double* area, int nVertex, int nbCells, const double* pole, const long int* globalId=NULL) ;
-       void setTargetMesh(const double* boundsLon, const double* boundsLat, const double* area, int nVertex, int nbCells, const double* pole, const long int* globalId=NULL) ;
+       void setSourceMesh(const double* boundsLon, const double* boundsLat, const double* area, int nVertex, int nbCells, const double* pole, const long int* globalId=NULL,
+                          const double* fullBoundsLon=nullptr, const double* fullBoundsLat=nullptr, int fullNbCells=0) ;
+       void setTargetMesh(const double* boundsLon, const double* boundsLat, const double* area, int nVertex, int nbCells, const double* pole, const long int* globalId=NULL,
+                          const double* fullBoundsLon=nullptr, const double* fullBoundsLat=nullptr, int fullNbCells=0) ;
        void setSourceValue(const double* val) ;
        void getTargetValue(double* val) ;
 
