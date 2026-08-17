@@ -86,7 +86,7 @@ class Field(Field_):
             j=j+1
             curr = self.axes[j]
 
-        curr = self.axes[0]
+        curr = self.domains[0]
         j = 0
         while curr is not None:
             shape.append(self.domains[j].nj)

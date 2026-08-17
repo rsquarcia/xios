@@ -109,10 +109,10 @@ class Context(Context_):
     def getvar(self, id, data = 0):
         if isinstance(data, float):
             data_c = Double(data)
-        elif isinstance(data, int):
-            data_c = Int(data)
         elif isinstance(data, bool):
             data_c = Bool(data)
+        elif isinstance(data, int):
+            data_c = Int(data)
         elif isinstance(data, str):
             data_c = String()
 

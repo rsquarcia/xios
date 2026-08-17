@@ -134,6 +134,9 @@ extern "C"
   TRY
   {
      CTimer::get("XIOS").resume() ;
+     if (!field_hdl->getGrid())
+       ERROR("int cxios_field_get_axes_number(XFieldPtr field_hdl)",
+             "The field " << field_hdl->getId() << " is not used in the workflow, you can not ask its shape !")
      int domains_number = (field_hdl->getGrid()->getDomains()).size();
      CTimer::get("XIOS").suspend();
      return domains_number;
@@ -144,6 +147,9 @@ extern "C"
   TRY
   {
      CTimer::get("XIOS").resume() ;
+     if (!field_hdl->getGrid())
+       ERROR("int cxios_field_get_axes_number(XFieldPtr field_hdl)",
+             "The field " << field_hdl->getId() << " is not used in the workflow, you can not ask its shape !")
      int axes_number = (field_hdl->getGrid()->getAxis()).size();
      CTimer::get("XIOS").suspend();
      return axes_number;
@@ -154,6 +160,9 @@ extern "C"
   TRY
   {
      CTimer::get("XIOS").resume() ;
+     if (!field_hdl->getGrid())
+       ERROR("int cxios_field_get_axes_number(XFieldPtr field_hdl)",
+             "The field " << field_hdl->getId() << " is not used in the workflow, you can not ask its shape !")
      int scalars_number = (field_hdl->getGrid()->getScalars()).size();
      CTimer::get("XIOS").suspend();
      return scalars_number;
