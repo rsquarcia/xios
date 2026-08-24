@@ -242,8 +242,6 @@ class NpArray:
         if isinstance(arr, np.ndarray):
             if arr.dtype != self._dtype:
                 arr = arr.astype(self._dtype) 
-            if not arr.flags.contiguous :
-                raise ValueError("The numpy array you are passing to XIOS is not contiguous in memory, make sure it is !")
 
             self._arr = arr 
             self._c_value = arr.ctypes.data_as(POINTER(self._ctype))
