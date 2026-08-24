@@ -63,7 +63,7 @@ class Bool:
     def __init__(self, value=False):
         if isinstance(value, bool):
             self._c_value = c_bool(value)
-        if isinstance(value, Bool):
+        elif isinstance(value, Bool):
             self._c_value = value._c_value
         else:
             raise ValueError("Bool only accepts bool")
