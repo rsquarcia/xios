@@ -63,6 +63,8 @@ class Bool:
     def __init__(self, value=False):
         if isinstance(value, bool):
             self._c_value = c_bool(value)
+        elif isinstance(value, Bool):
+            self._c_value = value._c_value
         else:
             raise ValueError("Bool only accepts bool")
 
@@ -135,6 +137,8 @@ class Double:
             self._c_value = (c_double(value))
         elif isinstance(value, int):
             self._c_value = c_double(float(value))
+        elif isinstance(value, Double):
+            self._c_value = value._c_value
         else:
             raise ValueError("xios.Double only accepts float or int")
 
@@ -238,8 +242,6 @@ class NpArray:
         if isinstance(arr, np.ndarray):
             if arr.dtype != self._dtype:
                 arr = arr.astype(self._dtype) 
-            if not arr.flags.contiguous :
-                raise ValueError("The numpy array you are passing to XIOS is not contiguous in memory, make sure it is !")
 
             self._arr = arr 
             self._c_value = arr.ctypes.data_as(POINTER(self._ctype))
@@ -361,7 +363,7 @@ def convert_type(type):
             return NpArrayBool
         else :
             return NpArray
-    type_dict = {int:Int, str:String, bool:Bool}
+    type_dict = {int:Int, str:String, bool:Bool, float:Double}
     if type['type'] in type_dict :
         return type_dict[type['type']]
     else :
