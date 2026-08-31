@@ -1,0 +1,3 @@
+add_library(boost_extraction INTERFACE)
+
+target_include_directories(boost_extraction INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)

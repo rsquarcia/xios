@@ -1,0 +1,82 @@
+#!/bin/bash
+
+# Map compil_mode → CMAKE_BUILD_TYPE
+case "${compil_mode}" in
+    prod)  cmake_build_type="Release" ;;
+    dev)   cmake_build_type="RelWithDebInfo" ;;
+    debug) cmake_build_type="Debug" ;;
+esac
+
+# Lib mode
+if [[ "${lib_mode}" == "dynamic" ]]; then
+    cmake_extra+=("-DBUILD_SHARED_LIBS=ON")
+else
+    cmake_extra+=("-DBUILD_SHARED_LIBS=OFF")
+fi
+
+# OASIS
+if [[ "${use_oasis}" == "true" ]]; then
+    cmake_extra+=("-DXIOS_WITH_OASIS=ON")
+fi
+
+# Extern Blitz
+if [[ "${use_extern_blitz}" == "true" ]]; then
+    cmake_extra+=("-DXIOS_USE_EXTERN_BLITZ=ON")
+fi
+
+# Python bindings
+if [[ "${use_python}" == "true" ]]; then
+    cmake_extra+=("-DXIOS_USE_PYTHON=ON")
+fi
+
+# ── Dry-run log ──────────────────────────────────────────────────────────────
+export XIOS_ENV_ARCH="${arch}"
+
+configure_cmd=(
+    cmake
+    -S "${PWD}"
+    -B "${build_dir}"
+    -C "${PWD}/cmake/config-init.cmake"
+    -DCMAKE_BUILD_TYPE="${cmake_build_type}"
+    -DXIOS_CPPKEY="$(echo $XIOS_CPPKEY | xargs | tr ' ' ';')"
+    "${cmake_extra[@]}"
+)
+
+build_cmd=(cmake --build "${build_dir}" --config "${cmake_build_type}" -j "${job}" ${verbose:+-v})
+
+if [[ "${dry_run}" == "true" ]]; then
+    echo ""
+    echo "-- CMake: "
+    echo "--   Build mode     : ${cmake_build_type}"
+    echo "--   Library mode   : ${lib_mode}"
+    echo ""
+    echo "--   Would run configure command:"
+    echo ""
+    print_cmd "${configure_cmd[@]}"
+    echo ""
+    echo "--   Would run build command:"
+    echo ""
+    print_cmd "${build_cmd[@]}"
+    echo ""
+    echo "-- Dry run: configuration resolved, no build will be performed."
+
+    exit 0
+fi
+
+# ── Configure & build ────────────────────────────────────────────────────────
+echo "=> Configuring and building XIOS (${compil_mode} / ${lib_mode}) for architecture \"${arch}\""
+
+if [[ "${compil_full}" == "true" ]]; then
+    # Remove CMake cache and files to ensure a clean build
+    rm -rf "${build_dir}/CMakeCache.txt" "${build_dir}/CMakeFiles" "${build_dir}/Makefile" "${build_dir}/.cmake" "${build_dir}/cmake_install.cmake"
+fi
+
+"${configure_cmd[@]}" && "${build_cmd[@]}"
+build_status=$?
+
+# ── Install ────────────────────────────────────────────────────────────────────
+
+if [[ $build_status == 0 ]]; then
+    echo "=> Installing XIOS to ${build_dir}"
+    cmake --install "${build_dir}" --prefix "${install_dir}" --config "${cmake_build_type}"
+fi
