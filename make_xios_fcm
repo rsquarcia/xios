@@ -1,0 +1,146 @@
+#!/bin/bash
+
+# Static vs dynamic link config
+rm -f bld_link.cfg
+if [[ "$lib_mode" == "static" ]]; then
+    ln -s bld_static.cfg bld_link.cfg
+elif [[ "$lib_mode" == "dynamic" ]]; then
+    ln -s bld_dynamic.cfg bld_link.cfg
+fi
+
+rm -f ${PWD}/bld_dir.cfg
+echo "inc    ${build_dir}/arch.fcm" >> ${PWD}/bld_dir.cfg 
+echo "inc    ${build_dir}/config.fcm" >> ${PWD}/bld_dir.cfg
+echo "dir::root  ${build_dir}" >> ${PWD}/bld_dir.cfg
+
+# Vérification de la présence d'un identifiant d'architecture.
+
+###############################################################
+# lecture des chemins propres a l'architecture de la machine #
+#           et configuration de l'environnement              #
+###############################################################
+
+rm -f .void_file
+echo > .void_file
+rm -rf .void_dir
+mkdir .void_dir
+
+rm -f ${build_dir}/arch.path
+rm -f ${build_dir}/arch.fcm
+rm -f ${build_dir}/arch.env
+
+ln -s ${arch_env_file} ${build_dir}/arch.env
+ln -s ${arch_fcm_file} ${build_dir}/arch.fcm
+ln -s ${arch_path_file} ${build_dir}/arch.path
+
+# Vérification de la présence d'un mode de compilation.
+
+if [[ "$compil_mode" == "prod" ]]
+   then
+      COMPIL_CFLAGS="%PROD_CFLAGS"
+      COMPIL_FFLAGS="%PROD_FFLAGS"
+elif [[ "$compil_mode" == "dev" ]]
+   then 
+      COMPIL_CFLAGS="%DEV_CFLAGS"
+      COMPIL_FFLAGS="%DEV_FFLAGS"
+elif [[ "$compil_mode" == "debug" ]]
+   then
+      COMPIL_CFLAGS="%DEBUG_CFLAGS"
+      COMPIL_FFLAGS="%DEBUG_FFLAGS"
+fi
+
+# NetCDF dir symlinks
+rm -r $PWD/extern/netcdf4
+if [[ "$netcdf_lib" == "netcdf4_internal" ]]; then
+    ln -s $PWD/extern/src_netcdf4 $PWD/extern/netcdf4
+    export NETCDF_INCDIR="-I${PWD}/extern/netcdf4"
+    export NETCDF_LIBDIR=""
+    export NETCDF_LIB=""
+else
+    ln -s $PWD/.void_dir $PWD/extern/netcdf4
+fi
+
+# OASIS dirs (CPP key already set by make_xios; only paths are FCM-specific)
+if [[ "$use_oasis" == "true" ]]; then
+    if [[ "$oasis" == "oasis3" ]]; then
+        OASIS_INCDIR="-I$PWD/../../prism/X64/build/lib/psmile.MPI1"
+        OASIS_LIBDIR="-L$PWD/../../prism/X64/lib"
+        OASIS_LIB="-lpsmile.MPI1 -lmpp_io"
+    fi
+
+    NETCDF_LIB="-lnetcdff -lnetcdf"
+    XIOS_FINCDIR="$OASIS_INCDIR $XIOS_FINCDIR"
+    XIOS_LIB="$OASIS_LIBDIR $OASIS_LIB $XIOS_LIB"
+fi
+
+
+# Setting path for boost
+export BOOST_INCDIR="-I${PWD}/extern/boost_extraction/include"
+
+# Setting path for blitz
+if [[ "$use_extern_blitz" == "true" ]]
+then
+   rm -r $PWD/extern/blitz
+   ln -s $PWD/.void_dir $PWD/extern/blitz
+else
+   echo "src::blitz $PWD/extern/blitz/src" >> ${PWD}/bld_dir.cfg
+   export BLITZ_INCDIR="-I${PWD}/extern/blitz"
+   export BLITZ_LIBDIR=""
+   export BLITZ_LIB=""
+fi
+
+XIOS_CINCDIR="$NETCDF_INCDIR $HDF5_INCDIR $MPI_INCDIR $BOOST_INCDIR $BLITZ_INCDIR $PYTHON_INCDIR $NUMPY_INCDIR"
+XIOS_FINCDIR="$NETCDF_INCDIR $XIOS_FINCDIR $MPI_INCDIR $BOOST_INCDIR $BLITZ_INCDIR $PYTHON_INCDIR $NUMPY_INCDIR"
+
+XIOS_LIB="$XIOS_LIB $NETCDF_LIBDIR $HDF5_LIBDIR $MPI_LIBDIR $PYTHON_LIBDIR $NETCDF_LIB $HDF5_LIB $MPI_LIB $PYTHON_LIB"
+
+rm -f ${build_dir}/config.fcm
+echo "%COMPIL_CFLAGS $COMPIL_CFLAGS" >> ${build_dir}/config.fcm
+echo "%COMPIL_FFLAGS $COMPIL_FFLAGS" >> ${build_dir}/config.fcm
+echo "%CPP_KEY       $XIOS_CPPKEY"   >> ${build_dir}/config.fcm
+
+echo "%CBASE_INC     $XIOS_CINCDIR" >> ${build_dir}/config.fcm     
+echo "%FBASE_INC     $XIOS_FINCDIR" >> ${build_dir}/config.fcm
+echo "%ARCH_LD       $XIOS_LIB"     >> ${build_dir}/config.fcm
+echo "%ARFLAGS       $XIOS_LIB"     >> ${build_dir}/config.fcm
+
+echo "=> Using "$compil_mode" mode for compiling under architecture \""$arch"\" !"
+
+# Création de la documentation doxygen.
+if [[ !(-z $doc) ]]
+   then
+      echo -e "- Create Doxygen documentation (disabled)..."
+      #doxygen -s
+fi
+
+make_dir=$PWD
+
+if [[ "$fcm_version" == "new" ]]
+then
+  export PATH=$PWD/tools/FCM_NEW/bin:$PATH
+elif [[ "$fcm_version" == "old" ]]
+then
+  export PATH=$PWD/tools/FCM_OLD/bin:$PATH
+else
+  echo "=> Bad option for --fcm flag : "$fcm_version" , only 'new' or 'old' permitted"
+fi
+  
+if [[ "$compil_full" == "true" ]]
+   then
+   fcm build --clean --ignore-lock 
+   fcm build -f --ignore-lock -j $job
+else
+  fcm build --ignore-lock -j $job
+fi
+
+build_exit_status=$?
+
+if [[ $build_exit_status == 0 ]]
+  then
+  set nothing
+#    cd $WORKDIR/XIOS_NEMO_COUPLE/modeles/NEMO/WORK
+#    cd $WORKDIR/XIOS_NEMO/modeles/NEMO/WORK
+#    make
+fi
+
+exit $build_exit_status

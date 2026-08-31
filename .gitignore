@@ -2,10 +2,12 @@ __pycache__
 .cache
 .void_dir
 .void_file
+.vscode
 
 # XIOS build artifacts
 arch.*
 bin
+build*
 cfg
 done
 etc
