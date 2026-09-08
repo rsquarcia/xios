@@ -18,6 +18,7 @@ class ScalarGroup(Object):
   'bounds': {'type': np.ndarray, 'array_type': float, 'ndim': 1},
   'bounds_name': {'type': str},
   'comment': {'type': str},
+  'datetime': {'type': str},
   'group_ref': {'type': str},
   'label': {'type': str},
   'long_name': {'type': str},

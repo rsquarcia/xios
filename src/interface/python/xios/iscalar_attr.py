@@ -53,6 +53,15 @@ lib.cxios_set_scalar_comment.restype = None
 lib.cxios_is_defined_scalar_comment.argtypes = [Scalar]
 lib.cxios_is_defined_scalar_comment.restype = ctypes.c_bool
 
+lib.cxios_get_scalar_datetime.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
+lib.cxios_get_scalar_datetime.restype = None
+
+lib.cxios_set_scalar_datetime.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
+lib.cxios_set_scalar_datetime.restype = None
+
+lib.cxios_is_defined_scalar_datetime.argtypes = [Scalar]
+lib.cxios_is_defined_scalar_datetime.restype = ctypes.c_bool
+
 lib.cxios_get_scalar_label.argtypes = [Scalar, ctypes.c_char_p, ctypes.c_int]
 lib.cxios_get_scalar_label.restype = None
 
@@ -159,9 +168,10 @@ lib.cxios_is_defined_scalar_value.restype = ctypes.c_bool
 @typecheck
 def set_scalar_attr(scalar_id : Union[String, str], axis_type : Optional[Union[str, String]] = None, bounds : Optional[Union[np.ndarray, NpArray]] = None,   
 bounds_name : Optional[Union[str, String]] = None, comment : Optional[Union[str, String]] = None,   
-label : Optional[Union[str, String]] = None, long_name : Optional[Union[str, String]] = None,   
-mask : Optional[Union[Bool, bool]] = None, n : Optional[Union[Int, int]] = None, name : Optional[Union[str, String]] = None,   
-positive : Optional[Union[str, String]] = None, prec : Optional[Union[Int, int]] = None, scalar_ref : Optional[Union[str, String]] = None,   
+datetime : Optional[Union[str, String]] = None, label : Optional[Union[str, String]] = None,   
+long_name : Optional[Union[str, String]] = None, mask : Optional[Union[Bool, bool]] = None,   
+n : Optional[Union[Int, int]] = None, name : Optional[Union[str, String]] = None, positive : Optional[Union[str, String]] = None,   
+prec : Optional[Union[Int, int]] = None, scalar_ref : Optional[Union[str, String]] = None,   
 standard_name : Optional[Union[str, String]] = None, unit : Optional[Union[str, String]] = None,   
 value : Optional[Union[Double, float]] = None):
 
@@ -170,8 +180,8 @@ value : Optional[Union[Double, float]] = None):
   
 
   get_scalar_handle(scalar_id, scalar_hdl)
-  set_scalar_attr_hdl_(scalar_hdl, axis_type, bounds, bounds_name, comment, label, long_name, mask, n, name, positive,  
-   prec, scalar_ref, standard_name, unit, value)
+  set_scalar_attr_hdl_(scalar_hdl, axis_type, bounds, bounds_name, comment, datetime, label, long_name, mask, n, name,  
+   positive, prec, scalar_ref, standard_name, unit, value)
   return 
 
 
@@ -179,15 +189,16 @@ value : Optional[Union[Double, float]] = None):
 @typecheck
 def set_scalar_attr_hdl(scalar_hdl : Scalar, axis_type : Optional[Union[str, String]] = None, bounds : Optional[Union[np.ndarray, NpArray]] = None,   
 bounds_name : Optional[Union[str, String]] = None, comment : Optional[Union[str, String]] = None,   
-label : Optional[Union[str, String]] = None, long_name : Optional[Union[str, String]] = None,   
-mask : Optional[Union[Bool, bool]] = None, n : Optional[Union[Int, int]] = None, name : Optional[Union[str, String]] = None,   
-positive : Optional[Union[str, String]] = None, prec : Optional[Union[Int, int]] = None, scalar_ref : Optional[Union[str, String]] = None,   
+datetime : Optional[Union[str, String]] = None, label : Optional[Union[str, String]] = None,   
+long_name : Optional[Union[str, String]] = None, mask : Optional[Union[Bool, bool]] = None,   
+n : Optional[Union[Int, int]] = None, name : Optional[Union[str, String]] = None, positive : Optional[Union[str, String]] = None,   
+prec : Optional[Union[Int, int]] = None, scalar_ref : Optional[Union[str, String]] = None,   
 standard_name : Optional[Union[str, String]] = None, unit : Optional[Union[str, String]] = None,   
 value : Optional[Union[Double, float]] = None):
 
   
-  set_scalar_attr_hdl_(scalar_hdl, axis_type, bounds, bounds_name, comment, label, long_name, mask, n, name, positive,  
-   prec, scalar_ref, standard_name, unit, value)
+  set_scalar_attr_hdl_(scalar_hdl, axis_type, bounds, bounds_name, comment, datetime, label, long_name, mask, n, name,  
+   positive, prec, scalar_ref, standard_name, unit, value)
   return 
 
 
@@ -195,11 +206,12 @@ value : Optional[Union[Double, float]] = None):
 @typecheck
 def set_scalar_attr_hdl_(scalar_hdl : Scalar, axis_type_ : Optional[Union[str, String]] = None, bounds_ : Optional[Union[np.ndarray, NpArray]] = None,   
 bounds_name_ : Optional[Union[str, String]] = None, comment_ : Optional[Union[str, String]] = None,   
-label_ : Optional[Union[str, String]] = None, long_name_ : Optional[Union[str, String]] = None,   
-mask_ : Optional[Union[Bool, bool]] = None, n_ : Optional[Union[Int, int]] = None, name_ : Optional[Union[str, String]] = None,   
-positive_ : Optional[Union[str, String]] = None, prec_ : Optional[Union[Int, int]] = None,   
-scalar_ref_ : Optional[Union[str, String]] = None, standard_name_ : Optional[Union[str, String]] = None,   
-unit_ : Optional[Union[str, String]] = None, value_ : Optional[Union[Double, float]] = None):
+datetime_ : Optional[Union[str, String]] = None, label_ : Optional[Union[str, String]] = None,   
+long_name_ : Optional[Union[str, String]] = None, mask_ : Optional[Union[Bool, bool]] = None,   
+n_ : Optional[Union[Int, int]] = None, name_ : Optional[Union[str, String]] = None, positive_ : Optional[Union[str, String]] = None,   
+prec_ : Optional[Union[Int, int]] = None, scalar_ref_ : Optional[Union[str, String]] = None,   
+standard_name_ : Optional[Union[str, String]] = None, unit_ : Optional[Union[str, String]] = None,   
+value_ : Optional[Union[Double, float]] = None):
 
   
   
@@ -239,6 +251,15 @@ unit_ : Optional[Union[str, String]] = None, value_ : Optional[Union[Double, flo
     comment_c = comment_._c_value
     len_comment_c = len(ctypes.string_at(comment_c))
     lib.cxios_set_scalar_comment(scalar_hdl, comment_c, len_comment_c)
+    
+  
+
+  if datetime_ is not None:
+  
+    datetime_= String(datetime_)
+    datetime_c = datetime_._c_value
+    len_datetime_c = len(ctypes.string_at(datetime_c))
+    lib.cxios_set_scalar_datetime(scalar_hdl, datetime_c, len_datetime_c)
     
   
 
@@ -342,45 +363,45 @@ unit_ : Optional[Union[str, String]] = None, value_ : Optional[Union[Double, flo
 
 @typecheck
 def get_scalar_attr(scalar_id : Union[String, str], axis_type : Optional[String] = None, bounds : Optional[NpArray] = None,   
-bounds_name : Optional[String] = None, comment : Optional[String] = None, label : Optional[String] = None,   
-long_name : Optional[String] = None, mask : Optional[Bool] = None, n : Optional[Int] = None,   
-name : Optional[String] = None, positive : Optional[String] = None, prec : Optional[Int] = None,   
-scalar_ref : Optional[String] = None, standard_name : Optional[String] = None, unit : Optional[String] = None,   
-value : Optional[Double] = None):
+bounds_name : Optional[String] = None, comment : Optional[String] = None, datetime : Optional[String] = None,   
+label : Optional[String] = None, long_name : Optional[String] = None, mask : Optional[Bool] = None,   
+n : Optional[Int] = None, name : Optional[String] = None, positive : Optional[String] = None,   
+prec : Optional[Int] = None, scalar_ref : Optional[String] = None, standard_name : Optional[String] = None,   
+unit : Optional[String] = None, value : Optional[Double] = None):
 
   
   scalar_hdl = Scalar()
   
 
   get_scalar_handle(scalar_id, scalar_hdl)
-  get_scalar_attr_hdl_(scalar_hdl, axis_type, bounds, bounds_name, comment, label, long_name, mask, n, name, positive,  
-   prec, scalar_ref, standard_name, unit, value)
+  get_scalar_attr_hdl_(scalar_hdl, axis_type, bounds, bounds_name, comment, datetime, label, long_name, mask, n, name,  
+   positive, prec, scalar_ref, standard_name, unit, value)
   return 
 
 
 
 @typecheck
 def get_scalar_attr_hdl(scalar_hdl : Scalar, axis_type : Optional[String] = None, bounds : Optional[NpArray] = None,   
-bounds_name : Optional[String] = None, comment : Optional[String] = None, label : Optional[String] = None,   
-long_name : Optional[String] = None, mask : Optional[Bool] = None, n : Optional[Int] = None,   
-name : Optional[String] = None, positive : Optional[String] = None, prec : Optional[Int] = None,   
-scalar_ref : Optional[String] = None, standard_name : Optional[String] = None, unit : Optional[String] = None,   
-value : Optional[Double] = None):
+bounds_name : Optional[String] = None, comment : Optional[String] = None, datetime : Optional[String] = None,   
+label : Optional[String] = None, long_name : Optional[String] = None, mask : Optional[Bool] = None,   
+n : Optional[Int] = None, name : Optional[String] = None, positive : Optional[String] = None,   
+prec : Optional[Int] = None, scalar_ref : Optional[String] = None, standard_name : Optional[String] = None,   
+unit : Optional[String] = None, value : Optional[Double] = None):
 
   
-  get_scalar_attr_hdl_(scalar_hdl, axis_type, bounds, bounds_name, comment, label, long_name, mask, n, name, positive,  
-   prec, scalar_ref, standard_name, unit, value)
+  get_scalar_attr_hdl_(scalar_hdl, axis_type, bounds, bounds_name, comment, datetime, label, long_name, mask, n, name,  
+   positive, prec, scalar_ref, standard_name, unit, value)
   return 
 
 
 
 @typecheck
 def get_scalar_attr_hdl_(scalar_hdl : Scalar, axis_type_ : Optional[String] = None, bounds_ : Optional[NpArray] = None,   
-bounds_name_ : Optional[String] = None, comment_ : Optional[String] = None, label_ : Optional[String] = None,   
-long_name_ : Optional[String] = None, mask_ : Optional[Bool] = None, n_ : Optional[Int] = None,   
-name_ : Optional[String] = None, positive_ : Optional[String] = None, prec_ : Optional[Int] = None,   
-scalar_ref_ : Optional[String] = None, standard_name_ : Optional[String] = None, unit_ : Optional[String] = None,   
-value_ : Optional[Double] = None):
+bounds_name_ : Optional[String] = None, comment_ : Optional[String] = None, datetime_ : Optional[String] = None,   
+label_ : Optional[String] = None, long_name_ : Optional[String] = None, mask_ : Optional[Bool] = None,   
+n_ : Optional[Int] = None, name_ : Optional[String] = None, positive_ : Optional[String] = None,   
+prec_ : Optional[Int] = None, scalar_ref_ : Optional[String] = None, standard_name_ : Optional[String] = None,   
+unit_ : Optional[String] = None, value_ : Optional[Double] = None):
 
   
   
@@ -421,6 +442,14 @@ value_ : Optional[Double] = None):
     comment_c = comment_._c_value
     len_comment_c = len(ctypes.string_at(comment_c))
     lib.cxios_get_scalar_comment(scalar_hdl, comment_c, len_comment_c)
+    
+  
+
+  if datetime_ is not None:
+  
+    datetime_c = datetime_._c_value
+    len_datetime_c = len(ctypes.string_at(datetime_c))
+    lib.cxios_get_scalar_datetime(scalar_hdl, datetime_c, len_datetime_c)
     
   
 
@@ -513,43 +542,45 @@ value_ : Optional[Double] = None):
 
 @typecheck
 def is_defined_scalar_attr(scalar_id : String, axis_type : Optional[Bool] = None, bounds : Optional[Bool] = None, bounds_name : Optional[Bool] = None,   
-comment : Optional[Bool] = None, label : Optional[Bool] = None, long_name : Optional[Bool] = None,   
-mask : Optional[Bool] = None, n : Optional[Bool] = None, name : Optional[Bool] = None, positive : Optional[Bool] = None,   
-prec : Optional[Bool] = None, scalar_ref : Optional[Bool] = None, standard_name : Optional[Bool] = None,   
-unit : Optional[Bool] = None, value : Optional[Bool] = None):
+comment : Optional[Bool] = None, datetime : Optional[Bool] = None, label : Optional[Bool] = None,   
+long_name : Optional[Bool] = None, mask : Optional[Bool] = None, n : Optional[Bool] = None,   
+name : Optional[Bool] = None, positive : Optional[Bool] = None, prec : Optional[Bool] = None,   
+scalar_ref : Optional[Bool] = None, standard_name : Optional[Bool] = None, unit : Optional[Bool] = None,   
+value : Optional[Bool] = None):
 
   
   scalar_hdl = Scalar()
   
 
   get_scalar_handle(scalar_id, scalar_hdl)
-  is_defined_scalar_attr_hdl_(scalar_hdl, axis_type, bounds, bounds_name, comment, label, long_name, mask, n, name, positive,  
-   prec, scalar_ref, standard_name, unit, value)
+  is_defined_scalar_attr_hdl_(scalar_hdl, axis_type, bounds, bounds_name, comment, datetime, label, long_name, mask, n, name,  
+   positive, prec, scalar_ref, standard_name, unit, value)
   return 
 
 
 
 @typecheck
 def is_defined_scalar_attr_hdl(scalar_hdl : Scalar, axis_type : Optional[Bool] = None, bounds : Optional[Bool] = None, bounds_name : Optional[Bool] = None,   
-comment : Optional[Bool] = None, label : Optional[Bool] = None, long_name : Optional[Bool] = None,   
-mask : Optional[Bool] = None, n : Optional[Bool] = None, name : Optional[Bool] = None, positive : Optional[Bool] = None,   
-prec : Optional[Bool] = None, scalar_ref : Optional[Bool] = None, standard_name : Optional[Bool] = None,   
-unit : Optional[Bool] = None, value : Optional[Bool] = None):
+comment : Optional[Bool] = None, datetime : Optional[Bool] = None, label : Optional[Bool] = None,   
+long_name : Optional[Bool] = None, mask : Optional[Bool] = None, n : Optional[Bool] = None,   
+name : Optional[Bool] = None, positive : Optional[Bool] = None, prec : Optional[Bool] = None,   
+scalar_ref : Optional[Bool] = None, standard_name : Optional[Bool] = None, unit : Optional[Bool] = None,   
+value : Optional[Bool] = None):
 
   
-  is_defined_scalar_attr_hdl_(scalar_hdl, axis_type, bounds, bounds_name, comment, label, long_name, mask, n, name, positive,  
-   prec, scalar_ref, standard_name, unit, value)
+  is_defined_scalar_attr_hdl_(scalar_hdl, axis_type, bounds, bounds_name, comment, datetime, label, long_name, mask, n, name,  
+   positive, prec, scalar_ref, standard_name, unit, value)
   return 
 
 
 
 @typecheck
 def is_defined_scalar_attr_hdl_(scalar_hdl : Scalar, axis_type_ : Optional[Bool] = None, bounds_ : Optional[Bool] = None,   
-bounds_name_ : Optional[Bool] = None, comment_ : Optional[Bool] = None, label_ : Optional[Bool] = None,   
-long_name_ : Optional[Bool] = None, mask_ : Optional[Bool] = None, n_ : Optional[Bool] = None,   
-name_ : Optional[Bool] = None, positive_ : Optional[Bool] = None, prec_ : Optional[Bool] = None,   
-scalar_ref_ : Optional[Bool] = None, standard_name_ : Optional[Bool] = None, unit_ : Optional[Bool] = None,   
-value_ : Optional[Bool] = None):
+bounds_name_ : Optional[Bool] = None, comment_ : Optional[Bool] = None, datetime_ : Optional[Bool] = None,   
+label_ : Optional[Bool] = None, long_name_ : Optional[Bool] = None, mask_ : Optional[Bool] = None,   
+n_ : Optional[Bool] = None, name_ : Optional[Bool] = None, positive_ : Optional[Bool] = None,   
+prec_ : Optional[Bool] = None, scalar_ref_ : Optional[Bool] = None, standard_name_ : Optional[Bool] = None,   
+unit_ : Optional[Bool] = None, value_ : Optional[Bool] = None):
 
   
   
@@ -575,6 +606,12 @@ value_ : Optional[Bool] = None):
   if comment_  is not None:
     comment_c = lib.cxios_is_defined_scalar_comment(scalar_hdl)
     comment_._c_value = ctypes.c_bool(comment_c)
+    
+  
+
+  if datetime_  is not None:
+    datetime_c = lib.cxios_is_defined_scalar_datetime(scalar_hdl)
+    datetime_._c_value = ctypes.c_bool(datetime_c)
     
   
 

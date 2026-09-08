@@ -93,6 +93,27 @@ MODULE scalargroup_interface_attr
     END FUNCTION cxios_is_defined_scalargroup_comment
 
 
+    SUBROUTINE cxios_set_scalargroup_datetime(scalargroup_hdl, datetime, datetime_size) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE :: scalargroup_hdl
+      CHARACTER(kind = C_CHAR)    , DIMENSION(*) :: datetime
+      INTEGER  (kind = C_INT)     , VALUE        :: datetime_size
+    END SUBROUTINE cxios_set_scalargroup_datetime
+
+    SUBROUTINE cxios_get_scalargroup_datetime(scalargroup_hdl, datetime, datetime_size) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE :: scalargroup_hdl
+      CHARACTER(kind = C_CHAR)    , DIMENSION(*) :: datetime
+      INTEGER  (kind = C_INT)     , VALUE        :: datetime_size
+    END SUBROUTINE cxios_get_scalargroup_datetime
+
+    FUNCTION cxios_is_defined_scalargroup_datetime(scalargroup_hdl) BIND(C)
+      USE ISO_C_BINDING
+      LOGICAL(kind=C_BOOL) :: cxios_is_defined_scalargroup_datetime
+      INTEGER (kind = C_INTPTR_T), VALUE :: scalargroup_hdl
+    END FUNCTION cxios_is_defined_scalargroup_datetime
+
+
     SUBROUTINE cxios_set_scalargroup_group_ref(scalargroup_hdl, group_ref, group_ref_size) BIND(C)
       USE ISO_C_BINDING
       INTEGER (kind = C_INTPTR_T), VALUE :: scalargroup_hdl

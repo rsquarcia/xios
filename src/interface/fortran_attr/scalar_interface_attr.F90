@@ -93,6 +93,27 @@ MODULE scalar_interface_attr
     END FUNCTION cxios_is_defined_scalar_comment
 
 
+    SUBROUTINE cxios_set_scalar_datetime(scalar_hdl, datetime, datetime_size) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE :: scalar_hdl
+      CHARACTER(kind = C_CHAR)    , DIMENSION(*) :: datetime
+      INTEGER  (kind = C_INT)     , VALUE        :: datetime_size
+    END SUBROUTINE cxios_set_scalar_datetime
+
+    SUBROUTINE cxios_get_scalar_datetime(scalar_hdl, datetime, datetime_size) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE :: scalar_hdl
+      CHARACTER(kind = C_CHAR)    , DIMENSION(*) :: datetime
+      INTEGER  (kind = C_INT)     , VALUE        :: datetime_size
+    END SUBROUTINE cxios_get_scalar_datetime
+
+    FUNCTION cxios_is_defined_scalar_datetime(scalar_hdl) BIND(C)
+      USE ISO_C_BINDING
+      LOGICAL(kind=C_BOOL) :: cxios_is_defined_scalar_datetime
+      INTEGER (kind = C_INTPTR_T), VALUE :: scalar_hdl
+    END FUNCTION cxios_is_defined_scalar_datetime
+
+
     SUBROUTINE cxios_set_scalar_label(scalar_hdl, label, label_size) BIND(C)
       USE ISO_C_BINDING
       INTEGER (kind = C_INTPTR_T), VALUE :: scalar_hdl

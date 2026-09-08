@@ -18,6 +18,7 @@ class Scalar(Object):
   'bounds': {'type': np.ndarray, 'array_type': float, 'ndim': 1},
   'bounds_name': {'type': str},
   'comment': {'type': str},
+  'datetime': {'type': str},
   'label': {'type': str},
   'long_name': {'type': str},
   'mask': {'type': bool},

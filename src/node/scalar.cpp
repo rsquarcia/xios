@@ -128,8 +128,35 @@ namespace xios
     hasValue_ =  (value.isEmpty())  ? false :true ;
     hasBounds_ = (bounds.isEmpty()) ? false :true ;
     hasLabel_ =  (label.isEmpty())  ? false :true ;
+    hasDate_ = (datetime.isEmpty()) ? false :true ;
 
-
+    // Impose internal consistency rules, a Scalar cannot be processed
+    // if it has a value and a label and a datetime, only one of these may be present.
+    // See io/ncd_data_output.cpp for implementation logic that mandates this rule.
+    // Bounds may only be processed if there is also a value.
+    if (!hasValue_ && hasBounds_)
+      ERROR("void CScalar::checkAttributes(bool recheck)",
+            << "The scalar " << this->getId() << " has bounds defined but no value.");
+    if (hasValue_ + hasLabel_ + hasDate_ > 1)
+      ERROR("void CScalar::checkAttributes(bool recheck)",
+            << "The scalar " << this->getId() << " has defined a combination of "
+            "value, label and datetime, but these attributes are mutually exclusive.");
+    // Ensure that the datetime is parseable as a CDate
+    if (hasDate_)
+      {
+        try
+          {
+            const std::shared_ptr<CCalendar> calendar = context_->getCalendar();
+            CDate check_date = CDate::FromString(datetime.getValue(), *calendar);
+          }
+        catch(...)
+          {
+            ERROR("void CScalar::checkAttributes(bool recheck)",
+            << "The scalar " << this->getId() << " has a datetime string defined but the "
+                  "string: '" << datetime.getValue() << "' failed to parse as a datetime.");
+          }
+      }
+    
     initializeLocalElement() ;
     addFullView() ;
     addWorkflowView() ;

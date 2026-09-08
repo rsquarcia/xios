@@ -77,6 +77,8 @@ namespace xios
                                          const StdString & standard_name = StdString("time"),
                                          const StdString & long_name     = StdString("Time axis"));
 
+            void writeTimeAttributesFromDate(const StdString& var_name, const CDate& date);
+
             void writeFileAttributes(const StdString & name,
                                      const StdString & description,
                                      const StdString & conventions,

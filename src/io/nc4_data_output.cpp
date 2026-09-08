@@ -1367,6 +1367,7 @@ namespace xios
 
       void CNc4DataOutput::writeScalar_(CScalar* scalar)
       {
+        const std::shared_ptr<CCalendar> cal = getContext()->getCalendar();
         if (scalar->IsWritten(this->filename)) return;
         scalar->checkAttributes();
         int scalarSize = 1;
@@ -1382,13 +1383,14 @@ namespace xios
         else if (scalar->prec==8)   typePrec =  NC_DOUBLE ;
 
         if (!scalar->label.isEmpty()) typePrec = NC_CHAR ;
+        else if (!scalar->datetime.isEmpty()) typePrec = NC_DOUBLE ;
         string strId="str_len" ;
 
         try
         {
           if (!scalar->label.isEmpty() && !SuperClassWriter::dimExist(strId)) SuperClassWriter::addDimension(strId, stringArrayLen);
 
-          if (!scalar->value.isEmpty() || !scalar->label.isEmpty())
+          if (!scalar->value.isEmpty() || !scalar->datetime.isEmpty() || !scalar->label.isEmpty())
           {
             std::vector<StdString> dims;
             StdString scalarDim = scalaId;
@@ -1435,7 +1437,7 @@ namespace xios
                                              &scalaId);
             }
 
-            if (!scalar->bounds.isEmpty() && scalar->label.isEmpty())
+            if (!scalar->bounds.isEmpty() && scalar->datetime.isEmpty() && scalar->label.isEmpty())
             {
               dims.clear();
               dims.push_back("axis_nbounds");
@@ -1454,17 +1456,30 @@ namespace xios
                 CArray<string,1> scalarLabel(scalarSize);
                 CArray<double,1> scalarBounds(scalarSize*2);
 
-                if (!scalar->value.isEmpty() && scalar->label.isEmpty())
+                if (!scalar->value.isEmpty() && scalar->datetime.isEmpty() && scalar->label.isEmpty())
                 {
                   scalarValue(0) = scalar->value;
                   SuperClassWriter::writeData(scalarValue, scalaId, isCollective, 0);
                 }
 
-                if (!scalar->bounds.isEmpty() && scalar->label.isEmpty())
+                if (!scalar->bounds.isEmpty() && scalar->datetime.isEmpty() && scalar->label.isEmpty())
                 {
                   scalarBounds(0) = scalar->bounds(0);
                   scalarBounds(1) = scalar->bounds(1);
                   SuperClassWriter::writeData(scalarBounds, boundsId, isCollective, 0);
+                }
+
+                if (!scalar->datetime.isEmpty() && scalar->label.isEmpty())
+                {
+                  const StdString& datetime = scalar->datetime.getValue();
+                  const CDate& date = CDate::FromString(datetime, *cal);
+                  scalarValue(0) = date;
+
+                  if (!file->time_units.isEmpty() && file->time_units == CFile::time_units_attr::days)
+                    scalarValue(0) /= date.getRelCalendar().getDayLengthInSeconds();
+
+                  SuperClassWriter::writeData(scalarValue, scalaId, isCollective, 0);
+                  writeTimeAttributesFromDate(scalaId, date);
                 }
 
                 if (!scalar->label.isEmpty())
@@ -1487,17 +1502,29 @@ namespace xios
                 std::vector<StdSize> count(1);
                 start[0] = 0;
                 count[0] = 1;
-                if (!scalar->value.isEmpty() && scalar->label.isEmpty())
+                if (!scalar->value.isEmpty() && scalar->datetime.isEmpty() && scalar->label.isEmpty())
                 {
                   scalarValue(0) = scalar->value;
                   SuperClassWriter::writeData(scalarValue, scalaId, isCollective, 0, &start, &count);
                 }
-                if (!scalar->bounds.isEmpty() && scalar->label.isEmpty())
+                if (!scalar->bounds.isEmpty() && scalar->datetime.isEmpty() && scalar->label.isEmpty())
                 {
                   scalarBounds(0) = scalar->bounds(0);
                   scalarBounds(1) = scalar->bounds(1);
                   count[0] = 2;
                   SuperClassWriter::writeData(scalarBounds, boundsId, isCollective, 0, &start, &count);
+                }
+                if (!scalar->datetime.isEmpty() && scalar->label.isEmpty())
+                {
+                  const StdString& datetime = scalar->datetime.getValue();
+                  const CDate& date = CDate::FromString(datetime, *cal);
+                  scalarValue(0) = date;
+
+                  if (!file->time_units.isEmpty() && file->time_units == CFile::time_units_attr::days)
+                    scalarValue(0) /= date.getRelCalendar().getDayLengthInSeconds();
+
+                  SuperClassWriter::writeData(scalarValue, scalaId, isCollective, 0, &start, &count);
+                  writeTimeAttributesFromDate(scalaId, date);
                 }
                 if (!scalar->label.isEmpty())
                 {
@@ -1888,7 +1915,7 @@ namespace xios
           {
             CScalar* scalar = CScalar::get(context, scalarList[idxScalar]);
             StdString scalarId = scalar->getScalarOutputName();
-            if (!scalar->value.isEmpty() || !scalar->label.isEmpty())
+            if (!scalar->value.isEmpty() || !scalar->label.isEmpty() || !scalar->datetime.isEmpty())
               dimCoordList.push_back(scalarId);
             ++idxScalar;
           }
@@ -2907,6 +2934,36 @@ namespace xios
                                                           const StdString & standard_name, \
                                                           const StdString & long_name)", << msg);
          }
+      }
+
+      //---------------------------------------------------------------
+
+      void CNc4DataOutput::writeTimeAttributesFromDate(const StdString& var_name, const CDate& date)
+      {
+        try
+        {
+          const CCalendar& calendar = date.getRelCalendar();
+          const StdString time_origin = calendar.getTimeOrigin().toString();
+
+          StdString strTimeUnits;
+          if (!file->time_units.isEmpty() && file->time_units == CFile::time_units_attr::days)
+            strTimeUnits="days since ";
+          else
+            strTimeUnits="seconds since ";
+
+          SuperClassWriter::addAttribute("calendar", calendar.getType(), &var_name);
+          SuperClassWriter::addAttribute("units", strTimeUnits + time_origin, &var_name);
+          SuperClassWriter::addAttribute("time_origin", time_origin, &var_name);
+        }
+        catch (CNetCdfException& e)
+        {
+          StdString msg("On writing Date attributes for '" + var_name + "' variable: ");
+          msg.append("In the context : ");
+          CContext* context = CContext::getCurrent();
+          msg.append(context->getId()); msg.append("\n");
+          msg.append(e.what());
+          ERROR("CNc4DataOutput::writeTimeAttributesFromDate(const StdString& var_name, const CDate& date)", << msg);
+        }
       }
 
       //---------------------------------------------------------------
