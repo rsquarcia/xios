@@ -51,7 +51,6 @@ class TestXIOSSuite(unittest.TestCase):
 test_root = os.path.dirname(__file__)
 
 
-
 def product_dict(**kwargs):
     """
     helper function to expand out a dictionary into a list of

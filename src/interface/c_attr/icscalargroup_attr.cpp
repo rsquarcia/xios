@@ -125,6 +125,32 @@ extern "C"
   }
 
 
+  void cxios_set_scalargroup_datetime(scalargroup_Ptr scalargroup_hdl, const char * datetime, int datetime_size)
+  {
+    std::string datetime_str;
+    if (!cstr2string(datetime, datetime_size, datetime_str)) return;
+    CTimer::get("XIOS").resume();
+    scalargroup_hdl->datetime.setValue(datetime_str);
+    CTimer::get("XIOS").suspend();
+  }
+
+  void cxios_get_scalargroup_datetime(scalargroup_Ptr scalargroup_hdl, char * datetime, int datetime_size)
+  {
+    CTimer::get("XIOS").resume();
+    if (!string_copy(scalargroup_hdl->datetime.getInheritedValue(), datetime, datetime_size))
+      ERROR("void cxios_get_scalargroup_datetime(scalargroup_Ptr scalargroup_hdl, char * datetime, int datetime_size)", << "Input string is too short");
+    CTimer::get("XIOS").suspend();
+  }
+
+  bool cxios_is_defined_scalargroup_datetime(scalargroup_Ptr scalargroup_hdl)
+  {
+     CTimer::get("XIOS").resume();
+     bool isDefined = scalargroup_hdl->datetime.hasInheritedValue();
+     CTimer::get("XIOS").suspend();
+     return isDefined;
+  }
+
+
   void cxios_set_scalargroup_group_ref(scalargroup_Ptr scalargroup_hdl, const char * group_ref, int group_ref_size)
   {
     std::string group_ref_str;

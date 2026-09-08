@@ -125,6 +125,32 @@ extern "C"
   }
 
 
+  void cxios_set_scalar_datetime(scalar_Ptr scalar_hdl, const char * datetime, int datetime_size)
+  {
+    std::string datetime_str;
+    if (!cstr2string(datetime, datetime_size, datetime_str)) return;
+    CTimer::get("XIOS").resume();
+    scalar_hdl->datetime.setValue(datetime_str);
+    CTimer::get("XIOS").suspend();
+  }
+
+  void cxios_get_scalar_datetime(scalar_Ptr scalar_hdl, char * datetime, int datetime_size)
+  {
+    CTimer::get("XIOS").resume();
+    if (!string_copy(scalar_hdl->datetime.getInheritedValue(), datetime, datetime_size))
+      ERROR("void cxios_get_scalar_datetime(scalar_Ptr scalar_hdl, char * datetime, int datetime_size)", << "Input string is too short");
+    CTimer::get("XIOS").suspend();
+  }
+
+  bool cxios_is_defined_scalar_datetime(scalar_Ptr scalar_hdl)
+  {
+     CTimer::get("XIOS").resume();
+     bool isDefined = scalar_hdl->datetime.hasInheritedValue();
+     CTimer::get("XIOS").suspend();
+     return isDefined;
+  }
+
+
   void cxios_set_scalar_label(scalar_Ptr scalar_hdl, const char * label, int label_size)
   {
     std::string label_str;

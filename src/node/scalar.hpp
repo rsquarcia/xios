@@ -20,7 +20,7 @@
 #include "distribution_type.hpp"
 #include "generic_algorithm_transformation.hpp"
 #include "grid_transformation_factory_impl.hpp"
-
+#include "date.hpp"
 
 namespace xios
 {
@@ -148,10 +148,12 @@ namespace xios
       bool hasValue() { return hasValue_; }
       bool hasBounds() { return hasBounds_; }
       bool hasLabel() { return hasLabel_; }
+      bool hasDate() {return hasDate_; }
     private:
       bool hasValue_  = false ;
       bool hasBounds_ = false ;
       bool hasLabel_  = false ;
+      bool hasDate_   = false ;
     private:  
           /** Clients that have to send a scalar. There can be multiple clients in case of secondary server, otherwise only one client. */
       std::list<CContextClient*> clients;
