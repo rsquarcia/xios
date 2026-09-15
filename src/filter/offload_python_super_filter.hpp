@@ -65,7 +65,7 @@ namespace xios{
        * \param fieldOut the output field of the pythonSuperFilter
        * \param arg the argument name/idx associated to the output field
        */
-       void createInternalFieldOut(CGarbageCollector& gc, CField& fieldOut, NodeId nodeId, int argoutIdx, size_t internalIdx);
+       SReducedNode createInternalFieldOut(CGarbageCollector& gc, CField& fieldOut, NodeId nodeId, int argoutIdx, size_t internalIdx);
 
       /*!
        * Method to apply the filter transformation on the input data packets.
@@ -103,6 +103,7 @@ namespace xios{
       std::shared_ptr<CPythonFilter> pythonFilter_; // PythonFilter associated to this pythonSuperFilter
       std::queue<Time> expectedData_;               // FIFO to handle asynchronism and keep track of waiting timestamps
       int nbReceivedOffloadedData_= 0 ;             // Counter to ensure all the lateData arrived     
+      bool first_ = true;
 
   };
  
