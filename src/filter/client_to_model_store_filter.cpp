@@ -123,11 +123,11 @@ namespace xios
       packet = data[0];
     }
 
-    if(this->graphEnabled)
-    {
-      this->graphPackage->filterId = CWorkflowGraph::getNodeSize();
-      CWorkflowGraph::addNode(getContext(), "Client to Model Store filter", 5, true, 1, packet);
-    }
+    // if(this->graphEnabled)
+    // {
+    //   this->graphPackage->filterId = CWorkflowGraph::getNodeSize();
+    //   CWorkflowGraph::addNode(getContext(), "Client to Model Store filter", 5, true, 1, packet);
+    // }
 
 
     packets_.insert(std::make_pair(packet->timestamp, packet));
