@@ -1,6 +1,8 @@
 file(GLOB SRC CONFIGURE_DEPENDS "*.cpp" "*.hpp" "wait.f90")
 file(GLOB CONF CONFIGURE_DEPENDS "config/*.conf")
 
+list(REMOVE_ITEM SRC "${CMAKE_CURRENT_SOURCE_DIR}/generate_interfaces.cpp")
+
 target_sources(xios PRIVATE ${SRC})
 set_property(GLOBAL APPEND PROPERTY XIOS_INSTALL_SOURCES ${SRC} ${CONF})
 target_include_directories(xios PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} config)

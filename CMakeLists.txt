@@ -71,7 +71,10 @@ target_compile_definitions(xios PRIVATE ${XIOS_CPPKEY})
 # ---------------------------------------------------------------------------
 add_xios_executable(xios_server         "src/xios_server.f90"           Fortran)
 add_xios_executable(generic_testcase    "src/test/generic_testcase.f90" Fortran)
-add_xios_executable(generate_interfaces "src/generate_interfaces.cpp"   CXX)
+
+if(XIOS_GENERATE_INTERFACES)
+    add_xios_executable(generate_interfaces "src/generate_interfaces.cpp" CXX)
+endif()
 
 # ---------------------------------------------------------------------------
 # Install rules
