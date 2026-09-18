@@ -13,6 +13,10 @@ echo "inc    ${build_dir}/arch.fcm" >> ${PWD}/bld_dir.cfg
 echo "inc    ${build_dir}/config.fcm" >> ${PWD}/bld_dir.cfg
 echo "dir::root  ${build_dir}" >> ${PWD}/bld_dir.cfg
 
+if [[ "$generate_interfaces" == "true" ]]; then
+    echo "bld::target generate_interfaces.exe" >> ${PWD}/bld_dir.cfg
+fi
+
 # Vérification de la présence d'un identifiant d'architecture.
 
 ###############################################################

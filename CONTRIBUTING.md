@@ -172,15 +172,10 @@ Fortran, C++ & Python interface source code is generated from configurations by 
 * It is the responsibility of a developer to ensure that the code generation tool has ben run on their Merge Request and the resulting generated code checked into the branch.
 * The repository CI testing will verify that the generated code is identical to the code submitted by the developer.
 
-In order to generate interface code, it is necessary to first compile the interface tooling. 
-This is enabled by editing the `bld.cfg` [configuration file](bld.cfg#L53) in a local copy, and uncommenting the line:
+In order to generate interface code, it is necessary to first compile the interface tooling. This is enabled by adding the `--generate-interfaces` flag to `make_xios`:
 ```
-bld::target generate_interfaces.exe
+./make_xios --arch <arch> --generate-interfaces ...
 ```
-
-Then, compiling XIOS using `./make_xios` will also create the `generate_interfaces.exe` executable within the `bin` directory.
-
-(Please remember to revert your change to `bld.cfg`, don't commit this to your branch for any Merge Request)
 
 To run the interface generation code and locate the outputs in the correct places within the source, then:
 ```

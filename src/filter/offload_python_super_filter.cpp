@@ -28,8 +28,9 @@ namespace xios
   COffloadPythonSuperFilter::~COffloadPythonSuperFilter() = default;
 
 
-  void COffloadPythonSuperFilter::createInternalFieldOut(CGarbageCollector& gc, CField& fieldOut, NodeId nodeId, int argoutIdx, size_t internalIdx)
+  SReducedNode COffloadPythonSuperFilter::createInternalFieldOut(CGarbageCollector& gc, CField& fieldOut, NodeId nodeId, int argoutIdx, size_t internalIdx)
   {
+    SReducedNode reduced;
     const StdString& internalFieldOutId = fieldOut.getId()+"__offload_argout__"+std::to_string(nodeId)+std::to_string(argoutIdx);
     CField* internalFieldOut = CField::create(getContext(), internalFieldOutId);
     internalFieldOut->read_access.setValue(true);
@@ -54,6 +55,12 @@ namespace xios
   
     internalFieldOut->connectOutEmbededFilter(gc, internalInputPin_, internalIdx);
     internalFieldOut->setPythonSuperFilter(shared_from_this());
+
+    reduced.type = SReducedNode::Field;
+    reduced.fieldId = internalFieldOutId;
+    reduced.outputPin = internalFieldOut->getInstantDataFilter();
+
+    return reduced;
   }
 
 
@@ -65,42 +72,44 @@ namespace xios
     resizeOutputSlots(internalIdx+1);
     internalInputPin_->resizeInputSlots(internalIdx+1);
     internalSlotsMap_[argoutIdx] = internalIdx;
-    SReducedNode reduced;
-    reduced.type = SReducedNode::Filter;
-    reduced.nodeId = nodeId;
-    size_t k = 0;
 
-    for (size_t i = 0; i<function_.getNumArgin(); ++i)
+    if (first_)
     {
-      SInputPoint inputPoint = arginMap_[function_.getArgin()[i]];
-      if (inputPoint.node.type == SReducedNode::Scalar)
-      {
-        CVariable* scalar = CVariable::create(getContext(), "scalar__offload_argin__"+std::to_string(nodeId)+std::to_string(i));
-        scalar->setData<double>(inputPoint.node.value);
-        scalar->setOffloadFunction(&function_);
-        function_.addFilterArgin(nodeId, scalar, i);
-      }
-      else
-      {
-        internalOutputPin_->resizeOutputSlots(k+1);
-        resizeInputSlots(k+1);
+      size_t k = 0;
 
-        CField* fieldIn = inputPoint.node.fieldIn;
-        const StdString& internalFieldInId = fieldIn->getId()+"__offload_argin__"+std::to_string(nodeId)+std::to_string(i);
-        CField* internalFieldIn = CField::create(getContext(),internalFieldInId);
-        internalFieldIn->solveRefInheritance();
-        internalFieldIn->setGrid(fieldIn->getGrid());
-        internalFieldIn->grid_ref = fieldIn->getGrid()->getId();
+      for (size_t i = 0; i<function_.getNumArgin(); ++i)
+      {
+        SInputPoint inputPoint = arginMap_[function_.getArgin()[i]];
+        if (inputPoint.node.type == SReducedNode::Scalar)
+        {
+          CVariable* scalar = CVariable::create(getContext(), "scalar__offload_argin__"+std::to_string(nodeId)+std::to_string(i));
+          scalar->setData<double>(inputPoint.node.value);
+          scalar->setOffloadFunction(&function_);
+          function_.addFilterArgin(nodeId, scalar, i);
+        }
+        else
+        {
+          internalOutputPin_->resizeOutputSlots(k+1);
+          resizeInputSlots(k+1);
 
-        internalFieldIn->connectInEmbededFilter(gc, internalOutputPin_, k);
-        internalFieldIn->setPythonSuperFilter(shared_from_this());
-        internalFieldIn->setOffloadFunction(&function_);
-        function_.addFilterArgin(nodeId, internalFieldIn, i);
-        inputPoint.node.outputPin->connectOutput(shared_from_this(), k, inputPoint.outIdx);
-        ++k;
+          CField* fieldIn = inputPoint.node.fieldIn;
+          const StdString& internalFieldInId = fieldIn->getId()+"__offload_argin__"+std::to_string(nodeId)+std::to_string(i);
+          CField* internalFieldIn = CField::create(getContext(),internalFieldInId);
+          internalFieldIn->solveRefInheritance();
+          internalFieldIn->setGrid(fieldIn->getGrid());
+          internalFieldIn->grid_ref = fieldIn->getGrid()->getId();
+
+          internalFieldIn->connectInEmbededFilter(gc, internalOutputPin_, k);
+          internalFieldIn->setPythonSuperFilter(shared_from_this());
+          internalFieldIn->setOffloadFunction(&function_);
+          function_.addFilterArgin(nodeId, internalFieldIn, i);
+          inputPoint.node.outputPin->connectOutput(shared_from_this(), k, inputPoint.outIdx);
+          ++k;
+        }
       }
+      first_ = false;
     }
-    createInternalFieldOut(gc, fieldOut, nodeId, argoutIdx, internalIdx);
+    SReducedNode reduced = createInternalFieldOut(gc, fieldOut, nodeId, argoutIdx, internalIdx);
     SInputPoint pythonPoint{reduced, argoutIdx};
 
     return pythonPoint;
