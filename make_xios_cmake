@@ -29,6 +29,13 @@ if [[ "${use_python}" == "true" ]]; then
     cmake_extra+=("-DXIOS_USE_PYTHON=ON")
 fi
 
+# Generate interfaces
+if [[ "${generate_interfaces}" == "true" ]]; then
+    cmake_extra+=("-DXIOS_GENERATE_INTERFACES=ON")
+else
+    cmake_extra+=("-DXIOS_GENERATE_INTERFACES=OFF")
+fi
+
 # ── Dry-run log ──────────────────────────────────────────────────────────────
 export XIOS_ENV_ARCH="${arch}"
 

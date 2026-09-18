@@ -21,6 +21,7 @@ arch_path=$PWD/"arch"
 arch_default_path=$PWD/"arch"
 arch_defined="FALSE"
 arch_path_defined="FALSE"
+generate_interfaces="false"
 fcm_version="new"
 dry_run="false"
 backend="fcm"
@@ -74,6 +75,7 @@ Options:
   --cmake                           Use CMake build system instead of FCM
   --dry-run                         Resolve and print configuration without building
   --verbose                         Print verbose output during build
+  --generate-interfaces             Build generate_interfaces.cpp
 
 Examples:
   ./make_xios --arch X64_IRENE --prod --job 8
@@ -116,6 +118,7 @@ while (($# > 0)); do
         "--cmake")             backend="cmake" ; shift ;;
         "--dry-run")           dry_run="true" ; shift ;;
         "--verbose")           verbose="true" ; shift ;;
+        "--generate-interfaces") generate_interfaces="true" ; shift ;;
         *)                     code="$1"            ; shift ;;
     esac
 done
@@ -298,6 +301,7 @@ echo "--   XIOS_CPPKEY    : $(echo $XIOS_CPPKEY | xargs | tr ' ' ';')"
 echo "--   Build dir      : $(print_if_else "$build_suffixed" "config_${arch}_${compil_mode}" ${build_path%/}/${build_dir_name})"
 echo "--   Install dir    : ${install_dir}"
 echo "--   Clean build    : $(print_if_else "$compil_full" "yes" "no")"
+echo "--   Gen interfaces : $(print_if_else "$generate_interfaces" "yes" "no")"
 echo ""
 
 if [[ "$dry_run" == "true" ]]; then
