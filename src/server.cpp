@@ -10,6 +10,7 @@
 #include "mpi.hpp"
 #include "tracer.hpp"
 #include "timer.hpp"
+#include "timestats.hpp"
 #include "mem_checker.hpp"
 #include "event_scheduler.hpp"
 #include "string_tools.hpp"
@@ -38,6 +39,9 @@ namespace xios
     std::list<MPI_Comm> CServer::contextIntraComms;
     int CServer::serverLevel = 0 ;
     int CServer::nbContexts = 0;
+    int CServer::nbServerProcs = 0;
+    vector<int> CServer::my_leader;
+    bool CServer::is_leader;
     bool CServer::isRoot = false ;
     int CServer::rank_ = INVALID_RANK;
     StdOFStream CServer::m_infoStream;
@@ -175,10 +179,17 @@ namespace xios
       /////////////////////////////////////////
       ///////////// PART 5 ////////////////////
       //       redirect files output         //
-      ///////////////////////////////////////// 
+      /////////////////////////////////////////
+
+      // Find our leaders and followers to reduce output
       
-      CServer::openInfoStream(CXios::serverFile);
-      CServer::openErrorStream(CXios::serverFile);
+      if (CXios::reduceLogFiles)
+      {
+	CServer::disableInfoStream();
+      } else {
+	CServer::openInfoStream(CXios::serverFile);
+	CServer::openErrorStream(CXios::serverFile);
+      }
 
       CMemChecker::logMem( "CServer::initialize" );
 
@@ -213,6 +224,7 @@ namespace xios
         for(auto& pool : pools) pool->allocateRessources() ;
         
         int nbRessources = ressourcesManager->getFreeRessourcesSize() ;
+	CServer::nbServerProcs = nbRessources;
         if (nbRessources>0)
         {
           if (!CXios::usingServer2)
@@ -318,6 +330,14 @@ namespace xios
         MPI_Test(&req,&ok,&status) ;
       }
 */
+
+      CServer::leaders_and_followers();
+      if (CXios::reduceLogFiles)
+      {
+	CServer::openInfoStream(CXios::serverFile);
+	CServer::openErrorStream(CXios::serverFile);
+      }
+	
       CTimer::get("XIOS initialize").suspend() ;
 
       /////////////////////////////////////////
@@ -592,12 +612,155 @@ namespace xios
        }
      }
 
+
+    void CServer::leaders_and_followers(void)
+    {
+      int myservercomm_rank, myservercomm_size;
+      MPI_Comm_rank(serversComm_, &myservercomm_rank);
+      MPI_Comm_size(serversComm_, &myservercomm_size);
+      CServer::is_leader=false;
+
+
+      int* leaders;
+      leaders = (int*) calloc(myservercomm_size, sizeof(int));
+      
+      if (CXios::usingServer2)
+      {
+	int nprocsServer = CServer::nbServerProcs * CXios::ratioServer2/100.;
+	int nprocsGatherer = CServer::nbServerProcs - nprocsServer;
+	if (myservercomm_rank == 0) {
+	  int psize, pnbPartitions, pleader, ptype;
+	  int i,j;
+
+	  auto servicesManager=CXios::getServicesManager();
+
+	  servicesManager->getServiceInfo(CXios::defaultPoolId,
+					  CXios::defaultGathererId,
+					  0,
+					  ptype,
+					  psize,
+					  pnbPartitions,
+					  pleader,
+					  false);
+	  for (j=0; j<CServer::nbServerProcs; j++) {
+	    leaders[j] = pleader;
+	  }
+
+	  int services_count = 0;
+	  while (servicesManager->hasService(CXios::defaultPoolId,
+					     CXios::defaultWriterId,
+					     services_count)) {
+	    
+	    servicesManager->getServiceInfo(CXios::defaultPoolId,
+					    CXios::defaultWriterId,
+					    services_count,
+					    ptype,
+					    psize,
+					    pnbPartitions,
+					    pleader,
+					    false);
+	    int poolsize;
+	    poolsize = nprocsServer / pnbPartitions;
+	    for (j=pleader; j<(pleader+poolsize); j++) {
+	      leaders[j] = pleader;
+	    }
+	    services_count++;
+	  }
+
+	}
+	int ii;
+        if (myservercomm_rank == 0) {
+	  for (ii=1;ii<myservercomm_size;ii++) {
+	    MPI_Send(leaders, myservercomm_size, MPI_INT,
+		     ii, 0, serversComm_);
+	  }
+	} else if (myservercomm_rank < myservercomm_size) {
+	  MPI_Status status;
+	  MPI_Recv(leaders, myservercomm_size, MPI_INT,
+		   0, 0, serversComm_, &status);
+	}
+	// on all ranks
+	for (ii=0;ii<myservercomm_size;ii++) {
+	  CServer::my_leader.push_back(leaders[ii]);
+	}
+
+	if (myservercomm_rank == CServer::my_leader[myservercomm_rank]) {
+	  CServer::is_leader = true;
+	} else {
+	  CServer::is_leader = false;
+	}
+	
+      }
+      //end server 2
+      else
+      {
+	int ii;
+	for (ii=0; ii<myservercomm_size; ii++) {
+	  CServer::my_leader.push_back(0);
+	}
+	if (myservercomm_rank == 0) {
+	  CServer::is_leader=true;
+	} else {
+	  CServer::is_leader=false;
+	}
+      }
+    }
+
+
+    void CServer::presentCollatedTimings(void)
+    {
+      // Split up our communicator so all the level one and all the pools of
+      // level 2 servers can talk to each other if required
+      MPI_Comm server_pool_subcomm;
+      if (CXios::usingServer2) {
+	int myrank;
+	int mycolor;
+	MPI_Comm_rank(serversComm_, &myrank);
+	mycolor = CServer::my_leader[myrank];
+	xios::MPI_Comm_split(serversComm_, mycolor, myrank,
+			     &server_pool_subcomm);
+      } else {
+	xios::MPI_Comm_dup(serversComm_, &server_pool_subcomm);
+      }
+
+      int my_pool_subcomm_rank;
+      MPI_Comm_rank(server_pool_subcomm, &my_pool_subcomm_rank);
+      
+      std::vector<double> processing_times = CTimer::collateTimings("Process events", server_pool_subcomm);
+      std::vector<double> xios_server_times = CTimer::collateTimings("XIOS server", server_pool_subcomm);
+      std::vector<double> ratio = percentageRatioVecDouble(processing_times, xios_server_times);
+      // writeLogFromRank gives the lead rank for L1 servers and server pools
+      if (my_pool_subcomm_rank == 0) {
+	int n_ranks;
+	MPI_Comm_size(server_pool_subcomm, &n_ranks);
+	report(0) << " Performance metrics across the server_pool_subcomm communicator for this rank." << endl;
+	report(0) << "     There are " << n_ranks << " ranks in this server_pool_subcomm" << endl;
+
+	CTimer::writeHeaderTimings();
+	CTimer::writeSummaryTimings(xios_server_times, "Time spent for XIOS");
+	CTimer::writeSummaryTimings(processing_times, "Processing events");
+	CTimer::writeSummaryTimings(ratio, "Ratio (Percentage)");
+        report(0) << endl;
+      }
+      xios::MPI_Comm_free(&server_pool_subcomm);
+    }
+      
+      
+				      
+
     void CServer::finalize(void)
     {
+
       CTimer::get("XIOS").suspend() ;
       CTimer::get("XIOS server").suspend() ;
       delete eventScheduler ;
 
+      if (CXios::reduceLogFiles)
+      {
+	presentCollatedTimings();
+	MPI_Barrier(serversComm_);
+      }
+      
       for (std::list<MPI_Comm>::iterator it = contextInterComms.begin(); it != contextInterComms.end(); it++)
         xios::MPI_Comm_free(&(*it));
 
@@ -625,6 +788,8 @@ namespace xios
         if (CXios::usingOasis) delete driver_;
         MPI_Finalize() ;
       }
+      if (!CXios::reduceLogFiles)
+      {
       report(0)<<"Performance report : Time spent for XIOS : "<<CTimer::get("XIOS server").getCumulatedTime()<<endl  ;
       report(0)<<"Performance report : Time spent in processing events : "<<CTimer::get("Process events").getCumulatedTime()<<endl  ;
       report(0)<<"Performance report : Ratio : "<<CTimer::get("Process events").getCumulatedTime()/CTimer::get("XIOS server").getCumulatedTime()*100.<<"%"<<endl  ;
@@ -640,6 +805,7 @@ namespace xios
       report(0)<< "unlock shared : accumulated time : "<<CTimer::get("unlock shared").getCumulatedTime()
                                                         <<" --- call number : "<<CTimer::get("unlock shared").getNumCall()
                                                         <<" --- average time : "<<CTimer::get("unlock shared").getAverageTime()<<endl ;
+      }
 
       if (info.isActive(logProfile))
       {
@@ -701,6 +867,20 @@ namespace xios
       }
     }
 
+    bool CServer::writeLogFromRank()
+    {
+      bool do_write = false;
+      if (!CXios::reduceLogFiles)
+      {
+	return true;
+      }
+      if (CServer::is_leader)
+      {
+	do_write = true;
+      }
+      return do_write;
+    }
+
     /*!
     * Open a file specified by a suffix and an extension and use it for the given file buffer.
     * The file name will be suffix+rank+extension.
@@ -734,6 +914,20 @@ namespace xios
               << std::endl << "Can not open <" << fileNameServer.str() << "> file to write the server log(s).");
     }
 
+
+    /*!
+     * \brief Initalise only disabled streams
+     * Open only disabled streams to allow initalisation processes
+     * to think they can write to logs. We can then pick and chose
+     * which streams we write to
+    */
+    void CServer::disableInfoStream(void)
+    {
+      info.disableOutput();
+      report.disableOutput();
+    }
+
+  
     /*!
     * \brief Open a file stream to write the info logs
     * Open a file stream with a specific file name suffix+rank
@@ -742,24 +936,42 @@ namespace xios
     */
     void CServer::openInfoStream(const StdString& fileName)
     {
-      std::filebuf* fb = m_infoStream.rdbuf();
-      openStream(fileName, ".out", fb);
+      if (writeLogFromRank())
+      {
+	std::filebuf* fb = m_infoStream.rdbuf();
+	openStream(fileName, ".out", fb);
 
-      info.write2File(fb);
-      report.write2File(fb);
+	info.setLevel(CXios::infoLevel);
+	report.setLevel(CXios::reportLevel);
+
+	info.write2File(fb);
+	report.write2File(fb);
+      }
+      else
+      {
+	// Don't write any output (either to file or stdout) on non lead ranks
+	info.disableOutput();
+	report.disableOutput();
+      }
     }
 
     //! Write the info logs to standard output
     void CServer::openInfoStream()
     {
-      info.write2StdOut();
-      report.write2StdOut();
+      if (writeLogFromRank())
+      {
+	info.write2StdOut();
+	report.write2StdOut();
+      }
     }
 
     //! Close the info logs file if it opens
     void CServer::closeInfoStream()
     {
-      if (m_infoStream.is_open()) m_infoStream.close();
+      if (writeLogFromRank())
+      {
+	if (m_infoStream.is_open()) m_infoStream.close();
+      }
     }
 
     /*!
@@ -770,22 +982,31 @@ namespace xios
     */
     void CServer::openErrorStream(const StdString& fileName)
     {
-      std::filebuf* fb = m_errorStream.rdbuf();
-      openStream(fileName, ".err", fb);
+      if (writeLogFromRank())
+      {
+	std::filebuf* fb = m_errorStream.rdbuf();
+	openStream(fileName, ".err", fb);
 
-      error.write2File(fb);
+	error.write2File(fb);
+      }
     }
 
     //! Write the error log to standard error output
     void CServer::openErrorStream()
     {
-      error.write2StdErr();
+      if (writeLogFromRank())
+      {
+	error.write2StdErr();
+      }
     }
 
     //! Close the error log file if it opens
     void CServer::closeErrorStream()
     {
-      if (m_errorStream.is_open()) m_errorStream.close();
+      if (writeLogFromRank())
+      {
+	if (m_errorStream.is_open()) m_errorStream.close();
+      }
     }
 
     void CServer::launchServersRessource(MPI_Comm serverComm)

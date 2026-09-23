@@ -17,6 +17,7 @@
 #include "workflow_graph.hpp"
 #include "release_static_allocation.hpp"
 #include "mem_checker.hpp"
+#include "timestats.hpp"
 
 namespace xios
 {
@@ -517,11 +518,51 @@ namespace xios
       }
     }
 
+    void CClient::presentCollatedTimings(void)
+    {
+      std::vector<double> blocking_times = CTimer::collateTimings(  "Blocking time", clientsComm_);
+      std::vector<double> init_final_times = CTimer::collateTimings("XIOS init/finalize", clientsComm_);
+      std::vector<double> ratio = percentageRatioVecDouble(blocking_times, init_final_times);
+      std::vector<double> xios_times = CTimer::collateTimings("XIOS", clientsComm_);
+      int commRank;
+      MPI_Comm_rank(clientsComm_, &commRank);
+      
+      if (commRank == 0) {
+	int n_ranks;
+	MPI_Comm_size(clientsComm_, &n_ranks);
+
+	report(0) << " Performance metrics across all client ranks" << endl;
+	report(0) << "     Collating from " << n_ranks << " ranks" << endl;
+	CTimer::writeHeaderTimings();
+	CTimer::writeSummaryTimings(init_final_times, "Whole time from XIOS init and finalize");
+        CTimer::writeSummaryTimings(xios_times, "Total time spent for XIOS");
+	CTimer::writeSummaryTimings(blocking_times, "Time spent waiting for free buffer");
+	CTimer::writeSummaryTimings(ratio, "Waiting ratio (percentage)");
+        report(0) << endl;
+      }
+    }
+    
+
     void CClient::finalize(void)
     {
       MPI_Barrier(clientsComm_) ;
       int commRank ;
       MPI_Comm_rank(clientsComm_, &commRank) ;
+
+
+      if (CXios::reduceLogFiles)
+      {
+	// Collating summary, need to suspend the XIOS init/finalize timer briefly to gather the measurements
+        CTimer::get("XIOS").suspend() ;
+        CTimer::get("XIOS init/finalize").suspend() ;
+        presentCollatedTimings();
+
+        MPI_Barrier(clientsComm_);
+        CTimer::get("XIOS init/finalize").resume() ;
+        CTimer::get("XIOS").resume() ;
+      }
+	  
+      
       if (commRank==0) CXios::getRessourcesManager()->finalize() ;
       
       CTimer::get("XIOS finalize").suspend();
@@ -540,11 +581,14 @@ namespace xios
       }
       
       info(20) << "Client side context is finalized"<<endl ;
-      report(0) <<" Performance report : Whole time from XIOS init and finalize: "<< CTimer::get("XIOS init/finalize").getCumulatedTime()<<" s"<<endl ;
-      report(0) <<" Performance report : total time spent for XIOS : "<< CTimer::get("XIOS").getCumulatedTime()<<" s"<<endl ;
-      report(0)<< " Performance report : time spent for waiting free buffer : "<< CTimer::get("Blocking time").getCumulatedTime()<<" s"<<endl ;
-      report(0)<< " Performance report : Ratio : "<< CTimer::get("Blocking time").getCumulatedTime()/CTimer::get("XIOS init/finalize").getCumulatedTime()*100.<<" %"<<endl ;
-      report(0)<< " Performance report : This ratio must be close to zero. Otherwise it may be usefull to increase buffer size or numbers of server"<<endl ;
+      
+      if (!CXios::reduceLogFiles) {
+	report(0) <<" Performance report : Whole time from XIOS init and finalize: "<< CTimer::get("XIOS init/finalize").getCumulatedTime()<<" s"<<endl ;
+	report(0) <<" Performance report : total time spent for XIOS : "<< CTimer::get("XIOS").getCumulatedTime()<<" s"<<endl ;
+	report(0)<< " Performance report : time spent for waiting free buffer : "<< CTimer::get("Blocking time").getCumulatedTime()<<" s"<<endl ;
+	report(0)<< " Performance report : Ratio : "<< CTimer::get("Blocking time").getCumulatedTime()/CTimer::get("XIOS init/finalize").getCumulatedTime()*100.<<" %"<<endl ;
+	report(0)<< " Performance report : This ratio must be close to zero. Otherwise it may be usefull to increase buffer size or numbers of server"<<endl ;
+      }
 //      report(0)<< " Memory report : Current buffer_size : "<<CXios::bufferSize<<endl ;
       report(0)<< " Memory report : Minimum buffer size required : " << CClientBuffer::maxRequestSize << " bytes" << endl ;
       report(0)<< " Memory report : increasing it by a factor will increase performance, depending of the volume of data wrote in file at each time step of the file"<<endl ;
@@ -633,6 +677,27 @@ namespace xios
      return rank_;
    }
 
+       /*!
+    * \brief Check to see if we are on a rank for which we an output file
+    * If reduced output is selected we only write from a single client
+    * rank
+    */
+    bool CClient::writeLogFromRank()
+    {
+      int commRank;
+      MPI_Comm_rank(clientsComm_, &commRank);
+      bool do_write = false;
+      if (!CXios::reduceLogFiles)
+      {
+	return true;
+      }
+      if (commRank == 0)
+      {
+	do_write = true;
+      }
+      return do_write;
+    }
+
     /*!
     * Open a file specified by a suffix and an extension and use it for the given file buffer.
     * The file name will be suffix+rank+extension.
@@ -671,24 +736,40 @@ namespace xios
     */
     void CClient::openInfoStream(const StdString& fileName)
     {
-      std::filebuf* fb = m_infoStream.rdbuf();
-      openStream(fileName, ".out", fb);
+      if (writeLogFromRank())
+      {
+	std::filebuf* fb = m_infoStream.rdbuf();
+	openStream(fileName, ".out", fb);
 
-      info.write2File(fb);
-      report.write2File(fb);
+	info.write2File(fb);
+	report.write2File(fb);
+      }
+      else
+      {
+	// Don't write any output (either to file or stdout) on non lead ranks
+
+	info.disableOutput();
+	report.disableOutput();
+      }
     }
 
     //! Write the info logs to standard output
     void CClient::openInfoStream()
     {
-      info.write2StdOut();
-      report.write2StdOut();
+      if (writeLogFromRank())
+      {
+	info.write2StdOut();
+	report.write2StdOut();
+      }
     }
 
     //! Close the info logs file if it opens
     void CClient::closeInfoStream()
     {
-      if (m_infoStream.is_open()) m_infoStream.close();
+      if (writeLogFromRank())
+      {
+	if (m_infoStream.is_open()) m_infoStream.close();
+      }
     }
 
     /*!
@@ -699,21 +780,30 @@ namespace xios
     */
     void CClient::openErrorStream(const StdString& fileName)
     {
-      std::filebuf* fb = m_errorStream.rdbuf();
-      openStream(fileName, ".err", fb);
+      if (writeLogFromRank())
+      {
+	std::filebuf* fb = m_errorStream.rdbuf();
+	openStream(fileName, ".err", fb);
 
-      error.write2File(fb);
+	error.write2File(fb);
+      }
     }
 
     //! Write the error log to standard error output
     void CClient::openErrorStream()
     {
-      error.write2StdErr();
+      if (writeLogFromRank())
+      {
+	error.write2StdErr();
+      }
     }
 
     //! Close the error log file if it opens
     void CClient::closeErrorStream()
     {
-      if (m_errorStream.is_open()) m_errorStream.close();
+      if (writeLogFromRank())
+      {
+	if (m_errorStream.is_open()) m_errorStream.close();
+      }
     }
 }

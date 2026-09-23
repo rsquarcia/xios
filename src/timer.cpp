@@ -3,8 +3,11 @@
 #include <string>
 #include <map>
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 #include "tracer.hpp"
+#include "log.hpp"
+#include "timestats.hpp"
 
 namespace xios
 {
@@ -79,5 +82,51 @@ namespace xios
     for(std::map<std::string,CTimer>::iterator it=allTimer.begin();it!=allTimer.end();++it)
       strOut<<"Timer : "<<it->first<<"    -->   cumulated time : "<<it->second.getCumulatedTime()<<std::endl ;
     return strOut.str() ;
+  }
+
+  std::vector<double> CTimer::collateTimings(std::string timing_param, MPI_Comm comm)
+  {
+    int myrank, comm_size;
+    MPI_Comm_rank(comm, &myrank);
+    MPI_Comm_size(comm, &comm_size);
+    
+    std::vector<double> collated_results;
+    MPI_Barrier(comm);
+    if (myrank == 0)
+    {
+      double recv_val = 0.;
+      collated_results.push_back(CTimer::get(timing_param).getCumulatedTime());
+      for (int i = 1; i < comm_size; i++) {
+	MPI_Recv(&recv_val, 1, MPI_DOUBLE, i, 0, comm, MPI_STATUS_IGNORE);
+	collated_results.push_back(recv_val);
+      }
+    }
+    else
+    {
+      double snd_val = CTimer::get(timing_param).getCumulatedTime();
+      MPI_Send(&snd_val, 1, MPI_DOUBLE, 0, 0, comm);
+    }
+    MPI_Barrier(comm);
+    return collated_results;
+  }
+
+  void CTimer::writeSummaryTimings(std::vector<double>& collated_results,
+				      std::string results_label)
+  {
+    report(0) << setw(40) << results_label << setw(3)<< " : "
+      
+	      << setw(16) << calcMeanDouble(collated_results) << setw(3) << " | " 
+	      << setw(16) << calcStdDouble(collated_results)  << setw(3) << " | " 
+	      << setw(16) << calcMinDouble(collated_results)  << setw(3) << " | " 
+	      << setw(16) << calcMaxDouble(collated_results)  << endl;
+  }
+
+  void CTimer::writeHeaderTimings()
+  {
+    report(0) << setw(40) << " " << setw(3)<< " : "
+	      << setw(16) << " average " << setw(3) << " | " 
+	      << setw(16) << " std dev " << setw(3) << " | " 
+	      << setw(16) << " min "     << setw(3) << " | " 
+	      << setw(16) << " max "     << setw(3) << endl;
   }
 }

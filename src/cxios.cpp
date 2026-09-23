@@ -52,6 +52,9 @@ namespace xios
   StdSize CXios::minBufferSize = 64 * sizeof(double);
   StdSize CXios::maxBufferSize = std::numeric_limits<int>::max() ;
   bool CXios::printLogs2Files;
+  bool CXios::reduceLogFiles;
+  int CXios::infoLevel;
+  int CXios::reportLevel;
   bool CXios::isOptPerformance = true;
   double CXios::defaultChunkingSizeTarget = 20.;
   bool CXios::timeChunkingEnabled = false ;
@@ -108,7 +111,10 @@ namespace xios
     nbPoolsServer2=getin<int>("number_pools_server2",0);
     info.setLevel(getin<int>("info_level",0)) ;
     report.setLevel(getin<int>("info_level",50));
+    infoLevel=getin<int>("info_level",0);
+    reportLevel=getin<int>("info_level",50);
     printLogs2Files=getin<bool>("print_file",false);
+    reduceLogFiles=getin<bool>("reduce_logging",false);
 
     xiosStack=getin<bool>("xios_stack",true) ;
     systemStack=getin<bool>("system_stack",false) ;

@@ -89,6 +89,7 @@ namespace xios {
                                     "pure_one_sided",
                                     "ratio_server2",
                                     "recv_field_timeout",
+				    "reduce_logging",
                                     "server2_dist_file_memory",
                                     "server2_dist_file_memory_ratio",
                                     "server_puplish_timeout",

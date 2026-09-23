@@ -88,6 +88,8 @@ namespace xios
         static void openInfoStream();
         //! Close the info logs file if it opens
         static void closeInfoStream();
+        //! Disable all info streams
+        static void disableInfoStream(void);
 
         //! Open a file stream to write the error log
         static void openErrorStream(const StdString& fileName);
@@ -102,6 +104,10 @@ namespace xios
         static void openStream(const StdString& fileName, const StdString& ext, std::filebuf* fb);
       
       private:
+        static void leaders_and_followers(void);
+        static void leaders_and_followers_simple(void);
+        static bool writeLogFromRank(void);
+        static void presentCollatedTimings(void);
         static vector<int> sndServerGlobalRanks;  //!< Global ranks of pool leaders on the secondary server
         static int rank_;                         //!< If (!oasis) global rank, else rank in the intraComm returned by oasis
         static int nbContexts;                    //!< Number of contexts registered by server
@@ -110,6 +116,9 @@ namespace xios
         static CServersRessource* serversRessource_  ;
 
         static CThirdPartyDriver* driver_;
+        static int nbServerProcs;
+        static vector<int> my_leader;
+        static bool is_leader;
     };
 }
 

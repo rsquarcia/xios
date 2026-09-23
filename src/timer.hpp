@@ -3,6 +3,8 @@
 
 #include <string>
 #include <map>
+#include <vector>
+#include "mpi.hpp"
 
 namespace xios
 {
@@ -31,6 +33,10 @@ namespace xios
       static std::string getAllCumulatedTime(void) ;
       static void release(void) { allTimer.clear() ;}
       bool isSuspended() { return suspended; }
+
+      static std::vector<double>collateTimings(std::string timing_param, MPI_Comm comm);
+      static void writeSummaryTimings(std::vector<double>& collated_results, std::string results_label);
+      static void writeHeaderTimings();
   };
 }
 

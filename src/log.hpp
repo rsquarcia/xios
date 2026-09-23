@@ -39,6 +39,7 @@ namespace xios
     }
        
     void setLevel(int l) {level=l; }
+    void disableOutput(void) {setLevel(-1);}
     int getLevel() {return level ;}
     bool isActive(void) { if (rdbuf()==NULL) return true ; else return false ;}
     bool isActive(int l) {if (l<=level) return true ; else return false ; }
