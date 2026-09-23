@@ -54,6 +54,11 @@ namespace xios
         static StdOFStream m_errorStream;
 
         static CPoolRessource* poolRessource_ ;
+      private:
+        static bool writeLogFromRank();
+        static std::vector<double> collateTimings(std::string);
+        static void presentCollatedTimings();
+        static void writeSummaryTimings(std::vector<double>&, std::string);
     };
 }
 

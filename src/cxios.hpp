@@ -52,6 +52,9 @@ namespace xios
      static MPI_Comm xiosComm ; //!< Global communicator
 
      static bool printLogs2Files; //!< Printing out logs into files
+     static bool reduceLogFiles; //!<Reduce the log files to lead client and server ranks
+     static int infoLevel;         //!<info level for text output
+     static int reportLevel;       //!<report level for text output
      static bool usingOasis ;     //!< Using Oasis
      static bool usingOasisOldAPI;//!< Using pre Oasis3-MCT 3.0 version
      static bool usingServer ;    //!< Using server (server mode)
